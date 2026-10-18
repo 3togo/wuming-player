@@ -2,7 +2,9 @@
 
 This is an independent source snapshot for a new repository. Original Git history,
 remotes, private development state and account-owned test shares are omitted.
-No GitHub repository has been created or published by this preparation.
+The fresh source snapshot is published at https://github.com/3togo/wuming-player.
+The public update channel is configured for an explicitly marked prerelease;
+TV/device checks remain pending.
 
 ## Privacy changes
 
@@ -16,12 +18,12 @@ No GitHub repository has been created or published by this preparation.
   deliberate fixtures for private-network policies.
 - Removed account-owned cloud-share URLs/extraction codes from test-runner assets.
   Create disposable test shares with `scripts/prepare-cloud-stream-fixtures.py`.
-- Disabled the original publishing channel: `updates.json` has an empty repository,
-  the shared update client performs no requests for an unconfigured publisher, and
-  the original mirror is removed. Publishing scripts require an explicitly configured
-  destination; optional Gitee publishing requires `WUMING_GITEE_REPOSITORY` and explicit
-  token configuration. They do not read a token from a personal Desktop file.
-  Configure your own publisher before distributing updates.
+- Replaced the original publishing destination with `3togo/wuming-player` and
+  its independent signing identity. The public release feed lists only verified
+  public APKs. The debug feed is inactive; links to the older application's feed
+  have been removed. Optional Gitee publishing requires explicit separate
+  configuration. No private signing keys or publisher credentials are included.
+
 
 ## Catalog screening
 

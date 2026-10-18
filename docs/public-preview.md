@@ -5,8 +5,9 @@ builds. It is not a stable APK release. The normal app is `無名`; verification
 builds use `無名(testing)` and application ID `com.wuming.android.tv.publicedition.verification`.
 The public package is `com.wuming.android.tv.publicedition`, separate from existing
 private installations. An independent production certificate is pinned in updates.json. Its private key and
-configuration remain outside source control. No public repository, release channel or
-support group has been configured.
+configuration remain outside source control. The public repository and update channel are `3togo/wuming-player`.
+The first prerelease is `v6.4.5-preview.1`; TV/device checks remain pending.
+No support group has been configured.
 Existing private signing keys must not be copied into this repository. The guarded
 Spider/WebView helper packages also add `.publicedition`; desktop bridge components
 point to those separate packages while preserving the existing class namespaces.
@@ -107,7 +108,7 @@ No movie is bundled. Availability and playback remain runtime checks.
 
 ## Before a stable release
 
-- Configure the eventual public repository/update channel and release version metadata.
+- Complete the deferred device/TV checks before promoting a stable release.
 - Preserve the completed provenance inventory, full notices and matching source snapshot.
 - Pass full offline acceptance, release lint and signed artifact assembly on the
   exact release commit; retain checksums and toolchain provenance.

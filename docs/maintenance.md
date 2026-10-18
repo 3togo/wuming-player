@@ -107,7 +107,8 @@ Buttons map to the repository's maintenance pipeline:
    flags. Dry-run is the default; publishing shows the exact command and requires
    typing `PUBLISH` because it runs `git push`, uploads APKs to
    the repository explicitly configured in `updates.json`, and advances its update feeds.
-   The public preview has no destination or signing certificate configured. See
+   The public preview uses its independent signing identity and the public
+   `3togo/wuming-player` destination. TV checks remain pending. See
    [android-updates.md](android-updates.md) for the full pipeline.
    Only the newest build is ever posted: `publish-updates.py` validates exactly
    the `{mode}-{abi}-{stamp}.apk` files matching the current HEAD stamp (older

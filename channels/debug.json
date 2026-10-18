@@ -1,82 +1,8 @@
 {
   "schema": 1,
   "channel": "debug",
-  "code": 654,
-  "name": "6.4.4-testing",
-  "desc": "Testing build",
-  "commit": "2ed2aa2ae8aa9f1244e10acef7c4199bffbfd203",
-  "artifacts": [
-    {
-      "mode": "mobile",
-      "abi": "arm64_v8a",
-      "packageName": "com.wuming.android.tv",
-      "url": "https://gitee.com/freetogo/TV-updates/releases/download/testing-654-debug-202609202ed2/mobile-arm64_v8a-202609202ed2.apk",
-      "sha256": "64bb84818ac88115d260e5643e9891a439cd7f7d0852a0b8d996d15b266fa5a7",
-      "certificateSha256": "43835468ebb93b20aa34c1fc12775583f1b6b6280ff87826b0ef6b1425a1795b",
-      "mirrors": [
-        "https://github.com/3togo/TV-updates/releases/download/testing-654-debug-202609202ed2/mobile-arm64_v8a-202609202ed2.apk",
-        "https://gitee.com/freetogo/TV-updates/releases/download/testing-654-debug-202609202ed2/mobile-arm64_v8a-202609202ed2.apk"
-      ]
-    },
-    {
-      "mode": "mobile",
-      "abi": "armeabi_v7a",
-      "packageName": "com.wuming.android.tv",
-      "url": "https://gitee.com/freetogo/TV-updates/releases/download/testing-654-debug-202609202ed2/mobile-armeabi_v7a-202609202ed2.apk",
-      "sha256": "02a8b88fcbead33c8634ab34d8b0d90ab0227a8ea841f46a4938bd05d7599685",
-      "certificateSha256": "43835468ebb93b20aa34c1fc12775583f1b6b6280ff87826b0ef6b1425a1795b",
-      "mirrors": [
-        "https://github.com/3togo/TV-updates/releases/download/testing-654-debug-202609202ed2/mobile-armeabi_v7a-202609202ed2.apk",
-        "https://gitee.com/freetogo/TV-updates/releases/download/testing-654-debug-202609202ed2/mobile-armeabi_v7a-202609202ed2.apk"
-      ]
-    },
-    {
-      "mode": "leanback",
-      "abi": "arm64_v8a",
-      "packageName": "com.wuming.android.tv",
-      "url": "https://gitee.com/freetogo/TV-updates/releases/download/testing-654-debug-202609202ed2/leanback-arm64_v8a-202609202ed2.apk",
-      "sha256": "5036c6d75136f0f10b1cd6b897163b5ac831b0d4ebf7632edb9bc2d64bd35d90",
-      "certificateSha256": "43835468ebb93b20aa34c1fc12775583f1b6b6280ff87826b0ef6b1425a1795b",
-      "mirrors": [
-        "https://github.com/3togo/TV-updates/releases/download/testing-654-debug-202609202ed2/leanback-arm64_v8a-202609202ed2.apk",
-        "https://gitee.com/freetogo/TV-updates/releases/download/testing-654-debug-202609202ed2/leanback-arm64_v8a-202609202ed2.apk"
-      ]
-    },
-    {
-      "mode": "leanback",
-      "abi": "armeabi_v7a",
-      "packageName": "com.wuming.android.tv",
-      "url": "https://gitee.com/freetogo/TV-updates/releases/download/testing-654-debug-202609202ed2/leanback-armeabi_v7a-202609202ed2.apk",
-      "sha256": "bf688299b2972515fc0310aac4433b32e7309326939f1a6fbb8089c67e2ff8ed",
-      "certificateSha256": "43835468ebb93b20aa34c1fc12775583f1b6b6280ff87826b0ef6b1425a1795b",
-      "mirrors": [
-        "https://github.com/3togo/TV-updates/releases/download/testing-654-debug-202609202ed2/leanback-armeabi_v7a-202609202ed2.apk",
-        "https://gitee.com/freetogo/TV-updates/releases/download/testing-654-debug-202609202ed2/leanback-armeabi_v7a-202609202ed2.apk"
-      ]
-    },
-    {
-      "mode": "leanback_lite",
-      "abi": "arm64_v8a",
-      "packageName": "com.wuming.android.tv",
-      "url": "https://gitee.com/freetogo/TV-updates/releases/download/testing-654-debug-202609202ed2/leanback_lite-arm64_v8a-202609202ed2.apk",
-      "sha256": "7275675b3de2c6deb1f1492b7ae150b7cf72f5cec3089da661b367122b86c8d2",
-      "certificateSha256": "43835468ebb93b20aa34c1fc12775583f1b6b6280ff87826b0ef6b1425a1795b",
-      "mirrors": [
-        "https://github.com/3togo/TV-updates/releases/download/testing-654-debug-202609202ed2/leanback_lite-arm64_v8a-202609202ed2.apk",
-        "https://gitee.com/freetogo/TV-updates/releases/download/testing-654-debug-202609202ed2/leanback_lite-arm64_v8a-202609202ed2.apk"
-      ]
-    },
-    {
-      "mode": "leanback_lite",
-      "abi": "armeabi_v7a",
-      "packageName": "com.wuming.android.tv",
-      "url": "https://gitee.com/freetogo/TV-updates/releases/download/testing-654-debug-202609202ed2/leanback_lite-armeabi_v7a-202609202ed2.apk",
-      "sha256": "9c6cb1a8d6531f38bf4921ea76b578321f81622a576add8ef33de2c611429d48",
-      "certificateSha256": "43835468ebb93b20aa34c1fc12775583f1b6b6280ff87826b0ef6b1425a1795b",
-      "mirrors": [
-        "https://github.com/3togo/TV-updates/releases/download/testing-654-debug-202609202ed2/leanback_lite-armeabi_v7a-202609202ed2.apk",
-        "https://gitee.com/freetogo/TV-updates/releases/download/testing-654-debug-202609202ed2/leanback_lite-armeabi_v7a-202609202ed2.apk"
-      ]
-    }
-  ]
+  "code": 1,
+  "name": "Debug channel not published",
+  "desc": "Only signed release APKs are distributed by this public project. TV checks are pending.",
+  "artifacts": []
 }

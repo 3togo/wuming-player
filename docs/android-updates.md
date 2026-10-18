@@ -1,10 +1,24 @@
 # Maintainer update publishing
 
-This public preview has an independent production certificate pinned in `updates.json`.
-The update repository remains empty; update checks return without
-contacting a feed, and publishing is rejected until a maintainer configures a channel.
+The public update repository is `3togo/wuming-player`, with the independent
+production certificate pinned in `updates.json`. Signed production builds use
+`channels/release.json` on `main`. The first distribution is the
+`v6.4.5-preview.1` prerelease (version code 657). **TV discovery, DLNA playback,
+callback compatibility and D-pad/device checks are still pending.**
+
+The feed includes mobile ARM64 and TV ARM64/ARM32. No debug, TV-lite or mobile
+ARM32 APK is distributed in this prerelease. The debug feed is deliberately
+inactive (code 1, no artifacts) and contains no links to the older application.
+The existing general publisher expects all six mode/ABI combinations before
+advancing a feed; this three-artifact prerelease uses a separately verified
+release manifest committed only after upload verification.
+
 The public app ID is `com.wuming.android.tv.publicedition`; verification adds
-`.verification`. Neither replaces the private installation. See [the preview guide](public-preview.md).
+`.verification`. Neither replaces the private installation. Existing APKs with
+updates disabled require a one-time manual installation of this prerelease.
+See the [preview guide](public-preview.md). A GitHub prerelease flag describes
+release readiness; it does not prevent installed public release builds from
+reading the configured release feed.
 
 ## Signing
 
@@ -19,8 +33,8 @@ No GitHub Actions workflows are supplied. Builds, acceptance and publishing are
 manual. Never commit keystores, passwords, private configuration or Gradle caches.
 Retain and verify encrypted production-key recovery backups outside source control before distribution.
 
-The handoff and publishing mechanisms below describe maintainer tooling after
-that configuration is complete; they do not indicate an active public service.
+The handoff and publishing mechanisms below describe maintainer tooling.
+APK publishing remains manual; no GitHub Actions workflows are enabled.
 
 To prepare a private developer handoff, run
 `python3 scripts/export-signing.py /absolute/private/output --generate-password`.
