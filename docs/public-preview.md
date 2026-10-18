@@ -14,6 +14,22 @@ point to those separate packages while preserving the existing class namespaces.
 
 ## Current evidence
 
+Prerelease `v6.4.5-preview.1` is built from public commit `5cfd751` with version
+code 657 and the public update repository compiled in. It passed the unmodified
+full manual release gate from the fresh public-history checkout: 212 Python tests,
+8,139 JUnit executions (14 skipped; zero failures/errors), three release lint
+checks with zero errors, and three optimized production-signed APK builds.
+Signatures, package/version, compiled public repository, packaged notices,
+removed-runtime absence and private-marker checks passed for every APK.
+Existing lint warnings remain (501 mobile; 499 per TV variant).
+The release provides mobile ARM64 and TV ARM64/ARM32 APKs, source and checksums.
+See [the prerelease validation record](public-prerelease-657-validation.json).
+**TV discovery, DLNA picture/sound and callbacks, D-pad navigation, and device
+checks of these exact APKs remain pending.** The release feed is intended for
+this public preview; the GitHub prerelease flag does not disable app update checks.
+
+The following provenance-candidate results predate the public channel setup.
+
 Final provenance candidate `d9b2ac1` passed the required manual gate task matrix:
 211 Python tests, 8,139 JUnit executions (14 skipped; no failures/errors), three
 release lint checks with zero errors, and three optimized production-signed APKs.

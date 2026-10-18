@@ -1,0 +1,112 @@
+{
+  "sourceCommit": "5cfd75151ab71934588b1030b3f9ade83ad42119",
+  "sourceTree": "5ad63ea6ca05d306a34b3f2e93369e5715da61a7",
+  "releaseTag": "v6.4.5-preview.1",
+  "verifiedAtUtc": "2026-10-18T15:12:25.024198+00:00",
+  "environment": {
+    "os": "Ubuntu Stonking Stingray (development branch)",
+    "versionId": "26.10",
+    "releaseType": "development",
+    "architecture": "x86_64",
+    "jdk": "21.0.12.1",
+    "gradle": "9.7.1",
+    "python": "3.14.8",
+    "androidCompileSdk": 37,
+    "androidBuildTools": "36.0.0"
+  },
+  "acceptance": "Unmodified scripts/verify-release.sh from the public-history checkout: source provenance, removed SDK checks, unitAcceptanceBaseline, three release lint checks and three optimized signed APK builds.",
+  "pythonUnitTests": 212,
+  "junit": {
+    "executions": 8139,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 14
+  },
+  "lint": [
+    {
+      "variant": "mobileArm64_v8a",
+      "Fatal": 0,
+      "Error": 0,
+      "Warning": 501,
+      "Information": 0
+    },
+    {
+      "variant": "leanbackArm64_v8a",
+      "Fatal": 0,
+      "Error": 0,
+      "Warning": 499,
+      "Information": 0
+    },
+    {
+      "variant": "leanbackArmeabi_v7a",
+      "Fatal": 0,
+      "Error": 0,
+      "Warning": 499,
+      "Information": 0
+    }
+  ],
+  "artifacts": [
+    {
+      "variant": "mobileArm64_v8a",
+      "file": "mobile-arm64_v8a-202610185cfd.apk",
+      "sha256": "db085467e863d6378eb6c4b2a43ced4c952774cf03b2c096248aed0fcfa3aaa2",
+      "bytes": 36073604,
+      "certificateSha256": "693d58ae3f2ec6cd2f43db00d044c294357411bf135dfad9a647dacfe88ce75c",
+      "packageName": "com.wuming.android.tv.publicedition",
+      "versionCode": 657,
+      "versionName": "6.4.5-preview.1(202610185cfd)",
+      "launcherLabel": "無名",
+      "debuggable": false,
+      "compiledPublicRepositoryPresent": true,
+      "packagedNoticesVerified": true,
+      "removedRuntimeChecksPassed": true,
+      "privateMarkerScanPassed": true
+    },
+    {
+      "variant": "leanbackArm64_v8a",
+      "file": "leanback-arm64_v8a-202610185cfd.apk",
+      "sha256": "835c8053f66758999e24609381724f145991cb08fc26942503912de4193344d4",
+      "bytes": 36721380,
+      "certificateSha256": "693d58ae3f2ec6cd2f43db00d044c294357411bf135dfad9a647dacfe88ce75c",
+      "packageName": "com.wuming.android.tv.publicedition",
+      "versionCode": 657,
+      "versionName": "6.4.5-preview.1(202610185cfd)",
+      "launcherLabel": "無名",
+      "debuggable": false,
+      "compiledPublicRepositoryPresent": true,
+      "packagedNoticesVerified": true,
+      "removedRuntimeChecksPassed": true,
+      "privateMarkerScanPassed": true
+    },
+    {
+      "variant": "leanbackArmeabi_v7a",
+      "file": "leanback-armeabi_v7a-202610185cfd.apk",
+      "sha256": "ee422878d32b377b1b2ae9f7cf032c5e5aaeb7310f7b7817cae3622a1fe3f876",
+      "bytes": 32039360,
+      "certificateSha256": "693d58ae3f2ec6cd2f43db00d044c294357411bf135dfad9a647dacfe88ce75c",
+      "packageName": "com.wuming.android.tv.publicedition",
+      "versionCode": 657,
+      "versionName": "6.4.5-preview.1(202610185cfd)",
+      "launcherLabel": "無名",
+      "debuggable": false,
+      "compiledPublicRepositoryPresent": true,
+      "packagedNoticesVerified": true,
+      "removedRuntimeChecksPassed": true,
+      "privateMarkerScanPassed": true
+    }
+  ],
+  "updateRepository": "3togo/wuming-player",
+  "hardwareTested": false,
+  "pending": [
+    "Real TV discovery",
+    "DLNA picture/sound and callback interoperability",
+    "TV D-pad navigation",
+    "Device testing of these exact optimized APKs",
+    "End-to-end Android update installation"
+  ],
+  "limits": [
+    "Existing lint warnings remain.",
+    "Older phone playback checks apply to a different verification build.",
+    "Prerelease status does not stop installed public release builds reading the release feed."
+  ]
+}
