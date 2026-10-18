@@ -1,0 +1,11 @@
+Additional source-header notices used to resolve missing Maven license metadata:
+
+Nanojson: Copyright 2011 The nanojson Authors. Apache License, Version 2.0.
+Exact source: https://github.com/TeamNewPipe/nanojson/tree/e9d656ddb49a412a5a0a5d5ef20ca7ef09549996
+
+StAX 1.2.0: Copyright 2004 BEA Systems, Inc. Apache License, Version 2.0.
+Source archive: https://repo.maven.apache.org/maven2/stax/stax/1.2.0/stax-1.2.0-sources.jar
+
+See Apache-2.0.txt for the full license. Publisher-specific notices from the other
+components are preserved under maven/. Matching copyleft source archives are in
+the source snapshot's third_party/corresponding-source/ directory.

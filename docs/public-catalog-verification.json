@@ -1,0 +1,1570 @@
+{
+  "checkedAt": "2026-10-18T09:17:08.823314+00:00",
+  "checks": {
+    "depot_vod": {
+      "before": 33,
+      "after": 25
+    },
+    "depot_live": {
+      "before": 41,
+      "after": 29
+    },
+    "link_catalog": {
+      "before": 254,
+      "after": 252
+    },
+    "curated_live": {
+      "before": 29,
+      "after": 4
+    }
+  },
+  "policy": "Anonymous HTTP(S), no URL credentials or credential query fields, bounded config/playlist response validation",
+  "scope": "Availability and format at screening time; not a playback guarantee.",
+  "results": [
+    {
+      "url": "http://1.94.31.214/live/live9/dgtv.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://47.96.82.41:5188/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://47.96.82.41:8/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://550.3vcn.work/wdjyys.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://8.138.7.223/live.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://8.138.7.223/tv.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://api.fumilong.com/%E7%93%9C%E5%AD%90.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://api.lmxsd.cn/2485.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://box.nihaohezi.com/app/hzjy.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://box.ufuzi.com/tv/qq/%E7%9F%AD%E5%89%A7%E9%A2%91%E9%81%93/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://box.ufuzi.com/tv/qq/短剧频道/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://cccccccoccccccc.ccccocccc.cc/uploads/%E7%AB%A5%E5%BF%83%E6%96%B0%E5%BD%B1%E8%A7%86.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://cnmb.cc.cd/jk/xnf.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://ficfac.com/box/2024.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://ficfac.com/tv/2024.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://ficfac.com/tv/box.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://home.jundie.top:81/TVBox/yosakoi.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://home.jundie.top:81/top98.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://tv.weidonglong.com/ysc5.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://west.shaonv.me/tvbox/live.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://woniu.ccccocccc.cc/nbt.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://wuguangle.serv00.net/zjdhk.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://xhztv.top/dc/%E5%B0%8F%E9%B1%BC%E5%B9%B2/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://xhztv.top/dc/动漫频道/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://xhztv.top/dc/神仙/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://xhztv.top/dc/饭太硬/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://xmbjm.fh4u.org/dc.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "http://ygbhbox.3vfree.club/pg/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://11405.kstore.space/xiaye/1080.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://11405.kstore.space/xiaye/qk4k.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://11516.kstore.space/svip.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://12586.kstore.space/123.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://13413.kstore.space/tv/changqing.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://3043.kstore.space/bhvip/bh/bh.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://3043.kstore.space/bhvip/bh/bh2.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://3043.kstore.space/bhvip/bh/bhkj.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://3043.kstore.space/bhvip/bhzb.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://6758.kstore.space/2.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://7952.kstore.space/JAR/zs.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://9280.kstore.space/aiwex.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://9280.kstore.space/newwex.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://9280.kstore.space/wex.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://9280.kstore.vip/aiwex.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://9280.kstore.vip/newwex.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://9280.kstore.vip/wex.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://9763.kstore.vip/aowu.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://android.lushunming.qzz.io/json/index.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://catvodspider-49d.pages.dev/json/config.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://cdn.githubraw.com/xuexuguang/tvbox_spider/main/tv/kk/heroaku_dtes.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/2hacc/TVBox@main/oktv.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/GaiVmao/dianshiyuan@main/yuan2.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/Guovin/iptv-api@gd/output/result.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/liu673cn/box@main/m.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/lxd-520/TvBox123@main/zy.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://cdn3.indevs.in/stream/live/tvbxh/",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://cdn3.indevs.in/stream/tvb/fct4k/",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://cdn3.indevs.in/stream/tvb/tvbp/",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://clun.top/box.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://clun.top/js/aa.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://clun.top/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://codeberg.org/froggy123/yydf2025/raw/branch/main/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://d.kstore.dev/download/11516/svip.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://d.kstore.dev/download/12020/t4.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://d.kstore.dev/download/12441/dc6.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://d.kstore.dev/download/12441/ds9.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://d.kstore.dev/download/4071/api/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://d.kstore.dev/download/4684/%E5%86%AC%E6%97%A5%E6%9A%96%E9%98%B32025.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://d.kstore.dev/download/6651/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://d.kstore.dev/download/7336/yhykeji.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://d.kstore.dev/download/9280/wex.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://d1y.github.io/kitty/vod.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://d1y.github.io/kitty/x.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://develop202.github.io/migu_video/interface.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://down.nigx.cn/raw.githubusercontent.com/sky4726/sk/master/s.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://dsj-1312694395.cos.ap-guangzhou.myqcloud.com/dsj10.1.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://dxawi.github.io/0/0.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://epg.pw/test_channels.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://epg.pw/test_channels_hong_kong.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://epg.pw/test_channels_macau.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://epg.pw/test_channels_malaysia.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://epg.pw/test_channels_singapore.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://epg.pw/test_channels_taiwan.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://fastly.jsdelivr.net/gh/gaotianliuyun/gao@master/0821.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://fastly.jsdelivr.net/gh/gaotianliuyun/gao@master/0827.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://fastly.jsdelivr.net/gh/qist/tvbox@master/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://fastly.jsdelivr.net/gh/sky4726/sk@master/s.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://gitlab.com/dokiss/tvbox/-/raw/main/%E5%9C%A5%E5%BF%88.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://gitlab.com/noimank/tvbox/-/raw/main/tvboxmuti.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://iptv-org.github.io/iptv/countries/hk.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://iptv-org.github.io/iptv/countries/tw.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://jianhancloud.cn/lcys/lcjk.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://jiekou.netlify.app/svip.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://jihulab.com/bhjk1/vip/-/raw/main/vip.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://jihulab.com/dimaston1/4k/-/raw/main/tongyong.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://jihulab.com/jyqhkd/kd/-/raw/main/kai.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://jihulab.com/jyqhkd1/jk/-/raw/main/8.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://jihulab.com/mengzhu2/fmjk/-/raw/main/FMJK.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://jihulab.com/owen2000wy/owentv/-/raw/main/HP20230319.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://jihulab.com/owen2000wy/owentv/-/raw/main/HP20230319.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://jihulab.com/xuanzhuapp/xzys/-/raw/main/xzvip.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://jihulab.com/yueer/yueera/-/raw/main/11.17/yueer.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://jihulab.com/z-blog/vip/-/raw/main/dd/t.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://jihulab.com/z-blog/vip/raw/main/xpg/t.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://jihulab.com/z-blog/xh2/-/raw/main/t.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://kjsc0310.github.io/tvy/jk9.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://kong88.dpdns.org/4k.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://la.kstore.dev/download/2863/01.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://live.hacks.tools/tv/iptv4.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://live.hacks.tools/tv/iptv4.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://live.iptv365.org/live.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://live.zbds.top/tv/iptv4.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://live.zbds.top/tv/iptv4.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://live.zbds.top/tv/iptv6.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://pastecode.dev/raw/7tvw3n7c/kuzis.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://petclub-samsungaus.amagi.tv/playlist.m3u8",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://play.iptv365.org/天天开心/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://play.iptv365.org/小米/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://play.iptv365.org/摸鱼儿/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://play.iptv365.org/白嫖/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://play.iptv365.org/短剧频道/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://play.iptv365.org/饭太硬/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://play.iptv365.org/香雅情/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://play.iptv365.org/骚零/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://qist.swsixtwo.top/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://qist.ugigc.dpdns.org/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://qist.ugigc.dpdns.org/xiaosa/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://qist.wyfc.qzz.io/fty.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://qist.wyfc.qzz.io/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.bgithub.xyz/hanhan8127/TVBox/main/hanXC.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/2124662895/yydhj/mainvhh/2026.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/2124662895/yydhj/mainvhh/dfvdv.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/2124662895/yydhj/mainvhh/xfnn.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/FongMi/CatVodSpider/main/json/config.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Free-TV/IPTV/refs/heads/master/playlists/playlist_hong_kong.m3u8",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Greatwallcorner/CatVodSpider/master/json/config.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv4/result.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/ipv6/result.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/HeChengChaXiu/tvbox/main/hccx.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/JSZMonkey/tv/main/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/MercuryZz/IPTVN/refs/heads/Files/GAT.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/MyHomeTV/tvbox/main/duanju/duanju.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Supprise0901/TVBox_live/main/live.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/T00700/Yc-TVBOX/main/1.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/TianmuTNT/iptv/main/iptv.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/UndCover/PyramidStore/main/py.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/XiaoYiChaHang/tvbox/main/ysj.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/YF-pan/tvbox/main/test_tvbox.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/YYDS678/uzVideo/main/video_sources_default.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Yswag/uzVideo/main/js/spider_sources.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/YuanHsing/freed/master/TVBox/meow.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ZZVIP/pg/main/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/aaabbbxu/tvboxs/main/boxs2.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/abc99571875/tvboxqq/master/360ys/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/alantang1977/TVBoxOSC/main/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/asdjkl66/k/main/fyk.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/bizhangjie/CatVodSpider/main/json/18sex.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/bizhangjie/CatVodSpider/main/json/18sexN.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/bizhangjie/CatVodSpider/main/json/TVBOX%E7%9B%92%E5%AD%90.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/bizhangjie/CatVodSpider/main/json/index.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/bizhangjie/CatVodSpider/main/json/index18.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/bizhangjie/CatVodSpider/main/json/live.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/bizhangjie/CatVodSpider/main/json/sjdy.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/bizhangjie/CatVodSpider/refs/heads/main/json/index18.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/chitue/dongliTV/main/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/cluntop/cluntop.github.io/main/box.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/cygoy/tvbox/main/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/debaters6/XYQ/master/0821.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/develop202/migu_video/refs/heads/main/interface.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/drzorm/tvbox/main/0.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/dxzhang456/mylist/main/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/fanmingming/live/main/tv/m3u/ipv6.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/fanmingming/live/refs/heads/main/tv/m3u/ipv6.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gaotianliuyun/gao/master/XYQ.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gaotianliuyun/gao/master/js.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gta6664/gta6664/refs/heads/main/太子爷接口.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/gtcsky/spider/github/ab.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/guot55/yg/main/box%E5%8E%9F.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/guot55/yg/main/box原.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/guot55/yg/main/max.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/guot55/yg/main/pg/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/guot55/yg/main/pg/jsm2.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/guot55/yg/main/pg/market.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/guot55/yg/main/pg/mk2.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/guot55/yg/main/pg2/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/guot55/yg/refs/heads/main/pg/jsm2.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/hanhan8127/TVBox/main/hanXC.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/hiboxs/c/main/xiaosa/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/hujingguang/ChinaIPTV/main/cnTV_AutoUpdate.m3u8",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ineed2underfit/hk-iptv/refs/heads/main/hk_live.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/jigedos/1024/master/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/jiushizhe/daozhang/main/drpy_dzlive6.21/index.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/kukuqi666/TVBoxOS-Mobile/refs/heads/main/website/tvbox/%E4%B8%83%E6%98%9F%E5%AE%9D%E7%9B%92.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/kukuqi666/TVBoxOS-Mobile/refs/heads/main/website/tvbox/%E6%8B%BE%E5%85%89%E5%A4%9A%E4%BB%93.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/kukuqi666/TVBoxOS-Mobile/refs/heads/main/website/tvbox/18cn.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/kukuqi666/TVBoxOS-Mobile/refs/heads/main/website/tvbox/R18.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/kunkka1986/my.img/main/frjbox.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/laozi4vip/JellyZYC/main/niaoshu/tongyong.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/lege0001/TVbox/main/TV/dj.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/letian1650/mybox/main/m.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/liu1cs/tvbox/main/测试1.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/liu673cn/box/main/m.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/lmclub/box/main/app/conf/tv.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/lubin776/0/refs/heads/main/tvbox/b1.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/lxd-520/TvBox123/main/zy.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/maccms2023/tvbox/refs/heads/main/7xin.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/maccms2023/tvbox/refs/heads/main/tw.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/maoystv/6/main/000.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/midsummer0206/zxvideosource/master/zx.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/mursor1985/LIVE/refs/heads/main/douyuyqk.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/mursor1985/LIVE/refs/heads/main/huyayqk.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/n3rddd/N3RD/master/JN/lempg.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ne7359/tvurl/main/dianshi.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ne7359/tvurl/main/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ne7359/tvurl/main/xiaosa/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/nianxinmj/nxpz/refs/heads/main/lib/live.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/noimank/tvbox/master/tvboxmuti.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/qirenzhidao/tvbox18/main/fongmi.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/qirenzhidao/tvbox18/main/tv.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/js.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/qist/tvbox/master/xiaosa/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/qist/tvbox/refs/heads/master/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/qist/tvbox/refs/heads/master/xiaosa/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/apk.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/fav.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/favgh.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/favnet.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/fty.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/fty2.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/m.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/net.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/sc.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/tb.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/tbgh.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/tbnet.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/tvbox.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/xc.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/s14685/tv/main/ysc.json",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/saulxxx/future/main/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/sky4726/sk/master/s.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/supermeguo/BoxRes/main/Myuse/cat.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv4.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/suxuang/myIPTV/refs/heads/main/ipv6.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/swhtv/111/main/240301综合影视.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/swhtv/111/main/hua2.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/swhtv/111/main/jl2.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/swhtv/111/main/pro.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/sysh8888/mao/main/tv/1.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/tushen6/Tattoo/refs/heads/main/OK/okys.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/txtvv/txtv/main/daku.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/txtvv/txtv/main/tvbox/0326.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/txtvv/txtv/main/tvbox/cang.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/vbskycn/tvbox/a244f6f5c08565a9a0e319d6a3cc2e919d05d893/MY%E6%8E%A2%E6%8E%A2.txt",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/vcloudc/tvbox/main/tw/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/wlcmc1972/tvbox/main/t1.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/wlcmc1972/tvbox/main/t2.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/wwb521/live/main/video.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/xianyuyimu/TVBOX-/main/TVBox/一木自用.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/xiaoboy10/pg/main/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/xiaoboy10/pg/main/jsm1.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/xiaoun001/tvbox-toplz/main/toplz_sgtv.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/xiongjian83/TvBox/main/X.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/xmbjm/svip/refs/heads/main/dc.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/xmbjm/svip/refs/heads/main/svip.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/xmbjm/xmbjm.github.io/main/ck.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/xnftv/xnf/main/hyxuan.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/xzwei528/qixia/main/qixia.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/xzwei528/zyc/main/vip.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/y03110619/tvbox/main/小Y.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/yescopys/box/main/jack/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/yigedashu/xwck/refs/heads/main/20260103.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/yigedashu/xwck/refs/heads/main/lrzy/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/yigedashu/xwck/refs/heads/main/shiba.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/yigedashu/xwck/refs/heads/main/shiba1.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/yigedashu/xwck/refs/heads/main/xwck.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/yoursmile66/TVBox/main/XC.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/yoursmile66/TVBox/refs/heads/main/XC.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ys-0910/yansheng/main/ys.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/yw88075/tvbox/main/yw.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ywg228/dsjtv/main/live.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ywg228/tvbox/main/ygbhbox.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/yydfys/yydf/main/XYQTVBox/xyq.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/yyfxz/yyfx/main/yyfx.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/zheng197600/tvbox/main/0820.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.githubusercontent.com/zhijiantv/tvbox/main/jk.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://raw.liucn.cc/box/m.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://szyyds.cn/tv/x.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://tv.203511.xyz/0821.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://tvv.tw/github.com/fafa002/yf2025/blob/main/yiyifafa.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://wds.ecsxs.com/212757.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://www.252035.xyz/p/jsm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://www.252035.xyz/xs/tvbox/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://www.cttv.vip/ys/json/ctys.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://www.iyouhun.com/tv/zb",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://www.ls660.com/TV/fantanyingtv.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://www.ls660.com/TV/iptv.txt",
+      "category": "live",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://www.ls660.com/TV/tvbox.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://www.yingm.cc/dm/dm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://www.yingm.cc/subscribe/dm.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://xmbjm.github.io/ck.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://xpb.mhfs.eu.org/ZJ/XPB/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://zhangqun1818.serv00.net/zq/api.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://ztha.top/TVBox/GYCK.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://ztha.top/TVBox/thdjk.json",
+      "category": "vod",
+      "httpStatus": 200
+    },
+    {
+      "url": "https://蜗牛.top/tv.json",
+      "category": "vod",
+      "httpStatus": 200
+    }
+  ]
+}

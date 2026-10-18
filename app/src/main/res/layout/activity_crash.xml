@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:src="@drawable/customactivityoncrash_error_image" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vs_16"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/vs_4"
+        android:text="@string/crash_info"
+        android:textColor="@color/grey_200"
+        android:textSize="@dimen/font_body" >
+        <tag android:id="@id/tag_typography_role" android:value="body" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/restart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vs_16"
+        android:backgroundTint="?android:attr/colorControlActivated"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:nextFocusDown="@id/details"
+        android:text="@string/crash_restart"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.button.MaterialButton>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_text"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:nextFocusUp="@id/restart"
+        android:text="@string/crash_details"
+        android:textColor="@color/grey_200"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.button.MaterialButton>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,26 @@
+{
+  "method": "Equal-length replacement of personal home prefix in non-executable .rodata only; original executable bytes and exported interfaces retained.",
+  "artifacts": [
+    {
+      "abi": "arm64-v8a",
+      "diagnosticPathOccurrencesRedacted": 125,
+      "changedSections": [
+        ".rodata"
+      ],
+      "executableSectionsUnchanged": true,
+      "dynamicExportsUnchanged": true,
+      "sha256": "0a75fb213d60410c5c71fa446b80e4b23891e207ab3abc403a2bc36cc593e47b"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "diagnosticPathOccurrencesRedacted": 125,
+      "changedSections": [
+        ".rodata"
+      ],
+      "executableSectionsUnchanged": true,
+      "dynamicExportsUnchanged": true,
+      "sha256": "10dca8ee3c13a32e84e8991257813cb0113d959366307650765364708a791db4"
+    }
+  ],
+  "sourceBuild": "Retained Rust source compiled for both Android ABIs and the host, but its JNI export set differs from shipped binaries. Rebuilt artifacts are not substituted into this snapshot. No Rust behavior tests exist in the current target."
+}

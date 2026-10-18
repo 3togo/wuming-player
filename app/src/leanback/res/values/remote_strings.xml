@@ -1,0 +1,45 @@
+<resources>
+    <string name="remote_title">Test remote buttons</string>
+    <string name="remote_help">Choose Test next button, then press and release a remote button. Back cancels testing. Only received buttons can be assigned. Mappings apply to playback on all remotes in this app; number actions select live channels. The reported input device may not identify the TV or HDMI-CEC connection.</string>
+    <string name="remote_no_key">No button captured yet</string>
+    <string name="remote_listening">Press and release a button now. Back cancels.</string>
+    <string name="remote_mapping">%1$s → %2$s</string>
+    <string name="remote_reserved">%1$s — navigation or system key; cannot be reassigned</string>
+    <string name="remote_default">Use original button action</string>
+    <string name="remote_reset">Reset all mappings</string>
+    <string name="remote_reset_prompt">Restore the original actions for every mapped button?</string>
+    <string name="remote_test_first">Test a button first, then assign its action.</string>
+    <string name="remote_reserved_hint">Navigation, OK, Back, volume and power keys keep their original actions.</string>
+    <string name="remote_assign_key">Assign %1$s</string>
+    <string name="remote_cancelled">Test cancelled</string>
+    <string name="remote_unknown_device">Unknown input device</string>
+    <string name="remote_repeat">Repeat: %1$d</string>
+    <string name="remote_event">%1$s (%2$d)\nInput: %3$s · source: 0x%4$s\n%5$s</string>
+    <string name="remote_test">Test next button</string>
+    <string name="remote_assign">Assign captured button</string>
+    <string name="remote_close">Close</string>
+    <string-array name="remote_actions">
+        <item>Playback controls</item>
+        <item>Subtitles</item>
+        <item>Audio track</item>
+        <item>Information</item>
+        <item>Play / pause</item>
+        <item>Play</item>
+        <item>Pause</item>
+        <item>Seek backward</item>
+        <item>Seek forward</item>
+        <item>Previous episode / channel</item>
+        <item>Next episode / channel</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+    <string name="remote_timeout">No complete button press received. The TV may keep this button for itself. Choose Test next button to try again.</string>
+</resources>

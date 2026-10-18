@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="@dimen/vs_16">
+
+    <com.google.android.material.textfield.TextInputEditText
+                android:foreground="@drawable/tv_focus_outline"
+                android:id="@+id/pass"
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/vs_16"
+        android:layout_weight="1"
+        android:background="@null"
+        android:hint="@string/live_pass"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:maxLength="20"
+        android:singleLine="true"
+        android:textSize="@dimen/font_body" >
+        <tag android:id="@id/tag_typography_role" android:value="body" />
+    </com.google.android.material.textfield.TextInputEditText>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/positive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_text"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="@string/dialog_positive"
+        android:textColor="?attr/dialogOnSurface"
+        android:textSize="@dimen/font_label" >
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.textview.MaterialTextView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

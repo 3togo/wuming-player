@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <title>無名</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="css/ui.css">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/script.js" defer></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Content -->
+        <div class="app-body">
+            <!-- 搜尋 -->
+            <div id="panel1" class="tab-panel active">
+                <div class="panel-content">
+                    <header class="panel-guide">
+                        <h1>搜尋</h1>
+                        <p>輸入關鍵字，讓電視立即搜尋影片。</p>
+                    </header>
+                    <div class="md-field">
+                        <input id="keyword" class="md-input" type="text" placeholder="請輸入關鍵字..." />
+                    </div>
+                    <button class="md-btn md-btn-filled md-btn-full" onclick="search()">確定</button>
+                </div>
+            </div>
+            <!-- 推送 -->
+            <div id="panel2" class="tab-panel">
+                <div class="panel-content">
+                    <header class="panel-guide">
+                        <h1>推送</h1>
+                        <p>貼上影片頁面或可播放網址，送到電視開啟。</p>
+                    </header>
+                    <div class="md-field">
+                        <input id="push_url" class="md-input" type="text" placeholder="請輸入播放網址..." />
+                    </div>
+                    <button class="md-btn md-btn-filled md-btn-full" onclick="push()">確定</button>
+                </div>
+            </div>
+            <!-- 設定 -->
+            <div id="panel3" class="tab-panel">
+                <div class="panel-content">
+                    <header class="panel-guide">
+                        <h1>設定</h1>
+                        <p>把配置網址填入電視目前開啟的配置視窗。名稱可不填；送出後仍須在電視按「確定」儲存。</p>
+                    </header>
+                    <div class="field-row">
+                        <div class="md-field short">
+                            <input id="setting_name" class="md-input" type="text" placeholder="名稱" />
+                        </div>
+                        <div class="md-field">
+                            <input id="setting_text" class="md-input" type="text" placeholder="配置網址或本地路徑" />
+                        </div>
+                    </div>
+                    <button onclick="setting()" class="md-btn md-btn-filled md-btn-full">確定</button>
+                </div>
+            </div>
+            <!-- 本地 -->
+            <div id="panel4" class="tab-panel">
+                <header class="panel-guide">
+                    <h1>本地檔案</h1>
+                    <p>上傳並管理電視 App 的檔案。點一下檔案再選「使用」；長按可刪除，ZIP 檔會自動解壓。</p>
+                </header>
+                <input type="file" id="file_uploader" onchange="onFileSelected()" multiple />
+                <div class="md-toolbar">
+                    <button class="md-btn md-btn-tonal" onclick="uploadFile()">上傳檔案</button>
+                    <button class="md-btn md-btn-tonal" onclick="showNewFolderDialog()">新增資料夾</button>
+                </div>
+                <div id="file_list"></div>
+                <section class="panel-content">
+                    <h2>本地來源包</h2>
+                    <p>選擇 ZIP 檔，先檢查依賴與來源，再安裝。來源服務仍可能需要網路。</p>
+                    <input type="file" id="package_file" accept=".zip" />
+                    <button class="md-btn md-btn-tonal" onclick="inspectSourcePackage()">檢查來源包</button>
+                    <button class="md-btn md-btn-tonal" onclick="listSourcePackages()">已安裝的包</button>
+                    <p id="package_status" role="status"></p>
+                    <div id="package_preview"></div>
+                    <div id="package_installed"></div>
+                </section>
+            </div>
+        </div>
+        <!-- M3 Navigation Bar -->
+        <nav class="md-nav-bar">
+            <div id="tab1" class="md-nav-item active" onclick="showPanel(1)">
+                <div class="md-nav-indicator">
+                    <svg class="md-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M16 10 A6 6 0 1 1 4 10 A6 6 0 1 1 16 10 M15 15 L21 21"/></svg>
+                </div>
+                <span class="md-nav-label">搜尋</span>
+            </div>
+            <div id="tab2" class="md-nav-item" onclick="showPanel(2)">
+                <div class="md-nav-indicator">
+                    <svg class="md-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 17 V21 H20 V17 M12 17 V3 L7 8 M12 3 L17 8"/></svg>
+                </div>
+                <span class="md-nav-label">推送</span>
+            </div>
+            <div id="tab3" class="md-nav-item" onclick="showPanel(3)">
+                <div class="md-nav-indicator">
+                    <svg class="md-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 6 H9 M15 6 H21 M3 12 H15 M19 12 H21 M3 18 H5 M11 18 H21 M9 3 H15 V9 H9 Z M15 10 H19 V14 H15 Z M5 15 H11 V21 H5 Z"/></svg>
+                </div>
+                <span class="md-nav-label">設定</span>
+            </div>
+            <div id="tab4" class="md-nav-item" onclick="showPanel(4)">
+                <div class="md-nav-indicator">
+                    <svg class="md-nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 7 V19 H21 V7 H12 L10 4 H3 Z"/></svg>
+                </div>
+                <span class="md-nav-label">本地</span>
+            </div>
+        </nav>
+    </div>
+    <!-- Dialog: 本地路徑 -->
+    <div id="fileInfoDialog" class="md-dialog-overlay">
+        <div class="md-dialog">
+            <div class="md-dialog-title">本地路徑</div>
+            <div class="md-dialog-body" id="fileUrl"></div>
+            <div class="md-dialog-actions">
+                <button onclick="pushFile(0)" class="md-dialog-btn">關閉</button>
+                <button onclick="pushFile(1)" class="md-dialog-btn">使用</button>
+            </div>
+        </div>
+    </div>
+    <!-- Dialog: 確認上傳 -->
+    <div id="uploadTip" class="md-dialog-overlay">
+        <div class="md-dialog">
+            <div class="md-dialog-title">確認上傳？</div>
+            <div class="md-dialog-body" id="uploadTipContent"></div>
+            <div class="md-dialog-actions">
+                <button onclick="confirmUpload(0)" class="md-dialog-btn">取消</button>
+                <button onclick="confirmUpload(1)" class="md-dialog-btn">確定</button>
+            </div>
+        </div>
+    </div>
+    <!-- Dialog: 新增資料夾 -->
+    <div id="newFolder" class="md-dialog-overlay">
+        <div class="md-dialog">
+            <div class="md-dialog-title">新增資料夾</div>
+            <div class="md-dialog-body">
+                <input id="newFolderContent" class="md-input" type="text" placeholder="請輸入資料夾名稱..." />
+            </div>
+            <div class="md-dialog-actions">
+                <button onclick="confirmNewFolder(0)" class="md-dialog-btn">取消</button>
+                <button onclick="confirmNewFolder(1)" class="md-dialog-btn">確定</button>
+            </div>
+        </div>
+    </div>
+    <!-- Dialog: 刪除資料夾 -->
+    <div id="delFolder" class="md-dialog-overlay">
+        <div class="md-dialog">
+            <div class="md-dialog-title">刪除資料夾</div>
+            <div class="md-dialog-body" id="delFolderContent"></div>
+            <div class="md-dialog-actions">
+                <button onclick="confirmDelFolder(0)" class="md-dialog-btn">取消</button>
+                <button onclick="confirmDelFolder(1)" class="md-dialog-btn error">刪除</button>
+            </div>
+        </div>
+    </div>
+    <!-- Dialog: 刪除檔案 -->
+    <div id="delFile" class="md-dialog-overlay">
+        <div class="md-dialog">
+            <div class="md-dialog-title">刪除檔案</div>
+            <div class="md-dialog-body" id="delFileContent"></div>
+            <div class="md-dialog-actions">
+                <button onclick="confirmDelFile(0)" class="md-dialog-btn">取消</button>
+                <button onclick="confirmDelFile(1)" class="md-dialog-btn error">刪除</button>
+            </div>
+        </div>
+    </div>
+    <!-- Snackbar: 警告 -->
+    <div id="warnToast">
+        <div class="md-snackbar" id="warnToastContent"></div>
+    </div>
+    <!-- Loading -->
+    <div id="loadingToast">
+        <div class="md-progress-wrap">
+            <svg class="md-progress" viewBox="0 0 48 48">
+                <circle cx="24" cy="24" r="20"/>
+            </svg>
+        </div>
+    </div>
+</body>
+</html>

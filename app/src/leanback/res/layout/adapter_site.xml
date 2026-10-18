@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/vs_40"
+    android:background="@drawable/selector_site_dialog_item"
+    android:focusable="true">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text"
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="?attr/dialogOnSurface"
+        android:textSize="@dimen/font_headline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/check"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="泥巴" >
+        <tag android:id="@id/tag_typography_role" android:value="headline" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/check"
+        android:layout_width="@dimen/vs_20"
+        android:layout_height="@dimen/vs_20"
+        android:layout_marginStart="@dimen/vs_8"
+        android:buttonTint="?attr/dialogOnSurface"
+        android:clickable="false"
+        android:contentDescription="@string/site_change"
+        android:enabled="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.checkbox.MaterialCheckBox>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

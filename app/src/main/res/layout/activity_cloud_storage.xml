@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_900"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/vs_24">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_cloud_storage_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="@dimen/vs_12"
+                android:text="@string/cloud_storage_back"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_title" >
+                <tag android:id="@id/tag_typography_role" android:value="title" />
+            </TextView>
+
+            <TextView
+                android:layout_width="@dimen/vs_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/vs_20"
+                android:layout_weight="1"
+                android:text="@string/cloud_storage_title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_headline" >
+                <tag android:id="@id/tag_typography_role" android:value="headline" />
+            </TextView>
+
+            <TextView
+                android:id="@+id/cache"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_cloud_storage_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="@dimen/vs_12"
+                android:text="@string/open_drive_manage_cache"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_body" >
+                <tag android:id="@id/tag_typography_role" android:value="body" />
+            </TextView>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vs_12"
+            android:gravity="center"
+            android:text="@string/open_drive_login_description"
+            android:textColor="@color/white_80"
+            android:textSize="@dimen/font_body" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </TextView>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/bilibiliAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vs_16"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bilibiliLogin"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="@dimen/vs_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:focusable="true"
+                android:gravity="center"
+                android:minHeight="@dimen/vs_52"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:backgroundTint="?attr/color_theme_60"
+                app:strokeWidth="@dimen/vs_0"
+                android:textSize="@dimen/font_label">
+                <tag android:id="@id/tag_typography_role" android:value="label" />
+            </com.google.android.material.button.MaterialButton>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bilibiliAuto"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="@dimen/vs_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/vs_8"
+                android:layout_weight="0.8"
+                android:focusable="true"
+                android:minHeight="@dimen/vs_52"
+                android:text="@string/cloud_qr_auto"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/blue_500"
+                app:strokeWidth="@dimen/vs_0"
+                android:textSize="@dimen/font_label">
+                <tag android:id="@id/tag_typography_role" android:value="label" />
+            </com.google.android.material.button.MaterialButton>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bilibiliState"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="@dimen/vs_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/vs_8"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:minHeight="@dimen/vs_52"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:backgroundTint="?attr/color_theme_60"
+                app:strokeWidth="@dimen/vs_0"
+                android:textSize="@dimen/font_label">
+                <tag android:id="@id/tag_typography_role" android:value="label" />
+            </com.google.android.material.button.MaterialButton>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/vs_0"
+            android:layout_marginTop="@dimen/vs_8"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/vs_8" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vs_8"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/exportCredentials"
+                android:layout_width="@dimen/vs_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_cloud_storage_button"
+                android:focusable="true"
+                android:minHeight="@dimen/vs_44"
+                android:text="@string/cloud_credentials_export"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_label">
+                <tag android:id="@id/tag_typography_role" android:value="label" />
+            </Button>
+
+            <Button
+                android:id="@+id/importCredentials"
+                android:layout_width="@dimen/vs_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/vs_8"
+                android:layout_weight="1"
+                android:background="@drawable/bg_cloud_storage_button"
+                android:focusable="true"
+                android:minHeight="@dimen/vs_44"
+                android:text="@string/cloud_credentials_import"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_label">
+                <tag android:id="@id/tag_typography_role" android:value="label" />
+            </Button>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/connectors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vs_8"
+            android:background="@drawable/bg_cloud_storage_button"
+            android:focusable="true"
+            android:minHeight="@dimen/vs_44"
+            android:text="@string/webdav_connector_manage"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_label">
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </Button>
+
+        <Button
+            android:id="@+id/credentials"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vs_8"
+            android:background="@drawable/bg_cloud_storage_button"
+            android:focusable="true"
+            android:minHeight="@dimen/vs_44"
+            android:text="@string/credential_manage"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_label">
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </Button>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,41 @@
+/*
+ * Shared catalog runtime CONTRACT module.
+ *
+ * ARCHITECTURE — shared contract, separate implementation:
+ * This module declares the catalog runtime contract (CatalogSourceExecutor /
+ * CatalogGateway) and the shared codec that every runtime family implements.
+ * Concrete families live in their OWN modules (js-runtime, python-runtime,
+ * jvm-spider-runtime, guarded-runtime, cloud-login-runtime). Shared behavior must
+ * be added HERE, never duplicated across those implementation modules. We prefer a
+ * shared contract + separate implementations over copying similar code.
+ */
+plugins {
+    id 'java-library'
+    alias(libs.plugins.kotlin.jvm)
+}
+
+group = 'com.wuming.tv'
+version = '0.1.0-SNAPSHOT'
+
+base {
+    archivesName = 'tvbox-catalog-core'
+}
+
+java {
+    withSourcesJar()
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+dependencies {
+    implementation project(':libraries:search-core')
+    implementation project(':libraries:base-core')
+    implementation libs.gson
+    testImplementation libs.junit
+}
+
+tasks.named('check') {
+    dependsOn rootProject.tasks.named('verifyGenericLibraryBoundaries')
+}

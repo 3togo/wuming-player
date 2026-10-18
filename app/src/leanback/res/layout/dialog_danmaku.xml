@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/vs_24"
+        android:paddingTop="@dimen/vs_24"
+        android:paddingBottom="@dimen/vs_16">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title"
+            android:layout_width="@dimen/vs_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/danmaku_select"
+            android:textColor="?attr/dialogOnSurface"
+            android:textSize="@dimen/font_body" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vs_16"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:focusable="true"
+            android:src="@drawable/ic_action_search"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/choose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:focusable="true"
+            android:src="@drawable/ic_action_choose" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/vs_16"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:focusable="true"
+            android:src="@drawable/ic_danmaku_setting" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.wuming.android.tv.ui.custom.CustomRecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/vs_24"
+        android:paddingEnd="@dimen/vs_24"
+        android:paddingBottom="@dimen/vs_24"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:maxHeight="@dimen/vs_204"
+        tools:listitem="@layout/adapter_danmaku" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

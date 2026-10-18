@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setting_cloud_storage">账号与云盘</string>
+    <string name="cloud_storage_title">账号与云盘</string>
+    <string name="open_drive_login_description">管理云盘和哔哩哔哩登录，加密备份包含账号凭据。</string>
+</resources>

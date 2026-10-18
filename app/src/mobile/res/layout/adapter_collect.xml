@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Runtime text size is shared with MobileFastListAdapter through
+     LayoutConfig.getMobileSearchSiteTextSizePixels(). -->
+<com.google.android.material.textview.MaterialTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/vs_2"
+    android:layout_marginEnd="@dimen/vs_2"
+    android:layout_marginTop="@dimen/vs_2"
+    android:layout_marginBottom="@dimen/vs_2"
+    android:background="@drawable/shape_item"
+    android:ellipsize="marquee"
+    android:gravity="center"
+    android:paddingStart="@dimen/vs_4"
+    android:paddingEnd="@dimen/vs_4"
+    android:paddingTop="@dimen/vs_6"
+    android:paddingBottom="@dimen/vs_6"
+    android:singleLine="true"
+    android:textColor="@color/text"
+    android:textSize="@dimen/font_caption"
+    tools:text="泥巴" >
+    <tag android:id="@id/tag_typography_role" android:value="caption" />
+</com.google.android.material.textview.MaterialTextView>

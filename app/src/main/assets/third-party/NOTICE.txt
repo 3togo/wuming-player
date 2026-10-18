@@ -1,0 +1,15 @@
+Bundled-component notices for wuming-player
+
+DanmakuFlameMaster (binary reports version 0.9.25)
+Copyright 2013-2015 Chen Hui
+https://github.com/bilibili/DanmakuFlameMaster
+Apache License, Version 2.0; see DanmakuFlameMaster-LICENSE.txt.
+The imported AAR is identified in docs/public-third-party-inventory.json.
+
+FongMi/TV source and bundled-artifact origin
+https://github.com/FongMi/TV
+Public AAR import: f9db62624d97a6593180ac0ac8b6d197375ceb3f
+The project GPL-3.0 license does not by itself establish third-party SDK permissions.
+
+Application branding was authored for wuming-player; editable SVGs and origin
+notes are in artwork/branding. No original cat/cube branding is used by these assets.

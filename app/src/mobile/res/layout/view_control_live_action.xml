@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:paddingStart="@dimen/vs_8"
+    android:paddingEnd="@dimen/vs_8"
+    android:scrollbars="none">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/config"
+            style="@style/Control"
+            android:text="@string/play_config" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/home"
+            style="@style/Control"
+            tools:text="首頁" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/player"
+            style="@style/Control"
+            android:text="@string/play_exo" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/decode"
+            style="@style/Control"
+            android:text="@string/play_decode" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/speed"
+            style="@style/Control"
+            android:fontFeatureSettings="tnum"
+            android:text="@string/play_speed"
+            android:visibility="gone"
+            tools:visibility="visible" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/scale"
+            style="@style/Control"
+            android:text="@string/play_scale" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/line"
+            style="@style/Control"
+            tools:text="來源 1" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <View
+            android:layout_width="@dimen/vs_0"
+            android:layout_height="@dimen/vs_0"
+            android:layout_weight="1" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/subtitleTracks"
+            style="@style/Control"
+            android:tag="3"
+            android:text="@string/play_track_text"
+            android:visibility="gone"
+            tools:visibility="visible" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/audio"
+            style="@style/Control"
+            android:tag="1"
+            android:text="@string/play_track_audio" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/videoTracks"
+            style="@style/Control"
+            android:tag="2"
+            android:text="@string/play_track_video" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/invert"
+            style="@style/Control"
+            android:text="@string/play_invert" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/across"
+            style="@style/Control"
+            android:text="@string/play_across" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/change"
+            style="@style/Control"
+            android:text="@string/play_change" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</HorizontalScrollView>

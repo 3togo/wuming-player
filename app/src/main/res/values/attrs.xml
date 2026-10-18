@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VisibleFocusLinearLayout">
+        <attr name="focusWrapAround" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomRecyclerView">
+        <attr name="android:minWidth" />
+        <attr name="android:minHeight" />
+        <attr name="maxWidth" format="dimension" />
+        <attr name="maxHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="themeColor">
+        <attr name="color_theme" format="color|reference" />
+        <attr name="color_theme_80" format="color|reference" />
+        <attr name="color_theme_70" format="color|reference" />
+        <attr name="color_theme_60" format="color|reference" />
+        <attr name="color_theme_50" format="color|reference" />
+        <attr name="color_theme_40" format="color|reference" />
+        <attr name="color_theme_dark_70" format="color|reference" />
+    </declare-styleable>
+
+    <!-- Semantic popup tokens. Dialog layouts consume these attributes instead of colors. -->
+    <attr name="dialogSurface" format="color|reference" />
+    <attr name="dialogSurfaceVariant" format="color|reference" />
+    <attr name="dialogOnSurface" format="color|reference" />
+    <attr name="dialogOnSurfaceVariant" format="color|reference" />
+    <attr name="dialogOutline" format="color|reference" />
+    <attr name="dialogRowFocused" format="color|reference" />
+    <attr name="dialogRowSelected" format="color|reference" />
+    <attr name="dialogSelectionOutline" format="color|reference" />
+    <attr name="wallOverlayStart" format="color|reference" />
+    <attr name="wallOverlayCenter" format="color|reference" />
+    <attr name="wallOverlayEnd" format="color|reference" />
+    <attr name="appOnBackground" format="color|reference" />
+    <attr name="navigationSurface" format="color|reference" />
+    <attr name="navigationAccent" format="color|reference" />
+    <attr name="navigationActiveIcon" format="color|reference" />
+    <attr name="navigationIndicator" format="color|reference" />
+    <attr name="itemCorner" format="dimension|reference" />
+
+    <!-- Selection state theme attributes -->
+    <attr name="selectionSurface" format="color|reference" />
+    <attr name="selectionSurfaceVariant" format="color|reference" />
+    <attr name="selectionOnSurface" format="color|reference" />
+    <attr name="selectionOnSurfaceVariant" format="color|reference" />
+    <attr name="selectionOutline" format="color|reference" />
+    <attr name="selectionIndicator" format="color|reference" />
+    <attr name="selectionRipple" format="color|reference" />
+    <attr name="selectionCorner" format="dimension|reference" />
+    <attr name="selectionElevation" format="dimension|reference" />
+
+    <!-- Focus state theme attributes -->
+    <attr name="focusOutline" format="color|reference" />
+    <attr name="focusOutlineWidth" format="dimension|reference" />
+    <attr name="focusSurface" format="color|reference" />
+    <attr name="focusIndicator" format="color|reference" />
+
+    <!-- Item state theme attributes -->
+    <attr name="itemSurface" format="color|reference" />
+    <attr name="itemSurfaceFocused" format="color|reference" />
+    <attr name="itemSurfaceSelected" format="color|reference" />
+    <attr name="itemSurfacePressed" format="color|reference" />
+    <attr name="itemOnSurface" format="color|reference" />
+    <attr name="itemOnSurfaceVariant" format="color|reference" />
+</resources>

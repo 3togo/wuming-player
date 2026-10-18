@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textview.MaterialTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/text"
+    android:layout_width="@dimen/vs_40"
+    android:layout_height="@dimen/vs_40"
+    android:background="@drawable/selector_keyboard"
+    android:focusable="true"
+    android:gravity="center"
+    android:textColor="@color/white"
+    android:textSize="@dimen/font_body"
+    tools:text="0" >
+    <tag android:id="@id/tag_typography_role" android:value="body" />
+</com.google.android.material.textview.MaterialTextView>

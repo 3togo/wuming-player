@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tag used to mark a View as already having its click event consumed
+         by an OnKeyListener, preventing dialog-level key handlers from
+         firing performClick() twice for the same event. -->
+    <item name="tag_click_consumed" type="id" />
+    <!-- Tag used by TextScale to mark a View as already scaled (setTag guard).
+         Must be app-specific; framework ids like android.R.id.* are invalid setTag keys. -->
+    <item name="tag_text_scaled" type="id" />
+    <item name="tag_image_text" type="id" />
+    <item name="tag_image_vod" type="id" />
+    <item name="tag_image_retry" type="id" />
+    <item name="tag_typography_role" type="id" />
+    <item name="tag_typography_observer" type="id" />
+    <item name="tag_typography_dialog" type="id" />
+    <item name="tag_typography_recycler" type="id" />
+    <item name="tag_typography_overlay_scale" type="id" />
+    <item name="tag_control_spacing_applied" type="id" />
+</resources>

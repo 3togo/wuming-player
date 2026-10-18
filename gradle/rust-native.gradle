@@ -1,0 +1,67 @@
+import org.gradle.api.tasks.Exec
+
+// Rust native library cross-compilation for Android ABIs.
+// Produces candidate .so files under native/target; never replaces shipped prebuilts.
+
+def rustNativeDir = rootProject.file('native')
+
+// Keep personal build paths out of diagnostic strings in published native libraries.
+def existingFlags = providers.environmentVariable('CARGO_ENCODED_RUSTFLAGS').orNull
+def flags = existingFlags != null ? existingFlags.split('\u001f').toList() :
+        providers.environmentVariable('RUSTFLAGS').orElse('').get().split(/\s+/).findAll { it }
+flags += ["--remap-path-prefix=${System.getProperty('user.home')}=/build/user",
+          "--remap-path-prefix=${rootProject.projectDir}=/build/source"]
+def publicRustFlags = flags.join('\u001f')
+tasks.withType(Exec).configureEach { task ->
+    if (task.name.startsWith('buildRustNative')) {
+        environment 'CARGO_ENCODED_RUSTFLAGS', publicRustFlags
+    }
+}
+
+def rustAbiTargets = [
+        'arm64-v8a'   : 'aarch64-linux-android',
+        'armeabi-v7a' : 'armv7-linux-androideabi',
+]
+
+tasks.register('buildRustNative', Exec) {
+    group = 'build'
+    description = 'Validates Rust native library compiles correctly.'
+
+    workingDir rustNativeDir
+    commandLine 'cargo', 'build', '--release'
+}
+
+rustAbiTargets.each { abi, target ->
+    tasks.register("buildRustNative${abi.replace('-', '_')}", Exec) {
+        group = 'build'
+        description = "Cross-compiles Rust native library for ${abi}."
+
+        doFirst {
+            def ndkPath = providers.environmentVariable('ANDROID_NDK_HOME').orElse(
+                    providers.environmentVariable('ANDROID_NDK_ROOT')).orNull
+            if (!ndkPath) throw new GradleException('Set ANDROID_NDK_HOME to an installed Android NDK before rebuilding native libraries.')
+            def osName = System.getProperty('os.name').toLowerCase()
+            def hostTag = osName.contains('mac') ? 'darwin-x86_64' : osName.contains('windows') ? 'windows-x86_64' : 'linux-x86_64'
+            def compiler = target == 'aarch64-linux-android' ? 'aarch64-linux-android26-clang' : 'armv7a-linux-androideabi26-clang'
+            if (osName.contains('windows')) compiler += '.cmd'
+            def linker = new File(ndkPath, "toolchains/llvm/prebuilt/${hostTag}/bin/${compiler}")
+            if (!linker.isFile()) throw new GradleException('Android NDK linker not found for the selected ABI.')
+            environment "CARGO_TARGET_${target.toUpperCase().replace('-', '_')}_LINKER", linker.absolutePath
+        }
+
+        workingDir rustNativeDir
+        commandLine 'cargo', 'build', '--release', '--target', target
+
+        doLast {
+            logger.lifecycle("Native candidate retained under native/target/${target}/release/. " +
+                    'Shipped prebuilts are unchanged. JNI linkage and behavior parity must be ' +
+                    'validated before deliberately replacing them; see docs/public-preview.md.')
+        }
+    }
+}
+
+tasks.register('buildRustNativeAll') {
+    group = 'build'
+    description = 'Cross-compiles Rust native libraries for all Android ABIs.'
+    dependsOn rustAbiTargets.collect { abi, _ -> "buildRustNative${abi.replace('-', '_')}" }
+}

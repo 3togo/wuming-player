@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:elevation="@dimen/vs_0"
+        app:elevation="@dimen/vs_0"
+        app:liftOnScrollColor="@color/transparent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/vs_40"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:menu="@menu/menu_vod">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/logo"
+                android:layout_width="@dimen/vs_28"
+                android:layout_height="@dimen/vs_28"
+                android:layout_marginEnd="@dimen/vs_8"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_logo" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:text="@string/app_name"
+                android:textAppearance="@style/ToolbarTextAppearance"
+                android:textSize="@dimen/font_headline">
+                <tag android:id="@id/tag_typography_role" android:value="headline" />
+            </com.google.android.material.textview.MaterialTextView>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/vs_8"
+            android:paddingTop="@dimen/vs_0"
+            android:paddingEnd="@dimen/vs_8"
+            android:paddingBottom="@dimen/vs_4"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/adapter_type" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.wuming.android.tv.ui.custom.CustomViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/view_progress"
+        android:visibility="gone" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/vs_12"
+        android:visibility="gone"
+        app:backgroundTint="?attr/navigationAccent"
+        app:fabSize="mini"
+        app:layout_anchor="@id/pager"
+        app:layout_anchorGravity="end|bottom"
+        app:layout_behavior="com.wuming.android.tv.ui.custom.CustomFabBehavior"
+        app:srcCompat="@drawable/ic_fab_filter"
+        app:tint="?attr/appOnBackground"
+        tools:visibility="visible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/vs_12"
+        app:backgroundTint="?attr/navigationAccent"
+        app:fabSize="mini"
+        app:layout_anchor="@id/pager"
+        app:layout_anchorGravity="end|bottom"
+        app:layout_behavior="com.wuming.android.tv.ui.custom.CustomFabBehavior"
+        app:srcCompat="@drawable/ic_fab_link"
+        app:tint="?attr/appOnBackground"
+        tools:visibility="visible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/vs_12"
+        android:tag="top"
+        android:visibility="invisible"
+        app:backgroundTint="?attr/navigationAccent"
+        app:fabSize="mini"
+        app:layout_anchor="@id/pager"
+        app:layout_anchorGravity="end|bottom"
+        app:layout_behavior="com.wuming.android.tv.ui.custom.CustomFabBehavior"
+        app:srcCompat="@drawable/ic_fab_top"
+        app:tint="?attr/appOnBackground"
+        tools:visibility="visible" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,8 @@
+{
+  "version": "9.7.1",
+  "origin": "https://raw.githubusercontent.com/gradle/gradle/v9.7.1/gradle/wrapper/gradle-wrapper.jar",
+  "sha256": "7a9ce74cff467ca1bf60a4fcd9f05185acceda4d0f382434d393e17864262c5d",
+  "officialChecksumUrl": "https://services.gradle.org/distributions/gradle-9.7.1-wrapper.jar.sha256",
+  "license": "Apache-2.0",
+  "disposition": "Replaced the inherited wrapper with the official artifact matching the published checksum."
+}

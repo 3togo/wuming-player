@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- PAGE: Site List Item (left column in two-column layout) -->
+<!-- Fast Search Site Item -->
+<!-- REGRESSION GUARDRAIL: Do not enable autoSizeText here. MobileFastListAdapter and
+     MobileCollectAdapter must both use LayoutConfig.getMobileSearchSiteTextSizePixels(). -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvSearchSite"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/vs_44"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="@dimen/vs_2"
+    android:background="@drawable/shape_user_search"
+    android:ellipsize="marquee"
+    android:focusable="true"
+    android:gravity="center"
+    android:marqueeRepeatLimit="marquee_forever"
+    android:paddingStart="@dimen/vs_4"
+    android:paddingEnd="@dimen/vs_4"
+    android:singleLine="true"
+    android:textAlignment="center"
+    android:textColor="@color/white"
+    android:textSize="@dimen/font_label" >
+    <tag android:id="@id/tag_typography_role" android:value="label" />
+</TextView>

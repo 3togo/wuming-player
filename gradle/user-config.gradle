@@ -1,0 +1,31 @@
+// User-owned build configuration; SDK discovery remains Android's local.properties contract.
+def override = providers.environmentVariable('WUMING_CONFIG_FILE').orNull
+def configHome = providers.environmentVariable('XDG_CONFIG_HOME').orNull ?: new File(System.getProperty('user.home'), '.config').path
+def configFile = override ? new File(override) : new File(configHome, 'wuming/config.json')
+if (!configFile.isAbsolute()) {
+    throw new GradleException('WUMING_CONFIG_FILE and XDG_CONFIG_HOME must be absolute paths')
+}
+def configText = providers.fileContents(layout.file(providers.provider { configFile })).asText.orNull
+def config = configText == null ? [:] : new groovy.json.JsonSlurper().parseText(configText)
+if (!(config instanceof Map)) throw new GradleException('User config must be a JSON object')
+def expandHome = { value ->
+    if (value == '~') return System.getProperty('user.home')
+    if (value instanceof String && value.startsWith('~/')) {
+        return new File(System.getProperty('user.home'), value.substring(2)).path
+    }
+    return value
+}
+ext.wumingExpandHomePath = expandHome
+if (config.buildPython instanceof String) config.buildPython = expandHome(config.buildPython)
+if (config.signing instanceof Map && config.signing.storeFile instanceof String) {
+    config.signing.storeFile = expandHome(config.signing.storeFile)
+}
+ext.wumingUserConfig = config
+ext.wumingUserConfigFile = configFile
+
+// Apply to every Android application, including helper APKs and future modules.
+subprojects { candidate ->
+    candidate.plugins.withId('com.android.application') {
+        candidate.apply from: rootProject.file('gradle/apk-signing.gradle')
+    }
+}

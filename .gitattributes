@@ -1,0 +1,8 @@
+# Generated bundles contain significant whitespace inside embedded string literals.
+libraries/js-runtime/src/main/resources/js/lib/cat.js -whitespace
+libraries/js-runtime/src/main/resources/js/lib/cheerio.min.js -whitespace
+libraries/js-runtime/src/main/resources/js/lib/gbk.js -whitespace
+libraries/js-runtime/src/main/resources/js/lib/crypto-js.js -whitespace
+# Preserve publisher license text and frozen upstream source byte for byte.
+third_party/** -whitespace
+vendor/** -whitespace

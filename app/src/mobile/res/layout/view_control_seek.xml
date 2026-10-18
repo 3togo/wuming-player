@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFeatureSettings="tnum"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_label"
+        tools:text="00:00:00" >
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <androidx.media3.ui.DefaultTimeBar
+        android:id="@+id/timeBar"
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vs_8"
+        android:layout_marginEnd="@dimen/vs_8"
+        android:layout_weight="1"
+        app:bar_height="@dimen/vs_2" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFeatureSettings="tnum"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_label"
+        tools:text="00:00:00" >
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.textview.MaterialTextView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

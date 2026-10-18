@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/vs_16">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/code"
+        android:layout_width="@dimen/vs_180"
+        android:layout_height="@dimen/vs_180"
+        android:scaleType="centerCrop" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vs_12"
+        android:layout_toEndOf="@+id/code"
+        android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/vs_4"
+        android:maxLines="3"
+        android:paddingStart="@dimen/vs_4"
+        android:paddingEnd="@dimen/vs_4"
+        android:textColor="?attr/dialogOnSurfaceVariant"
+        android:textSize="@dimen/font_title"
+        tools:text="@string/push_info" >
+        <tag android:id="@id/tag_typography_role" android:value="title" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <com.wuming.android.tv.ui.custom.CustomEditText
+                android:foreground="@drawable/tv_focus_outline"
+                android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom"
+        android:layout_alignStart="@+id/info"
+        android:layout_marginBottom="@dimen/vs_10"
+        android:hint="@string/player_ua"
+        android:imeOptions="actionDone"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:nextFocusDown="@id/positive"
+        android:singleLine="true"
+        android:textSize="@dimen/font_title" >
+        <tag android:id="@id/tag_typography_role" android:value="title" />
+    </com.wuming.android.tv.ui.custom.CustomEditText>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/info"
+        android:layout_alignBottom="@+id/code"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/positive"
+            style="@style/DialogButton"
+            android:layout_marginEnd="@dimen/vs_16"
+            android:text="@string/dialog_positive" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/negative"
+            style="@style/DialogButton"
+            android:text="@string/dialog_negative" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</RelativeLayout>

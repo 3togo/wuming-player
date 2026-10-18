@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textview.MaterialTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/text"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/vs_40"
+    android:background="@drawable/selector_text"
+    android:focusable="true"
+    android:gravity="center"
+    android:singleLine="true"
+    android:textColor="?attr/dialogOnSurface"
+    android:textSize="@dimen/font_title"
+    tools:text="Google" >
+    <tag android:id="@id/tag_typography_role" android:value="title" />
+</com.google.android.material.textview.MaterialTextView>

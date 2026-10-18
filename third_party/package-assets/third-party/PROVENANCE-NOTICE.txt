@@ -1,0 +1,34 @@
+wuming-player additional third-party notices
+
+Cling 2.1.2 / Seamless 1.1.2, copyright 4th Line GmbH and named source authors.
+LGPL-2.1-or-later option selected. Complete notices: Cling-LICENSE.txt and
+Seamless-LICENSE.txt. Source is included under vendor/ in the matching source
+snapshot, including documented local transport and callback-security patches.
+
+JavaScript bundles: package notices under javascript/; exact versions and npm
+archive integrity in tools/js-bundle/package-lock.json in the source snapshot.
+
+Maven dependencies: component notices under maven/ and the matching source
+snapshot's docs/public-maven-inventory.json. Shared Apache and MPL texts included.
+NewPipeExtractor GPL-3.0 and Rhino MPL-2.0 matching sources accompany that snapshot
+under third_party/corresponding-source/. Preserve source access with binary releases.
+
+Bundled catalog link (movie not bundled or modified): Big Buck Bunny (2008),
+Copyright Blender Foundation / www.bigbuckbunny.org. Creative Commons Attribution
+3.0: https://creativecommons.org/licenses/by/3.0/
+Origin/license: https://peach.blender.org/about/
+
+Application icons, home tiles, wallpapers, test patterns and tones were authored
+for wuming-player. Source recipes and origins are recorded under artwork/ and
+test-fixtures/ in the matching GPL-3.0 source snapshot.
+
+Embedded native libraries: QuickJS (copyright 2017-2021 Fabrice Bellard and Charlie
+Gordon, MIT), GIFLib/SKIA (full combined notices in android-gif-drawable-LICENSE.txt),
+and librtmp (Team XBMC, Andrej Stepanchuk and Howard Chu, LGPL-2.1-or-later).
+The RTMP wrapper is Apache-2.0; its librtmp sources and build files accompany the
+matching snapshot under third_party/corresponding-source/. Its pinned build disables
+crypto. NDK libc++ full license and legacy notices are also included here.
+
+jQuery 3.7.1: Copyright OpenJS Foundation and other contributors, MIT; see
+jQuery-LICENSE.txt. The bundled minified script matches the official distribution.
+The original empty-state W/dot animation is GPL-3.0 project artwork.

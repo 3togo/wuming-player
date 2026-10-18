@@ -1,0 +1,31 @@
+plugins {
+    id 'java-library'
+    alias(libs.plugins.kotlin.jvm)
+}
+
+group = 'com.wuming.tv'
+version = '0.1.0-SNAPSHOT'
+
+base {
+    archivesName = 'tvbox-guarded-catvod-host'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+kotlin { jvmToolchain(17) }
+
+dependencies {
+    implementation project(':libraries:guarded-runtime')
+    implementation libs.gson
+    implementation libs.okhttp
+    implementation libs.android.json
+    testImplementation libs.junit
+}
+
+tasks.named('check') {
+    dependsOn rootProject.tasks.named('verifyCodeLifecycleIsolation')
+}

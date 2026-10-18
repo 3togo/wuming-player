@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "updated": "2026-06-24",
+  "test_url": "https://raw.githubusercontent.com/amule-project/amule/refs/heads/master/README.md",
+  "proxies": [
+    {
+      "name": "None",
+      "host": "",
+      "note": "Direct GitHub access"
+    },
+    {
+      "name": "ghproxy.net",
+      "host": "ghproxy.net",
+      "note": "Fast, good for small files"
+    },
+    {
+      "name": "gh-proxy.com",
+      "host": "gh-proxy.com",
+      "note": "Reliable"
+    },
+    {
+      "name": "v6.gh-proxy.org",
+      "host": "v6.gh-proxy.org",
+      "note": "IPv6 optimized"
+    },
+    {
+      "name": "gh.idayer.com",
+      "host": "gh.idayer.com",
+      "note": "Backup option"
+    },
+    {
+      "name": "gh-proxy.org",
+      "host": "gh-proxy.org",
+      "note": "General purpose"
+    },
+    {
+      "name": "v4.gh-proxy.org",
+      "host": "v4.gh-proxy.org",
+      "note": "IPv4 optimized"
+    },
+    {
+      "name": "cdn.gh-proxy.org",
+      "host": "cdn.gh-proxy.org",
+      "note": "CDN accelerated"
+    },
+    {
+      "name": "axisnow.gh-proxy.org",
+      "host": "axisnow.gh-proxy.org",
+      "note": "AxisNow mirror"
+    }
+  ]
+}

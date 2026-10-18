@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/vs_24">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:letterSpacing="0.02"
+        android:textColor="?attr/dialogOnSurface"
+        android:textSize="@dimen/font_title"
+        tools:text="@string/update_version" >
+        <tag android:id="@id/tag_typography_role" android:value="title" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vs_1"
+        android:layout_marginTop="@dimen/vs_16"
+        android:layout_marginBottom="@dimen/vs_16"
+        android:background="?attr/dialogOnSurfaceVariant" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vs_0"
+        android:layout_marginBottom="@dimen/vs_16"
+        android:layout_weight="1">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="@dimen/vs_8"
+            android:textColor="?attr/dialogOnSurface"
+            android:textSize="@dimen/font_body"
+            tools:text="1. 新增 ffmpeg 音頻軟解\n2. 詳情頁新增分詞快搜\n3. 修復搜尋閃退問題\n4. 設定支援渲染切換" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/confirm"
+            style="@style/DialogButton"
+            android:layout_marginEnd="@dimen/vs_16"
+            android:text="@string/update_confirm" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/cancel"
+            style="@style/DialogButton"
+            android:text="@string/dialog_negative" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,14 @@
+{
+  "buildPython": "",
+  "signing": {
+    "storeFile": "/absolute/path/to/signing-key.p12",
+    "storeType": "PKCS12",
+    "keyAlias": "wuming",
+    "storePassword": "REPLACE_WITH_PRIVATE_STORE_PASSWORD",
+    "keyPassword": "REPLACE_WITH_PRIVATE_KEY_PASSWORD",
+    "keyAlgorithm": "RSA",
+    "keySize": 3072,
+    "validityDays": 10000,
+    "distinguishedName": "CN=Wuming, OU=Android, O=Wuming"
+  }
+}

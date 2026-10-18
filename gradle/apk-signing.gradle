@@ -1,0 +1,61 @@
+def settings = rootProject.ext.wumingUserConfig.signing ?: [:]
+if (!(settings instanceof Map)) throw new GradleException('User config signing must be an object')
+def required = ['storeFile', 'storePassword', 'keyAlias', 'keyPassword', 'storeType']
+def complete = required.every { settings[it] instanceof String && !settings[it].isEmpty() }
+def keyFile = complete ? new File(settings.storeFile) : null
+def valid = complete && keyFile.isAbsolute() && keyFile.isFile()
+def updateSettings = new groovy.json.JsonSlurper().parseText(rootProject.providers.fileContents(rootProject.layout.projectDirectory.file('updates.json')).asText.get())
+def expectedCertificate = updateSettings.certificateSha256
+def ephemeral = providers.gradleProperty('wumingEphemeralSigning').orElse('false').get().toBoolean()
+
+def configLocation = rootProject.ext.wumingUserConfigFile.absolutePath
+
+android {
+    signingConfigs {
+        user {
+            if (valid) {
+                storeFile = keyFile
+                storePassword = settings.storePassword
+                keyAlias = settings.keyAlias
+                keyPassword = settings.keyPassword
+                storeType = settings.storeType
+            }
+        }
+    }
+    // androidTest inherits the tested build type's signing config.
+    buildTypes.configureEach {
+        signingConfig = signingConfigs.user
+    }
+}
+
+def validateSigning = tasks.register('validateUserSigning') {
+    group = 'verification'
+    description = 'Requires the shared user signing identity for every APK.'
+    doLast {
+        if (!valid) {
+            throw new GradleException("APK signing is missing or incomplete in ${configLocation}. " +
+                    'Run python3 scripts/setup-signing.py (or --migrate-local for an existing key). ' +
+                    'Restore missing keys from backup; builds never generate replacement identities.')
+        }
+        if (!ephemeral) {
+            try {
+                def store = java.security.KeyStore.getInstance(settings.storeType)
+                keyFile.withInputStream { stream -> store.load(stream, settings.storePassword.toCharArray()) }
+                def certificate = store.getCertificate(settings.keyAlias)
+                def digest = java.security.MessageDigest.getInstance('SHA-256').digest(certificate.encoded).encodeHex().toString()
+                if (digest != expectedCertificate) throw new IllegalStateException('wrong certificate')
+            } catch (Exception ignored) {
+                throw new GradleException('Signing identity does not match updates.json. Import the shared project key; do not generate a replacement.')
+            }
+        }
+    }
+}
+tasks.configureEach { task ->
+    // Covers APKs, test runners, bundles and AGP signing validation. No unsigned/debug fallback.
+    if (['assemble', 'bundle', 'package', 'validateSigning'].any { task.name.startsWith(it) }) {
+        task.dependsOn(validateSigning)
+        if (ephemeral && task.name.endsWith('Release')) {
+            task.doFirst { throw new GradleException('Ephemeral test keys cannot build release artifacts.') }
+        }
+    }
+}

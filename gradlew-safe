@@ -1,0 +1,4 @@
+#!/bin/bash
+# Gradle wrapper with native access enabled to suppress warnings
+export JAVA_TOOL_OPTIONS="--enable-native-access=ALL-UNNAMED"
+exec "$(dirname "$0")/gradlew" "$@"

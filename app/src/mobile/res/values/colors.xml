@@ -1,0 +1,38 @@
+<resources>
+
+    <color name="primary">@color/color_theme</color>
+    <color name="primaryDark">@color/color_theme_dark_70</color>
+    <color name="accent">@color/color_theme</color>
+    <color name="navigation_accent">@color/light_blue_500</color>
+    <color name="navigation_active_icon">#FF10232C</color>
+    <color name="indicator">#E6FFFFFF</color>
+    <color name="navigation_surface">#99000000</color>
+
+    <color name="text">@color/white</color>
+    <color name="zxing_status_text">@color/white</color>
+    <color name="zxing_transparent">@color/transparent</color>
+
+    <!-- Selection state colors -->
+    <color name="selection_surface">#B3000000</color>
+    <color name="selection_surface_variant">#1AFFFFFF</color>
+    <color name="selection_on_surface">#FFFFFF</color>
+    <color name="selection_on_surface_variant">#CCFFFFFF</color>
+    <color name="selection_outline">#4DFFFFFF</color>
+    <color name="selection_indicator">@color/color_theme</color>
+    <color name="selection_ripple">#1AFFFFFF</color>
+    <color name="selection_elevation">#4D000000</color>
+
+    <!-- Focus state colors -->
+    <color name="focus_outline">#FFFFFF</color>
+    <color name="focus_surface">#66000000</color>
+    <color name="focus_indicator">#80FFFFFF</color>
+
+    <!-- Item state colors -->
+    <color name="item_surface">#33000000</color>
+    <color name="item_surface_focused">#80000000</color>
+    <color name="item_surface_selected">#99000000</color>
+    <color name="item_surface_pressed">#B3000000</color>
+    <color name="item_on_surface">#FFFFFF</color>
+    <color name="item_on_surface_variant">#CCFFFFFF</color>
+
+</resources>

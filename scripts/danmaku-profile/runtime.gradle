@@ -1,0 +1,17 @@
+// Run with --no-configuration-cache: this opt-in task inspects the Android test runtime.
+gradle.projectsEvaluated {
+    def app = gradle.rootProject.project(':app')
+    app.tasks.register('writeDanmakuProfileRuntime') {
+        dependsOn 'compileMobileArm64_v8aVerificationUnitTestJavaWithJavac'
+        dependsOn 'bundleMobileArm64_v8aVerificationClassesToRuntimeJar'
+        doLast {
+            def test = app.tasks.named('testMobileArm64_v8aVerificationUnitTest').get()
+            def output = new File(app.buildDir, 'reports/danmaku-profile/runtime.json')
+            output.parentFile.mkdirs()
+            output.text = groovy.json.JsonOutput.toJson([
+                classpath: test.classpath.asPath,
+                javaHome: test.javaLauncher.get().metadata.installationPath.asFile.absolutePath
+            ])
+        }
+    }
+}

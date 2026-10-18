@@ -1,0 +1,31 @@
+plugins {
+    id 'java-library'
+    alias(libs.plugins.kotlin.jvm)
+}
+
+group = 'com.wuming.tv'
+version = '0.1.0-SNAPSHOT'
+
+base {
+    archivesName = 'tvbox-upnp-core'
+}
+
+java {
+    withSourcesJar()
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+dependencies {
+    implementation libs.gson
+    api project(':vendor:cling')
+    api libs.okhttp
+    api project(':libraries:playback-core')
+    testImplementation libs.junit
+}
+
+tasks.named('check') {
+    dependsOn rootProject.tasks.named('verifyGenericLibraryBoundaries')
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dlna_pairing_title">DLNA pairing</string>
+    <string name="dlna_pairing_instructions">Scan with your phone camera on the same Wi-Fi, then tap Pair in the browser. Return to your casting app and select this TV. One phone at a time; access lasts 2 hours or until the TV app restarts.</string>
+    <string name="dlna_pairing_refresh">New QR code</string>
+    <string name="dlna_pairing_revoke">Disconnect phone</string>
+    <string name="dlna_pairing_locked">No phone paired. Unpaired casting is blocked.</string>
+    <string name="dlna_pairing_paired">Paired: %1$s</string>
+    <string name="dlna_pairing_expired">QR code expired or used. Select New QR code to pair another phone.</string>
+    <string name="dlna_pairing_qr">Pairing QR code · valid for 5 minutes</string>
+    <string name="dlna_name_edit">Edit DLNA display name</string>
+    <string name="dlna_name_title">DLNA display name</string>
+    <string name="dlna_name_hint">Shown in casting apps. Changes apply the next time this TV app starts. The name alone does not block casting.</string>
+    <string name="dlna_name_save">Save</string>
+    <string name="dlna_name_default">Restore default</string>
+    <string name="dlna_name_saved">Name saved. Restart the TV app to apply.</string>
+</resources>

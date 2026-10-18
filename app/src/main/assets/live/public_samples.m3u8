@@ -1,0 +1,7 @@
+#EXTM3U
+# Big Buck Bunny (2008), Blender Foundation / www.bigbuckbunny.org
+# Creative Commons Attribution 3.0: https://creativecommons.org/licenses/by/3.0/
+# Origin/license: https://peach.blender.org/about/
+# Link to official Blender demo distribution; movie is not bundled or modified.
+#EXTINF:-1 group-title="Open movies (CC BY 3.0)",Big Buck Bunny - Blender Foundation (CC BY 3.0)
+https://download.blender.org/demo/movies/BBB/bbb_sunflower_1080p_30fps_normal.mp4

@@ -1,0 +1,45 @@
+<resources>
+    <string name="remote_title">測試遙控器按鍵</string>
+    <string name="remote_help">選擇「測試下一個按鍵」，然後按下並放開遙控器按鍵。返回鍵取消測試。只能設定應用程式收到的按鍵。對應設定用於本應用程式所有遙控器的播放介面；數字用於選擇直播頻道。顯示的輸入裝置不一定能識別電視或 HDMI-CEC 連線。</string>
+    <string name="remote_no_key">尚未收到按鍵</string>
+    <string name="remote_listening">請按下並放開一個按鍵，返回鍵取消。</string>
+    <string name="remote_mapping">%1$s → %2$s</string>
+    <string name="remote_reserved">%1$s — 導覽或系統按鍵，不可重新設定</string>
+    <string name="remote_default">使用原始按鍵功能</string>
+    <string name="remote_reset">重設全部對應</string>
+    <string name="remote_reset_prompt">將所有自訂按鍵恢復為原始功能？</string>
+    <string name="remote_test_first">請先測試一個按鍵，再設定功能。</string>
+    <string name="remote_reserved_hint">方向、確認、返回、音量和電源鍵保留原始功能。</string>
+    <string name="remote_assign_key">設定 %1$s</string>
+    <string name="remote_cancelled">已取消測試</string>
+    <string name="remote_unknown_device">未知輸入裝置</string>
+    <string name="remote_repeat">重複：%1$d</string>
+    <string name="remote_event">%1$s (%2$d)\n輸入裝置：%3$s · 來源：0x%4$s\n%5$s</string>
+    <string name="remote_test">測試下一個按鍵</string>
+    <string name="remote_assign">設定已擷取的按鍵</string>
+    <string name="remote_close">關閉</string>
+    <string-array name="remote_actions">
+        <item>播放控制</item>
+        <item>字幕</item>
+        <item>音軌</item>
+        <item>資訊</item>
+        <item>播放 / 暫停</item>
+        <item>播放</item>
+        <item>暫停</item>
+        <item>快退</item>
+        <item>快進</item>
+        <item>上一集 / 頻道</item>
+        <item>下一集 / 頻道</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+    <string name="remote_timeout">未收到完整按鍵。電視可能自行處理了此按鍵。選擇「測試下一個按鍵」重試。</string>
+</resources>

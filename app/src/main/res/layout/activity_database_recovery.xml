@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:gravity="center" android:padding="@dimen/vs_24">
+    <TextView android:id="@+id/recovery_message" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="@string/database_recovery_schema"
+        android:textSize="@dimen/font_body">
+        <tag android:id="@id/tag_typography_role" android:value="body" />
+    </TextView>
+    <Button android:id="@+id/recovery_export" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:focusable="true" android:text="@string/database_recovery_export"
+        android:nextFocusDown="@id/recovery_retry"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </Button>
+    <Button android:id="@+id/recovery_retry" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:focusable="true" android:text="@string/database_recovery_retry"
+        android:nextFocusUp="@id/recovery_export"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </Button>
+    <TextView android:id="@+id/recovery_status" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textSize="@dimen/font_body">
+        <tag android:id="@id/tag_typography_role" android:value="body" />
+    </TextView>
+</LinearLayout>

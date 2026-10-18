@@ -1,0 +1,8 @@
+# Runtime dependencies for the CatVod plugin lab.
+#
+# `requests` is only needed by the `fetch` stage (network). Every other stage
+# (`inventory`, `scan`, `report`, tests) runs on the standard library alone.
+requests>=2.28,<3
+
+# Test-only dependency for `python3 -m pytest tools/catvod-plugin-lab/tests`.
+pytest>=7.0

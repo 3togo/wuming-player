@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/vs_4"
+    android:layout_marginBottom="@dimen/vs_4"
+    android:background="@drawable/shape_live"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:duplicateParentState="true"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textColor="@color/live"
+        android:textSize="@dimen/font_label"
+        tools:text="七龍珠" >
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:duplicateParentState="true"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textColor="@color/live"
+        android:textSize="@dimen/font_micro"
+        tools:text="18:00 ~ 19:00" >
+        <tag android:id="@id/tag_typography_role" android:value="micro" />
+    </com.google.android.material.textview.MaterialTextView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,86 @@
+{
+  "sourceCommit": "758a607f63fa0a11f3584fa54de8a9d6d5cdea6a",
+  "checkedAtUtc": "2026-10-18T12:29:23.470926+00:00",
+  "environment": {
+    "os": "Ubuntu 26.10 (Stonking Stingray), development branch",
+    "architecture": "x86_64",
+    "buildJvm": "openjdk version \"21.0.12.1\" 2026-08-18",
+    "python": "Python 3.14.8",
+    "gradle": "9.7.1"
+  },
+  "gate": {
+    "command": "bash scripts/verify-release.sh",
+    "status": "passed"
+  },
+  "pythonTests": 209,
+  "junit": {
+    "tests": 8237,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 16
+  },
+  "junitCountNote": "Executions include repeated cases across Android variants; skipped cases are not passes.",
+  "lint": {
+    "mobileArm64_v8a": {
+      "Warning": 508,
+      "Hint": 26
+    },
+    "leanbackArm64_v8a": {
+      "Warning": 505,
+      "Hint": 31
+    },
+    "leanbackArmeabi_v7a": {
+      "Warning": 505,
+      "Hint": 31
+    }
+  },
+  "artifacts": [
+    {
+      "variant": "mobileArm64_v8a",
+      "fileName": "mobile-arm64_v8a-20261018758a.apk",
+      "size": 54255316,
+      "sha256": "4ed29c452965dcf1cf4ba8a1d57ba8cd94a7e6ef9fc4af133c798a139ef41548",
+      "applicationId": "com.wuming.android.tv.publicedition",
+      "certificateSha256": "693d58ae3f2ec6cd2f43db00d044c294357411bf135dfad9a647dacfe88ce75c",
+      "signatureVerified": true
+    },
+    {
+      "variant": "leanbackArm64_v8a",
+      "fileName": "leanback-arm64_v8a-20261018758a.apk",
+      "size": 54855159,
+      "sha256": "b4f690ef218cb821a9c4a11ab319c210288ba070a411be9d97198ba6d283362e",
+      "applicationId": "com.wuming.android.tv.publicedition",
+      "certificateSha256": "693d58ae3f2ec6cd2f43db00d044c294357411bf135dfad9a647dacfe88ce75c",
+      "signatureVerified": true
+    },
+    {
+      "variant": "leanbackArmeabi_v7a",
+      "fileName": "leanback-armeabi_v7a-20261018758a.apk",
+      "size": 47521597,
+      "sha256": "729c1608a7e71ced53e7d0a03fb32cae6963c37af7b82dac4de588056b825ef8",
+      "applicationId": "com.wuming.android.tv.publicedition",
+      "certificateSha256": "693d58ae3f2ec6cd2f43db00d044c294357411bf135dfad9a647dacfe88ce75c",
+      "signatureVerified": true
+    }
+  ],
+  "privacy": {
+    "knownPersonalHomePathMatches": 0,
+    "scope": "APK ZIP entries through two nested archive levels, entries <=60 MB; known personal home prefixes only. Not exhaustive opaque-vendor auditing."
+  },
+  "signingRecovery": {
+    "status": "passed",
+    "checks": [
+      "Real disposable-key encrypted export/restore regression, including wrong-pin rejection and existing-identity preservation",
+      "Actual production key restored to disposable private configuration; identical key bytes, certificate and private-key access verified",
+      "Independent encrypted recovery copy retained outside source control with owner-only permissions"
+    ]
+  },
+  "readiness": {
+    "stableReleaseReady": false,
+    "vendorReview": "docs/vendor-provenance-review.md; unresolved SDK redistribution conditions",
+    "tvPlaybackCastingDpad": "deferred by user",
+    "phoneEvidence": "Earlier verification build only; see public-validation.json",
+    "publishing": "No repository or update channel configured; no publication performed"
+  },
+  "documentationNote": "Subsequent documentation-only commits record these results. Application assets, signing tooling and tests were checked at sourceCommit."
+}

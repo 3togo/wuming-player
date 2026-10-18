@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="relay_title">Desktop relay</string>
+    <string name="relay_find">Find desktop</string>
+    <string name="relay_enable">Enable relay</string>
+    <string name="relay_disable">Disable relay</string>
+    <string name="relay_forget">Forget pairing</string>
+    <string name="relay_searching">Searching this network…</string>
+    <string name="relay_not_found">No desktop found. Enable LAN relay in the desktop settings and connect to the same network.</string>
+    <string name="relay_code">Six-digit pairing code</string>
+    <string name="relay_code_help">On the desktop, open Settings → LAN relay → Pair a device. Enter the displayed code here.</string>
+    <string name="relay_paired">Paired. Live HLS playback will request desktop help if the source is slow.</string>
+    <string name="relay_pair_failed">Pairing failed. Check the code or generate a new one on the desktop.</string>
+</resources>

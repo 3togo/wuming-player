@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setting_cloud_storage">帳號與雲端硬碟</string>
+    <string name="cloud_storage_title">帳號與雲端硬碟</string>
+    <string name="open_drive_login_description">管理雲端硬碟與嗶哩嗶哩登入，加密備份包含帳號憑證。</string>
+</resources>

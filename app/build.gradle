@@ -1,0 +1,693 @@
+import com.android.build.api.artifact.ScopedArtifact
+import com.android.build.api.variant.ScopedArtifacts
+import org.gradle.api.file.ArchiveOperations
+import org.gradle.api.file.FileSystemOperations
+
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.ksp)
+    id 'jacoco'
+}
+
+def nativePythonEnabled = providers.gradleProperty('nativePythonEnabled').orElse('true').map { it.toBoolean() }.get()
+
+// Reproducible builds: stamp artifacts with the commit hash instead of a
+// wall-clock timestamp so the same commit always produces the same versionName/APK name.
+// The 12-char hash is split into 8-char commit date (YYYYMMDD) + 4-char short hash,
+// keeping the same total length while embedding human-readable date info.
+def gitCommitDate = providers.exec {
+    commandLine "git", "show", "-s", "--format=%cd", "--date=format:%Y%m%d", "HEAD"
+    workingDir rootProject.projectDir
+    ignoreExitValue = true
+}.standardOutput.asText.map { output ->
+    def date = output.trim()
+    date.isEmpty() ? "00000000" : date
+}
+
+def gitCommit = providers.exec {
+    commandLine "git", "rev-parse", "HEAD"
+    workingDir rootProject.projectDir
+    ignoreExitValue = true
+}.standardOutput.asText.map { output ->
+    def commit = output.trim()
+    commit.isEmpty() ? "unknown" : commit.substring(0, 4)
+}
+
+def versionStamp = "${gitCommitDate.get()}${gitCommit.get()}"
+
+def updateSettings = new groovy.json.JsonSlurper().parseText(providers.fileContents(rootProject.layout.projectDirectory.file('updates.json')).asText.get())
+// The upload command reserves a new version before building selected variants.
+def uploadVersion = providers.gradleProperty('wumingUploadVersionCode').orNull
+if (uploadVersion != null) {
+    def code = uploadVersion.toInteger()
+    if (code <= (updateSettings.versionCode as int) || code > 2100000000) {
+        throw new GradleException('Upload versionCode must increase and remain within Android limits')
+    }
+    updateSettings.versionCode = code
+}
+
+def statefulDeviceTests = providers.gradleProperty("statefulDeviceTests").isPresent()
+
+// Keep this guard on the task action so it also runs on a configuration-cache hit.
+tasks.configureEach { task ->
+    if (statefulDeviceTests && task.name.startsWith("connected")
+            && task.name.endsWith("DebugAndroidTest")) {
+        task.doFirst {
+            throw new GradleException(
+                    "Stateful tests must use scripts/run_stateful_opendrive_tests.sh; " +
+                    "the Android connected task uninstalls the target app and its private data.")
+        }
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.13"
+}
+
+tasks.named('preBuild') {
+    dependsOn ':verifyGenericLibraryBoundaries', ':verifyDesignTokens'
+}
+
+android {
+    namespace = 'com.wuming.android.tv'
+
+    compileSdk 37
+
+    defaultConfig {
+        applicationId "com.wuming.android.tv.publicedition"
+        minSdk 26
+        targetSdk 37
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // Debug/testing hook: SettingActivity is exported (so a script can open the Depot dialog
+        // directly) only in debug/verification builds; release stays non-exported.
+        manifestPlaceholders = [settingActivityDebugExported: "false"]
+        versionCode updateSettings.versionCode as int
+        versionName "${updateSettings.versionName}(${versionStamp})"
+        buildConfigField "String", "UPDATE_REPOSITORY", groovy.json.JsonOutput.toJson(updateSettings.repository)
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["eventBusIndex": "com.wuming.android.tv.event.EventIndex"]
+            }
+        }
+    }
+
+    flavorDimensions = ["mode", "abi"]
+
+    productFlavors {
+        leanback {
+            dimension "mode"
+        }
+        leanback_lite {
+            dimension "mode"
+            resConfigs "xxhdpi"
+        }
+        mobile {
+            dimension "mode"
+        }
+        arm64_v8a {
+            dimension "abi"
+            ndk { abiFilters "arm64-v8a" }
+        }
+        armeabi_v7a {
+            dimension "abi"
+            ndk { abiFilters "armeabi-v7a" }
+        }
+    }
+
+    sourceSets {
+        main.assets.srcDirs += [rootProject.file('third_party/package-assets')]
+        leanback_lite {
+            java.srcDirs += 'src/leanback/java'
+            kotlin.srcDirs += 'src/leanback/java'
+            res.srcDirs += 'src/leanback/res'
+        }
+        androidTestLeanback.java.srcDirs += 'src/leanbackAndroidTest/java'
+        androidTestMobile.java.srcDirs += 'src/mobileAndroidTest/java'
+        androidTest.assets.srcDirs += files("$projectDir/schemas")
+    }
+
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
+    }
+
+    buildTypes {
+        debug {
+            manifestPlaceholders["settingActivityDebugExported"] = "true"
+        }
+        verification {
+            initWith debug
+            applicationIdSuffix ".verification"
+            matchingFallbacks = ['debug']
+            manifestPlaceholders["settingActivityDebugExported"] = "true"
+        }
+        release {
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'proguard-rules-media.pro'
+        }
+    }
+
+    packaging {
+        jniLibs {
+            // These prebuilt dependencies are already stripped. Declaring them here
+            // avoids asking the NDK strip tool to process them on every build.
+            keepDebugSymbols += [
+                    '**/libavif_android.so',
+                    '**/libpl_droidsonroids_gif.so',
+                    '**/libquickjs-android-wrapper.so',
+                    '**/libwuming_python.so',
+                    '**/libpython3.13.so',
+                    '**/libpython3.so',
+                    '**/libcrypto_python.so',
+                    '**/libssl_python.so',
+                    '**/libsqlite3_python.so',
+                    '**/librtmp-jni.so',
+            ]
+        }
+        resources {
+            excludes += ['META-INF/beans.xml', 'META-INF/versions/9/OSGI-INF/MANIFEST.MF']
+        }
+    }
+
+    configurations.configureEach {
+        exclude group: 'com.android.support'
+        resolutionStrategy {
+            force libs.okhttp
+        }
+    }
+
+    lint {
+        disable 'UnsafeOptInUsageError', 'MissingLeanbackLauncher', 'ImpliedTouchscreenHardware', 'MissingIntentFilterForMediaSearch', 'MissingLeanbackSupport'
+        abortOnError = true
+        checkReleaseBuilds = true
+    }
+
+    testOptions {
+        animationsDisabled = true
+    }
+
+    // Opt-in device audits may target the already-installed debug application so
+    // Android Keystore entries, cookies, and catalog handles remain app-private.
+    // Normal CI always uses the isolated .verification application instead.
+    testBuildType = statefulDeviceTests ? "debug" : "verification"
+
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs << '-Xlint:deprecation' << '-Xlint:unchecked'
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled = true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        def flavors = variant.productFlavors.collectEntries { [(it.first): it.second] }
+        def mode = flavors['mode'] ?: 'mode'
+        def abi = flavors['abi'] ?: 'abi'
+        variant.outputs.each { output ->
+            output.outputFileName.set("${mode}-${abi}-${versionStamp}.apk")
+        }
+    }
+}
+
+tasks.register("testKeyLogic") {
+    group = "verification"
+    description = "Runs the fast JVM regression suite for mobile and leanback shared logic."
+    dependsOn "testMobileArm64_v8aVerificationUnitTest", "testLeanbackArm64_v8aVerificationUnitTest"
+}
+
+tasks.register("verifyAndroidMemory") {
+    group = "verification"
+    description = "Runs memory regressions, compiles every Android mode/ABI, and builds isolated device fixtures."
+    dependsOn ":quickjs:testDebugUnitTest"
+    ["Mobile", "Leanback", "Leanback_lite"].each { mode ->
+        dependsOn "test${mode}Arm64_v8aVerificationUnitTest"
+        ["Arm64_v8a", "Armeabi_v7a"].each { abi ->
+            dependsOn "compile${mode}${abi}VerificationJavaWithJavac"
+        }
+    }
+    ["MobileArm64_v8a", "LeanbackArmeabi_v7a"].each { variant ->
+        dependsOn "assemble${variant}Verification", "assemble${variant}VerificationAndroidTest"
+    }
+}
+
+tasks.register("assembleCriticalTests") {
+    group = "verification"
+    description = "Compiles optional smoke fixtures for mobile ARM64 and leanback ARM64/ARM32."
+    dependsOn "assembleMobileArm64_v8aVerificationAndroidTest", "assembleLeanbackArm64_v8aVerificationAndroidTest",
+            "assembleLeanbackArmeabi_v7aVerificationAndroidTest"
+}
+
+tasks.register("connectedCriticalTests") {
+    group = "verification"
+    description = "Runs non-acceptance mobile and leanback release-readiness checks on a connected device."
+    dependsOn "connectedMobileArm64_v8aVerificationAndroidTest", "connectedLeanbackArm64_v8aVerificationAndroidTest"
+}
+
+tasks.register("validateReleaseSource") {
+    group = "verification"
+    description = "Requires release artifacts to be built from a clean source tree."
+    def sourceDirectory = rootProject.projectDir
+    def allowDirty = providers.gradleProperty("allowDirtyRelease").orElse("false").map { it.toBoolean() }.get()
+    doLast {
+        if (allowDirty) {
+            logger.warn("validateReleaseSource: clean-tree check skipped (allowDirtyRelease=true)")
+            return
+        }
+        def statusProcess = new ProcessBuilder("git", "status", "--porcelain")
+                .directory(sourceDirectory)
+                .redirectErrorStream(true)
+                .start()
+        def dirty = statusProcess.inputStream.text.trim()
+        if (statusProcess.waitFor() != 0 || !dirty.isEmpty()) {
+            throw new GradleException(
+                    "Release assembly requires a clean working tree. " +
+                    "Use -PallowDirtyRelease to override during development.")
+        }
+    }
+}
+
+tasks.register("validateReleaseVerification") {
+    group = "verification"
+    description = "Compatibility alias for the offline unit-test acceptance and clean-source gates."
+    dependsOn ":unitAcceptanceBaseline", "validateReleaseSource"
+}
+
+tasks.configureEach { task ->
+    boolean publishTask = task.name.startsWith("assemble") ||
+            task.name.startsWith("bundle") ||
+            task.name.startsWith("package")
+    if (publishTask && task.name.endsWith("Release")) {
+        task.dependsOn(":unitAcceptanceBaseline", "validateReleaseSource")
+    }
+}
+
+tasks.withType(Test).configureEach {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
+
+// Consume AGP's combined variant artifacts, including Kotlin and nested implementation classes.
+// A dedicated collection task keeps archive expansion and copying configuration-cache safe.
+abstract class KeyLogicCoverageClasses extends DefaultTask {
+    @Classpath abstract ListProperty<RegularFile> getClassJars()
+    @Classpath abstract ListProperty<Directory> getClassFolders()
+    @Input abstract ListProperty<String> getClassNames()
+    @OutputDirectory abstract DirectoryProperty getOutputDirectory()
+    @Inject abstract FileSystemOperations getFileSystemOperations()
+    @Inject abstract ArchiveOperations getArchiveOperations()
+
+    @TaskAction
+    void collectClasses() {
+        def names = classNames.get()
+        def folders = classFolders.get().collect { it.asFile }
+        def archives = classJars.get().collect { archiveOperations.zipTree(it.asFile) }
+        def destination = outputDirectory.get().asFile
+        fileSystemOperations.sync {
+            into destination
+            from folders
+            from archives
+            include names.collectMany { [it + '.class', it + '$*.class'] }
+            duplicatesStrategy = DuplicatesStrategy.FAIL
+        }
+        def missing = names.findAll { !new File(destination, it + '.class').isFile() }
+        if (!missing.isEmpty()) {
+            throw new GradleException("Coverage class artifacts are missing: " + missing.join(', '))
+        }
+    }
+}
+
+def keyLogicClasses = tasks.register('collectKeyLogicCoverageClasses', KeyLogicCoverageClasses) {
+    classNames.set([
+            'com/wuming/android/tv/utils/GridSpecCalculator',
+            'com/wuming/android/tv/utils/SearchHelper',
+            'com/wuming/android/tv/utils/Formatters',
+            'com/wuming/android/tv/bean/SitePerformance',
+            'com/wuming/android/tv/model/SearchProgress',
+            'com/wuming/android/tv/model/SiteViewModel'
+    ])
+    outputDirectory.set(layout.buildDirectory.dir('intermediates/keyLogicCoverage/classes'))
+}
+
+androidComponents.onVariants(androidComponents.selector().withName('mobileArm64_v8aVerification')) { variant ->
+    variant.artifacts.forScope(ScopedArtifacts.Scope.PROJECT).use(keyLogicClasses).toGet(
+            ScopedArtifact.CLASSES.INSTANCE,
+            { it.classJars },
+            { it.classFolders })
+}
+
+tasks.register("testKeyLogicCoverage", JacocoReport) {
+    group = "verification"
+    description = "Runs mobile shared-logic tests and writes HTML/XML JaCoCo coverage reports."
+    dependsOn "testMobileArm64_v8aVerificationUnitTest"
+    executionData.from(fileTree(layout.buildDirectory).include(
+            "jacoco/testMobileArm64_v8aVerificationUnitTest.exec"))
+    sourceDirectories.from(files("src/main/java", "src/mobile/java"))
+    classDirectories.from(keyLogicClasses.flatMap { it.outputDirectory })
+    reports {
+        html.required = true
+        xml.required = true
+        csv.required = false
+    }
+}
+
+// Keep every variant explicitly buildable, but select only the everyday
+// phone/TV targets in aggregate builds. Filter after AGP has wired its
+// variant lists, preserving signing and release verification dependencies.
+def includeAllVariants = providers.gradleProperty('includeAllVariants')
+        .orElse(providers.gradleProperty('includeLeanbackLite')) // Previous all-mode opt-in.
+        .map { it.toBoolean() }.getOrElse(false)
+gradle.projectsEvaluated {
+    if (!includeAllVariants) {
+        ['Debug', 'Release'].each { buildTypeName ->
+            def aggregate = tasks.named("assemble${buildTypeName}").get()
+            def dependencies = aggregate.dependsOn.toList().flatten()
+            def selected = ["assembleMobileArm64_v8a${buildTypeName}".toString(),
+                            "assembleLeanbackArmeabi_v7a${buildTypeName}".toString()]
+            aggregate.setDependsOn(dependencies.findAll {
+                !(it instanceof org.gradle.api.tasks.TaskProvider &&
+                        it.name.startsWith('assemble') && !selected.contains(it.name))
+            })
+        }
+    }
+}
+
+['Debug', 'Release'].each { buildTypeName ->
+    tasks.whenTaskAdded { task ->
+        if (task.name == "assemble${buildTypeName}") {
+            task.finalizedBy "copyApks${buildTypeName}"
+        }
+    }
+    tasks.register("copyApks${buildTypeName}") {
+        group = 'build'
+        description = "Copy ${buildTypeName.toLowerCase()} APKs to output folder"
+        def targetDirName = buildTypeName.toLowerCase()
+        def outputDirectory = rootProject.layout.projectDirectory.dir(targetDirName)
+        def apkOutputs = layout.buildDirectory.dir('outputs/apk')
+        doLast {
+            def outputDir = outputDirectory.asFile
+            outputDir.mkdirs()
+            outputDir.listFiles({ it.name.endsWith('.apk') } as java.io.FileFilter)?.each { it.delete() }
+            apkOutputs.get().asFileTree.matching {
+                if (includeAllVariants) {
+                    include("**/${targetDirName}/*.apk")
+                } else {
+                    // Exclude stale APKs from previously built variants.
+                    include("**/${targetDirName}/mobile-arm64_v8a-*.apk")
+                    include("**/${targetDirName}/leanback-armeabi_v7a-*.apk")
+                }
+                exclude('androidTest/**')
+            }
+                    .each { apk ->
+                        java.nio.file.Files.copy(apk.toPath(), new File(outputDir, apk.name).toPath(),
+                                java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+                        logger.lifecycle("Copied ${apk.name} -> ${targetDirName}/")
+                    }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.aar"])
+    implementation platform(libs.kotlinx.serialization.bom)
+
+    // Project modules
+    implementation project(':libraries:design-core')
+    implementation project(':libraries:cache-core')
+    implementation project(':libraries:base-core')
+    implementation project(':libraries:text-core')
+    implementation project(':libraries:catalog-core')
+    implementation project(':libraries:media-core')
+    implementation project(':libraries:epg-core')
+    implementation project(':libraries:cloud-core')
+    implementation project(':libraries:playback-core')
+    implementation project(':libraries:search-core')
+    implementation project(':libraries:source-core')
+    implementation project(':libraries:live-core')
+    implementation project(':libraries:upnp-core')
+    implementation project(':libraries:user-library-core')
+    // Runtime families: separate implementations of the shared catalog-core /
+    // cloud-core contracts. Pull only the families the app actually uses.
+    // Android executes JS through :quickjs; GraalJS is a desktop runtime.
+    implementation project(':libraries:python-runtime')
+    implementation project(':libraries:jvm-spider-runtime')
+    // Android's JarLoader owns guarded providers; UnidBG/JNA are desktop-only.
+    implementation project(':libraries:cloud-login-runtime')
+    implementation project(':catvod')
+    implementation project(':quickjs')
+
+    // AndroidX
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.core.splashscreen
+    implementation libs.androidx.lifecycle.service
+    implementation libs.androidx.media
+    implementation libs.androidx.palette
+    implementation libs.androidx.profileinstaller
+    implementation libs.androidx.recyclerview
+    implementation libs.androidx.room.runtime
+    implementation libs.androidx.swiperefreshlayout
+    implementation libs.androidx.viewpager2
+
+    // Media3
+    implementation libs.androidx.media3.common
+    implementation libs.androidx.media3.container
+    implementation libs.androidx.media3.database
+    implementation libs.androidx.media3.datasource
+    implementation libs.androidx.media3.datasource.okhttp
+    implementation libs.androidx.media3.datasource.rtmp
+    implementation libs.androidx.media3.decoder
+    implementation libs.androidx.media3.effect
+    implementation libs.androidx.media3.exoplayer
+    implementation libs.androidx.media3.exoplayer.dash
+    implementation libs.androidx.media3.exoplayer.hls
+    implementation libs.androidx.media3.exoplayer.rtsp
+    implementation libs.androidx.media3.exoplayer.smoothstreaming
+    implementation libs.androidx.media3.extractor
+    implementation libs.androidx.media3.session
+    implementation libs.androidx.media3.ui
+
+    // Third-party
+    implementation libs.crash
+    implementation libs.lottie
+    implementation libs.materialdesigncolors
+    implementation libs.glide
+    implementation libs.glide.annotations
+    implementation libs.glide.avif
+    implementation libs.glide.okhttp3
+    implementation libs.textdrawable
+    implementation libs.newpipe
+    implementation libs.flexbox
+    implementation libs.j2objc
+    implementation libs.material
+    implementation libs.permissionx
+    implementation project(':vendor:cling-android')
+    implementation libs.eventbus
+    implementation libs.nanohttpd
+    implementation libs.hiddenapibypass
+    implementation(libs.simple.xml) {
+        exclude group: 'stax', module: 'stax-api'
+        exclude group: 'xpp3', module: 'xpp3'
+    }
+    implementation libs.gif
+
+    // Flavor-specific
+    leanbackImplementation libs.leanback
+    leanbackImplementation libs.autosize
+    leanbackImplementation libs.biometric
+    leanback_liteImplementation libs.leanback
+    leanback_liteImplementation libs.autosize
+    leanback_liteImplementation libs.biometric
+    mobileImplementation libs.biometric
+    mobileImplementation libs.autosize
+    mobileImplementation libs.zxing
+    testImplementation libs.junit
+    testImplementation libs.androidx.arch.core.testing
+    androidTestImplementation libs.wrapper.java
+    androidTestImplementation libs.wrapper.android
+    androidTestImplementation libs.androidx.test.core
+    androidTestImplementation libs.androidx.test.runner
+    androidTestImplementation libs.androidx.test.rules
+    androidTestImplementation libs.androidx.test.ext.junit
+    androidTestImplementation libs.androidx.test.espresso.core
+    androidTestImplementation libs.androidx.test.espresso.intents
+    androidTestImplementation libs.androidx.room.testing
+
+    // Annotation processors
+    ksp libs.androidx.room.compiler
+    ksp libs.glide.ksp
+    annotationProcessor libs.eventbus.compiler
+
+    // Desugaring
+    coreLibraryDesugaring libs.desugar
+}
+
+def verifyNoHardcodedUiDimensions = tasks.register("verifyNoHardcodedUiDimensions") {
+    group = "verification"
+    description = "Rejects raw UI dimensions outside the centralized sizing registries."
+
+    def layoutSources = fileTree("src") {
+        include "**/res/layout*/**/*.xml"
+        exclude "**/res_backup*/**"
+    }
+    def codeSources = fileTree("src") {
+        include "**/*.java", "**/*.kt"
+        exclude "**/res_backup*/**", "**/test/**", "**/*AndroidTest/**"
+    }
+
+    doLast {
+        def violations = []
+        def rawXmlDimension = ~/=\s*["']-?\d+(?:\.\d+)?(?:dp|sp|px)["']/
+        layoutSources.each { source ->
+            source.eachLine { line, number ->
+                if (rawXmlDimension.matcher(line).find()) {
+                    violations << "${source.path}:${number}: ${line.trim()}"
+                }
+            }
+        }
+
+        def sourcePatterns = [
+                ~/ResUtil\.(?:dp2px|sp2px)\(\s*-?\d/,
+                ~/setTextSize\([^,\n]*,\s*-?\d/,
+                ~/setTextSize\(\s*-?\d/,
+                ~/getScreen(?:Width|Height)\([^)]*\)\s*\*\s*0\.\d/,
+                ~/new SpaceItemDecoration\([^)\n]*,\s*(?:8|16)\s*\)/,
+                ~/new SpaceItemDecoration\(\s*(?:8|16)\s*\)/,
+                ~/new CustomRowPresenter\(\s*(?:8|16)(?:\s*[,)]?)/
+        ]
+        codeSources.each { source ->
+            source.eachLine { line, number ->
+                if (sourcePatterns.any { it.matcher(line).find() }) {
+                    violations << "${source.path}:${number}: ${line.trim()}"
+                }
+            }
+        }
+
+        if (!violations.isEmpty()) {
+            throw new GradleException(
+                    "Hardcoded UI dimensions found. Use @dimen, FontScale, or LayoutConfig:\n"
+                            + violations.join("\n"))
+        }
+    }
+}
+
+def verifyDialogThemeContract = tasks.register("verifyDialogThemeContract") {
+    group = "verification"
+    description = "Rejects literal colors in popup resources and verifies shared dialog theming."
+
+    def dialogResources = fileTree("src") {
+        include "**/res/layout*/**/*dialog*.xml"
+        include "**/res/layout*/**/adapter_site.xml"
+        include "**/res/drawable*/**/*dialog*.xml"
+        include "**/res/drawable*/**/shape_site*.xml"
+        include "**/res/drawable*/**/selector_site*.xml"
+        exclude "**/res_backup*/**"
+    }
+    def resourceRoot = file("src")
+
+    doLast {
+        def violations = []
+        def literalUiColor = ~/(?i)android:(?:background|backgroundTint|color|textColor|textColorHint)\s*=\s*["']#[0-9a-f]{3,8}["']/
+        def legacyPaletteColor = ~/(?i)(?:android|app):(?:background|backgroundTint|buttonTint|color|tabTextColor|textColor|textColorHint)\s*=\s*["']@color\/(?:black|white|grey|text|color_theme)(?:_[0-9]+)?["']/
+        dialogResources.each { source ->
+            source.eachLine { line, number ->
+                if (literalUiColor.matcher(line).find()) {
+                    violations << "${source.path}:${number}: ${line.trim()}"
+                }
+                if (legacyPaletteColor.matcher(line).find()) {
+                    violations << "${source.path}:${number}: ${line.trim()}"
+                }
+            }
+        }
+
+        def sharedStyles = new File(resourceRoot, "main/res/values/styles.xml").text
+        if (!sharedStyles.contains('name="AppDialogStyle"')) {
+            violations << "src/main/res/values/styles.xml: missing AppDialogStyle"
+        }
+
+        ["mobile", "leanback"].each { mode ->
+            def styles = new File(resourceRoot, "${mode}/res/values/styles.xml").text
+            ["materialAlertDialogTheme", "bottomSheetDialogTheme", "dialogSurface", "dialogOnSurface"].each { token ->
+                if (!styles.contains("name=\"${token}\"")) {
+                    violations << "src/${mode}/res/values/styles.xml: missing ${token}"
+                }
+            }
+        }
+
+        if (!violations.isEmpty()) {
+            throw new GradleException(
+                    "Dialog theme contract violations found. Use semantic dialog attributes:\n"
+                            + violations.join("\n"))
+        }
+    }
+}
+
+def verifyTypography = tasks.register("verifyTypography", Exec) {
+    workingDir rootProject.projectDir
+    commandLine 'python3', 'scripts/check-typography.py'
+}
+
+def verifyTypographyGuardTests = tasks.register("verifyTypographyGuardTests", Exec) {
+    workingDir rootProject.projectDir
+    commandLine 'python3', '-m', 'unittest', 'discover', '-s', 'scripts/tests', '-p', 'test_typography.py'
+}
+verifyTypography.configure { dependsOn verifyTypographyGuardTests }
+
+def verifyUiThemeContract = tasks.register("verifyUiThemeContract", Exec) {
+    group = "verification"
+    description = "Rejects new direct colors across all Android UI resources and source code."
+    workingDir rootProject.projectDir
+    commandLine "python3", "scripts/check-ui-theme-contract.py"
+    inputs.files(fileTree("src") {
+        include "**/*.xml", "**/*.java", "**/*.kt"
+        exclude "**/res_backup/**", "**/test/**", "**/*AndroidTest/**"
+    })
+    inputs.file(rootProject.file("scripts/check-ui-theme-contract.py"))
+    inputs.file(file("config/ui-theme-contract-baseline.json"))
+}
+
+tasks.register("updateUiThemeContractBaseline", Exec) {
+    group = "verification"
+    description = "Rewrites the UI theme debt baseline after an intentional review."
+    workingDir rootProject.projectDir
+    commandLine "python3", "scripts/check-ui-theme-contract.py", "--write-baseline"
+}
+
+tasks.named("preBuild").configure {
+    dependsOn verifyNoHardcodedUiDimensions, verifyDialogThemeContract, verifyUiThemeContract, verifyTypography
+}
+
+// Room and Glide process both Java and Kotlin declarations through KSP2.
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.generateKotlin", "false")
+}
+
+// CPython is built explicitly by scripts/python-runtime/prepare.py, never at configuration time.
+if (nativePythonEnabled) {
+    ['arm64_v8a', 'armeabi_v7a'].each { abi ->
+        def runtime = rootProject.layout.buildDirectory.dir("python-native/android/${abi}")
+        android.sourceSets.named(abi) {
+            assets.srcDir(runtime.get().dir('assets').asFile)
+            jniLibs.srcDir(runtime.get().dir('jniLibs').asFile)
+        }
+        def prepare = tasks.register("prepareNativePython${abi.capitalize()}", Exec) {
+            workingDir rootProject.projectDir
+            commandLine 'python3', 'scripts/python-runtime/prepare.py', '--android', abi
+            inputs.files(rootProject.fileTree('scripts/python-runtime') { exclude 'tests/**', '**/__pycache__/**' },
+                    rootProject.fileTree('native/python-runtime'),
+                    rootProject.fileTree('libraries/python-runtime/src/main/python') { exclude '**/__pycache__/**' })
+            outputs.dir(runtime)
+        }
+        tasks.configureEach { task ->
+            def mergesRuntime = task.name.startsWith('merge') && (task.name.endsWith('Assets') || task.name.endsWith('NativeLibs') || task.name.endsWith('JniLibFolders'))
+            def readsRuntimeForLint = task.name.startsWith('lint') || (task.name.startsWith('generate') && task.name.contains('Lint') && task.name.endsWith('Model'))
+            if (task.name.contains(abi.capitalize()) && (mergesRuntime || readsRuntimeForLint)) {
+                task.dependsOn(prepare)
+            }
+        }
+    }
+}

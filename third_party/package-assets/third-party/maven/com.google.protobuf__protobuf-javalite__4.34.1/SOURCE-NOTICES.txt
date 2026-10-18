@@ -1,0 +1,11 @@
+Source archive: https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-javalite/4.34.1/protobuf-javalite-4.34.1-sources.jar
+SHA-256: 3a625a77f20b79165d4476b6934b2a5bc30c2f30b61c987444e0bb22a08e19db
+
+
+
+// Protocol Buffers - Google's data interchange format
+// Copyright 2008 Google Inc.  All rights reserved.
+//
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file or at
+// https://developers.google.com/open-source/licenses/bsd

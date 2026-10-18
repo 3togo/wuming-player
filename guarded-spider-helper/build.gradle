@@ -1,0 +1,42 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace = 'com.wuming.tv.guardspider'
+    compileSdk 37
+
+    defaultConfig {
+        applicationId "com.wuming.tv.guardspider.publicedition"
+        minSdk 26
+        targetSdk 37
+        versionCode 1
+        versionName "0.1.0"
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled = true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig = false
+    }
+
+    // Dev/debug-only helper; do not fail the build on strict lint.
+    lint {
+        abortOnError = false
+        disable 'ForegroundServiceType', 'MissingDefaultActivity'
+    }
+}
+
+dependencies {
+    coreLibraryDesugaring libs.desugar
+    implementation project(':catvod')
+    implementation project(':libraries:guarded-runtime')
+    implementation libs.gson
+    implementation libs.okhttp
+    // Google Play Services client SDK is excluded from the public helper.
+
+}

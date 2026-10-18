@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_strict_search"
+        android:checkable="true"
+        android:icon="@drawable/ic_search_strict_off"
+        android:title="@string/search_strict_off"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_sort"
+        android:icon="@drawable/ic_action_sort"
+        android:title="@string/collect_sort"
+        app:showAsAction="always">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/sort_relevance"
+                    android:title="@string/collect_sort_relevance"
+                    android:checked="true" />
+                <item
+                    android:id="@+id/sort_name"
+                    android:title="@string/collect_sort_name" />
+                <item
+                    android:id="@+id/sort_year"
+                    android:title="@string/collect_sort_year" />
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_filter"
+        android:icon="@drawable/ic_action_filter"
+        android:title="@string/collect_filter"
+        app:showAsAction="always">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/filter_all"
+                    android:title="@string/all"
+                    android:checked="true" />
+                <item
+                    android:id="@+id/filter_movie"
+                    android:title="@string/collect_filter_movie" />
+                <item
+                    android:id="@+id/filter_tv"
+                    android:title="@string/collect_filter_tv" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

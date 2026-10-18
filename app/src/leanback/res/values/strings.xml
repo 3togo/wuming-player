@@ -1,0 +1,88 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Home -->
+    <string name="home_vod">Vod</string>
+    <string name="home_open_drive">OpenDrive</string>
+    <string name="home_live">Live</string>
+    <string name="home_search">Search</string>
+    <string name="home_keep">Keep</string>
+    <string name="home_playlist">Playlist</string>
+    <string name="home_push">Push</string>
+    <string name="home_setting">Setting</string>
+    <string name="network_information_title">Network information</string>
+    <string name="network_information_refresh">Refresh</string>
+    <string name="network_information_back">Back</string>
+    <string name="network_information_status">Status: %1$s</string>
+    <string name="network_information_transport">Connection: %1$s</string>
+    <string name="network_information_ipv4">IPv4 address: %1$s</string>
+    <string name="network_information_ipv6">IPv6 address: %1$s</string>
+    <string name="network_information_gateway">Gateway: %1$s</string>
+    <string name="network_information_dns">DNS servers: %1$s</string>
+    <string name="network_information_interface">Interface: %1$s</string>
+    <string name="network_information_unavailable">Unavailable</string>
+    <string name="network_information_disconnected">No active network</string>
+    <string name="network_information_validated">Internet available</string>
+    <string name="network_information_unverified">Internet not verified</string>
+    <string name="network_information_local">Local network only</string>
+    <string name="network_information_wifi">Wi-Fi</string>
+    <string name="network_information_ethernet">Ethernet</string>
+    <string name="network_information_cellular">Mobile data</string>
+    <string name="network_information_vpn">VPN</string>
+    <string name="network_information_other">Other</string>
+    <string name="home_history">History</string>
+    <string name="home_recommend">Recommend</string>
+    <string name="playlist_empty">Playlist is empty</string>
+    <string name="playlist_added">Added to playlist</string>
+    <string name="playlist_duplicate">Already in playlist</string>
+    <string name="playlist_clear_confirm">Clear the entire playlist?</string>
+    <string name="playlist_paused">Playlist paused</string>
+    <string name="playlist_loop_on">Playlist loop enabled</string>
+    <string name="playlist_loop_off">Playlist loop disabled</string>
+    <string name="playlist_source_unavailable">Playlist source is unavailable</string>
+    <string name="playlist_finished">Playlist finished</string>
+    <string name="playlist_loading_episodes">Loading episodes…</string>
+    <string name="playlist_no_episodes">No episodes are available</string>
+    <string name="playlist_choose_line">Choose a playback line</string>
+    <string name="playlist_all_clear">All / Clear</string>
+    <string name="playlist_select_one_episode">Select at least one episode</string>
+    <string name="playlist_episode_selection_saved">Playlist episode selection saved</string>
+    <string name="playlist_episode_selected">%1$d of %2$d episodes selected</string>
+    <string name="playlist_episode_count">%1$d selected episodes</string>
+    <string name="playlist_selected">Selected</string>
+    <string name="playlist_not_selected">Not selected</string>
+    <string-array name="playlist_episode_modes">
+        <item>All episodes (default)</item><item>From current episode</item><item>Choose episodes…</item>
+    </string-array>
+    <string-array name="history_actions">
+        <item>Add to playlist</item>
+        <item>Select history items to delete</item>
+    </string-array>
+    <string-array name="playlist_actions_loop_off">
+        <item>Play from here</item>
+        <item>Choose episodes</item>
+        <item>Pause playlist</item>
+        <item>Enable playlist loop</item>
+        <item>Move earlier</item>
+        <item>Move later</item>
+        <item>Remove</item>
+        <item>Clear playlist</item>
+    </string-array>
+    <string-array name="playlist_actions_loop_on">
+        <item>Play from here</item><item>Choose episodes</item><item>Pause playlist</item><item>Disable playlist loop</item>
+        <item>Move earlier</item><item>Move later</item><item>Remove</item><item>Clear playlist</item>
+    </string-array>
+
+    <!-- Vod -->
+    <string name="vod_home">Home</string>
+
+    <string name="site_search">Search</string>
+    <string name="site_change">Change</string>
+
+    <!-- Collect -->
+    <string name="collect_result">Search results for <xliff:g name="name">%s</xliff:g></string>
+
+    <!-- Push -->
+    <string name="push_clip">Push clipboard content</string>
+    <string name="push_info">Scan QR Code or enter the URL in browser\n<xliff:g name="name">%s</xliff:g></string>
+
+</resources>

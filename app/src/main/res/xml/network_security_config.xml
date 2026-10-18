@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    WARNING: Do NOT set cleartextTrafficPermitted="false" for external domains!
+    This app connects to user-configured VOD/Live sources that may use HTTP URLs.
+    Blocking cleartext traffic will break video loading from HTTP-only sources.
+    See: https://github.com/CatVodTVOfficial/CatVodTVSpider/issues/xxx
+-->
+<network-security-config>
+    <!-- Allow cleartext for all domains (required for user-configured VOD/Live sources that may use HTTP) -->
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

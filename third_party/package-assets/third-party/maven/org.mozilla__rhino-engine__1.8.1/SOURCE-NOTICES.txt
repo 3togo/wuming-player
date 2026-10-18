@@ -1,0 +1,8 @@
+Source archive: https://repo.maven.apache.org/maven2/org/mozilla/rhino-engine/1.8.1/rhino-engine-1.8.1-sources.jar
+SHA-256: c3316bdfd713c92d2688ea921b5cc7568a5a879ecd395847559407862fce5089
+
+
+
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */

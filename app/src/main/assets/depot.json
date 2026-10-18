@@ -1,0 +1,9 @@
+{
+  "vod": [],
+  "live": [
+    {
+      "name": "Open movie sample · CC BY 3.0",
+      "url": "assets://live/public_samples.m3u8"
+    }
+  ]
+}

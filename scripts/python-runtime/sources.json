@@ -1,0 +1,61 @@
+{
+  "cpythonVersion": "3.13.15",
+  "cpythonUrl": "https://www.python.org/ftp/python/3.13.15/Python-3.13.15.tar.xz",
+  "cpythonSha256": "1e66a7945a48390ee4c2a4268a0e4185884059a13c4aab6d148aa208deea4a76",
+  "androidDependencies": {
+    "bzip2-1.0.8-3-aarch64-linux-android.tar.gz": {
+      "url": "https://github.com/beeware/cpython-android-source-deps/releases/download/bzip2-1.0.8-3/bzip2-1.0.8-3-aarch64-linux-android.tar.gz",
+      "sha256": "2385f46e173d525f079946957c007000a8ad11d8496ba66bae99129183d74bd9"
+    },
+    "bzip2-1.0.8-3-arm-linux-androideabi.tar.gz": {
+      "url": "https://github.com/beeware/cpython-android-source-deps/releases/download/bzip2-1.0.8-3/bzip2-1.0.8-3-arm-linux-androideabi.tar.gz",
+      "sha256": "6a337ab443e2639bdcc24e1db867728bfcf15661ee7a5319fe41157249aa79c7"
+    },
+    "libffi-3.4.4-3-aarch64-linux-android.tar.gz": {
+      "url": "https://github.com/beeware/cpython-android-source-deps/releases/download/libffi-3.4.4-3/libffi-3.4.4-3-aarch64-linux-android.tar.gz",
+      "sha256": "9f2c0255ce025c177d44db16174ad5158c7560efe3c7ef0c8c0c64b2196e6a9d"
+    },
+    "libffi-3.4.4-3-arm-linux-androideabi.tar.gz": {
+      "url": "https://github.com/beeware/cpython-android-source-deps/releases/download/libffi-3.4.4-3/libffi-3.4.4-3-arm-linux-androideabi.tar.gz",
+      "sha256": "38ab0cab3ec6e94d26ca5fe9e7556130745cce8448c3b5ecf5c48e5238e92f37"
+    },
+    "openssl-3.0.21-0-aarch64-linux-android.tar.gz": {
+      "url": "https://github.com/beeware/cpython-android-source-deps/releases/download/openssl-3.0.21-0/openssl-3.0.21-0-aarch64-linux-android.tar.gz",
+      "sha256": "8e4817f059a8bfa6abe0308c06e4123a69fe554733a4138cf8b4bf670d1cac18"
+    },
+    "openssl-3.0.21-0-arm-linux-androideabi.tar.gz": {
+      "url": "https://github.com/beeware/cpython-android-source-deps/releases/download/openssl-3.0.21-0/openssl-3.0.21-0-arm-linux-androideabi.tar.gz",
+      "sha256": "83b177d0e666560344288b4577d7d43f602dff2f7fd7483e102f1c0eac7edfc4"
+    },
+    "sqlite-3.50.4-0-aarch64-linux-android.tar.gz": {
+      "url": "https://github.com/beeware/cpython-android-source-deps/releases/download/sqlite-3.50.4-0/sqlite-3.50.4-0-aarch64-linux-android.tar.gz",
+      "sha256": "f446f18d381ed641cb9d58b4768097f9cb7fcce79f7d13be371ee089f2c93e27"
+    },
+    "sqlite-3.50.4-0-arm-linux-androideabi.tar.gz": {
+      "url": "https://github.com/beeware/cpython-android-source-deps/releases/download/sqlite-3.50.4-0/sqlite-3.50.4-0-arm-linux-androideabi.tar.gz",
+      "sha256": "03563107b27cfe783dd1eb526a318d767208161a02295d4fac17f5c458116314"
+    },
+    "xz-5.4.6-1-aarch64-linux-android.tar.gz": {
+      "url": "https://github.com/beeware/cpython-android-source-deps/releases/download/xz-5.4.6-1/xz-5.4.6-1-aarch64-linux-android.tar.gz",
+      "sha256": "320b76d45dc3499cf855e5310f875cba61c2608e4a98bb280cc4f1b8f189da1a"
+    },
+    "xz-5.4.6-1-arm-linux-androideabi.tar.gz": {
+      "url": "https://github.com/beeware/cpython-android-source-deps/releases/download/xz-5.4.6-1/xz-5.4.6-1-arm-linux-androideabi.tar.gz",
+      "sha256": "07a5b575dcef750f1decf6cdce1f18aa6e1b6a5080c4ce5ee283b1a40104ba2c"
+    }
+  },
+  "pythonSources": {
+    "lxml": {
+      "version": "6.0.2",
+      "filename": "lxml-6.0.2.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/source/l/lxml/lxml-6.0.2.tar.gz",
+      "sha256": "cd79f3367bd74b317dda655dc8fcfa304d9eb6e4fb06b7168c5cf27f96e0cd62"
+    },
+    "pycryptodome": {
+      "version": "3.23.0",
+      "filename": "pycryptodome-3.23.0.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/source/p/pycryptodome/pycryptodome-3.23.0.tar.gz",
+      "sha256": "447700a657182d60338bab09fdb27518f8856aecd80ae4c6bdddb67ff5da44ef"
+    }
+  }
+}

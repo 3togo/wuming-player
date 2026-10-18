@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text"
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="@dimen/vs_40"
+        android:layout_weight="1"
+        android:background="@drawable/selector_text"
+        android:ellipsize="middle"
+        android:focusable="true"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="?attr/dialogOnSurface"
+        android:textSize="@dimen/font_title"
+        tools:text="https://fongmi.github.io/cat.json" >
+        <tag android:id="@id/tag_typography_role" android:value="title" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/delete"
+        android:layout_width="@dimen/vs_40"
+        android:layout_height="@dimen/vs_40"
+        android:layout_marginStart="@dimen/vs_12"
+        android:background="@drawable/selector_text"
+        android:focusable="true"
+        android:padding="@dimen/vs_8"
+        android:src="@drawable/ic_setting_delete" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

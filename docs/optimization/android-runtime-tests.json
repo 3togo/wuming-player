@@ -1,0 +1,26 @@
+{
+  "status": "prepared-not-executed",
+  "scope": "Generated fixtures and loopback HTTP only; explicit methods exclude live-provider tests",
+  "tests": [
+    "com.wuming.android.tv.api.parser.EpgXmlRuntimeInstrumentedTest#platformSaxSupportsUnicodeEntitiesAndTheLexicalGuard",
+    "com.wuming.android.tv.api.parser.EpgXmlRuntimeInstrumentedTest#platformSaxRejectsDtdAndExpandedGzipOverBudget",
+    "com.wuming.android.tv.player.exo.ParallelRangeDataSourceInstrumentedTest#boundedRangesRemainOneContinuousResource",
+    "com.wuming.android.tv.player.exo.ParallelRangeDataSourceInstrumentedTest#bufferedProfileActivelyReadsAllPartsConcurrently",
+    "com.wuming.android.tv.player.exo.ParallelRangeDataSourceInstrumentedTest#closingBufferedProfileDoesNotRaceTheActiveReader",
+    "com.wuming.android.tv.player.exo.ParallelRangeDataSourceInstrumentedTest#slowTricklingRangeIsReplacedWithoutDuplicatingBytes",
+    "com.wuming.android.tv.player.exo.ParallelRangeDataSourceInstrumentedTest#failedSlowRangeReplacementKeepsOriginalReadable",
+    "com.wuming.android.tv.player.exo.ParallelRangeDataSourceInstrumentedTest#genericStartupUsesShortRangesThenResumesBulkWithoutGaps",
+    "com.wuming.android.tv.player.exo.ParallelRangeDataSourceInstrumentedTest#bufferedProfileRollsAheadWithoutLosingFileOrder",
+    "com.wuming.android.tv.player.exo.ParallelRangeDataSourceInstrumentedTest#declaredSizeClampsTailRangeAndIsNotSentUpstream",
+    "com.wuming.android.tv.player.exo.ParallelRangeDataSourceInstrumentedTest#failedWindowClosesEverySourceOpenedBySiblingTasks",
+    "com.wuming.android.tv.player.exo.ParallelRangeDataSourceInstrumentedTest#validatedProfilesFallBackWhenRangeMetadataIsUnsafe",
+    "com.wuming.android.tv.player.danmaku.DanmakuOwnershipInstrumentedTest#malformedFeedIsRejectedWithoutCreatingADataSource",
+    "com.wuming.android.tv.player.danmaku.DanmakuOwnershipInstrumentedTest#parserCanReadAfterHttpResponseCloses",
+    "com.wuming.android.tv.player.danmaku.DanmakuOwnershipInstrumentedTest#completedFeedProducesDanmakuAndParserReleasesItsSource",
+    "com.wuming.android.tv.player.danmaku.DanmakuOwnershipInstrumentedTest#cancelingOneFeedDoesNotCancelAnotherFeed",
+    "com.wuming.android.tv.player.QuickJsResourcesInstrumentedTest#failedConversionsReleasePartialArraysOnTheirOwningThread",
+    "com.wuming.android.tv.player.QuickJsResourcesInstrumentedTest#repeatedHttpRepliesReleaseOptionsHeadersAndArrays",
+    "com.wuming.android.tv.player.QuickJsResourcesInstrumentedTest#repeatedPromisesReleaseTheirNativeWrappers",
+    "com.wuming.android.tv.player.QuickJsResourcesInstrumentedTest#firedAndCanceledTimersReleaseNativeFunctions"
+  ]
+}

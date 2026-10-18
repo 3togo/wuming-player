@@ -1,0 +1,31 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    sourceSets {
+        main.assets.srcDir rootProject.file('libraries/js-runtime/src/main/resources')
+    }
+    namespace = 'com.wuming.android.tv.quickjs'
+
+    compileSdk 37
+
+    defaultConfig {
+        minSdk 26
+        targetSdk 37
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled = true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    testImplementation libs.junit
+    implementation project(':catvod')
+    implementation libs.wrapper.java
+    implementation libs.wrapper.android
+    coreLibraryDesugaring libs.desugar
+}

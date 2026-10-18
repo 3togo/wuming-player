@@ -1,0 +1,19 @@
+{
+  "origin": "Project-authored Java fixtures and compile-only Spider stub; root GPL-3.0 license",
+  "source": "test-fixtures/guarded-providers",
+  "recipe": "scripts/build-guarded-fixtures.py",
+  "d8": "D8 8.10.9-dev (build a7ad18a70460b799d0482e497c109a75bf7f91de from go/r8bot (luci-r8-custom-ci-archive-0-mt8s))",
+  "androidPlatform": 37,
+  "minApi": 24,
+  "javacRelease": 8,
+  "artifacts": [
+    {
+      "path": "desktop/src/test/resources/guarded/GmsProbe-dexed.jar",
+      "sha256": "3da9a427690d9c9b12dc5c3f06bbff002e5b2ce035c92215c389920aac67bffd"
+    },
+    {
+      "path": "desktop/src/test/resources/guarded/WebViewProbe-dexed.jar",
+      "sha256": "33bf120bb56b470e92d88038e5681b778dd6af3fe687d88562a2a0f7809671c8"
+    }
+  ]
+}

@@ -1,0 +1,837 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIconTint="@android:color/white"
+        app:title="@string/nav_setting"
+        app:titleTextAppearance="@style/ToolbarTextAppearance" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/vs_16"
+            android:paddingEnd="@dimen/vs_16"
+            android:paddingBottom="@dimen/vs_16">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+            android:tag="control-group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                    android:id="@+id/vod"
+                    android:layout_width="@dimen/vs_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_12"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_item"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/vs_16"
+                        android:text="@string/setting_vod"
+                        android:textColor="?attr/appOnBackground"
+                        android:textSize="@dimen/font_body" >
+                        <tag android:id="@id/tag_typography_role" android:value="body" />
+                    </com.google.android.material.textview.MaterialTextView>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/vodUrl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="middle"
+                        android:gravity="end"
+                        android:singleLine="true"
+                        android:textColor="?attr/appOnBackground"
+                        android:textSize="@dimen/font_body"
+                        tools:text="https://" >
+                        <tag android:id="@id/tag_typography_role" android:value="body" />
+                    </com.google.android.material.textview.MaterialTextView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                android:tag="control-icon"
+                    android:id="@+id/vodHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_12"
+                    android:background="@drawable/shape_item"
+                    android:padding="@dimen/vs_7"
+                    android:src="@drawable/ic_setting_home" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                android:tag="control-icon"
+                    android:id="@+id/vodHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_12"
+                    android:background="@drawable/shape_item"
+                    android:padding="@dimen/vs_7"
+                    android:src="@drawable/ic_setting_history" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                android:tag="control-icon"
+                    android:id="@+id/vodDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_item"
+                    android:padding="@dimen/vs_7"
+                    android:src="@drawable/ic_setting_default" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+            android:tag="control-group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                    android:id="@+id/live"
+                    android:layout_width="@dimen/vs_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_12"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_item"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/vs_16"
+                        android:text="@string/setting_live"
+                        android:textColor="?attr/appOnBackground"
+                        android:textSize="@dimen/font_body" >
+                        <tag android:id="@id/tag_typography_role" android:value="body" />
+                    </com.google.android.material.textview.MaterialTextView>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/liveUrl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="middle"
+                        android:gravity="end"
+                        android:singleLine="true"
+                        android:textColor="?attr/appOnBackground"
+                        android:textSize="@dimen/font_body"
+                        tools:text="https://" >
+                        <tag android:id="@id/tag_typography_role" android:value="body" />
+                    </com.google.android.material.textview.MaterialTextView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                android:tag="control-icon"
+                    android:id="@+id/liveHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_12"
+                    android:background="@drawable/shape_item"
+                    android:padding="@dimen/vs_7"
+                    android:src="@drawable/ic_setting_home" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                android:tag="control-icon"
+                    android:id="@+id/liveHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_12"
+                    android:background="@drawable/shape_item"
+                    android:padding="@dimen/vs_7"
+                    android:src="@drawable/ic_setting_history" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                android:tag="control-icon"
+                    android:id="@+id/liveDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_item"
+                    android:padding="@dimen/vs_7"
+                    android:src="@drawable/ic_setting_default" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+            android:tag="control-group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                    android:id="@+id/wall"
+                    android:layout_width="@dimen/vs_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_12"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_item"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/vs_16"
+                        android:text="@string/setting_wall"
+                        android:textColor="?attr/appOnBackground"
+                        android:textSize="@dimen/font_body" >
+                        <tag android:id="@id/tag_typography_role" android:value="body" />
+                    </com.google.android.material.textview.MaterialTextView>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/wallUrl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="middle"
+                        android:gravity="end"
+                        android:singleLine="true"
+                        android:textColor="?attr/appOnBackground"
+                        android:textSize="@dimen/font_body"
+                        tools:text="https://" >
+                        <tag android:id="@id/tag_typography_role" android:value="body" />
+                    </com.google.android.material.textview.MaterialTextView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                android:tag="control-icon"
+                    android:id="@+id/wallDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_12"
+                    android:background="@drawable/shape_item"
+                    android:padding="@dimen/vs_7"
+                    android:src="@drawable/ic_setting_home" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                android:tag="control-icon"
+                    android:id="@+id/wallHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_12"
+                    android:background="@drawable/shape_item"
+                    android:padding="@dimen/vs_7"
+                    android:src="@drawable/ic_setting_history" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                android:tag="control-icon"
+                    android:id="@+id/wallRefresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_item"
+                    android:padding="@dimen/vs_7"
+                    android:src="@drawable/ic_setting_refresh" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/player"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setting_player"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+<androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/desktopRelay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/relay_title"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/incognito"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_16"
+                    android:text="@string/setting_incognito"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/incognitoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body"
+                    tools:text="Off" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/doh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_16"
+                    android:text="@string/setting_doh"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/dohText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body"
+                    tools:text="Google" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+            android:tag="control-group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                    android:id="@+id/githubProxy"
+                    android:layout_width="@dimen/vs_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_12"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_item"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/vs_16"
+                        android:text="@string/setting_github_proxy"
+                        android:textColor="?attr/appOnBackground"
+                        android:textSize="@dimen/font_body" >
+                        <tag android:id="@id/tag_typography_role" android:value="body" />
+                    </com.google.android.material.textview.MaterialTextView>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/githubProxyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:singleLine="true"
+                        android:textColor="?attr/appOnBackground"
+                        android:textSize="@dimen/font_body"
+                        tools:text="gh-proxy.com" >
+                        <tag android:id="@id/tag_typography_role" android:value="body" />
+                    </com.google.android.material.textview.MaterialTextView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                android:tag="control-icon"
+                    android:id="@+id/githubProxySpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_item"
+                    android:padding="@dimen/vs_7"
+                    android:src="@drawable/ic_setting_speed" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_16"
+                    android:text="@string/setting_theme"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/themeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body"
+                    tools:text="Default" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/colorTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_16"
+                    android:text="@string/setting_color_theme"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/colorThemeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body"
+                    tools:text="Aurora" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_16"
+                    android:text="@string/setting_size"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/sizeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body"
+                    tools:text="Medium" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/uiScaleCap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_16"
+                    android:text="@string/setting_ui_scale_cap"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/uiScaleCapText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body"
+                    tools:text="1.25x" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/uiScaleBaseline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_16"
+                    android:text="@string/setting_ui_scale_baseline"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/uiScaleBaselineText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body"
+                    tools:text="Standard" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:orientation="horizontal"
+                android:padding="@dimen/vs_0">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/backup"
+                    android:layout_width="@dimen/vs_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:paddingStart="@dimen/vs_12"
+                    android:paddingTop="@dimen/vs_8"
+                    android:paddingEnd="@dimen/vs_12"
+                    android:paddingBottom="@dimen/vs_8"
+                    android:text="@string/setting_backup"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/restore"
+                    android:layout_width="@dimen/vs_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:gravity="end"
+                    android:paddingStart="@dimen/vs_12"
+                    android:paddingTop="@dimen/vs_8"
+                    android:paddingEnd="@dimen/vs_12"
+                    android:paddingBottom="@dimen/vs_8"
+                    android:text="@string/setting_restore"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/depot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_16"
+                    android:text="@string/setting_depot"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/depotText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body"
+                    tools:text="26 VOD, 43 Live" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+            android:tag="control-group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                    android:id="@+id/depotUpdate"
+                    android:layout_width="@dimen/vs_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_8"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_item"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/setting_depot_update"
+                        android:textColor="?attr/appOnBackground"
+                        android:textSize="@dimen/font_body" >
+                        <tag android:id="@id/tag_typography_role" android:value="body" />
+                    </com.google.android.material.textview.MaterialTextView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                    android:id="@+id/depotValidate"
+                    android:layout_width="@dimen/vs_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_item"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/setting_depot_validate"
+                        android:textColor="?attr/appOnBackground"
+                        android:textSize="@dimen/font_body" >
+                        <tag android:id="@id/tag_typography_role" android:value="body" />
+                    </com.google.android.material.textview.MaterialTextView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/videoCapabilities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/videoCapabilitiesText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setting_video_capabilities"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/cloudStorage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setting_cloud_storage"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/linkRoute"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_16"
+                    android:text="@string/setting_link_route"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/linkRouteText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:singleLine="true"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body"
+                    tools:text="OpenDrive built-in" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/cache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_16"
+                    android:text="@string/setting_cache"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/cacheText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body"
+                    tools:text="1.0 MB" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
+                android:id="@+id/version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_16"
+                android:background="@drawable/shape_item"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_16"
+                    android:text="@string/setting_version"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/versionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="?attr/appOnBackground"
+                    android:textSize="@dimen/font_body"
+                    tools:text="1.2.1" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

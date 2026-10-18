@@ -1,0 +1,454 @@
+{
+  "sourceRevision": "d9b2ac1768fcf4592f02132ac885425ad18e6366",
+  "sourceTree": "a5cfa5873447f5f08c824d2c6eedfbec300a5aeb",
+  "verifiedAtUtc": "2026-10-18T14:40:26.831103+00:00",
+  "environment": {
+    "os": "Ubuntu Stonking Stingray (development branch)",
+    "architecture": "x86_64",
+    "java": "openjdk version \"21.0.12.1\" 2026-08-18",
+    "python": "3.14.8",
+    "gradle": "9.7.1",
+    "androidCompileSdk": 37,
+    "androidBuildTools": "36.0.0",
+    "kotlinPlugin": "2.4.10",
+    "osVersionId": "26.10",
+    "releaseType": "development"
+  },
+  "acceptance": "Incremental execution of the required manual gate task matrix: source provenance gates, unitAcceptanceBaseline, three release lint checks, and three optimized signed APK builds. Only the preparatory app:clean was omitted to reuse compilation outputs. The preceding 572d91c passed the unmodified full gate. No device operations.",
+  "junit": {
+    "executions": 8139,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 14
+  },
+  "junitSuites": [
+    {
+      "module": "app",
+      "task": "testLeanback_liteArm64_v8aVerificationUnitTest",
+      "executions": 1104,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "module": "app",
+      "task": "testMobileArmeabi_v7aVerificationUnitTest",
+      "executions": 1104,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "module": "app",
+      "task": "testLeanbackArm64_v8aVerificationUnitTest",
+      "executions": 1111,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "module": "app",
+      "task": "testMobileArm64_v8aVerificationUnitTest",
+      "executions": 1104,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "module": "app",
+      "task": "testLeanbackArmeabi_v7aVerificationUnitTest",
+      "executions": 1111,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "module": "app",
+      "task": "testLeanback_liteArmeabi_v7aVerificationUnitTest",
+      "executions": 1104,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "module": "catvod",
+      "task": "testDebugUnitTest",
+      "executions": 86,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "quickjs",
+      "task": "testDebugUnitTest",
+      "executions": 39,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "desktop",
+      "task": "test",
+      "executions": 325,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 7
+    },
+    {
+      "module": "guarded-catvod-host",
+      "task": "test",
+      "executions": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    {
+      "module": "libraries/base-core",
+      "task": "test",
+      "executions": 42,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/upnp-core",
+      "task": "test",
+      "executions": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/maccms-core",
+      "task": "test",
+      "executions": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/media-core",
+      "task": "test",
+      "executions": 59,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/cache-core",
+      "task": "test",
+      "executions": 29,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/js-runtime",
+      "task": "test",
+      "executions": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/guarded-runtime",
+      "task": "test",
+      "executions": 62,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/user-library-core",
+      "task": "test",
+      "executions": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/cloud-core",
+      "task": "test",
+      "executions": 78,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/catalog-core",
+      "task": "test",
+      "executions": 88,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/jvm-spider-runtime",
+      "task": "test",
+      "executions": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/cloud-login-runtime",
+      "task": "test",
+      "executions": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/live-core",
+      "task": "test",
+      "executions": 49,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/epg-core",
+      "task": "test",
+      "executions": 26,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/search-core",
+      "task": "test",
+      "executions": 37,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/text-core",
+      "task": "test",
+      "executions": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/source-core",
+      "task": "test",
+      "executions": 146,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/playback-core",
+      "task": "test",
+      "executions": 272,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/python-runtime",
+      "task": "test",
+      "executions": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "libraries/design-core",
+      "task": "test",
+      "executions": 35,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "lint": [
+    {
+      "variant": "mobileArm64_v8a",
+      "Fatal": 0,
+      "Error": 0,
+      "Warning": 501,
+      "Information": 0
+    },
+    {
+      "variant": "leanbackArm64_v8a",
+      "Fatal": 0,
+      "Error": 0,
+      "Warning": 499,
+      "Information": 0
+    },
+    {
+      "variant": "leanbackArmeabi_v7a",
+      "Fatal": 0,
+      "Error": 0,
+      "Warning": 499,
+      "Information": 0
+    }
+  ],
+  "artifacts": [
+    {
+      "variant": "mobileArm64_v8a",
+      "file": "mobile-arm64_v8a-20261018d9b2.apk",
+      "sha256": "7a89d8e07f89145ad0219f9800b6e3ca2180151252dea8db0a96b6e9670caa4d",
+      "bytes": 36073288,
+      "certificateSha256": "693d58ae3f2ec6cd2f43db00d044c294357411bf135dfad9a647dacfe88ce75c",
+      "package": "com.wuming.android.tv.publicedition",
+      "launcherLabel": "無名",
+      "removedRuntimeNamespacesAbsent": true,
+      "requiredNoticesPresent": [
+        "assets/third-party/PROVENANCE-NOTICE.txt",
+        "assets/third-party/Cling-LICENSE.txt",
+        "assets/third-party/Seamless-LICENSE.txt",
+        "assets/third-party/QuickJS-LICENSE.txt",
+        "assets/third-party/android-gif-drawable-LICENSE.txt",
+        "assets/third-party/librtmp-COPYING.txt",
+        "assets/third-party/ICU-76.1-LICENSE.txt",
+        "assets/third-party/GraalJS-THIRD-PARTY-LICENSES.txt",
+        "assets/third-party/jQuery-LICENSE.txt"
+      ],
+      "nativeLibraries": [
+        "libavif_android.so",
+        "libcrypto_python.so",
+        "libpl_droidsonroids_gif.so",
+        "libpython3.13.so",
+        "libpython3.so",
+        "libquickjs-android-wrapper.so",
+        "librtmp-jni.so",
+        "libsqlite3_python.so",
+        "libssl_python.so",
+        "libwuming_python.so"
+      ],
+      "clingPresent": true
+    },
+    {
+      "variant": "leanbackArm64_v8a",
+      "file": "leanback-arm64_v8a-20261018d9b2.apk",
+      "sha256": "3fb5e321306216baac52a4ead7ec27d8d40da1325d1ea0cc6f6609e83ddc1146",
+      "bytes": 36721060,
+      "certificateSha256": "693d58ae3f2ec6cd2f43db00d044c294357411bf135dfad9a647dacfe88ce75c",
+      "package": "com.wuming.android.tv.publicedition",
+      "launcherLabel": "無名",
+      "removedRuntimeNamespacesAbsent": true,
+      "requiredNoticesPresent": [
+        "assets/third-party/PROVENANCE-NOTICE.txt",
+        "assets/third-party/Cling-LICENSE.txt",
+        "assets/third-party/Seamless-LICENSE.txt",
+        "assets/third-party/QuickJS-LICENSE.txt",
+        "assets/third-party/android-gif-drawable-LICENSE.txt",
+        "assets/third-party/librtmp-COPYING.txt",
+        "assets/third-party/ICU-76.1-LICENSE.txt",
+        "assets/third-party/GraalJS-THIRD-PARTY-LICENSES.txt",
+        "assets/third-party/jQuery-LICENSE.txt"
+      ],
+      "nativeLibraries": [
+        "libavif_android.so",
+        "libcrypto_python.so",
+        "libpl_droidsonroids_gif.so",
+        "libpython3.13.so",
+        "libpython3.so",
+        "libquickjs-android-wrapper.so",
+        "librtmp-jni.so",
+        "libsqlite3_python.so",
+        "libssl_python.so",
+        "libwuming_python.so"
+      ],
+      "clingPresent": true
+    },
+    {
+      "variant": "leanbackArmeabi_v7a",
+      "file": "leanback-armeabi_v7a-20261018d9b2.apk",
+      "sha256": "0ad4361172a478f57f9d714fe0861d606e33fc7b682b7dd6d76b6900bd1b49e7",
+      "bytes": 32039132,
+      "certificateSha256": "693d58ae3f2ec6cd2f43db00d044c294357411bf135dfad9a647dacfe88ce75c",
+      "package": "com.wuming.android.tv.publicedition",
+      "launcherLabel": "無名",
+      "removedRuntimeNamespacesAbsent": true,
+      "requiredNoticesPresent": [
+        "assets/third-party/PROVENANCE-NOTICE.txt",
+        "assets/third-party/Cling-LICENSE.txt",
+        "assets/third-party/Seamless-LICENSE.txt",
+        "assets/third-party/QuickJS-LICENSE.txt",
+        "assets/third-party/android-gif-drawable-LICENSE.txt",
+        "assets/third-party/librtmp-COPYING.txt",
+        "assets/third-party/ICU-76.1-LICENSE.txt",
+        "assets/third-party/GraalJS-THIRD-PARTY-LICENSES.txt",
+        "assets/third-party/jQuery-LICENSE.txt"
+      ],
+      "nativeLibraries": [
+        "libavif_android.so",
+        "libcrypto_python.so",
+        "libpl_droidsonroids_gif.so",
+        "libpython3.13.so",
+        "libpython3.so",
+        "libquickjs-android-wrapper.so",
+        "librtmp-jni.so",
+        "libsqlite3_python.so",
+        "libssl_python.so",
+        "libwuming_python.so"
+      ],
+      "clingPresent": true
+    }
+  ],
+  "provenance": {
+    "knownGapsClosed": true,
+    "mavenRuntimeComponents": 237,
+    "javascriptRuntimePackages": 34,
+    "pythonPackages": 13,
+    "sourceBuiltVendorFiles": 567,
+    "reviewedBinaryArtifacts": 88,
+    "freshHistoryRequired": true
+  },
+  "deferred": [
+    "Real TV discovery, sending/receiving playback and callback compatibility",
+    "D-pad and actual-candidate device checks",
+    "Public repository/update channel configuration and publication"
+  ],
+  "limits": [
+    "Earlier phone playback evidence applies to its recorded verification build, not these optimized APKs.",
+    "Cling is an unmaintained upstream; local source patches and offline tests do not establish TV interoperability.",
+    "Full matching source and notices must accompany public binary distribution."
+  ],
+  "pythonUnitTests": {
+    "executions": 211,
+    "failures": 0
+  },
+  "artifactPrivacyChecks": "Known machine home/device markers absent, including nested APK ZIP contents.",
+  "runtimeInputFingerprintSha256": "a6624371500752e1287b6bc2ac14bd9a9d0d4a286f84ab99dfee71aa20cbef35",
+  "runtimeInputFingerprintRule": "SHA-256 of NUL-terminated git ls-tree -r -z records, excluding docs/, PUBLIC_PREPARATION.md and third_party/corresponding-source/.",
+  "sourcePrivacyScan": {
+    "sourceFilesScanned": 4070,
+    "archivesInspected": 11,
+    "nestedArchiveEntriesInspected": 1006,
+    "knownSensitiveMatches": 0,
+    "findings": []
+  },
+  "dexFixtureReproducibility": "Both synthetic DEX fixtures regenerated twice in isolated directories and matched their tracked bytes.",
+  "postValidationSourceChanges": {
+    "paths": [
+      "scripts/maintain.py",
+      "scripts/check-public-provenance.py",
+      "tests/test_release_artifact_matrix.py",
+      "third_party/package-assets/third-party/maven/org.bouncycastle__bcprov-jdk18on__1.79/bcprov-jdk18on-1.79.jar__org__bouncycastle__LICENSE.class",
+      "docs/",
+      "PUBLIC_PREPARATION.md"
+    ],
+    "description": "Documentation, a neutral maintenance example address, a stronger source-export gate and regression test, and tracking of an existing ignored Bouncy Castle notice. Application code, resources, dependencies, build configuration and packaged bytes are unchanged. Eight maintenance tests and five release-matrix tests passed. The restored notice bytes match all three validated APKs. Source provenance/privacy gates passed."
+  },
+  "applicationInputFingerprintSha256": "68f1bdecef392e60fc99a2b332f3f022f0a0c7e67fd97594f31e3855b9f14c94",
+  "applicationInputFingerprintRule": "SHA-256 of NUL-terminated git ls-tree -r -z records, excluding applicationInputFingerprintExcludedPaths prefixes. The separately recorded notice was already present in all three validated APKs before its Git tracking was repaired.",
+  "applicationInputFingerprintExcludedPaths": [
+    "docs/",
+    "PUBLIC_PREPARATION.md",
+    "third_party/corresponding-source/",
+    "scripts/maintain.py",
+    "scripts/check-public-provenance.py",
+    "tests/test_release_artifact_matrix.py",
+    "third_party/package-assets/third-party/maven/org.bouncycastle__bcprov-jdk18on__1.79/bcprov-jdk18on-1.79.jar__org__bouncycastle__LICENSE.class"
+  ],
+  "restoredTrackedNotice": {
+    "path": "third_party/package-assets/third-party/maven/org.bouncycastle__bcprov-jdk18on__1.79/bcprov-jdk18on-1.79.jar__org__bouncycastle__LICENSE.class",
+    "sha256": "f9e6b01128a66b9887432db0397034793bcb1667770990c27fd4fd04ffc0c12a",
+    "matchesAllThreeValidatedApks": true
+  }
+}

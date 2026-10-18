@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Checkbox Search Item -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/vs_5">
+
+        <CheckBox
+            android:id="@+id/oneSearchSource"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_dialog_main"
+            android:button="@null"
+            android:clickable="true"
+            android:drawableLeft="@drawable/selector_checkbox"
+            android:drawablePadding="@dimen/vs_10"
+            android:focusable="true"
+            android:padding="@dimen/vs_10"
+            android:text="@string/search_check_source"
+            android:textColor="?attr/dialogOnSurface"
+            android:textSize="@dimen/font_headline" >
+            <tag android:id="@id/tag_typography_role" android:value="headline" />
+        </CheckBox>
+    </LinearLayout>
+</FrameLayout>

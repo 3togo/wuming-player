@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "groups": [
+    {
+      "id": "persistence",
+      "mode": "all",
+      "ui": false,
+      "timeout_seconds": 300,
+      "tests": [
+        "com.wuming.android.tv.bean.BackupInstrumentedTest#portableRestorePreservesLocalCloudOwnershipAndAudit",
+        "com.wuming.android.tv.bean.BackupInstrumentedTest#backupJsonRoundTripRestoresEverySupportedTable",
+        "com.wuming.android.tv.bean.BackupInstrumentedTest#failedRestoreRollsBackDatabaseAndDoesNotApplyPreferences",
+        "com.wuming.android.tv.db.MigrationInstrumentedTest#everyExportedSchemaMigratesToCurrentVersion",
+        "com.wuming.android.tv.db.MigrationInstrumentedTest#cloudOwnershipSurvivesUpgradeToCurrentAndNewIndexesExist"
+      ]
+    },
+    {
+      "id": "adaptive-cache",
+      "mode": "all",
+      "ui": false,
+      "timeout_seconds": 90,
+      "tests": [
+        "com.wuming.android.tv.player.exo.AdaptiveCacheInstrumentedTest#playlistsRefreshWhileSegmentsAndExplicitDownloadsStayCached"
+      ]
+    },
+    {
+      "id": "recovery-export",
+      "mode": "all",
+      "ui": true,
+      "timeout_seconds": 120,
+      "tests": [
+        "com.wuming.android.tv.ui.RecoveryExportInstrumentedTest#unsupportedDatabaseAndWalExportWithoutChangingOriginals"
+      ]
+    },
+    {
+      "id": "artwork",
+      "mode": "all",
+      "ui": true,
+      "timeout_seconds": 120,
+      "tests": [
+        "com.wuming.android.tv.utils.ArtworkInstrumentedTest#localArtworkUsesLocalLoadersAndHttpKeepsHeaders"
+      ]
+    },
+    {
+      "id": "playback-diagnostics-fixture",
+      "mode": "all",
+      "ui": true,
+      "timeout_seconds": 120,
+      "tests": [
+        "com.wuming.android.tv.player.PlaybackDiagnosticsInstrumentedTest#loopbackStarvationAndPlayerResetRemainDistinct"
+      ]
+    }
+  ]
+}

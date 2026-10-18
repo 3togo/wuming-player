@@ -1,0 +1,129 @@
+[
+  {
+    "repository": "references/Box",
+    "role": "reference",
+    "before": "258a5fef61578869ae905ca230bdde9e99fc19a8",
+    "after": "258a5fef61578869ae905ca230bdde9e99fc19a8",
+    "dirty": false,
+    "outcome": "would-update"
+  },
+  {
+    "repository": "references/CatVodProviders",
+    "role": "reference",
+    "before": "ca5f128a6f61cff6d721706af799441417f582a0",
+    "after": "ca5f128a6f61cff6d721706af799441417f582a0",
+    "dirty": true,
+    "outcome": "skipped-dirty"
+  },
+  {
+    "repository": "references/CatVodSpider-PC",
+    "role": "reference",
+    "before": "4c235be304c9bc5a0cef8c8bbf621ca21d9aba7d",
+    "after": "4c235be304c9bc5a0cef8c8bbf621ca21d9aba7d",
+    "dirty": false,
+    "outcome": "would-update"
+  },
+  {
+    "repository": "references/FreeBox",
+    "role": "reference",
+    "before": "86ca1aa7a6c40f8867a7170d15b6acd79ab230d4",
+    "after": "86ca1aa7a6c40f8867a7170d15b6acd79ab230d4",
+    "dirty": false,
+    "outcome": "would-update"
+  },
+  {
+    "repository": "references/Ghosten-Player",
+    "role": "reference",
+    "before": "1f8b8e241720f6ead8cdc7874f64b893353efc7d",
+    "after": "1f8b8e241720f6ead8cdc7874f64b893353efc7d",
+    "dirty": false,
+    "outcome": "would-update"
+  },
+  {
+    "repository": "references/TV-Multiplatform",
+    "role": "reference",
+    "before": "46fe61a49ac06c0e0de7e69add8ccaba08b2f404",
+    "after": "46fe61a49ac06c0e0de7e69add8ccaba08b2f404",
+    "dirty": false,
+    "outcome": "would-update"
+  },
+  {
+    "repository": "references/TVSpider",
+    "role": "reference",
+    "before": "d740cb717859dae415d2f3d757147e62dce6a0ca",
+    "after": "d740cb717859dae415d2f3d757147e62dce6a0ca",
+    "dirty": false,
+    "outcome": "would-update"
+  },
+  {
+    "repository": "references/TV_FM",
+    "role": "reference",
+    "before": "4afc4473e22a7ed3d98ee12233e0c2a490061000",
+    "after": "4afc4473e22a7ed3d98ee12233e0c2a490061000",
+    "dirty": false,
+    "outcome": "would-update"
+  },
+  {
+    "repository": "references/TV_Spider",
+    "role": "reference",
+    "before": "8149b227586d2547817dceb647615a810d14bdc2",
+    "after": "8149b227586d2547817dceb647615a810d14bdc2",
+    "dirty": false,
+    "outcome": "would-update"
+  },
+  {
+    "repository": "references/Tv",
+    "role": "reference",
+    "before": "48055dd5cac2e465c35bd8ba260d94d959931251",
+    "after": "48055dd5cac2e465c35bd8ba260d94d959931251",
+    "dirty": false,
+    "outcome": "would-update"
+  },
+  {
+    "repository": "references/j4Uq",
+    "role": "reference",
+    "before": "b705cdcb7604594434b19c3e95f796a980af0445",
+    "after": "b705cdcb7604594434b19c3e95f796a980af0445",
+    "dirty": true,
+    "outcome": "skipped-dirty"
+  },
+  {
+    "repository": "references/q215613905",
+    "role": "reference",
+    "before": "ccc25f67ce35c6699529d493177c737be3ad4ba4",
+    "after": "ccc25f67ce35c6699529d493177c737be3ad4ba4",
+    "dirty": false,
+    "outcome": "would-update"
+  },
+  {
+    "repository": "references/tv-quark-app",
+    "role": "reference",
+    "before": "ac6b814258b194263651096f18aea759e9d5e003",
+    "after": "ac6b814258b194263651096f18aea759e9d5e003",
+    "dirty": false,
+    "outcome": "would-update"
+  },
+  {
+    "repository": "references/CatVodOpen",
+    "role": "reference",
+    "before": "417012839c5fb168826e959581240b9c42d4de79",
+    "after": "417012839c5fb168826e959581240b9c42d4de79",
+    "dirty": false,
+    "outcome": "would-update"
+  },
+  {
+    "repository": "references/winbox",
+    "role": "reference",
+    "before": "d090afc8bef2915f3b29cd92a7f1a8d0c9e06955",
+    "after": "d090afc8bef2915f3b29cd92a7f1a8d0c9e06955",
+    "dirty": false,
+    "outcome": "would-update"
+  },
+  {
+    "repository": "references/catvod-npm",
+    "role": "reference",
+    "kind": "npm",
+    "version": "1.5.7",
+    "outcome": "unchanged"
+  }
+]

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/vs_24"
+        android:paddingTop="@dimen/vs_24"
+        android:paddingBottom="@dimen/vs_16">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/keyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_danmaku_search_keyword"
+            android:hint="@string/search_keyword"
+            android:imeOptions="actionSearch"
+            android:inputType="textCapWords|textAutoCorrect|textAutoComplete"
+            android:maxLength="255"
+            android:singleLine="true"
+            android:textSize="@dimen/font_label" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/vs_16"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:indicatorColor="?attr/colorPrimary"
+        app:indicatorSize="@dimen/vs_32"
+        app:trackThickness="@dimen/vs_2"
+        tools:visibility="visible" />
+
+    <com.wuming.android.tv.ui.custom.CustomRecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/vs_24"
+        android:paddingEnd="@dimen/vs_24"
+        android:paddingBottom="@dimen/vs_24"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:maxHeight="@dimen/vs_204"
+        tools:listitem="@layout/adapter_danmaku"
+        tools:visibility="visible" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

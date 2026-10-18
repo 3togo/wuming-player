@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Leanback font size overrides: TV requires larger text for distance viewing -->
+    <dimen name="font_display">@dimen/ds_tv_display_text</dimen>
+    <dimen name="font_headline">@dimen/ds_tv_headline_text</dimen>
+    <dimen name="font_title">@dimen/ds_tv_title_text</dimen>
+    <dimen name="font_body">@dimen/ds_tv_body_text</dimen>
+    <dimen name="font_label">@dimen/ds_tv_label_text</dimen>
+    <dimen name="font_caption">@dimen/ds_tv_caption_text</dimen>
+</resources>

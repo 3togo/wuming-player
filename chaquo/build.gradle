@@ -1,0 +1,158 @@
+plugins {
+    id 'com.android.library'
+    id 'com.chaquo.python'
+}
+
+def buildPythonPath = rootProject.ext.wumingUserConfig.buildPython
+if (buildPythonPath && !new File(buildPythonPath).isAbsolute()) {
+    throw new GradleException('buildPython in user config must be an absolute path')
+}
+
+// Ensure Python 3.10 is available for Chaquopy builds.
+// If buildPython is not set or doesn't point to a valid Python 3.10,
+// run the ensure-python310.sh script to install one via pyenv.
+if (!buildPythonPath || !new File(buildPythonPath).exists()) {
+    def ensureScript = rootProject.file('scripts/build/ensure-python310.sh')
+    if (ensureScript.exists()) {
+        logger.lifecycle("Python 3.10 not found at '${buildPythonPath}'. Running ensure-python310.sh...")
+        def stdout = new ByteArrayOutputStream()
+        def result = exec {
+            commandLine 'bash', ensureScript.absolutePath, '--ci'
+            standardOutput stdout
+            errorOutput stdout
+            ignoreExitValue true
+        }
+        if (result.exitValue != 0) {
+            throw new GradleException(
+                "Python 3.10 is required for Chaquopy but could not be configured.\n" +
+                "Run 'bash scripts/build/ensure-python310.sh' manually to install it via pyenv.\n" +
+                "Output:\n${stdout.toString().trim()}"
+            )
+        }
+        // The setup script writes to the same user config as APK signing.
+        def updated = new groovy.json.JsonSlurper().parse(rootProject.ext.wumingUserConfigFile)
+        buildPythonPath = rootProject.ext.wumingExpandHomePath(updated.buildPython)
+    }
+}
+
+android {
+    namespace = 'com.wuming.chaquo'
+
+    compileSdk 37
+
+    defaultConfig {
+        minSdk 26
+        targetSdk 37
+        python {
+            version = "3.10"
+            if (buildPythonPath) {
+                buildPython buildPythonPath
+            }
+            pip {
+                install("-r", "requirements.txt")
+            }
+        }
+    }
+
+    flavorDimensions = ["abi"]
+
+    productFlavors {
+        arm64_v8a {
+            dimension "abi"
+            //noinspection ChromeOsAbiSupport
+            ndk { abiFilters "arm64-v8a" }
+        }
+        armeabi_v7a {
+            dimension "abi"
+            //noinspection ChromeOsAbiSupport
+            ndk { abiFilters "armeabi-v7a" }
+        }
+    }
+
+    sourceSets {
+        main {
+            python.srcDirs = ["src/main/python"]
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+// Fix race condition: Chaquopy's generatePythonMiscAssets task creates proguard-rules.pro
+// which mergeConsumerProguardFiles needs. With Gradle 9.x parallel execution, the merge
+// task can start resolving inputs before the generate task finishes writing the file.
+// Solution: create the proguard file eagerly so it always exists when the merge task runs.
+def proguardFile = file("${buildDir}/python/proguard-rules.pro")
+tasks.register('ensureChaquopyProguard') {
+    outputs.file(proguardFile)
+    doLast {
+        proguardFile.parentFile.mkdirs()
+        if (!proguardFile.exists()) {
+            proguardFile.text = """\
+# Ensure all classes and methods used by Cython code are left alone by minifyEnabled.
+-keep class com.chaquo.python.** { * ; }
+
+# See get_sam in class.pxi.
+-keep class kotlin.jvm.functions.** { * ; }
+-keep class kotlin.jvm.internal.FunctionBase { * ; }
+-keep class kotlin.reflect.KAnnotatedElement { *; }
+
+# TODO: https://github.com/chaquo/chaquopy/issues/842
+-dontwarn org.jetbrains.annotations.NotNull
+"""
+        }
+    }
+}
+
+afterEvaluate {
+    android.productFlavors.all { flavor ->
+        def flavorName = flavor.name.capitalize()
+        ["Debug", "Release"].each { buildType ->
+            // Consumer proguard file tasks
+            ["merge", "export"].each { prefix ->
+                def consumerTask = tasks.findByName("${prefix}${flavorName}${buildType}ConsumerProguardFiles")
+                if (consumerTask) {
+                    consumerTask.dependsOn 'ensureChaquopyProguard'
+                }
+            }
+            // Lint model tasks (also consume proguard files in Gradle 9.x)
+            def lintModelTask = tasks.findByName("generate${flavorName}${buildType}LintModel")
+            if (lintModelTask) {
+                lintModelTask.dependsOn 'ensureChaquopyProguard'
+            }
+            // Lint report model tasks (also consume proguard files in Gradle 9.x)
+            def lintReportModelTask = tasks.findByName("generate${flavorName}${buildType}LintReportModel")
+            if (lintReportModelTask) {
+                lintReportModelTask.dependsOn 'ensureChaquopyProguard'
+            }
+            // Lint analysis tasks (also consume proguard files in Gradle 9.x)
+            def lintAnalyzeTask = tasks.findByName("lintAnalyze${flavorName}${buildType}")
+            if (lintAnalyzeTask) {
+                lintAnalyzeTask.dependsOn 'ensureChaquopyProguard'
+            }
+            // Lint vital model tasks for release builds (also consume proguard files in Gradle 9.x)
+            if (buildType == "Release") {
+                def lintVitalModelTask = tasks.findByName("generate${flavorName}ReleaseLintVitalModel")
+                if (lintVitalModelTask) {
+                    lintVitalModelTask.dependsOn 'ensureChaquopyProguard'
+                }
+                def lintVitalTask = tasks.findByName("lintVitalAnalyze${flavorName}Release")
+                if (lintVitalTask) {
+                    lintVitalTask.dependsOn 'ensureChaquopyProguard'
+                }
+            }
+            // Chaquopy's generate task
+            def generateTask = tasks.findByName("generate${flavorName}${buildType}PythonMiscAssets")
+            if (generateTask) {
+                generateTask.dependsOn 'ensureChaquopyProguard'
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation project(':catvod')
+}

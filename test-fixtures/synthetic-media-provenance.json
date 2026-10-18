@@ -1,0 +1,233 @@
+{
+  "origin": "Project-generated mathematical test patterns and tones; no third-party media inputs",
+  "license": "GPL-3.0 under root project license",
+  "recipe": "scripts/generate-synthetic-media.py",
+  "ffmpeg": "ffmpeg version 8.1.2-2ubuntu2 Copyright (c) 2000-2026 the FFmpeg developers",
+  "artifacts": [
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/avc.mp4",
+      "sha256": "411a935c15375ecd82057f47ed771e6d6ad741c2d9be8724e4aa3acada7afa17",
+      "videoEncoder": "libx264",
+      "width": 320,
+      "height": 180,
+      "fps": 15,
+      "profile": "Constrained Baseline",
+      "durationSeconds": 15,
+      "audioSampleRate": 44100,
+      "audio": "440 Hz sine / AAC"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hevc.mp4",
+      "sha256": "6e7fe83b92d684dbba66392de90dc865b1879e49abf1ce3201652251968b13ab",
+      "videoEncoder": "libx265",
+      "width": 320,
+      "height": 180,
+      "fps": 15,
+      "profile": "Main",
+      "durationSeconds": 15,
+      "audioSampleRate": 44100,
+      "audio": "440 Hz sine / AAC"
+    },
+    {
+      "path": "app/src/androidTest/assets/cloud-smoke.mp4",
+      "sha256": "45ab6fb22839eaf2bfec88c5297a11a94836b3ac3d6cfc60a843a7508597c430",
+      "videoEncoder": "libx264",
+      "width": 160,
+      "height": 90,
+      "fps": 24,
+      "profile": "Constrained Baseline",
+      "durationSeconds": 5,
+      "audioSampleRate": null,
+      "audio": "none"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/reset.mp4",
+      "sha256": "52436a96be2a3728c169fbd3502e8dec6b2546391fac76d7b27e7baf8d1215ac",
+      "videoEncoder": "libx264",
+      "width": 640,
+      "height": 360,
+      "fps": 25,
+      "profile": "Constrained Baseline",
+      "durationSeconds": 6,
+      "audioSampleRate": null,
+      "audio": "none"
+    }
+  ],
+  "retainedSegmentedFixtures": [
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00001.m4s",
+      "sha256": "61a619a28bcfda05693fa4f301d6f67de09a4616951ea0ac18c4489de16c3f37",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00002.m4s",
+      "sha256": "bb6a4b260e2e9915c5fbb26b6cf55fc60c53391beeea58281d78785beb01481b",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00003.m4s",
+      "sha256": "7d8b3cce14455a8b2b437e9d31a454b00c895929ab321e1c8433cc9072850ad7",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00004.m4s",
+      "sha256": "e036b4e79668d55a53ab4ff22e3324a68b97c1b44bccfca109330ffb1b0a6689",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00005.m4s",
+      "sha256": "6b8c10109e4561208166bbd56fbbb23527c22e155b4cd95ab414497214aacd33",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00006.m4s",
+      "sha256": "ccdb4895b1c60da057d685458ffa8bf07ab656d1847e207e6fec6b237b174e69",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00007.m4s",
+      "sha256": "7826769ed6b32db5a285de1c9f30f4daaf51661bceeb740816defd8febf71e60",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00008.m4s",
+      "sha256": "a8399059a4f24995aa89389f0e26b56727aa4b5bdbad57470e65ca7af643948d",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00001.m4s",
+      "sha256": "c2d0d82d70d577ee5fc9e67dae05640a0c24e7d7a2afc98ebd8551acb1fce6b5",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00002.m4s",
+      "sha256": "8c5e52263a4664b6e9b11fe2ed63d263ae6586639d2f0e4e025e7d925eebbc45",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00003.m4s",
+      "sha256": "4f384b1d474201718f8f1cfe2774773f2048c83972d727da65d42db662cfd1bd",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00004.m4s",
+      "sha256": "cd62c99f75db67a655a7992a0c317104ae102f191f0eb6e8ac9c8bcfb1794c87",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00005.m4s",
+      "sha256": "47c835bef88aee58ba0467161d38706b20a6bc5d338962a11579b8030ce63852",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00006.m4s",
+      "sha256": "fa2ee8f3dc4ad29869e120b9d03bb60874ad307922029da4dac5129c0f8293c9",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00007.m4s",
+      "sha256": "551444f2b71a290044dcc47aca54bcd78df2c8be523784133508a140c7f26d8e",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00008.m4s",
+      "sha256": "a34ac0e4fb68592ba5fa7efb9e0698927a15938ec0119413ffd2753306824eea",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-00.ts",
+      "sha256": "d6bdd03334caddfa0122a0df32fee46f476994c4e926485fb001d67b148f090a",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-01.ts",
+      "sha256": "fdaa5c610e73cabe26fa4a4b6b3579309745b51db1410306927c577b15fcb418",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-02.ts",
+      "sha256": "00313d652a9cf0eada693d31cee11c9f01566a6cb8b46f52ee71412b410da0cc",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-03.ts",
+      "sha256": "b1650d578ae93773041e4fb5e0075deecc09c524df716b1a3ab06f7111082a18",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-04.ts",
+      "sha256": "77057d29bcda73558da6898a93a31fe9842f32b6a9f1b6f2b5cec613fe2712a1",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-05.ts",
+      "sha256": "e82d9246b99243d1b4ca7b9d8bf14e58093c054cc4428355b447fd7b7f9ee912",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-06.ts",
+      "sha256": "fee14e7ef1d093444d4e3cc80e0cfd29f15463659d62afa101340b5a8e3179f3",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-07.ts",
+      "sha256": "8490acb3247eee5f3ac852d045341c10ff7812d3010112f05849af5e52e176d5",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/init-stream0.m4s",
+      "sha256": "871d39bae5b0d8497343a0d2f5c54f1b12104cf94c9898c0e23052c96a02e397",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/init-stream1.m4s",
+      "sha256": "d69221621ff676bc02a3f5fe5d33f094c9f311016dc3b0eb41fd1a59b611128c",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "app/src/androidTest/assets/cast-remux/segment-00.ts",
+      "sha256": "5317b08dbac9de1597e2888bf0064f5ba3bb80a9e11308b98036348a23bc703a",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "app/src/androidTest/assets/cast-remux/segment-01.ts",
+      "sha256": "b3297d8845df2f37e9fdf9f5543f1af537d01cf8713042620d71f3b74ffb02fc",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "app/src/androidTest/assets/cast-remux/segment-02.ts",
+      "sha256": "e9c6aa121cb290bdf76c96ffc3fb9519bf2c1a3fb82655973383a42854ae5be6",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/segment-00.ts",
+      "sha256": "b6f2e42a06d7cdfdd9db9d92f1592d2e93735972539e26fb24b02cbd6b5d3660",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/segment-01.ts",
+      "sha256": "b4e25e49af23b103f41ba48b62bf546201a643fba76c7480c3604876fc4d843d",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/segment-02.ts",
+      "sha256": "2600c125dc06ea566980356d8905cb73521dc3bd05b37946562592086b9d4507",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/segment-03.ts",
+      "sha256": "d4fcf9580b82cea2cde6cd0a29c60c431dfc2693fdbc5434ef2925508b40ce88",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/segment-04.ts",
+      "sha256": "b83d240f4f8c8b64e37becdfa4d94a992445e9ac885bb69c1fc07d9a28acd2fc",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/segment-05.ts",
+      "sha256": "1e53136c5af6852536c2bfbca6aad3ea18442fccb52999ba8b65f6a9369b59bf",
+      "origin": "Existing project-authored synthetic FFmpeg fixture; retained README recipe"
+    }
+  ]
+}

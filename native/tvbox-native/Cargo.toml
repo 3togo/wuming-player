@@ -1,0 +1,18 @@
+[package]
+name = "tvbox-native"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "tvbox_native"
+crate-type = ["cdylib"]
+
+[dependencies]
+jni = { version = "0.21", default-features = false }
+unicode-normalization = "0.1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+quick-xml = { version = "0.36", features = ["serialize"] }
+regex = "1"
+sha2 = "0.10"
+zip = { version = "2", default-features = false, features = ["deflate"] }

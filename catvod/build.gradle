@@ -1,0 +1,47 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    namespace = 'com.github.catvod.crawler'
+
+    compileSdk 37
+
+    defaultConfig {
+        minSdk 26
+        targetSdk 37
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled = true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation project(':libraries:text-core')
+    implementation project(':libraries:source-core')
+    coreLibraryDesugaring libs.desugar
+    api libs.androidx.annotation
+    api libs.androidx.preference
+    api libs.androidx.startup
+    api libs.sardine
+    api libs.gson
+    api libs.zxing.core
+    api libs.juniversalchardet
+    api libs.smbj
+    api libs.logger
+    api libs.okhttp
+    api libs.okhttp.dnsoverhttps
+    api libs.okhttp.logging
+    api(libs.guava) {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+        exclude group: 'org.checkerframework', module: 'checker-compat-qual'
+        exclude group: 'org.checkerframework', module: 'checker-qual'
+        exclude group: 'com.google.errorprone', module: 'error_prone_annotations'
+        exclude group: 'com.google.j2objc', module: 'j2objc-annotations'
+        exclude group: 'org.codehaus.mojo', module: 'animal-sniffer-annotations'
+    }
+    testImplementation libs.junit
+}

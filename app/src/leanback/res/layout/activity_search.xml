@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="horizontal"
+    android:padding="@dimen/vs_24">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/vs_24"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.wuming.android.tv.ui.custom.CustomMic
+                android:id="@+id/mic"
+                android:layout_width="@dimen/vs_36"
+                android:layout_height="@dimen/vs_36"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/vs_12"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusDown="@id/keyboard"
+                android:src="@drawable/ic_search_mic" />
+
+            <com.wuming.android.tv.ui.custom.CustomSearchView
+                android:id="@+id/keyword"
+                android:layout_width="@dimen/vs_0"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:hint="@string/search_keyword"
+                android:imeOptions="actionDone"
+                android:inputType="textCapWords|textAutoCorrect|textAutoComplete"
+                android:letterSpacing="0.02"
+                android:maxLength="255"
+                android:nextFocusDown="@id/keyboard"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textCursorDrawable="@drawable/shape_cursor"
+                android:textSize="@dimen/font_headline" >
+                <tag android:id="@id/tag_typography_role" android:value="headline" />
+            </com.wuming.android.tv.ui.custom.CustomSearchView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/strictSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/vs_12"
+                android:background="@drawable/selector_item_round"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusDown="@id/keyboard"
+                android:paddingHorizontal="@dimen/vs_12"
+                android:paddingVertical="@dimen/vs_8"
+                android:text="@string/search_strict_off"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_body" >
+                <tag android:id="@id/tag_typography_role" android:value="body" />
+            </com.google.android.material.textview.MaterialTextView>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/keyboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vs_16"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="7"
+            tools:itemCount="36"
+            tools:listitem="@layout/adapter_keyboard_text" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/recordLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/vs_16"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/vs_14"
+                    android:text="@string/search_record"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_headline" >
+                    <tag android:id="@id/tag_typography_role" android:value="headline" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recordRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/vs_neg6"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    tools:itemCount="6"
+                    tools:listitem="@layout/adapter_search_record" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/vs_14"
+                android:text="@string/search_hot"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_headline" >
+                <tag android:id="@id/tag_typography_role" android:value="headline" />
+            </com.google.android.material.textview.MaterialTextView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/wordRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/vs_neg6"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                tools:itemCount="10"
+                tools:listitem="@layout/adapter_search_word" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

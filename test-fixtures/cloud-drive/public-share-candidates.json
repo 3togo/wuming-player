@@ -1,0 +1,5 @@
+{
+  "checkedOn": null,
+  "note": "Provide disposable test shares using scripts/prepare-cloud-stream-fixtures.py; no account-owned shares are bundled.",
+  "shares": []
+}

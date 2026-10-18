@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFeatureSettings="tnum"
+        android:textColor="@color/grey_700"
+        android:textSize="@dimen/font_body"
+        tools:text="00:00:00" >
+        <tag android:id="@id/tag_typography_role" android:value="body" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <androidx.media3.ui.DefaultTimeBar
+        android:id="@+id/timeBar"
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vs_8"
+        android:layout_marginEnd="@dimen/vs_8"
+        android:layout_weight="1"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:nextFocusLeft="@id/timeBar"
+        android:nextFocusRight="@id/timeBar"
+        android:nextFocusUp="@id/next"
+        android:nextFocusDown="@id/timeBar"
+        app:buffered_color="@color/blue_200"
+        app:played_color="@color/blue_500"
+        app:scrubber_color="@color/blue_500"
+        app:unplayed_color="@color/grey_500" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFeatureSettings="tnum"
+        android:textColor="@color/grey_700"
+        android:textSize="@dimen/font_body"
+        tools:text="00:00:00" >
+        <tag android:id="@id/tag_typography_role" android:value="body" />
+    </com.google.android.material.textview.MaterialTextView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

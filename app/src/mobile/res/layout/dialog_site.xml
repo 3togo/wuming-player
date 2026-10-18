@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- RecyclerView for MobileSiteDialog - layout manager set programmatically so it can switch between list and grid modes -->
+<com.wuming.android.tv.ui.custom.CustomRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recycler"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:fadeScrollbars="false"
+    android:padding="@dimen/ds_space_large"
+    android:scrollbarStyle="outsideInset"
+    android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
+    android:scrollbarTrackVertical="@drawable/shape_scrollbar_track"
+    android:scrollbars="vertical"
+    app:maxHeight="@dimen/vs_328" />

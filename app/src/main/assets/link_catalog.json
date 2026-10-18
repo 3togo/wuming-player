@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "screenedAt": "2026-10-18",
+  "screening": {
+    "policy": "Only project-authored catalogs containing documented openly licensed samples",
+    "scope": "No general third-party VOD/live depots are bundled."
+  },
+  "groups": [
+    {
+      "name": "Open movie samples",
+      "kind": "live",
+      "entries": [
+        {
+          "name": "Blender open movie · CC BY 3.0",
+          "url": "assets://live/public_samples.m3u8",
+          "warehouse": false,
+          "protected": false
+        }
+      ]
+    }
+  ]
+}

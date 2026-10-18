@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setting_cloud_storage">Accounts &amp; cloud drives</string>
+    <string name="cloud_storage_title">Accounts &amp; cloud drives</string>
+    <string name="open_drive_login_description">Manage cloud drive and Bilibili logins. Encrypted backups include account credentials.</string>
+</resources>

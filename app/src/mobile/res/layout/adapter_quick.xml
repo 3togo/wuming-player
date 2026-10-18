@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/vs_8"
+    android:background="@drawable/shape_item"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_label"
+        tools:text="蜘蛛人" >
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/site"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vs_2"
+        android:singleLine="true"
+        android:textColor="@color/white_90"
+        android:textSize="@dimen/font_micro"
+        tools:text="泥巴"
+        tools:visibility="visible" >
+        <tag android:id="@id/tag_typography_role" android:value="micro" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/remark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vs_2"
+        android:singleLine="true"
+        android:textColor="@color/white_80"
+        android:textSize="@dimen/font_micro"
+        tools:text="1080p" >
+        <tag android:id="@id/tag_typography_role" android:value="micro" />
+    </com.google.android.material.textview.MaterialTextView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

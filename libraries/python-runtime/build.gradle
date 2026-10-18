@@ -1,0 +1,68 @@
+/*
+ * Python runtime implementation module.
+ *
+ * ARCHITECTURE — shared contract, separate implementation:
+ * This module implements the catalog runtime contract declared in
+ * `:libraries:catalog-core` (and `:libraries:cloud-core` where relevant). It holds
+ * ONLY the code unique to this runtime family. Any behavior that could be shared
+ * with another runtime family belongs in the shared contract module — never copied
+ * here. Each runtime family is its own module so a consumer pulls only its own
+ * heavy dependencies (GraalJS/QuickJS, native Python, CatVod/UnidBG, WebView/ADB,
+ * cloud). We prefer a shared contract + separate implementations over duplicating
+ * similar code across runtime modules.
+ */
+plugins {
+    id 'java-library'
+    alias(libs.plugins.kotlin.jvm)
+}
+
+group = 'com.wuming.tv'
+version = '0.1.0-SNAPSHOT'
+
+base {
+    archivesName = 'tvbox-python-runtime'
+}
+
+java {
+    withSourcesJar()
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+dependencies {
+    api project(':libraries:catalog-core')
+    implementation libs.gson
+
+    testImplementation libs.junit
+}
+
+sourceSets.main.resources.srcDir('src/main/python')
+
+tasks.named('check') {
+    dependsOn rootProject.tasks.named('verifyGenericLibraryBoundaries')
+}
+
+def pythonRuntime = rootProject.layout.buildDirectory.dir('python-native/linux')
+tasks.named('test') {
+    systemProperty 'wuming.python.runtime', pythonRuntime.get().asFile.absolutePath
+    inputs.dir(pythonRuntime)
+    doFirst {
+        if (!new File(pythonRuntime.get().asFile, 'runtime.json').isFile()) {
+            throw new GradleException('Build JNI test runtime first: ./gradlew-safe :libraries:python-runtime:prepareLinuxPython')
+        }
+    }
+}
+
+def preparePython = tasks.register('prepareLinuxPython', Exec) {
+    workingDir rootProject.projectDir
+    def venvPython = new File(System.getProperty('user.home'), 'venv/bin/python')
+    def python = venvPython.canExecute() ? venvPython.absolutePath : 'python3'
+    commandLine python, 'scripts/python-runtime/prepare.py', '--linux'
+    inputs.property('pythonInterpreter', python)
+    inputs.files(rootProject.fileTree('scripts/python-runtime') { exclude 'tests/**', '**/__pycache__/**' },
+            rootProject.fileTree('native/python-runtime'), fileTree('src/main/python') { exclude '**/__pycache__/**' })
+    outputs.dir(pythonRuntime)
+}
+tasks.named('test') { dependsOn preparePython }

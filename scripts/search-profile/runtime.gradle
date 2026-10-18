@@ -1,0 +1,15 @@
+gradle.projectsEvaluated {
+    def core = gradle.rootProject.project(':libraries:search-core')
+    core.tasks.register('writeSearchProfileRuntime') {
+        dependsOn 'testClasses'
+        doLast {
+            def test = core.tasks.named('test').get()
+            def output = new File(core.buildDir, 'reports/search-profile/runtime.json')
+            output.parentFile.mkdirs()
+            output.text = groovy.json.JsonOutput.toJson([
+                classpath: test.classpath.asPath,
+                javaHome: test.javaLauncher.get().metadata.installationPath.asFile.absolutePath
+            ])
+        }
+    }
+}

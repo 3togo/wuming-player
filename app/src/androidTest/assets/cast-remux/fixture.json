@@ -1,0 +1,21 @@
+{
+  "generator": "ffmpeg version 8.1.2-2ubuntu2 Copyright (c) 2000-2026 the FFmpeg developers",
+  "source": "Synthetic testsrc2 video and sine audio; no downloaded media",
+  "segments": [
+    {
+      "file": "segment-00.ts",
+      "bytes": 29704,
+      "sha256": "5317b08dbac9de1597e2888bf0064f5ba3bb80a9e11308b98036348a23bc703a"
+    },
+    {
+      "file": "segment-01.ts",
+      "bytes": 29704,
+      "sha256": "b3297d8845df2f37e9fdf9f5543f1af537d01cf8713042620d71f3b74ffb02fc"
+    },
+    {
+      "file": "segment-02.ts",
+      "bytes": 29516,
+      "sha256": "e9c6aa121cb290bdf76c96ffc3fb9519bf2c1a3fb82655973383a42854ae5be6"
+    }
+  ]
+}

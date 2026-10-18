@@ -1,0 +1,18 @@
+<resources>
+
+    <color name="primary">@color/light_blue_500</color>
+    <color name="primaryDark">@color/light_blue_700</color>
+    <color name="accent">@color/light_blue_500</color>
+    <color name="navigation_accent">@color/light_blue_500</color>
+    <color name="navigation_active_icon">#FF10232C</color>
+    <color name="indicator">#E6FFFFFF</color>
+    <color name="navigation_surface">#99000000</color>
+
+    <!-- Preserve the active wallpaper hue in night mode as well. -->
+    <color name="dialog_surface">@color/black_80</color>
+    <color name="dialog_surface_variant">@color/white_10</color>
+    <color name="dialog_on_surface">@color/white</color>
+    <color name="dialog_on_surface_variant">@color/white_80</color>
+    <color name="dialog_outline">@color/white_30</color>
+
+</resources>

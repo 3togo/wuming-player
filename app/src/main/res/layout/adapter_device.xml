@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/vs_8"
+    android:background="@drawable/shape_accent"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/vs_8">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/type"
+        android:layout_width="@dimen/vs_32"
+        android:layout_height="@dimen/vs_32"
+        android:contentDescription="@string/device_type"
+        android:importantForAccessibility="no"
+        android:scaleType="centerInside"
+        tools:src="@drawable/ic_cast_tv" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vs_8"
+        android:layout_marginEnd="@dimen/vs_8"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="@dimen/font_label"
+            tools:text="Google Chrome Cast" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/host"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vs_2"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="@dimen/font_micro"
+            tools:text="127.0.0.1" >
+            <tag android:id="@id/tag_typography_role" android:value="micro" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/capabilities"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:text="@string/renderer_capabilities"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.button.MaterialButton>
+</androidx.appcompat.widget.LinearLayoutCompat>

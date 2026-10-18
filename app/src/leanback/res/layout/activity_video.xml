@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wuming.android.tv.ui.custom.ProgressLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/progressLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/video"
+        android:layout_width="@dimen/vs_400"
+        android:layout_height="@dimen/vs_225"
+        android:layout_margin="@dimen/vs_24"
+        android:background="@color/black"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:foreground="@drawable/selector_video"
+        android:nextFocusLeft="@id/video"
+        android:nextFocusRight="@id/content"
+        android:nextFocusUp="@id/video">
+
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/exo"
+            style="@style/Player.Vod"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:surface_type="surface_view" />
+
+        <master.flame.danmaku.ui.widget.DanmakuView
+            android:id="@+id/danmaku"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <include
+            android:id="@+id/widget"
+            layout="@layout/view_widget_vod"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <include
+            android:id="@+id/control"
+            layout="@layout/view_control_vod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/progress"
+            layout="@layout/view_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/networkWarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_marginStart="@dimen/vs_12"
+            android:layout_marginTop="@dimen/vs_8"
+            android:background="@drawable/shape_network_warning"
+            android:paddingStart="@dimen/vs_8"
+            android:paddingTop="@dimen/vs_4"
+            android:paddingEnd="@dimen/vs_8"
+            android:paddingBottom="@dimen/vs_4"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_caption"
+            android:visibility="gone"
+            tools:text="Using roaming data"
+            tools:visibility="visible" >
+            <tag android:id="@id/tag_typography_role" android:value="caption" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/videoInfo"
+            style="@style/VideoOverlay.Info"
+            android:layout_gravity="top|start"
+            android:layout_marginStart="@dimen/vs_12"
+            android:layout_marginTop="@dimen/vs_20"
+            tools:text="1920x1080 | H264 | Hard | 1.2 MB/s"
+            tools:visibility="visible" >
+            <tag android:id="@id/tag_typography_role" android:value="caption" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/videoClock"
+            style="@style/VideoOverlay.Clock"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="@dimen/vs_20"
+            android:layout_marginEnd="@dimen/vs_12"
+            tools:text="09:20"
+            tools:visibility="visible" >
+            <tag android:id="@id/tag_typography_role" android:value="caption" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </FrameLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vs_24"
+        android:layout_marginEnd="@dimen/vs_24"
+        android:layout_toEndOf="@+id/video"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_headline"
+        tools:text="慶餘年第二季" >
+        <tag android:id="@id/tag_typography_role" android:value="headline" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/remark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_alignStart="@+id/name"
+        android:layout_marginTop="@dimen/vs_6"
+        android:layout_marginEnd="@dimen/vs_24"
+        android:singleLine="true"
+        android:textColor="@color/white_80"
+        android:textSize="@dimen/font_body"
+        tools:text="更新到第二季" >
+        <tag android:id="@id/tag_typography_role" android:value="body" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/row1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/remark"
+        android:layout_alignStart="@+id/remark"
+        android:layout_marginTop="@dimen/vs_6"
+        android:layout_marginEnd="@dimen/vs_24"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/site"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body"
+            tools:text="站溝：泥巴" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body"
+            tools:text="年份：2022" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body"
+            tools:text="地址：坰督" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body"
+            tools:text="類型：科幻" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/director"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/row1"
+        android:layout_alignStart="@+id/name"
+        android:layout_marginTop="@dimen/vs_6"
+        android:layout_marginEnd="@dimen/vs_24"
+        android:nextFocusDown="@id/actor"
+        android:singleLine="true"
+        android:textColor="@color/white_80"
+        android:textSize="@dimen/font_body"
+        tools:text="導演：FongMi" >
+        <tag android:id="@id/tag_typography_role" android:value="body" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/actor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/director"
+        android:layout_alignStart="@+id/name"
+        android:layout_marginTop="@dimen/vs_6"
+        android:layout_marginEnd="@dimen/vs_24"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:nextFocusDown="@id/content"
+        android:textColor="@color/white_80"
+        android:textSize="@dimen/font_body"
+        tools:text="演員：FongMi" >
+        <tag android:id="@id/tag_typography_role" android:value="body" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <com.wuming.android.tv.ui.custom.VisibleFocusLinearLayout
+        android:id="@+id/row2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/name"
+        android:layout_alignBottom="@+id/video"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vs_16"
+            android:background="@drawable/selector_item"
+            android:drawablePadding="@dimen/vs_6"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:nextFocusLeft="@id/video"
+            android:nextFocusUp="@id/actor"
+            android:singleLine="true"
+            android:text="@string/detail_desc"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body"
+            app:drawableStartCompat="@drawable/ic_detail_desc" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/keep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vs_16"
+            android:background="@drawable/selector_item"
+            android:drawablePadding="@dimen/vs_6"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:nextFocusUp="@id/actor"
+            android:singleLine="true"
+            android:text="@string/keep"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body"
+            app:drawableStartCompat="@drawable/ic_detail_keep_off" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/change1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_item"
+            android:drawablePadding="@dimen/vs_6"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:nextFocusUp="@id/actor"
+            android:singleLine="true"
+            android:text="@string/play_change"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body"
+            app:drawableStartCompat="@drawable/ic_detail_change" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bilibili_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/vs_16"
+            android:background="@drawable/selector_item"
+            android:drawablePadding="@dimen/vs_6"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:nextFocusUp="@id/actor"
+            android:singleLine="true"
+            android:text="@string/bilibili_login_action"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body"
+            android:visibility="gone"
+            app:drawableStartCompat="@drawable/ic_action_scan"
+            tools:visibility="visible" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </com.wuming.android.tv.ui.custom.VisibleFocusLinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/video"
+        android:overScrollMode="never">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/vs_8">
+
+            <com.wuming.android.tv.ui.custom.CustomHorizontalGridView
+                android:id="@+id/flag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/vs_16"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/vs_24"
+                android:paddingEnd="@dimen/vs_24"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <com.wuming.android.tv.ui.custom.CustomHorizontalGridView
+                android:id="@+id/quality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/vs_16"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/vs_24"
+                android:paddingEnd="@dimen/vs_24"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <com.wuming.android.tv.ui.custom.VisibleFocusLinearLayout
+                android:id="@+id/episode_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/vs_24"
+                android:layout_marginTop="@dimen/vs_16"
+                android:layout_marginEnd="@dimen/vs_12"
+                android:layout_marginBottom="@dimen/vs_16"
+                android:gravity="center_vertical"
+                android:visibility="gone">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_episode"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_body" >
+                    <tag android:id="@id/tag_typography_role" android:value="body" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/episode_reverse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/vs_8"
+                    android:background="@drawable/selector_item"
+                    android:drawableStart="@drawable/ic_action_reverse"
+                    android:drawablePadding="@dimen/vs_6"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center"
+                    android:padding="@dimen/vs_8"
+                    android:text="@string/play_reverse"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_label" >
+                    <tag android:id="@id/tag_typography_role" android:value="label" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <View
+                    android:layout_width="@dimen/vs_0"
+                    android:layout_height="@dimen/vs_0"
+                    android:layout_weight="1" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/episode_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_item"
+                    android:drawableStart="@drawable/ic_setting_ranking"
+                    android:drawablePadding="@dimen/vs_6"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center"
+                    android:padding="@dimen/vs_8"
+                    android:text="@string/video_score_action"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_label" >
+                    <tag android:id="@id/tag_typography_role" android:value="label" />
+                </com.google.android.material.textview.MaterialTextView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/episode_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/vs_8"
+                    android:background="@drawable/selector_item"
+                    android:drawableStart="@drawable/ic_action_more"
+                    android:drawablePadding="@dimen/vs_6"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center"
+                    android:padding="@dimen/vs_8"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_label" >
+                    <tag android:id="@id/tag_typography_role" android:value="label" />
+                </com.google.android.material.textview.MaterialTextView>
+
+            </com.wuming.android.tv.ui.custom.VisibleFocusLinearLayout>
+
+            <androidx.leanback.widget.HorizontalGridView
+                android:id="@+id/episode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/vs_16"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/vs_24"
+                android:paddingEnd="@dimen/vs_24"
+                android:visibility="gone" />
+
+            <com.wuming.android.tv.ui.custom.CustomHorizontalGridView
+                android:id="@+id/array"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/vs_16"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/vs_24"
+                android:paddingEnd="@dimen/vs_24"
+                android:visibility="gone" />
+
+            <androidx.leanback.widget.HorizontalGridView
+                android:id="@+id/part"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/vs_16"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/vs_24"
+                android:paddingEnd="@dimen/vs_24"
+                android:visibility="gone" />
+
+            <com.wuming.android.tv.ui.custom.CustomHorizontalGridView
+                android:id="@+id/quick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/vs_16"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/vs_24"
+                android:paddingEnd="@dimen/vs_24"
+                android:visibility="gone" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
+</com.wuming.android.tv.ui.custom.ProgressLayout>

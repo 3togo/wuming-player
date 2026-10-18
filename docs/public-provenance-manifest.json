@@ -1,0 +1,2919 @@
+{
+  "reviewedAt": "2026-10-18",
+  "artifacts": [
+    {
+      "path": "app/libs/dfm-release.aar",
+      "sha256": "c7e475270237109630db0b32e9b1b7f196b952b8f157a79daa76de63dc3449ac",
+      "origin": "DanmakuFlameMaster 0.9.25; matched public FongMi artifact; see public-third-party-inventory.json",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "app/src/androidTest/assets/cast-remux/segment-00.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "5317b08dbac9de1597e2888bf0064f5ba3bb80a9e11308b98036348a23bc703a"
+    },
+    {
+      "path": "app/src/androidTest/assets/cast-remux/segment-01.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "b3297d8845df2f37e9fdf9f5543f1af537d01cf8713042620d71f3b74ffb02fc"
+    },
+    {
+      "path": "app/src/androidTest/assets/cast-remux/segment-02.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "e9c6aa121cb290bdf76c96ffc3fb9519bf2c1a3fb82655973383a42854ae5be6"
+    },
+    {
+      "path": "app/src/androidTest/assets/cloud-smoke.mp4",
+      "sha256": "45ab6fb22839eaf2bfec88c5297a11a94836b3ac3d6cfc60a843a7508597c430",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/reset.mp4",
+      "sha256": "52436a96be2a3728c169fbd3502e8dec6b2546391fac76d7b27e7baf8d1215ac",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/segment-00.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "b6f2e42a06d7cdfdd9db9d92f1592d2e93735972539e26fb24b02cbd6b5d3660"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/segment-01.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "b4e25e49af23b103f41ba48b62bf546201a643fba76c7480c3604876fc4d843d"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/segment-02.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "2600c125dc06ea566980356d8905cb73521dc3bd05b37946562592086b9d4507"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/segment-03.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "d4fcf9580b82cea2cde6cd0a29c60c431dfc2693fdbc5434ef2925508b40ce88"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/segment-04.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "b83d240f4f8c8b64e37becdfa4d94a992445e9ac885bb69c1fc07d9a28acd2fc"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/segment-05.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "1e53136c5af6852536c2bfbca6aad3ea18442fccb52999ba8b65f6a9369b59bf"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-hdpi/ic_home_keep.png",
+      "sha256": "d7c6970fdbe706c587bab74456440e70135c8fd55f96b214c21b7fcce959a42f",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-hdpi/ic_home_live.png",
+      "sha256": "a7510d2fcaab7e8bd3154952824908b1ffe22e70fa52fbc90c64b029a5e9409c",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-hdpi/ic_home_push.png",
+      "sha256": "b9db152f2b7fd25bfaf3ddb447439de30dd5ec9fc762186215e349654200332e",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-hdpi/ic_home_search.png",
+      "sha256": "e678d18b13fde9a6bd57eb8199ebeb0fb5f917990891b83fec807e4fe1a044b4",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-hdpi/ic_home_setting.png",
+      "sha256": "80c071d73868ec12cb0b8ee7dd9cbeb7bdca08cf917486bde5eaf22dbd2c9b3f",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-hdpi/ic_home_vod.png",
+      "sha256": "e48df22476725c08aa0c07f2b262a24b912e6e61ac24e31da88ad03edff14a18",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-nodpi/wallpaper_1.webp",
+      "sha256": "ee28ede145110ed4b408c27d222f2687efbda7d6a0a86029e8798c7878ec7e49",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-nodpi/wallpaper_2.webp",
+      "sha256": "2058da9468c4b8d990a93d1d677bcd8ae8d55fcee050593b759f66a8e5b7bd98",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-nodpi/wallpaper_3.webp",
+      "sha256": "107503c8a3919c57e8b6fcea7ea788793b49de38d3100c1bd49209ea9ecd7270",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-nodpi/wallpaper_4.webp",
+      "sha256": "4d4210765911bd13aeaf8a88b907fd281a2937c56658c9d1448a5000a10f9c25",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-xhdpi/ic_home_keep.png",
+      "sha256": "0e37a1b002e936bca78c5574f14eff6aaa65a7d56cfda9f1bf2a37fb56b85a79",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-xhdpi/ic_home_live.png",
+      "sha256": "575ee8ea1549882d44eeffcba85e3d787e5e0ec6bd9afd9558fb9111218e5817",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-xhdpi/ic_home_push.png",
+      "sha256": "bee72f812958372ebf68fe086df49372e571f04210fd37d4f96206cb8000ce21",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-xhdpi/ic_home_search.png",
+      "sha256": "6aba58f5708a0e1ec93580173c061974fda7f78dac570ee7ebd38db6d4b24cca",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-xhdpi/ic_home_setting.png",
+      "sha256": "195304a6708098612c1e568568520212d1019c136a6579c4af5741c196087925",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-xhdpi/ic_home_vod.png",
+      "sha256": "da0177cfbc70574033de397857150ebd98ec44ea3a2546f0fe429e23c87725d0",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-xxhdpi/ic_home_keep.png",
+      "sha256": "7b81be0f9cd4526c19277420efd6e4d3c328862ad1884aa71c3d36643e1697d4",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-xxhdpi/ic_home_live.png",
+      "sha256": "c5ce8ea459a74d36b55f0ae2b99d98d2d6f2e7e8ca5d86b7caa21640c61e3ca7",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-xxhdpi/ic_home_push.png",
+      "sha256": "8c59389e090bea54e0fbf78f24cb7149d4889fc4fa6e4faf09400458d63e61be",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-xxhdpi/ic_home_search.png",
+      "sha256": "67b9d9b0cb197acc748f41d92adfa7c2d38d634702ba1ace829ff2d6da14f3b0",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-xxhdpi/ic_home_setting.png",
+      "sha256": "f6ad6d4820089a61454b0231394418a3136f6dd8c150d6684765fcc45fbaadec",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable-xxhdpi/ic_home_vod.png",
+      "sha256": "136b83e7c4e9b4b2fcff9658e67e8dfd3887658f5cf5b6b10491918490750c78",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_banner.png",
+      "sha256": "3d62439cdf505a1e5d6f43b211d9e87e041d99910256e0b46f3911fa7d6ab829",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/assets/favicon.ico",
+      "sha256": "4a3cb1a5ae48ab57a866bb7f2c508ecd4673a7ef908ec4166e213e8a9b6bccb1",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/ic_launcher-playstore.png",
+      "sha256": "92f0fa32527a3ff97da26be8c999245062c31c9dedf94b6ae242e91361d70217",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/artwork.webp",
+      "sha256": "82d67581f6360557a6239f5c9fca5139cfcd54823cab11670cc6fcb0df73dbfd",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/res/drawable-nodpi/ic_logo.webp",
+      "sha256": "c9714a4deb6587faa8cc4b7ae8f6975d1411797b4b6b1c095e923bc4206f526e",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/res/drawable/push_image.webp",
+      "sha256": "cd93ad06567a7d178fc378ec9b0390d7d9dc23401459972e602e1926d970069b",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/res/mipmap-hdpi/ic_launcher.webp",
+      "sha256": "0d7ee12c95fe256104a3be8864d6458a3a2ac5f1cbf4866b6e554548c32769c3",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/res/mipmap-hdpi/ic_launcher_round.webp",
+      "sha256": "48c548825468bf4952b46ce8d88677057638f4ee7ab760d3d4a7d5383fa38cde",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/res/mipmap-mdpi/ic_launcher.webp",
+      "sha256": "416a18d2d81d9a5725ae604769e0c12b228d124381654547b7de46d6f230bbf6",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/res/mipmap-mdpi/ic_launcher_round.webp",
+      "sha256": "e0eca35ebce4ac28ede042ddf29f113e61a893096524137049175414ccf32481",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/res/mipmap-xhdpi/ic_launcher.webp",
+      "sha256": "6537376e7c137fbb6bd7e38c036889ee5bfd2696e0ee322c2080e6016a51e20f",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp",
+      "sha256": "715c0bd8786f81a4dcbeb8cdfea014ff44971f961072e61ed32882180043c76f",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/res/mipmap-xxhdpi/ic_launcher.webp",
+      "sha256": "246a40355f87ef541fd187ba61837034f2470ee3e404ce53a182c5b69e0f27ba",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp",
+      "sha256": "6ab839401c1015d05c7c386af01a5ea862c70574c888e14a16ba534922d4f9d4",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp",
+      "sha256": "5652a9f64f1e2d5848b5ebb5d5373e566e562559d3751ccb5834090f19dc44e6",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp",
+      "sha256": "736f554b132db9ec7894c308a0819baa3d96b5f26f463712949793eebd12d546",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/mobile/res/drawable-nodpi/wallpaper_1.webp",
+      "sha256": "ee28ede145110ed4b408c27d222f2687efbda7d6a0a86029e8798c7878ec7e49",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/mobile/res/drawable-nodpi/wallpaper_2.webp",
+      "sha256": "2058da9468c4b8d990a93d1d677bcd8ae8d55fcee050593b759f66a8e5b7bd98",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/mobile/res/drawable-nodpi/wallpaper_3.webp",
+      "sha256": "107503c8a3919c57e8b6fcea7ea788793b49de38d3100c1bd49209ea9ecd7270",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "app/src/mobile/res/drawable-nodpi/wallpaper_4.webp",
+      "sha256": "4d4210765911bd13aeaf8a88b907fd281a2937c56658c9d1448a5000a10f9c25",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "desktop/src/test/resources/guarded/GmsProbe-dexed.jar",
+      "sha256": "3da9a427690d9c9b12dc5c3f06bbff002e5b2ce035c92215c389920aac67bffd",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "desktop/src/test/resources/guarded/WebViewProbe-dexed.jar",
+      "sha256": "33bf120bb56b470e92d88038e5681b778dd6af3fe687d88562a2a0f7809671c8",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.jar",
+      "sha256": "7a9ce74cff467ca1bf60a4fcd9f05185acceda4d0f382434d393e17864262c5d",
+      "origin": "Official Gradle 9.7.1 wrapper; published checksum verified",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/avc.mp4",
+      "sha256": "411a935c15375ecd82057f47ed771e6d6ad741c2d9be8724e4aa3acada7afa17",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00001.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "61a619a28bcfda05693fa4f301d6f67de09a4616951ea0ac18c4489de16c3f37"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00002.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "bb6a4b260e2e9915c5fbb26b6cf55fc60c53391beeea58281d78785beb01481b"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00003.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "7d8b3cce14455a8b2b437e9d31a454b00c895929ab321e1c8433cc9072850ad7"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00004.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "e036b4e79668d55a53ab4ff22e3324a68b97c1b44bccfca109330ffb1b0a6689"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00005.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "6b8c10109e4561208166bbd56fbbb23527c22e155b4cd95ab414497214aacd33"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00006.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "ccdb4895b1c60da057d685458ffa8bf07ab656d1847e207e6fec6b237b174e69"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00007.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "7826769ed6b32db5a285de1c9f30f4daaf51661bceeb740816defd8febf71e60"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream0-00008.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "a8399059a4f24995aa89389f0e26b56727aa4b5bdbad57470e65ca7af643948d"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00001.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "c2d0d82d70d577ee5fc9e67dae05640a0c24e7d7a2afc98ebd8551acb1fce6b5"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00002.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "8c5e52263a4664b6e9b11fe2ed63d263ae6586639d2f0e4e025e7d925eebbc45"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00003.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "4f384b1d474201718f8f1cfe2774773f2048c83972d727da65d42db662cfd1bd"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00004.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "cd62c99f75db67a655a7992a0c317104ae102f191f0eb6e8ac9c8bcfb1794c87"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00005.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "47c835bef88aee58ba0467161d38706b20a6bc5d338962a11579b8030ce63852"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00006.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "fa2ee8f3dc4ad29869e120b9d03bb60874ad307922029da4dac5129c0f8293c9"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00007.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "551444f2b71a290044dcc47aca54bcd78df2c8be523784133508a140c7f26d8e"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/chunk-stream1-00008.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "a34ac0e4fb68592ba5fa7efb9e0698927a15938ec0119413ffd2753306824eea"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hevc.mp4",
+      "sha256": "6e7fe83b92d684dbba66392de90dc865b1879e49abf1ce3201652251968b13ab",
+      "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
+      "license": "GPL-3.0"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-00.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "d6bdd03334caddfa0122a0df32fee46f476994c4e926485fb001d67b148f090a"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-01.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "fdaa5c610e73cabe26fa4a4b6b3579309745b51db1410306927c577b15fcb418"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-02.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "00313d652a9cf0eada693d31cee11c9f01566a6cb8b46f52ee71412b410da0cc"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-03.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "b1650d578ae93773041e4fb5e0075deecc09c524df716b1a3ab06f7111082a18"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-04.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "77057d29bcda73558da6898a93a31fe9842f32b6a9f1b6f2b5cec613fe2712a1"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-05.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "e82d9246b99243d1b4ca7b9d8bf14e58093c054cc4428355b447fd7b7f9ee912"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-06.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "fee14e7ef1d093444d4e3cc80e0cfd29f15463659d62afa101340b5a8e3179f3"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls-07.ts",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "8490acb3247eee5f3ac852d045341c10ff7812d3010112f05849af5e52e176d5"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/init-stream0.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "871d39bae5b0d8497343a0d2f5c54f1b12104cf94c9898c0e23052c96a02e397"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/init-stream1.m4s",
+      "origin": "Project-authored synthetic FFmpeg fixture; retained README recipe, fixture metadata and test-fixtures/synthetic-media-provenance.json",
+      "license": "GPL-3.0",
+      "sha256": "d69221621ff676bc02a3f5fe5d33f094c9f311016dc3b0eb41fd1a59b611128c"
+    },
+    {
+      "path": "third_party/corresponding-source/juniversalchardet-2.5.0-sources.jar",
+      "sha256": "d7a88c2b8b420b5d3e4b90f6896196a6767db5ede18bd6f500a0b44357669857",
+      "origin": "https://repo.maven.apache.org/maven2/com/github/albfernandez/juniversalchardet/2.5.0/juniversalchardet-2.5.0-sources.jar",
+      "license": "LGPL-2.1-or-later"
+    },
+    {
+      "path": "third_party/corresponding-source/rhino-1.8.1-sources.jar",
+      "sha256": "2303a0e5aa222faae0b95865c25442da89ec14c0fc81ac1608f2a6095e3d2459",
+      "origin": "https://repo.maven.apache.org/maven2/org/mozilla/rhino/1.8.1/rhino-1.8.1-sources.jar",
+      "license": "MPL-2.0"
+    },
+    {
+      "path": "third_party/corresponding-source/rhino-engine-1.8.1-sources.jar",
+      "sha256": "c3316bdfd713c92d2688ea921b5cc7568a5a879ecd395847559407862fce5089",
+      "origin": "https://repo.maven.apache.org/maven2/org/mozilla/rhino-engine/1.8.1/rhino-engine-1.8.1-sources.jar",
+      "license": "MPL-2.0"
+    }
+  ],
+  "supportingArtifacts": [
+    {
+      "path": "app/build.gradle",
+      "sha256": "08456d2726635173659e015e23dc55f2f36c201d2a8f5021046b5b04494798b7"
+    },
+    {
+      "path": "app/src/androidTest/assets/cast-remux/README.md",
+      "sha256": "1fad9b23bc7b0992d05623071ab6cf4e88cb383d337f9a702e963f2e15885035"
+    },
+    {
+      "path": "app/src/androidTest/assets/cast-remux/fixture.json",
+      "sha256": "fe39b18451c7f8f20fe0e929f904199e3d1a96208d3cab5f5e4f01648afb8e62"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/README.md",
+      "sha256": "f0973208d48d07ffb19772455c3a05410ec594fa7720fcc633ec4cd995bf5629"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/SHA256SUMS",
+      "sha256": "04b72153a6300d3ec27feb24354d8f015539698ed3c5394a5b77be819529edbb"
+    },
+    {
+      "path": "app/src/androidTest/assets/playback-diagnostics/fixture.m3u8",
+      "sha256": "74bb9e3cd1986e1fdc7b09255dc6afd5089f6fcb25106552d1f595c331772de4"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_action_choose.xml",
+      "sha256": "20322054a2ff41e609d7c8c044b4b5ba0ef1b66f5c38e3bc5630457a2dd80ab1"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_action_more.xml",
+      "sha256": "9a623a4b06d09262314a7741ba3b6561ad3fcb482fe9faae2f94a4e15f7f6abc"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_action_reverse.xml",
+      "sha256": "9283e18e76ccfc9165684664f52b2d3a843d2f85f39ea6b8653f3e4c419a717b"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_action_subtitle.xml",
+      "sha256": "b378d306e80560427460278d4a1074488e3d1c38ce5f6e47915b7aae5d0a5771"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_danmaku_setting.xml",
+      "sha256": "6c79298c8a0a1a22ff59631a1e51fa211e3ae32cd6f8d60353df2b4a79e4649f"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_detail_change.xml",
+      "sha256": "1951a0dba77adeac0c27da4b1b0ebfa554dfdeb61d3d4c45f3c28300e40cc084"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_detail_desc.xml",
+      "sha256": "368ec0556ddcb11450aea95aa928bc8b9082f6812f0d321f396e2c9368bc5c52"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_detail_keep_off.xml",
+      "sha256": "16cf91f5abe67eb9cbde47ebbda63e94214b8478b14004a5ed4c217d8e60b393"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_detail_keep_on.xml",
+      "sha256": "25bee02080dc84beea892e5992b2093557ce4abb3ef7cda9fd70a1db8a7a7f02"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_home_playlist.xml",
+      "sha256": "5b54fd4fd5b88eb2f28962896127f947d47898b80f6428d56d7cba4793a72a05"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_keyboard.xml",
+      "sha256": "c4087db945cff09ed85b8b85430181bd18aea1b8ac1816f8d7b5da8796443283"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_keyboard_back.xml",
+      "sha256": "acdc7aff9a2ccdfacea2a5a2c5a83a76749999248046d6363b9b1feeb8ca0b84"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_keyboard_left.xml",
+      "sha256": "acdc7aff9a2ccdfacea2a5a2c5a83a76749999248046d6363b9b1feeb8ca0b84"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_keyboard_remote.xml",
+      "sha256": "c4087db945cff09ed85b8b85430181bd18aea1b8ac1816f8d7b5da8796443283"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_keyboard_right.xml",
+      "sha256": "80ed93477a1f2c3bffcfffd587c9908b7db93813dee4c289baa2377707a6aff3"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_keyboard_search.xml",
+      "sha256": "76473e32225da6a4139339a3aecb3ac4386aafdc5cc15a4ffe1f77dc1e815b77"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_live_block.xml",
+      "sha256": "a4accdbfb743899dedf7a788c5581841e50e64fec05a48c98c7160e91ce94393"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_live_boot.xml",
+      "sha256": "b2a9c868ed5d67c80b395e27511d0b95fcba13046a13d8121f98d8754e00f28d"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_live_pass.xml",
+      "sha256": "d728c4fa58d9395f3c1a0d3fdc9f2b62e09d2bb7f6c954754d520dd1c7e93951"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_search_mic.xml",
+      "sha256": "6f84edb1d3daeb215bd2510826de9e5b88e0d426f072faada1da41107324b843"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_setting_delete.xml",
+      "sha256": "87056014dc7b2b9c361f2f16bba6593a7e0fae82b4898ae449a6c6493bccc423"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_site_cancel.xml",
+      "sha256": "5e8d59d8eaf7ba712a5363537eb135bf56f3650b24bd0210174290e173955f09"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_site_change.xml",
+      "sha256": "9283e18e76ccfc9165684664f52b2d3a843d2f85f39ea6b8653f3e4c419a717b"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_site_grid.xml",
+      "sha256": "7e5e70432ea705615438276db26cd98b7a996f3c73cb8729d066091ce429b10f"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_site_list.xml",
+      "sha256": "d9cd43ce607496bc7df2d5415e5fce6b5b9e46e860e517e56891d12c579c9382"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_site_search.xml",
+      "sha256": "76473e32225da6a4139339a3aecb3ac4386aafdc5cc15a4ffe1f77dc1e815b77"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_site_select.xml",
+      "sha256": "8bf88397a3bb0e989aa043398872bd2e9b42c340cf124cdf190fcfd8d61ee4c5"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_subtitle_down.xml",
+      "sha256": "6c79298c8a0a1a22ff59631a1e51fa211e3ae32cd6f8d60353df2b4a79e4649f"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_subtitle_large.xml",
+      "sha256": "6c79298c8a0a1a22ff59631a1e51fa211e3ae32cd6f8d60353df2b4a79e4649f"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_subtitle_reset.xml",
+      "sha256": "6c79298c8a0a1a22ff59631a1e51fa211e3ae32cd6f8d60353df2b4a79e4649f"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_subtitle_small.xml",
+      "sha256": "6c79298c8a0a1a22ff59631a1e51fa211e3ae32cd6f8d60353df2b4a79e4649f"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_subtitle_up.xml",
+      "sha256": "6c79298c8a0a1a22ff59631a1e51fa211e3ae32cd6f8d60353df2b4a79e4649f"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_vod_delete.xml",
+      "sha256": "3703b40626f57cde29851ae9f08ccdaa34e1977e66a9a9bc18b2a65c89002bfa"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_vod_filter_off.xml",
+      "sha256": "4b0fd60cde06716d65c8ebf67ad88646d99794bb4ce2ac7d9bd1356fa73872d9"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_vod_filter_on.xml",
+      "sha256": "e9815aa348003b9c07b915c33451c4c15956ece216d04ae2a70d276e46724611"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_widget_error.xml",
+      "sha256": "1efe9e55d5c72938f9efd3c56bb42f2fb28be450fa5cf9a836922f60fb02816f"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/ic_widget_play.xml",
+      "sha256": "9ba43b2f5f27672729424f305afffc97254b8a9aec74a721af2a0e7a923b85db"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/shape_search_checkall.xml",
+      "sha256": "04a1abca9354af6a452dd2eafd6c3eea0a282e3c017c2a85a1ef99cbc38759c9"
+    },
+    {
+      "path": "app/src/leanback/res/drawable/shape_search_clearall.xml",
+      "sha256": "73304c0857c8f5717ded90432b7f2c4d19c28c579379adf96df4c3062688b148"
+    },
+    {
+      "path": "app/src/main/assets/index.html",
+      "sha256": "5f2d18537b8d3d1a4a289e06b6590c167fe4bc768b1b6dcebd39ddb0603ed1ec"
+    },
+    {
+      "path": "app/src/main/assets/js/jquery.min.js",
+      "sha256": "fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a"
+    },
+    {
+      "path": "app/src/main/assets/js/script.js",
+      "sha256": "a760958df28eef358ca4a40a38df9d4a6a3cafdc617c4148e4a3d208d953407e"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_action_audio.xml",
+      "sha256": "84d2da8239e378c61be8b9945e17a2b178dd5a6929c5546cfb77c8e0c6098670"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_action_direct.xml",
+      "sha256": "d26e8a3fed6eeb8006df74a0808e3c9f08104d09c040ed5e8df0786093b2c38f"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_action_refresh.xml",
+      "sha256": "dc0bf2964edc0e30e0b565818069c8149d9bb7ff98f636fe3494b7aa1669b876"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_action_scan.xml",
+      "sha256": "5538ebe96e86220ff9bcfdbf4edfdb3b2b10e9dfda8cfd82642db1b86a9331e0"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_action_search.xml",
+      "sha256": "76473e32225da6a4139339a3aecb3ac4386aafdc5cc15a4ffe1f77dc1e815b77"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_cast_disconnect.xml",
+      "sha256": "e1321bff7591df125e9a4b76fa5e22c3cb7b0395b538773b000f2e5d0934fac2"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_cast_mobile.xml",
+      "sha256": "f1f58d00c6c3c95a25ffac17ac2ea5607f530d3636096ee9d40c2562875054e5"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_cast_tv.xml",
+      "sha256": "e1321bff7591df125e9a4b76fa5e22c3cb7b0395b538773b000f2e5d0934fac2"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_file.xml",
+      "sha256": "975819f93d8eae5319f576ca4607b5ca390c3ae6f073a419b9fed1122ea44e6b"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_folder.xml",
+      "sha256": "315ba96bd7b12f364908daaa38ca55eef6b6583055594aa99b4b0dc2cdc6242a"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_search_strict_off.xml",
+      "sha256": "76473e32225da6a4139339a3aecb3ac4386aafdc5cc15a4ffe1f77dc1e815b77"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_search_strict_on.xml",
+      "sha256": "0976f7c13af6d32d0187cf0f89abf5dccdba630e8cb29044b41991fceccc00a3"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_setting_default.xml",
+      "sha256": "04dd01745457a48bd5e4324e45866add340c697cd4af4a38bb9e7e8319c9a595"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_setting_history.xml",
+      "sha256": "04dd01745457a48bd5e4324e45866add340c697cd4af4a38bb9e7e8319c9a595"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_setting_home.xml",
+      "sha256": "04dd01745457a48bd5e4324e45866add340c697cd4af4a38bb9e7e8319c9a595"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_setting_ranking.xml",
+      "sha256": "ffeb33ba99bdb0bccd4443a08e3a8d86f2d2bde20cbf4ce7a1cb677df4743b0d"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_setting_refresh.xml",
+      "sha256": "04dd01745457a48bd5e4324e45866add340c697cd4af4a38bb9e7e8319c9a595"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_setting_speed.xml",
+      "sha256": "ffeb33ba99bdb0bccd4443a08e3a8d86f2d2bde20cbf4ce7a1cb677df4743b0d"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_sync_two.xml",
+      "sha256": "ced281bb3bad1afcd7b2d4f9b80b8e7f0cd76d4dbf07ac0fd0e38abbc0fd9adf"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_widget_forward.xml",
+      "sha256": "840abe54d9ea6c1ae472a11265edf02da840890dce006a54e4a9ee277740c752"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_widget_rewind.xml",
+      "sha256": "1eca759bee82300b937ce10942e1d006536000bef074aa8ff62c842686c432c1"
+    },
+    {
+      "path": "app/src/main/res/drawable/icon_alist.xml",
+      "sha256": "64f763de0daee4e5402a0fb899de6d5605b9718e466a03fb7a2bc63f50642b83"
+    },
+    {
+      "path": "app/src/main/res/drawable/icon_circle_node.xml",
+      "sha256": "a0465852f7c2fb51f0cf146445c9495411a1a4ad8fd1d30eff2d4b60c572e247"
+    },
+    {
+      "path": "app/src/main/res/drawable/icon_delete.xml",
+      "sha256": "ff5b8555835b34083e4c6be5b77d770f5274a16a390c27d523673fdd795b0ba3"
+    },
+    {
+      "path": "app/src/main/res/drawable/icon_drive.xml",
+      "sha256": "64f763de0daee4e5402a0fb899de6d5605b9718e466a03fb7a2bc63f50642b83"
+    },
+    {
+      "path": "app/src/main/res/drawable/icon_file.xml",
+      "sha256": "5913abac8084dc5ca3e9e7ef8710b91500864eddd7cbaf6299843e8c7dd0da43"
+    },
+    {
+      "path": "app/src/main/res/drawable/icon_film.xml",
+      "sha256": "c381b679f9672d65c5b052caeff0d606f34d908afc6a88848b521a5d36c4d895"
+    },
+    {
+      "path": "app/src/main/res/drawable/icon_folder.xml",
+      "sha256": "0679a742f979a0191df9e8af31ebbb8bf6a30095103dc5185035bc9b7a707875"
+    },
+    {
+      "path": "app/src/main/res/drawable/icon_sdcard.xml",
+      "sha256": "8fb16a7ebc812650a8c2487e3eb065199105c677833b6a961635071c0d5ebf32"
+    },
+    {
+      "path": "app/src/main/res/drawable/icon_setting.xml",
+      "sha256": "d30755abcd83a4a268d7f266461644e036a555c6790757cd07a508995b078e40"
+    },
+    {
+      "path": "app/src/main/res/drawable/shape_search_checkall.xml",
+      "sha256": "04a1abca9354af6a452dd2eafd6c3eea0a282e3c017c2a85a1ef99cbc38759c9"
+    },
+    {
+      "path": "app/src/main/res/drawable/shape_search_clearall.xml",
+      "sha256": "a677a053c9893789403e3adb2d0f462d5d865a9fc81ed136bedc005f7d524946"
+    },
+    {
+      "path": "app/src/main/res/raw/box_opening.json",
+      "sha256": "1a34f925c583622dc1e5f4c6d15b632eeb9099ab9f2b2eaac7e9afb504f068cb"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_action_choose.xml",
+      "sha256": "a922ee2b1102f7fd3bb19396a2ddc13495e6a0e82dc86b5ee6119a17659d84f9"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_action_delete.xml",
+      "sha256": "87056014dc7b2b9c361f2f16bba6593a7e0fae82b4898ae449a6c6493bccc423"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_action_filter.xml",
+      "sha256": "af695a887fa433aaa5441eba6778612180364cff1b60d5924b744edd5e6f4f06"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_action_history.xml",
+      "sha256": "8253fea6d56202504e3679075cd0a467523c759e8b3da225ea996190518e6ea8"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_action_keep.xml",
+      "sha256": "2a75ea1f9667480e9a5950bdcac2caec35bcc599b4dc69c07ff779e6a06917e8"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_action_more.xml",
+      "sha256": "9a623a4b06d09262314a7741ba3b6561ad3fcb482fe9faae2f94a4e15f7f6abc"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_action_reset.xml",
+      "sha256": "522cf112a3c0b3f001714a54cf3a76a5c0b876b7089eb66eee1446d4c749f685"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_action_reverse.xml",
+      "sha256": "9283e18e76ccfc9165684664f52b2d3a843d2f85f39ea6b8653f3e4c419a717b"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_action_site.xml",
+      "sha256": "464bc2862cbc25a7d1536c810c6779a1362c8e63818b56b737dfde9c4864d213"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_action_sort.xml",
+      "sha256": "4fa2b03279c886c3126d29613239d0cdf7772100c1c1c22df9e1fd2a11885b9c"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_action_subtitle.xml",
+      "sha256": "89770f641e88beaebddc5de615a069888923b86172901cc900e8b4dbf367c0fb"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_action_sync.xml",
+      "sha256": "9283e18e76ccfc9165684664f52b2d3a843d2f85f39ea6b8653f3e4c419a717b"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_control_back.xml",
+      "sha256": "acdc7aff9a2ccdfacea2a5a2c5a83a76749999248046d6363b9b1feeb8ca0b84"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_control_cast.xml",
+      "sha256": "70af1ad3afca705245c4d2ddc3ddab7f73bd27de33e74fda04c84fc8cf805797"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_control_cast_on.xml",
+      "sha256": "7f0219c0d7aca16e91e2e73cd8b0bac34a20cc44db75ff40324791f4f7286a18"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_control_danmaku_off.xml",
+      "sha256": "55a7c0f0f768433c8e39938694c1eee569fbda3248ca93fadeefa5829173de97"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_control_danmaku_on.xml",
+      "sha256": "bc84ddb723aa9d2f53f74c6bf023e68eb03b834c7f97445d08aa1d9e9bea3cfd"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_control_info.xml",
+      "sha256": "c7d9835ad21834d84f2ea88aced4b021bb7dc9f669c20ec9d8406b4e58953530"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_control_keep_off.xml",
+      "sha256": "2a75ea1f9667480e9a5950bdcac2caec35bcc599b4dc69c07ff779e6a06917e8"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_control_keep_on.xml",
+      "sha256": "88d8523bd9eb647cf89c3ef1629689ba1b1b1688623320209e7e7237dcc05c2a"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_control_lock_off.xml",
+      "sha256": "2a2ee8242e4311627deff36e6e9b4f059cf644d5f559d325b23ab1941fa598a9"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_control_lock_on.xml",
+      "sha256": "e81543757974340898ada8ca69473ab56a1984aca3f25d875b439cc023e2eb6c"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_control_rotate.xml",
+      "sha256": "522cf112a3c0b3f001714a54cf3a76a5c0b876b7089eb66eee1446d4c749f685"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_control_setting.xml",
+      "sha256": "04dd01745457a48bd5e4324e45866add340c697cd4af4a38bb9e7e8319c9a595"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_danmaku_setting.xml",
+      "sha256": "89770f641e88beaebddc5de615a069888923b86172901cc900e8b4dbf367c0fb"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_fab_filter.xml",
+      "sha256": "af695a887fa433aaa5441eba6778612180364cff1b60d5924b744edd5e6f4f06"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_fab_link.xml",
+      "sha256": "d84ecaf7d8647f2bcc2d52decca01c6ca4baa81b6bcae9dea43788998a1d47bc"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_fab_top.xml",
+      "sha256": "61408535bc580f314cdbe04d3217ab8c08590f633fea495220d9b5b1383bb1eb"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_live_block.xml",
+      "sha256": "c16692d7a7bcf73d376d5d52ec03ed1278ec446a432f5be72649c06d71705ae9"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_live_boot.xml",
+      "sha256": "e0cc91698a904213dc97997fc67f9a1e342e5023fa139f7dd5afe249f8ac68ec"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_live_pass.xml",
+      "sha256": "a922ee2b1102f7fd3bb19396a2ddc13495e6a0e82dc86b5ee6119a17659d84f9"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_nav_live.xml",
+      "sha256": "e3a4d268f4341e19589a14de3a93af0442382d9c1e846103ad17801c3432e3e6"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_nav_setting.xml",
+      "sha256": "aaac6ae2b4ae0992b03fea7c7386b55a67443fabfe6ae7e05153b902c4c022bb"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_nav_vod.xml",
+      "sha256": "cc460e5bb376272468ebf0a65598f8d085037948f6c006255eb3c56faa591129"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_setting_delete.xml",
+      "sha256": "62a819a37dfb237299de19940f9eb16a0a48ef58ef705e7bbe95394af3876f5a"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_site_block.xml",
+      "sha256": "c16692d7a7bcf73d376d5d52ec03ed1278ec446a432f5be72649c06d71705ae9"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_site_change.xml",
+      "sha256": "ced281bb3bad1afcd7b2d4f9b80b8e7f0cd76d4dbf07ac0fd0e38abbc0fd9adf"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_site_search.xml",
+      "sha256": "c88cd07a126e58ff7252f957945dcddd852fbf0353413c361bb82c4083c01115"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_subtitle_down.xml",
+      "sha256": "89770f641e88beaebddc5de615a069888923b86172901cc900e8b4dbf367c0fb"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_subtitle_large.xml",
+      "sha256": "89770f641e88beaebddc5de615a069888923b86172901cc900e8b4dbf367c0fb"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_subtitle_reset.xml",
+      "sha256": "89770f641e88beaebddc5de615a069888923b86172901cc900e8b4dbf367c0fb"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_subtitle_small.xml",
+      "sha256": "89770f641e88beaebddc5de615a069888923b86172901cc900e8b4dbf367c0fb"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_subtitle_up.xml",
+      "sha256": "89770f641e88beaebddc5de615a069888923b86172901cc900e8b4dbf367c0fb"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_sync_download.xml",
+      "sha256": "ced281bb3bad1afcd7b2d4f9b80b8e7f0cd76d4dbf07ac0fd0e38abbc0fd9adf"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_sync_upload.xml",
+      "sha256": "ced281bb3bad1afcd7b2d4f9b80b8e7f0cd76d4dbf07ac0fd0e38abbc0fd9adf"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_vod_delete.xml",
+      "sha256": "dca2f7f268fc05247440d8ac761d44e2d1254edc0e6a0ae61f9fd105c55cb1f2"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_widget_bright_high.xml",
+      "sha256": "755a3108d49cc23e320dd93a9649e044ecdc70d9d887a72cc1a403e507647491"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_widget_bright_low.xml",
+      "sha256": "755a3108d49cc23e320dd93a9649e044ecdc70d9d887a72cc1a403e507647491"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_widget_bright_medium.xml",
+      "sha256": "755a3108d49cc23e320dd93a9649e044ecdc70d9d887a72cc1a403e507647491"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_widget_volume_high.xml",
+      "sha256": "84d2da8239e378c61be8b9945e17a2b178dd5a6929c5546cfb77c8e0c6098670"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_widget_volume_low.xml",
+      "sha256": "84d2da8239e378c61be8b9945e17a2b178dd5a6929c5546cfb77c8e0c6098670"
+    },
+    {
+      "path": "app/src/mobile/res/drawable/ic_widget_volume_medium.xml",
+      "sha256": "84d2da8239e378c61be8b9945e17a2b178dd5a6929c5546cfb77c8e0c6098670"
+    },
+    {
+      "path": "artwork/branding/README.md",
+      "sha256": "24ce40fb1c30ada6d8588bcec72ac4bd1325cc873de7c6ce400e725822da338d"
+    },
+    {
+      "path": "artwork/branding/banner.svg",
+      "sha256": "c382f21f8ce481cdc58c7a92a7729007d98dafe8d36db2baebc6adbf261b23f0"
+    },
+    {
+      "path": "artwork/branding/empty-state-animation.json",
+      "sha256": "1a34f925c583622dc1e5f4c6d15b632eeb9099ab9f2b2eaac7e9afb504f068cb"
+    },
+    {
+      "path": "artwork/branding/foreground.svg",
+      "sha256": "eadfd9118ba6f89ab0bd1faff43b6d9685f9e3fc9788fed1dca153444e7ca4f9"
+    },
+    {
+      "path": "artwork/branding/home-keep.svg",
+      "sha256": "d839a0da999125f8dff40788091eb309247d2874185c5fff5a5b47719c086309"
+    },
+    {
+      "path": "artwork/branding/home-live.svg",
+      "sha256": "9c646c9055f9f354b04a28844e2a38dc45b9a9ba26ce6725cd5880f1455b8876"
+    },
+    {
+      "path": "artwork/branding/home-push.svg",
+      "sha256": "0d702aa6bbc763613f2b71b9ada0e8135070bc82b50860c2bcd6322cf4baa978"
+    },
+    {
+      "path": "artwork/branding/home-search.svg",
+      "sha256": "f244736e83da5d84d547dbed39c0d16a8c498c92cd7d4f4f681f5bc43274e1db"
+    },
+    {
+      "path": "artwork/branding/home-setting.svg",
+      "sha256": "c2279f91f8c125f9aea69270b2cb0a4bc5ff07bf6c98977efe47daf1c0ca972f"
+    },
+    {
+      "path": "artwork/branding/home-vod.svg",
+      "sha256": "5f6f2c7ba2430deac3be3e2dcc71b0a6d3b7983034d0def8b3826473fe56f4ba"
+    },
+    {
+      "path": "artwork/branding/launcher-round.svg",
+      "sha256": "981d8276641ed923372cdecb1f6aa4ed9c29fffe194a6f7536c3b85a7aa54e32"
+    },
+    {
+      "path": "artwork/branding/launcher.svg",
+      "sha256": "6fb7bd7810e9c30e0e5274e0dcface24460376a7751e3677e35f5459da2add5c"
+    },
+    {
+      "path": "artwork/branding/monochrome.svg",
+      "sha256": "e58aaf48d11a36bab48ad6b60fe01871222ac85f02566d2e2f9c92789b6db8ae"
+    },
+    {
+      "path": "artwork/branding/notification.svg",
+      "sha256": "0add2e9d21571401e34f64f725f9af1aa197cd4a52a360365c270e805ae57402"
+    },
+    {
+      "path": "artwork/branding/wallpaper-1.svg",
+      "sha256": "5577784210b1fc43739edb3ca8043ae24ef26fe2209c808987bd9215ff25c737"
+    },
+    {
+      "path": "artwork/branding/wallpaper-2.svg",
+      "sha256": "4e390845c99e3c979979e1533ba149d65f1972a90c66446c6afdce261f420241"
+    },
+    {
+      "path": "artwork/branding/wallpaper-3.svg",
+      "sha256": "490c66076fe00771c6efb57b24a68d314051e188061e56afa93290e1fb74fe45"
+    },
+    {
+      "path": "artwork/branding/wallpaper-4.svg",
+      "sha256": "59ee56f433a5a79a70cb9095d2abf85b62ff2d51e6c4da5cdf38baba692ba060"
+    },
+    {
+      "path": "artwork/ui-icons/README.md",
+      "sha256": "3d7fa3ce521c5d7b64e2a1a9602b16f7fa9abf8139e1478394f95f8a31fd15d7"
+    },
+    {
+      "path": "artwork/ui-icons/motifs.json",
+      "sha256": "70855f437c67389057080dab6ed1f7e3d07013479eb8b26c962b19bab95013f9"
+    },
+    {
+      "path": "artwork/ui-icons/resources.json",
+      "sha256": "d827a9fecf39e551c668b2eef88310d0830684fb9229c08dac7799d3d13f9cc4"
+    },
+    {
+      "path": "build.gradle",
+      "sha256": "ecc01d6aadc89099813a9e626e7fcf4a80c2230d1a75b398925f8f1eb9a1e9ff"
+    },
+    {
+      "path": "catvod/build.gradle",
+      "sha256": "c9daefd18a827740efe1b2d253d7c7e9359c2021f61fcc9ccc567d93829480f0"
+    },
+    {
+      "path": "chaquo/build.gradle",
+      "sha256": "0ce9b2b1a523b6f1e7d9da9ba589f6559ddfceed0262818d39e57d75164c2c30"
+    },
+    {
+      "path": "desktop/build.gradle",
+      "sha256": "9fda7d529db1b3ef75f477009d97942baae7b25c759ab0cd575e5f3504bfea91"
+    },
+    {
+      "path": "docs/public-maven-inventory.json",
+      "sha256": "654a07986419c336bbd1303d5e6f23096bbf9245d438abaa0562f00652315ae2"
+    },
+    {
+      "path": "docs/public-native-dependency-inventory.json",
+      "sha256": "8e77d3bf99773623d6d25f834e0a9fd511f9362081e927d10c21c1ea6ac2d861"
+    },
+    {
+      "path": "docs/public-python-inventory.json",
+      "sha256": "6e9ead8c6c8f8925c79cf0cde8058fd2afcd9776f219dc175f2eeb270c701d1f"
+    },
+    {
+      "path": "docs/public-web-artwork-inventory.json",
+      "sha256": "d5176f73a0d4178cde9f1fcbf2354dacf1b540999a3f3368739704f82dd2194d"
+    },
+    {
+      "path": "gradle/apk-signing.gradle",
+      "sha256": "5b4fc6d2862c3be194f0f8f9a5bf267b50368e30541179526248f17514d0d524"
+    },
+    {
+      "path": "gradle/libs.versions.toml",
+      "sha256": "e5b5673262e1d7951a17a0b07701fd40b4443982efeefc6c5f4c1b72cc45bb81"
+    },
+    {
+      "path": "gradle/public-provenance.gradle",
+      "sha256": "95d086ff88cc12806991bfd91b8a98d365be1c71a5b1aacc00f6630809be31ae"
+    },
+    {
+      "path": "gradle/rust-native.gradle",
+      "sha256": "4ab4e445657da5611e024c6668363995a0215750e29fee5d34d0248aa7ef75e8"
+    },
+    {
+      "path": "gradle/user-config.gradle",
+      "sha256": "e2da9165ac3f693859c2cf462bf3b42cdb935e8dcec917aa7701de83fcee368c"
+    },
+    {
+      "path": "guarded-catvod-host/build.gradle",
+      "sha256": "57cc502f21dcaafb3303701919e8d4f6c8427e2905d1f7ebd1df44e7a85630c9"
+    },
+    {
+      "path": "guarded-spider-helper/build.gradle",
+      "sha256": "414ee42b3317754ba29203903abf3c0be3eb84c5b0e550a3adbee2373bda4275"
+    },
+    {
+      "path": "guarded-webview-helper/build.gradle",
+      "sha256": "c21cf9652f23a3cdcb3ec61f38488570abaa6129032eaa7d4639f224015142e3"
+    },
+    {
+      "path": "libraries/base-core/build.gradle",
+      "sha256": "3c96c9259b2265bf44ff16fbed9a57d873723d921828ad9daa3515186f181772"
+    },
+    {
+      "path": "libraries/cache-core/build.gradle",
+      "sha256": "49f10d9184a04153dbd6c7f88af3f0d422ee6f21f7c86422bbe89d7061ed8fa3"
+    },
+    {
+      "path": "libraries/catalog-core/build.gradle",
+      "sha256": "272ba0681b556bbf4fdfc0373981337b4bf5abc400edbc68c7ad4326210885c9"
+    },
+    {
+      "path": "libraries/cloud-core/build.gradle",
+      "sha256": "e542f9969fcf21f6b3446af6d4af48a0534ebe2725f0e7a223dee342a5fd721c"
+    },
+    {
+      "path": "libraries/cloud-login-runtime/build.gradle",
+      "sha256": "73970b24833e8640f1cbdb72f2911b0e6588e0a3fb72d6ff0bed5684aa542afc"
+    },
+    {
+      "path": "libraries/design-core/build.gradle",
+      "sha256": "138320d65dd7833cf1a0d9c7ed3aab1b693b5595e1f722e95ebcec55b9deb215"
+    },
+    {
+      "path": "libraries/epg-core/build.gradle",
+      "sha256": "dbc78467c4d570e3131175f3ac23f8bb673d110bcfd79dcd6a7a109e4016cd4d"
+    },
+    {
+      "path": "libraries/guarded-runtime/build.gradle",
+      "sha256": "a586a322a7ffa9ebfea47b7714662a896ef922caf93fccec2e111f6821113e08"
+    },
+    {
+      "path": "libraries/js-runtime/build.gradle",
+      "sha256": "21d620af7f86eef491a4b237b559eab0f0a11a001069a0fab4be39f02dae270e"
+    },
+    {
+      "path": "libraries/js-runtime/src/main/resources/js/lib/similarity.js",
+      "sha256": "716433543a99e87a9e837067029cb4cb7f1faebc090d551cb61c20237142bc6b"
+    },
+    {
+      "path": "libraries/jvm-spider-runtime/build.gradle",
+      "sha256": "e4fa52a0eb6880785242b6c357c9956cc78a4332a1db8dcd77c72fa4004c9061"
+    },
+    {
+      "path": "libraries/live-core/build.gradle",
+      "sha256": "313f279816d3119de16a7954565e7f7fc8b4a5d9aa0dd9f1f24a0d6d840908a2"
+    },
+    {
+      "path": "libraries/maccms-core/build.gradle",
+      "sha256": "990144c3ed644392159826ad72851907d9059f6509de1ea64b792757017ded53"
+    },
+    {
+      "path": "libraries/media-core/build.gradle",
+      "sha256": "2a4af68b594fb05df09748ffd418b00971c549f7531883cc5a7b1df7234b4b9a"
+    },
+    {
+      "path": "libraries/playback-core/build.gradle",
+      "sha256": "9a19167baf9b4a64017725c3359afa851ec387d8bf571796154c59aacf9713e3"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/README.txt",
+      "sha256": "93d922c70bd4296e66454d6993783d902c75778d649bfa9f385868dab9179969"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/dash.mpd",
+      "sha256": "8897a4ff71e03b76e7a6cb6bfef08078af1d63629f58061190343bb16dbb6ed4"
+    },
+    {
+      "path": "libraries/playback-core/src/main/resources/renderer-probes/hls.m3u8",
+      "sha256": "346fd3e3966665d626007d449b348832ff2d4ee07818e5351a595c618cc7028d"
+    },
+    {
+      "path": "libraries/python-runtime/build.gradle",
+      "sha256": "0d7a37204d24852236b6e7a135e6260e73fde739948a95df9215f935a9bde60b"
+    },
+    {
+      "path": "libraries/search-core/build.gradle",
+      "sha256": "b708da1ce8131d645362867bc710a85fbc8f97e133e5ab545de18229fe29dcf7"
+    },
+    {
+      "path": "libraries/source-core/build.gradle",
+      "sha256": "7ac02f66002d99c485422b517df62f4ba0f1a4a876049a57606e124423adbd60"
+    },
+    {
+      "path": "libraries/text-core/build.gradle",
+      "sha256": "73065e8bbbe3d07af142d5ece99a699e06ac6c46d3253764f06b3beddf44a076"
+    },
+    {
+      "path": "libraries/upnp-core/build.gradle",
+      "sha256": "4ec5577ce368f3dbe800d7604520d408e94e323d6f470f06ccaa2fd83869df0d"
+    },
+    {
+      "path": "libraries/user-library-core/build.gradle",
+      "sha256": "879b32d79415ac66e3ded116644a8717c965e96bf54366821ebec6658e1d70aa"
+    },
+    {
+      "path": "native/Cargo.toml",
+      "sha256": "3e8c7948e5688276cb40ecfc8d38fa8ef181da432fd73174163117c574b29a6e"
+    },
+    {
+      "path": "native/tvbox-native/Cargo.toml",
+      "sha256": "8633e78944fc2da8eca66de39d55ab7ee17929ef688d52c773f515b87154029d"
+    },
+    {
+      "path": "quickjs/build.gradle",
+      "sha256": "0db53e50007ea51c3b6be77543f19c2c8b589da4948b7cc97f0cca8c9e5a8e49"
+    },
+    {
+      "path": "scripts/cast-profile/runtime.gradle",
+      "sha256": "a88175f9970e45189371144c7faef015e9a4b5bc40db8884121e11c72616f8f4"
+    },
+    {
+      "path": "scripts/danmaku-profile/runtime.gradle",
+      "sha256": "4d8a13050be28f3eace571d47f3e978134cc95d3946ab80359c15d81539cc8e8"
+    },
+    {
+      "path": "scripts/epg-profile/runtime.gradle",
+      "sha256": "03006f02ea98057b55beb2ba25bb8e6a74988022a90c96d7e320e001a1437d27"
+    },
+    {
+      "path": "scripts/generate-synthetic-media.py",
+      "sha256": "db18ea460b2e3560ca11a8a9e77e4327600bcb01c37245ebd6552e4383dbb67e"
+    },
+    {
+      "path": "scripts/generate-ui-artwork.py",
+      "sha256": "f3fbc3e63cfe25eb91efe428ea4e34c245556eb5a6cb99db316a69a220bcb6c3"
+    },
+    {
+      "path": "scripts/python-runtime/requirements.txt",
+      "sha256": "4bd0464eee6adb610f252f409054fdefc85f62373a14671261843e00b9e5e773"
+    },
+    {
+      "path": "scripts/python-runtime/sources.json",
+      "sha256": "e60965806a6cd4a34e8c472f0a81d416ec1457ee550d2dd2b6abf69a47531c08"
+    },
+    {
+      "path": "scripts/range-profile/runtime.gradle",
+      "sha256": "9386d88938ebb9ce02d90ec5b4c6232f91d41d2491649a9e2e8db0618d83c791"
+    },
+    {
+      "path": "scripts/search-profile/runtime.gradle",
+      "sha256": "e1e0d7948f724e22d2ee624f3a0e462bc3bb7ee1299ec1a1da83a2780f29befb"
+    },
+    {
+      "path": "settings.gradle",
+      "sha256": "eaba6989d8316ba983bfd654208300dc06a6c0d6d80a8178453fa098b095b25b"
+    },
+    {
+      "path": "test-fixtures/synthetic-media-provenance.json",
+      "sha256": "8666f9f8dd339ab8156a9c24c07b952efa3202ec8a60187833e40e1ab32f9654"
+    },
+    {
+      "path": "third_party/package-assets/third-party/Apache-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "third_party/package-assets/third-party/Cling-LICENSE.txt",
+      "sha256": "63a7627e7c499db7297dd99d540dc46ab7f14645a0d88ebe82a8d669c6d639e1"
+    },
+    {
+      "path": "third_party/package-assets/third-party/GPL-3.0.txt",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "path": "third_party/package-assets/third-party/GraalJS-THIRD-PARTY-LICENSES.txt",
+      "sha256": "772dcbfc6ca657d87c06c21a33af79d3edacf41c697e9051b5a298a82cc31aaa"
+    },
+    {
+      "path": "third_party/package-assets/third-party/ICU-76.1-LICENSE.txt",
+      "sha256": "01edac20612b1e590c1c1cfb02b7218c6adc7b0a944eda7a1e03aeee10725aed"
+    },
+    {
+      "path": "third_party/package-assets/third-party/MAVEN-SOURCE-NOTICES.txt",
+      "sha256": "22debfb5150977c5a6b31d089343a30e4d00b3b98ebc47a0b4710b4ebfe95fde"
+    },
+    {
+      "path": "third_party/package-assets/third-party/MPL-2.0.txt",
+      "sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85"
+    },
+    {
+      "path": "third_party/package-assets/third-party/NDK-libcxx-LICENSE.txt",
+      "sha256": "539dd7aed86e8a4f12cbdd0e6c50c189c7d74847e4fecc64ce2c6ee3a01da38b"
+    },
+    {
+      "path": "third_party/package-assets/third-party/PROVENANCE-NOTICE.txt",
+      "sha256": "eb817a290c8be79909b7b3e9ca13aa4af3a9c7253eab186578133db25221fdc2"
+    },
+    {
+      "path": "third_party/package-assets/third-party/QuickJS-LICENSE.txt",
+      "sha256": "598fd7fc928e4350abce36e337ba5a1346923c5c692f5be92c3d8e29ddd7c18d"
+    },
+    {
+      "path": "third_party/package-assets/third-party/Seamless-LICENSE.txt",
+      "sha256": "63a7627e7c499db7297dd99d540dc46ab7f14645a0d88ebe82a8d669c6d639e1"
+    },
+    {
+      "path": "third_party/package-assets/third-party/UPL-1.0.txt",
+      "sha256": "2f81e75033a0c872ab9725b36081e363f0c9e6c45585c35930edb66043fdc576"
+    },
+    {
+      "path": "third_party/package-assets/third-party/android-gif-drawable-LICENSE.txt",
+      "sha256": "2e85a5fe4d4e94775938fe38d8fbf7c0cd95dd4629a07dc5d0cb44fab7ab02e1"
+    },
+    {
+      "path": "third_party/package-assets/third-party/jQuery-LICENSE.txt",
+      "sha256": "d4db9ebe6f29f5168eac45ad713f055623ac5d0dcd5ba92da23d650ae012020d"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/@jsep-plugin__assignment-1.4.0/LICENSE",
+      "sha256": "4a4cffde4afd302689cd6aad9b05463a798d3dbe4cb2488bda45af1977affe33"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/@jsep-plugin__regex-1.1.0/LICENSE",
+      "sha256": "4a4cffde4afd302689cd6aad9b05463a798d3dbe4cb2488bda45af1977affe33"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/a-sync-waterfall-1.0.1/LICENSE",
+      "sha256": "8b483d5373ee747309528f4a3ef811e48b077ebd2984eaa49574fb03704e57c4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/asap-2.0.6/LICENSE.md",
+      "sha256": "e80373b1ed0f33cecc47173b4b0c6afe0d0318b32dbd84116a1a957e3f7f43a8"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/base64-js-1.5.1/LICENSE",
+      "sha256": "5b37224c080cdcc97c871ada971c224e9926370fe74f11b539aa1cf9f3b1aca1"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/boolbase-1.0.0/LICENSE",
+      "sha256": "cdf4d87ae0a6c160227263bf4e39a0a10e30e89ae7256e0f7ac7bde0836552c6"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/buffer-6.0.3/LICENSE",
+      "sha256": "06bafa45fdad2579ba0e43b0c9b2c6290287c99c4203c300254a462b38a307f6"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/cheerio-1.0.0-rc.12/LICENSE",
+      "sha256": "61c1e21d3a8ff20f9b69abe15104a75584688080febc22f60a4cbf3854becf4e"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/cheerio-select-2.1.0/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/commander-5.1.0/LICENSE",
+      "sha256": "04512a63dce4d2d506ad612dc0bd7681ccf6e3655f7b6eaef7dfac8323d1ec0b"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/crypto-js-4.2.0/LICENSE",
+      "sha256": "f729d14b7e1bf8adca0dcc38b93b929d14d53fcd5db56c3d1c9b2daa7aa69396"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/css-select-5.2.2/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/css-what-6.2.2/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/dayjs-1.11.13/LICENSE",
+      "sha256": "5faab7526d055651be3aab769d58897be6bd91f3d39d137f25f12dba1b31d5dc"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/dom-serializer-2.0.0/LICENSE",
+      "sha256": "94cfe87de9b178e8fee313a19178e625129e2ce559db32e772e7bd95114ee6ff"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/domelementtype-2.3.0/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/domhandler-5.0.3/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/domutils-3.2.2/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/entities-4.5.0/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/entities-6.0.1/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/htmlparser2-8.0.2/LICENSE",
+      "sha256": "204cfa747341660e4da64cd23e8c876c6b20279d247f48564993d3fc4a2eab47"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/iconv-lite-0.6.3/LICENSE",
+      "sha256": "ac779f7314c74f232ef847ea86e714abe25cf6eeb5cc97b69451b74e2af6492d"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/ieee754-1.2.1/LICENSE",
+      "sha256": "18d45466ba3253deae04667e267a91ea8de8548f18c1125264d1c9db28194cc1"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/inventory.json",
+      "sha256": "de50c9d1a95995cf10568e8c40a53f6786237d4f00e90048b39cfad438f9cab5"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/jsep-1.6.0/LICENSE",
+      "sha256": "4a4cffde4afd302689cd6aad9b05463a798d3dbe4cb2488bda45af1977affe33"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/jsonpath-plus-11.2.1/LICENSE",
+      "sha256": "f21ce68006d5bd12fef2f5463039783a50848f115d6e7287f04bb9d0fd0ed546"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/lodash-4.17.21/LICENSE",
+      "sha256": "f71e8ed126b46346494aad5486874cd8f0aafe95092ed67d2e3cb6110f939abc"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/nth-check-2.1.1/LICENSE",
+      "sha256": "cb992345949ccd6e8394b2cd6c465f7b897c864f845937dbf64e8997f389e164"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/nunjucks-3.2.4/LICENSE",
+      "sha256": "dd9bb6e4b0e4c48da23c049ac9fbe0f10be5d429cd6a603a60b425567187b341"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/parse5-7.3.0/LICENSE",
+      "sha256": "8c535800331e1e4439835555b3f9edc7fe9dee2fab0d8bbbd5a982e8b8343d4d"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/parse5-htmlparser2-tree-adapter-7.1.0/LICENSE",
+      "sha256": "8c535800331e1e4439835555b3f9edc7fe9dee2fab0d8bbbd5a982e8b8343d4d"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/safe-buffer-5.2.1/LICENSE",
+      "sha256": "c7cc929b57080f4b9d0c6cf57669f0463fc5b39906344dfc8d3bc43426b30eac"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/safer-buffer-2.1.2/LICENSE",
+      "sha256": "4bc935e71be198c67ddf3c2b5fddb195f6edc182bfc155a96a6db61b44b494b9"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/string_decoder-1.3.0/LICENSE",
+      "sha256": "11f2aafb37d06b3ee5bdaf06e9811141d0da05263c316f3d627f45c20d43261b"
+    },
+    {
+      "path": "third_party/package-assets/third-party/javascript/urijs-1.19.11/LICENSE.txt",
+      "sha256": "b5b3bf9d3cf72a31b84dac19028c818e980ac91c2f0384cbe210fd31b9585a5e"
+    },
+    {
+      "path": "third_party/package-assets/third-party/librtmp-COPYING.txt",
+      "sha256": "03fe7ca91cc28e99b4003d5b3bd4ce3b084d4c475fdf9975cf0e7fdf4dc739cd"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.activity__activity-ktx__1.5.1/publisher.pom",
+      "sha256": "1e42757df08041f30c6236cab48f2955286910deb4cf33a147fe2a01dc7395ec"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.activity__activity-ktx__1.8.0/publisher.pom",
+      "sha256": "c9439d18ecb1badf5900325979b2a6587a40bed4f074dab69cebd00cfae391b7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.activity__activity__1.5.1/publisher.pom",
+      "sha256": "d29ccdce46f4c71a01aee60baf832346286f381d9d11bcc73eebed5d1af72cdd"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.activity__activity__1.8.0/publisher.pom",
+      "sha256": "65131285f53cb042e8ffd189e705dafc9b8ae6d62435e8778ac9ab3b8e3f756f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.annotation__annotation-experimental__1.1.0/publisher.pom",
+      "sha256": "550a6601e1af47cf99501cc6cc15d1ebe9cef17b51e5dd58b6ab6c23568ef7a9"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.annotation__annotation-experimental__1.5.0/annotation-experimental-1.5.0.aar__META-INF__androidx__annotation__annotation-experimental__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.annotation__annotation-experimental__1.5.0/publisher.pom",
+      "sha256": "7a94595399931c25a49f9af93daa4e977dc2d375458e4e74bb8d35ebcb51848d"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.annotation__annotation-jvm__1.10.0/annotation-jvm-1.10.0.jar__META-INF__androidx__annotation__annotation__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.annotation__annotation-jvm__1.10.0/publisher.pom",
+      "sha256": "5eece0903b4810aa1da85414dc4c2746046d878a543aa12dd4f1fe74171f7506"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.annotation__annotation-jvm__1.9.1/annotation-jvm-1.9.1.jar__META-INF__androidx__annotation__annotation__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.annotation__annotation-jvm__1.9.1/publisher.pom",
+      "sha256": "89b99c218d60019316b50aab79816707bc21696c896a030e1b1ae038961bcb8e"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.annotation__annotation__1.10.0/publisher.pom",
+      "sha256": "880f7bf4b35d060746cbef319d4a052b4bd826bb71b40500e55319721ffa4e76"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.annotation__annotation__1.9.1/publisher.pom",
+      "sha256": "c733881c2e17d5f7c8661cc02a9159cb160b7b2094a27d593916c87d3e250636"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.appcompat__appcompat-resources__1.1.0/publisher.pom",
+      "sha256": "046011e16cb01b6f14842565661551110ef1b6427483f5d9068493f4c49690f2"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.appcompat__appcompat-resources__1.7.1/publisher.pom",
+      "sha256": "2faf922e8c3d706f29d862b3fbb3aa1347705c21c6eae18586d2bb1f7366ea01"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.appcompat__appcompat__1.1.0/publisher.pom",
+      "sha256": "340d617121f8ef8e02a6680c8f357aa3e542276d0c8a1cdcb6fd98984b2cb7b9"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.appcompat__appcompat__1.7.1/publisher.pom",
+      "sha256": "1f79910cc20de198acf3867b1e93f9ed59ddb643585b2e9c28ee55518af1bc00"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.arch.core__core-common__2.1.0/publisher.pom",
+      "sha256": "83bbb3960eaabc600ac366c94cb59414e441532a1d6aa9388b0b8bfface5cf01"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.arch.core__core-common__2.2.0/publisher.pom",
+      "sha256": "1e17d4af8d6425be2a69f8af4d654a87e0456259a9eef1542869bcb023547e28"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.arch.core__core-runtime__2.1.0/publisher.pom",
+      "sha256": "c0c4ed0160cd2ca18390015de8b392b697c173327c6b2c0947d4e62f6958c05d"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.arch.core__core-runtime__2.2.0/publisher.pom",
+      "sha256": "0f953706598140d9d8735cdd5aeb1fa35933f4e2f31c0bf3eb81a053a4c8c1a5"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.asynclayoutinflater__asynclayoutinflater__1.0.0/publisher.pom",
+      "sha256": "48167eeedc8da79c4d29deaf0d0cd9b5d8fedcae01f1a6efb3f28f08e8982f71"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.biometric__biometric__1.1.0/publisher.pom",
+      "sha256": "aeb69e76988f43b06c84fca25efab2e418bb98b5aabcd03fa7913bd3ed1bcaa9"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.cardview__cardview__1.0.0/publisher.pom",
+      "sha256": "e64ef4e08b58358fe27b599e6fe80a1b153db014c644beee630ab271061c3e6c"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.collection__collection-jvm__1.5.0/collection-jvm-1.5.0.jar__META-INF__androidx__collection__collection__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.collection__collection-jvm__1.5.0/publisher.pom",
+      "sha256": "11c415864d3402f61d426e67210158dce1b04680412526a994f1823ecd3cb388"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.collection__collection-ktx__1.1.0/publisher.pom",
+      "sha256": "721e76e74ee4158d3fe9759074b7eceed4ff7d84ed34a3faca5843fb874ac946"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.collection__collection-ktx__1.5.0/collection-ktx-1.5.0.jar__META-INF__androidx__collection__collection-ktx__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.collection__collection-ktx__1.5.0/publisher.pom",
+      "sha256": "983f8d0630d072d5bfcd166a498ac7213f3a44a98c09051004ce96429d867cea"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.collection__collection__1.1.0/publisher.pom",
+      "sha256": "67e9066ca4acfdc6e3cc508293c31ba0398057ff118e4f70b1e1813c9a3456d1"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.collection__collection__1.5.0/publisher.pom",
+      "sha256": "2d65c8d0b36d4b4faadc44aff9bade23d871d7159eedf2b3f02d802b34b77a57"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.concurrent__concurrent-futures__1.0.0/publisher.pom",
+      "sha256": "4505b9a5e30a9418b59a9ad6702c3e4193aea6e691a3d03cf220c7640ad083e2"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.concurrent__concurrent-futures__1.2.0/publisher.pom",
+      "sha256": "6be9a98d6cd75a787eeae2a1a0a3440ebe1ab4639740df9ec028094ab59b622f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.constraintlayout__constraintlayout-core__1.1.1/constraintlayout-core-1.1.1.jar__META-INF__androidx__constraintlayout__constraintlayout-core__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.constraintlayout__constraintlayout-core__1.1.1/publisher.pom",
+      "sha256": "d0e8276f39aa41ec1f24d357fd6ace2c76723ca0e0711ed6e884e686d6fc86e9"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.constraintlayout__constraintlayout__2.2.1/constraintlayout-2.2.1.aar__META-INF__androidx__constraintlayout__constraintlayout__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.constraintlayout__constraintlayout__2.2.1/publisher.pom",
+      "sha256": "ccccaa27e5658da4734f7e9cd345c1fc4d495bad49c0821279ddba0503dffb91"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.coordinatorlayout__coordinatorlayout__1.0.0/publisher.pom",
+      "sha256": "3e44e4de2fee6debc33d23626ee906e54e1bb3c1749b19e02bb667b614ab9392"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.coordinatorlayout__coordinatorlayout__1.1.0/publisher.pom",
+      "sha256": "a67c52c9ddfaff2ffb2fd4b97cd94fa382e837ea8a5874d029e0a04fa63e5caf"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.core__core-ktx__1.16.0/core-ktx-1.16.0.aar__META-INF__androidx__core__core-ktx__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.core__core-ktx__1.16.0/publisher.pom",
+      "sha256": "4660cfb606ed89828ba3e10f79b29809ffb677ee5d2346fe9bcb03dfc4b9b645"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.core__core-ktx__1.2.0/publisher.pom",
+      "sha256": "29eaddba4e6a35e68a128e594ebae3b72ef7e767f1b273ef93dc2ed019ff97f6"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.core__core-splashscreen__1.2.0/core-splashscreen-1.2.0.aar__META-INF__androidx__core__core-splashscreen__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.core__core-splashscreen__1.2.0/publisher.pom",
+      "sha256": "351c49fa60702a1635749dc1d24c6c02450af874fb67852cbdb0ade06beac66a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.core__core-viewtree__1.0.0/core-viewtree-1.0.0.aar__META-INF__androidx__core__core-viewtree__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.core__core-viewtree__1.0.0/publisher.pom",
+      "sha256": "d4f2ed1176fa8c5612b80f74c952a8799142a9ed36022a1a238fde5b140580d9"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.core__core__1.16.0/core-1.16.0.aar__META-INF__androidx__core__core__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.core__core__1.16.0/publisher.pom",
+      "sha256": "074974a1550221af7aa85ded6903c3d84c9bdedf9e6b4ff3b0cb471329b5ac77"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.core__core__1.8.0/publisher.pom",
+      "sha256": "79ecc797a5d200c4be3f6756d2cbb6fa46fe582192304377e8a6410f6066eb3e"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.cursoradapter__cursoradapter__1.0.0/publisher.pom",
+      "sha256": "62d95c89850af21030b19f14d5f7ecd6d8bcc9a3014c59002ec99624caac8100"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.customview__customview-poolingcontainer__1.0.0/publisher.pom",
+      "sha256": "9fa62196c4c4e79b6a58dbb38a8c022bef8db21989d7dae2da0f6f5b66289a9c"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.customview__customview__1.1.0/publisher.pom",
+      "sha256": "c814d435f73e9e6d169886d0eb96b5c5361feb48449fbbb315c908c03c588c94"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.customview__customview__1.2.0/customview-1.2.0.aar__META-INF__androidx__customview__customview__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.customview__customview__1.2.0/publisher.pom",
+      "sha256": "b12f9f315bfe9d9741eef558ec38efc472d8d88469d09897a02c6beb100c51f2"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.databinding__viewbinding__9.3.1/publisher.pom",
+      "sha256": "c9fcd7ff7161db3bd5a2f7083ea60c70cdc081d41cc359be60f1d6194ed35617"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.documentfile__documentfile__1.0.0/publisher.pom",
+      "sha256": "013288a9317a552706ce625fb24493e8223288529223ec578cf855a5ae9c16e5"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.drawerlayout__drawerlayout__1.0.0/publisher.pom",
+      "sha256": "da6733425a83f5ce850878fa7201082345fed7c668dd58550fdd19c0396c6fa4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.drawerlayout__drawerlayout__1.1.1/publisher.pom",
+      "sha256": "c12fa903ba53005962a72405f37896608718f41673fc4a62312e4536132f6f45"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.dynamicanimation__dynamicanimation__1.1.0/dynamicanimation-1.1.0.aar__META-INF__androidx__dynamicanimation__dynamicanimation__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.dynamicanimation__dynamicanimation__1.1.0/publisher.pom",
+      "sha256": "caecb7b379585d8e4070ebafae3974a137c6689de8077f9165935b3605784a93"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.emoji2__emoji2-views-helper__1.3.0/publisher.pom",
+      "sha256": "2673b0f5859d4361a4e9a30457852a6745d0c3c85b5e0412070483f3963ef526"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.emoji2__emoji2__1.3.0/publisher.pom",
+      "sha256": "14ebbea8234f013211965fdd08b42ee907ce0075af321018c8c2865c2e5db0eb"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.exifinterface__exifinterface__1.3.6/publisher.pom",
+      "sha256": "59cfe5bd98506c27617b778143eb09a6b986a5417a0b1b0fd8b875eaa8db4bab"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.fragment__fragment-ktx__1.3.6/publisher.pom",
+      "sha256": "9ab733bf4c9139749c5375949afcdb840e71d1daf53b31056141ccba05d793b4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.fragment__fragment__1.3.6/publisher.pom",
+      "sha256": "a470f6744cbf8ab09b477193030a0d27fd4938cf717b5b982f7e6a0ab6e85c55"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.fragment__fragment__1.5.4/publisher.pom",
+      "sha256": "f8ca1877c66e642c554907e1ce5a493a897ca29270cb19e2bb6d424ba43b6c98"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.graphics__graphics-shapes-android__1.0.1/graphics-shapes-release.aar__META-INF__androidx__graphics__graphics-shapes__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.graphics__graphics-shapes-android__1.0.1/publisher.pom",
+      "sha256": "81de7bcc8549084d104d5af33b120f93e10d45424a15a454cfa1f24304aa4d11"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.graphics__graphics-shapes__1.0.1/publisher.pom",
+      "sha256": "76b50ce664fa44a4b16542081e088991cf316ae6e723aa4cd01a62719f1a8a27"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.interpolator__interpolator__1.0.0/publisher.pom",
+      "sha256": "0ddc07cc39699f48ecd9ec894b5830c0f09e22e82959294edf37217224c88b7b"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.leanback__leanback-grid__1.0.0/leanback-grid-1.0.0.aar__META-INF__androidx__leanback__leanback-grid__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.leanback__leanback-grid__1.0.0/publisher.pom",
+      "sha256": "7471488be0407eb74afc53d49e3048fe1969cba3d642afb2b00d78d558e85fa0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.leanback__leanback__1.2.0/leanback-1.2.0.aar__META-INF__androidx__leanback__leanback__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.leanback__leanback__1.2.0/publisher.pom",
+      "sha256": "b630891c8288e923f3f36680664c573253e4bf1378dbd82cb36cd7efa63a326f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.legacy__legacy-support-core-ui__1.0.0/publisher.pom",
+      "sha256": "2baaf7f17551765524bd1e4d2f954a2a0178a112039cf549ba8b7d4b41e66931"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.legacy__legacy-support-core-utils__1.0.0/publisher.pom",
+      "sha256": "8fd093008b3ee7c06e52c78da2af980a7b47b69b967fa91dad7af466f7a00a38"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-common-jvm__2.11.0/lifecycle-common-jvm-2.11.0.jar__META-INF__androidx__lifecycle__lifecycle-common__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-common-jvm__2.11.0/publisher.pom",
+      "sha256": "421918e01dd8508b0c376207a9e98159ef77fed11eb1d9098294344ed67750c7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-common__2.11.0/publisher.pom",
+      "sha256": "12b70a2d44383f97624307c6d9a3ff86e82657bb8ec300b95541ba48173edbac"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-common__2.5.1/publisher.pom",
+      "sha256": "82d2192e3de9fdd7f45b9088e27315e7dbec02d094632faa6a39251690d28cc0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-livedata-core-ktx__2.11.0/lifecycle-livedata-core-ktx-2.11.0.aar__META-INF__androidx__lifecycle__lifecycle-livedata-core-ktx__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-livedata-core-ktx__2.11.0/publisher.pom",
+      "sha256": "cf5d8651182e43675968e4bff5b018a7b5d9ad75d777ded594ffc7c2d8c0948a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-livedata-core-ktx__2.3.1/publisher.pom",
+      "sha256": "7ebeaf900a52fee6c1f83a37c3d4bcf00bed096723be7c92b40977de4cab5aa1"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-livedata-core__2.11.0/lifecycle-livedata-core-2.11.0.aar__META-INF__androidx__lifecycle__lifecycle-livedata-core__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-livedata-core__2.11.0/publisher.pom",
+      "sha256": "bedbe8c2230f207c7b27c15a67fa85aff7df681b145a45fd4fd9d6ccedafb2d4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-livedata-core__2.5.1/publisher.pom",
+      "sha256": "642f0e95da3f386bb1d136ef8a11481dccd384c28a093d94b5c7bcdaa2efa5b3"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-livedata__2.0.0/publisher.pom",
+      "sha256": "a84842ffc0f14e518db75c05cc112680a8a4a164fa78395be32d88304a439423"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-livedata__2.11.0/lifecycle-livedata-2.11.0.aar__META-INF__androidx__lifecycle__lifecycle-livedata__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-livedata__2.11.0/publisher.pom",
+      "sha256": "ec47faea1d2f68625ac49ad260f5f5233d9b40da922253b57aa153d49b5f5ca8"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-process__2.11.0/lifecycle-process-2.11.0.aar__META-INF__androidx__lifecycle__lifecycle-process__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-process__2.11.0/publisher.pom",
+      "sha256": "63f3303cb0f0ece424fedaba55cd3984e44422e7dd5071debca4a4423216c420"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-runtime-android__2.11.0/lifecycle-runtime.aar__META-INF__androidx__lifecycle__lifecycle-runtime__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-runtime-android__2.11.0/publisher.pom",
+      "sha256": "1dfd1f739d71957166a0511a6fb2cbfc8da766c1840d5664063898ed6dac8aa6"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-runtime-ktx-android__2.11.0/lifecycle-runtime-ktx.aar__META-INF__androidx__lifecycle__lifecycle-runtime-ktx__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-runtime-ktx-android__2.11.0/publisher.pom",
+      "sha256": "a5e598838f5ce314cff3b7b5cd4ed53119ae7a307a51a9a519fef9f1fe95d57f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-runtime-ktx__2.11.0/publisher.pom",
+      "sha256": "8b8eb011e4a58873823406fb45220e50f39058fc9abfb2c0806735af65edf79a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-runtime-ktx__2.5.1/publisher.pom",
+      "sha256": "7b8839a6c083960acc134b5936bbd66b03b7945a50370c1fc8b077135ca35d20"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-runtime__2.11.0/publisher.pom",
+      "sha256": "c804e72f7795e17b44ab7e4be95ceb7fc22c19a07818e29f8a314ef43cf87769"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-runtime__2.5.1/publisher.pom",
+      "sha256": "6a390ba7ac02c9004a0a454efc27f925936cc26527e82bc62caafb4fcb0f0db2"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-service__2.11.0/lifecycle-service-2.11.0.aar__META-INF__androidx__lifecycle__lifecycle-service__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-service__2.11.0/publisher.pom",
+      "sha256": "ade67ab3ef85ba4a18f28a6eaf558c2128b01021cd0ca20c3999a566f1a29454"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-viewmodel-android__2.11.0/lifecycle-viewmodel.aar__META-INF__androidx__lifecycle__lifecycle-viewmodel__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-viewmodel-android__2.11.0/publisher.pom",
+      "sha256": "c6d78741c43ccf10d5da5f0e040dedfffda20b9748caa038dc58be25d35c90a3"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-viewmodel-ktx__2.11.0/lifecycle-viewmodel-ktx-2.11.0.aar__META-INF__androidx__lifecycle__lifecycle-viewmodel-ktx__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-viewmodel-ktx__2.11.0/publisher.pom",
+      "sha256": "98cee40062344063eef3f71f9d66032d69e6304ba0858561fc823d73c61b63b4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-viewmodel-ktx__2.5.1/publisher.pom",
+      "sha256": "96f7941d5147f6dc1ab123abf60c1ed0bf43e549ee61c984d2ed2ef2c6f9f062"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-viewmodel-savedstate-android__2.11.0/lifecycle-viewmodel-savedstate.aar__META-INF__androidx__lifecycle__lifecycle-viewmodel-savedstate__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-viewmodel-savedstate-android__2.11.0/publisher.pom",
+      "sha256": "658d326b66a0768ccd35df85c7487494569c63951e090c3a1b019b97bb8a0110"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-viewmodel-savedstate__2.11.0/publisher.pom",
+      "sha256": "48521feaf9d631743cb07c138e77c34f9f7f621804e7f4e9162a7fb5e28cd4ea"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-viewmodel-savedstate__2.5.1/publisher.pom",
+      "sha256": "3d77fa3b0e026d86b723bbc134742e232e8f99ce18a11df5b789562e9a6c0a6f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-viewmodel__2.11.0/lifecycle-viewmodel-2.11.0.aar__META-INF__androidx__lifecycle__lifecycle-viewmodel__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-viewmodel__2.11.0/publisher.pom",
+      "sha256": "e22ea0fca36eed3f649120fdadcf1d96f7f9a47d58472059d234b0cc62c9f570"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.lifecycle__lifecycle-viewmodel__2.5.1/publisher.pom",
+      "sha256": "93e5cfccbc9fd2f8a1092ec06b0757bd834e63dcd2a8001b594239ab1e4a6de1"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.loader__loader__1.0.0/publisher.pom",
+      "sha256": "c978d550808b47434aa49a63164110a50b55b0bcc6160a93a2e37d5110df8c5e"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.localbroadcastmanager__localbroadcastmanager__1.0.0/publisher.pom",
+      "sha256": "a000041f5a1f79283c5175e1bb60cf3683780f401c6a9d34fbe9751253fa6ff9"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-common__1.10.1/publisher.pom",
+      "sha256": "10a5cd980dc8555e75b76f62c7fefcf29bba715a2efeb66ba54d5553b332571a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-container__1.10.1/publisher.pom",
+      "sha256": "7737448d39d2da309a1085254c6bd23371ac87bbf8a3806cf14e373f79e2bf4a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-database__1.10.1/publisher.pom",
+      "sha256": "4ddf18f91c97af3f544336843975e74061c55c33fab3323d235d458deb088ef7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-datasource-okhttp__1.10.1/publisher.pom",
+      "sha256": "2b5e0d251bb8e836c0b7e2854e16319cbbf1f8d741d3d30331e4508a29664728"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-datasource-rtmp__1.10.1/publisher.pom",
+      "sha256": "7819866b884264b5dcb02fb681c7a4589e9077572c56a4ce0fb8906f5d7060db"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-datasource__1.10.1/publisher.pom",
+      "sha256": "9a4aef0439d968f3a2a4c00a4fb1527cdff5a43ae82ab80c1b54ab0c2f825847"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-decoder__1.10.1/publisher.pom",
+      "sha256": "3885dd216211c177a125a1fb42a5e1eebd3e8139f00b647ff65ea918734914f7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-effect__1.10.1/publisher.pom",
+      "sha256": "28cbe1552bd605b47a86f24e4bf4fc435a523169b1bf7af71f714312bfee6f1a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-exoplayer-dash__1.10.1/publisher.pom",
+      "sha256": "63127bb0732d34b4365eaedd42b27b5908c174272ac6d2fc26448365b803faed"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-exoplayer-hls__1.10.1/publisher.pom",
+      "sha256": "06efe893cd22cccb34c72e13f4dab9481cf0ca5bb043e1475143462ddddf3561"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-exoplayer-rtsp__1.10.1/publisher.pom",
+      "sha256": "0f38d444f76458b4a467f5b1dad7fd6017ca5eebb2578a9718dd91f66a97a543"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-exoplayer-smoothstreaming__1.10.1/publisher.pom",
+      "sha256": "329bde8c3fa36281ffe1bb44418b6c9f4a810a3c2ec278cdd1911b7f2eeb2911"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-exoplayer__1.10.1/publisher.pom",
+      "sha256": "5348ed5a65aa58b3a6b11976633aaafb9e64d3b9e3695e60f39a3da55b2679a9"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-extractor__1.10.1/publisher.pom",
+      "sha256": "cb7cf1852c24e013ba093e3f69d3d062de27cb60eef97d97e69d0e02ab3dc61f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-session__1.10.1/publisher.pom",
+      "sha256": "3dd57fc546890b111712fb1d013be751c01f7016c81d9a88fe14e126a664dea1"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-ui__1.10.1/publisher.pom",
+      "sha256": "0ff8e0446d08286e20d50f03f467bd6b42070efe7d8c5bda82889ea626246949"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media__media__1.8.0/media-1.8.0.aar__META-INF__androidx__media__media__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media__media__1.8.0/publisher.pom",
+      "sha256": "79a74fd47c29dee2e525cc0e2099f26f82720c4ba5522bde7a41ad3e64c49c26"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.palette__palette__1.0.0/publisher.pom",
+      "sha256": "85c5599135a789cfd5f99656f9e8240c9a727f72b2caaab60943aa32bb842771"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.preference__preference__1.2.1/publisher.pom",
+      "sha256": "0157b052e8433a6bab5df7ffe4fbf01bd10a55f18f111b37faf7dfafe14c7923"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.print__print__1.0.0/publisher.pom",
+      "sha256": "62482c0594841bee24bb996abb6cb7b320a6a3b77dca9f0a0ba4fe3be5530aa7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.profileinstaller__profileinstaller__1.4.1/profileinstaller-1.4.1.aar__META-INF__androidx__profileinstaller__profileinstaller__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.profileinstaller__profileinstaller__1.4.1/publisher.pom",
+      "sha256": "6dde43827b40535e4053d1c52d4b227a411556c289e65400c9a1cc61e2b41ce3"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.recyclerview__recyclerview__1.0.0/publisher.pom",
+      "sha256": "8831c06417fab6a9690c25f6e4b347b2e8c03cf6d47337be9c57e75b7fb23e6a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.recyclerview__recyclerview__1.4.0/publisher.pom",
+      "sha256": "d551d4343861814e05380f67f8c2e63140b84df37435ffd2eb53528a96045d63"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.recyclerview__recyclerview__1.4.0/recyclerview-1.4.0.aar__META-INF__androidx__recyclerview__recyclerview__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.resourceinspection__resourceinspection-annotation__1.0.1/publisher.pom",
+      "sha256": "b8eb4938ed95d7fcdaa2712ebca363e46a0f9228b8be7f23154def56846815dc"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.room__room-common-jvm__2.8.4/publisher.pom",
+      "sha256": "1c8f5bd00eacfc4be791390ad0d953aaee07644a91425490de790245d36a73b7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.room__room-common-jvm__2.8.4/room-common-jvm-2.8.4.jar__META-INF__androidx__room__room-common__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.room__room-common__2.8.4/publisher.pom",
+      "sha256": "681e3f6fd5308843aefbbb474dd3638ffd685d1ad8f7fa96b8559e5ea5ef202c"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.room__room-runtime-android__2.8.4/publisher.pom",
+      "sha256": "80a198f43bb65bd7b0edfa19ee2c26e144bf379141c30be3a071a47a157b65e7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.room__room-runtime-android__2.8.4/room-runtime.aar__META-INF__androidx__room__room-runtime__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.room__room-runtime__2.8.4/publisher.pom",
+      "sha256": "61b13fd132369dd7c3fb9d0b3076ceefa8e57ec699a8e03fb87aecb81cedd99b"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.savedstate__savedstate-android__1.4.0/publisher.pom",
+      "sha256": "b44b215b4cce24ca64b5faa58ff463f4b91abc02af95ba405ade488828f4f779"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.savedstate__savedstate-android__1.4.0/savedstate.aar__META-INF__androidx__savedstate__savedstate__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.savedstate__savedstate-ktx__1.2.0/publisher.pom",
+      "sha256": "c3ac834604d7d62e62b433aef7e4045e2d65225bc9f960fe7ed790a73c939281"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.savedstate__savedstate-ktx__1.4.0/publisher.pom",
+      "sha256": "b085af7cc4bb297ed0f25ca85d3629613ab253c0b532684c6cf77c2aee7471c5"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.savedstate__savedstate-ktx__1.4.0/savedstate-ktx-1.4.0.aar__META-INF__androidx__savedstate__savedstate-ktx__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.savedstate__savedstate__1.2.0/publisher.pom",
+      "sha256": "3e11c019ffe6053b3b9879a23107d6d6f1059e92339ba524e19674720fa7ddbe"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.savedstate__savedstate__1.4.0/publisher.pom",
+      "sha256": "d2b68a2d0cc76f23cebc6d4ea9bbf2d63fb536ffd94e05514ad9da6c5f530492"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.slidingpanelayout__slidingpanelayout__1.2.0/publisher.pom",
+      "sha256": "283f5eaa6becd4842c65176b6c9de96bb284250fb9fbd78b4717fac1ac5357ef"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.sqlite__sqlite-android__2.6.2/publisher.pom",
+      "sha256": "1407cf53cb40a813434903fee252420f32c109f88560ac8adc771858260d7a3c"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.sqlite__sqlite-android__2.6.2/sqlite.aar__META-INF__androidx__sqlite__sqlite__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.sqlite__sqlite-framework-android__2.6.2/publisher.pom",
+      "sha256": "2618a352ec57009a207575830c11bd6013cd5548df472a0dba678c64821c0446"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.sqlite__sqlite-framework-android__2.6.2/sqlite-framework.aar__META-INF__androidx__sqlite__sqlite-framework__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.sqlite__sqlite-framework__2.6.2/publisher.pom",
+      "sha256": "90fbc4507a16d2969558d9e9f14f1a11898c6eda789b703f49a79d77b5a297b2"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.sqlite__sqlite__2.6.2/publisher.pom",
+      "sha256": "ed8ff01ea1ae7c9903126a8217e6b0d849cfc2cdf198d0ee93513d96b700f41c"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.startup__startup-runtime__1.2.0/publisher.pom",
+      "sha256": "69594163d8bb148df97a9fbb5aa8a92486bb8961db5f73871b8a84122616593b"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.startup__startup-runtime__1.2.0/startup-runtime-1.2.0.aar__META-INF__androidx__startup__startup-runtime__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.swiperefreshlayout__swiperefreshlayout__1.0.0/publisher.pom",
+      "sha256": "8fe4b5db332af33cde899ba571ee866ad977be38114d3ab600edaca454ea8299"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.swiperefreshlayout__swiperefreshlayout__1.2.0/publisher.pom",
+      "sha256": "da180c92503aaf60bce2fae997bb294f1e5e6827961d5bcbdf8600200e91c178"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.swiperefreshlayout__swiperefreshlayout__1.2.0/swiperefreshlayout-1.2.0.aar__META-INF__androidx__swiperefreshlayout__swiperefreshlayout__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.tracing__tracing__1.0.0/publisher.pom",
+      "sha256": "cd0299a90d4720d78f1cfb5ff7505f4dbc1a70d05fe23fd9f4d4b77ea59ca05e"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.tracing__tracing__1.2.0/publisher.pom",
+      "sha256": "f34bec4eb58871d31002901377108aaa1ebfe77fa6d882b8b86200b158e26ea1"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.transition__transition__1.4.1/publisher.pom",
+      "sha256": "742263f7b85bfcc2d16a1eb744bfbdf97e0fdab5b1e946645e67d5b3e64a4e7e"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.transition__transition__1.5.0/publisher.pom",
+      "sha256": "db6c7497f0f094ff2eecfb329e1700658f0d6c56fb088482f7e9b774de9ad53f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.vectordrawable__vectordrawable-animated__1.1.0/publisher.pom",
+      "sha256": "276a20116b705fb75b9003ee9496c56f6fd3b32375fb232472811eba60a040bd"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.vectordrawable__vectordrawable__1.1.0/publisher.pom",
+      "sha256": "5b0e2d5b2179e54804785cbc21ce5f473b5e1ddd55a57da482e94dcd39492bb2"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.versionedparcelable__versionedparcelable__1.1.1/publisher.pom",
+      "sha256": "5f51e65873ca612de3838fa90d2ee95b8d040efd31b9c390a19bf94d615cdb2f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.viewpager2__viewpager2__1.1.0/publisher.pom",
+      "sha256": "b623eca90462870fd05d7ec042412dffd5f1abdf90b341f712a6af73b51dd5c5"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.viewpager__viewpager__1.0.0/publisher.pom",
+      "sha256": "1f72f836339d03c6eb013f65075e76ca87075a577578eb4f95f74a3a5d253128"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.window__window__1.0.0/publisher.pom",
+      "sha256": "377fee39dcf1aefa6b2caeecb3c9e33079010fd45dc070dbcba57d54c5081f8a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/cat.ereza__customactivityoncrash__2.4.0/publisher.pom",
+      "sha256": "0555d0b4ed4578b9c68d23c97b25dae821ac2bcd5b35e127dc09db83e65dae49"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.airbnb.android__lottie__6.7.1/publisher.pom",
+      "sha256": "fd1d86e426882f8a512ec66826dbcd7444312d42d4fc317641677afbd6b038f4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.android.support__support-annotations__27.1.0/publisher.pom",
+      "sha256": "3571420c569c56cf6af40ab835059a5a1d33999a0a930749db864a1e29859352"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.getkeepsafe.relinker__relinker__1.4.5/publisher.pom",
+      "sha256": "099e4e007b80700c25190b81ac7b256f42b04f1e829dbd0673f0c415e9613426"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.JessYanCoding__AndroidAutoSize__1.2.1/publisher.pom",
+      "sha256": "cb8bd80cfec1f3196b763d5b3a7a83969c4a6e1209ab234acd3e987a040a7190"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.TeamNewPipe__NewPipeExtractor__v0.26.1/SOURCE-NOTICES.txt",
+      "sha256": "61ce196a459b1759636dcb33b87a66feb144e5a0f6e60ff7d369fa07124eca14"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.TeamNewPipe__NewPipeExtractor__v0.26.1/publisher.pom",
+      "sha256": "678c7c56c85cc59ca3400c25c16810c07b8ffc64e149d52f07157077cbc61503"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.TeamNewPipe__nanojson__e9d656ddb49a412a5a0a5d5ef20ca7ef09549996/publisher.pom",
+      "sha256": "310e6d4dc5dadc3d095d588e8edd2c063ebcdde8e4d5469b82f9f1fa32b647b1"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.albfernandez__juniversalchardet__2.5.0/SOURCE-NOTICES.txt",
+      "sha256": "18f9a0e7effc064092632cbec8fb8970e0d34ee10c98c8e38aa8d6dfd9708608"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.albfernandez__juniversalchardet__2.5.0/publisher.pom",
+      "sha256": "90df5ed604a5caff81967f186fa5aa0e984eaa55ca85932b31d046e11e6a6a7b"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.bassaer__materialdesigncolors__1.0.0/UPSTREAM-LICENSE.txt",
+      "sha256": "c60876d4e60312451e2fa5a00abcbc0de95dcc78415f0d6be024aa30f7e28acd"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.bassaer__materialdesigncolors__1.0.0/publisher.pom",
+      "sha256": "569da2a4d0b75992d3b884b68e3d545664bb73ee829ecf9d23d9b6a79b22eb7d"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.bumptech.glide__annotations__4.16.0/publisher.pom",
+      "sha256": "b23a7b09fe0773f30343b064f1c8e410d75de27eb77f99a216c961e32386ad77"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.bumptech.glide__avif-integration__4.16.0/publisher.pom",
+      "sha256": "c8dde6b5d9e48810ba15a411e2f984a566ff870109395c3b20114feb36caeb44"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.bumptech.glide__disklrucache__4.16.0/publisher.pom",
+      "sha256": "a5e8df6f1d227c3e9be16fcbdfd3f533b21d8d03e2682add771af8f7cbbda944"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.bumptech.glide__gifdecoder__4.16.0/publisher.pom",
+      "sha256": "30a608f777ca7720028c365dd670fb5c372d0e1151b9401680e3d09472db0017"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.bumptech.glide__glide__4.16.0/publisher.pom",
+      "sha256": "e72c8e310d7a2b9cee5acdcdb92fd2ef6394eb72e56a96cacb5692404702e571"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.bumptech.glide__okhttp3-integration__4.16.0/publisher.pom",
+      "sha256": "c60137ec4e39d79217fa3acfb7d72cdc7c352be874fde306f992048e63435be5"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.jahirfiquitiva__TextDrawable__1.0.3/LICENSE.txt",
+      "sha256": "6175473de3bff34c9939346ed775b4a22c4703f81ad5b3d7f01c1a9832345f71"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.jahirfiquitiva__TextDrawable__1.0.3/publisher.pom",
+      "sha256": "eceee1cc120f70666cf59ab202a848c9562bd7b9e893cf3c1ef33d8e9450c987"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.thegrizzlylabs__sardine-android__0.9/publisher.pom",
+      "sha256": "838f8efdcf1c7dce57a70a63ac90e640341853cfed6d7e9cb582b77951c82f64"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.google.android.flexbox__flexbox__3.0.0/publisher.pom",
+      "sha256": "fe010adf7575a5936ec250652cd4a121d0117bd2582641adafdbdbf3f5946eff"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.google.android.material__material__1.14.0/publisher.pom",
+      "sha256": "b8d90c94f010f0205e49074321aa449e663ed2e818f8494e1264b2f2f85c08c8"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.google.code.findbugs__jsr305__3.0.2/publisher.pom",
+      "sha256": "19889dbdf1b254b2601a5ee645b8147a974644882297684c798afe5d63d78dfe"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.google.code.gson__gson__2.13.2/publisher.pom",
+      "sha256": "3aa06aa7c0f9af092961a42d09578e4324be146348a0ee6ed47857f7c2677b76"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.google.errorprone__error_prone_annotations__2.41.0/publisher.pom",
+      "sha256": "a151df1e2e0b48618d8b06a180748a29b3abb39b1b2396f6a1c879a727488c6e"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.google.errorprone__error_prone_annotations__2.47.0/publisher.pom",
+      "sha256": "d80c889a4a6f711f6945fbee79e05ec247b178a567e9d5abf58eb26ebf0a0752"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.google.guava__failureaccess__1.0.3/failureaccess-1.0.3.jar__META-INF__LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.google.guava__failureaccess__1.0.3/publisher.pom",
+      "sha256": "c54beff37f6d42d43e14722d54a522c9ad51ef97fc5b79277e62a3ebf882f3bb"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.google.guava__guava__33.6.0-android/publisher.pom",
+      "sha256": "37f12cdff04a49e96a4ae1e48d526bbc486cff151a12fe9812d68a49698b8ed9"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.google.guava__listenablefuture__9999.0-empty-to-avoid-conflict-with-guava/publisher.pom",
+      "sha256": "18d4b1db26153d4e55079ce1f76bb1fe05cdb862ef9954a88cbcc4ff38b8679b"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.google.j2objc__j2objc-annotations__3.1/publisher.pom",
+      "sha256": "14570838500034fc1b47c8205ce1c9d6b255c1ccdd2d1afdcdcbf75e89b24a33"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.google.protobuf__protobuf-javalite__4.34.1/SOURCE-NOTICES.txt",
+      "sha256": "3ecde0d5d6eddb63f847177733bacb597c605e934525acc1c064931d75d77283"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.google.protobuf__protobuf-javalite__4.34.1/publisher.pom",
+      "sha256": "a29f2019d95600d25488110e1421fda3bf925791f46582d5708af93ff931e5f4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.google.zxing__core__3.5.4/publisher.pom",
+      "sha256": "502c7368ae869f15428c020a2432eec9dde7436454f3edd1816e0d4b3d0609bf"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.guolindev.permissionx__permissionx__1.8.1/publisher.pom",
+      "sha256": "ebe68aeb6f74e418ad049e2bc039fae438f6ebe991f66bfc10754d2440ddf8ee"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.hierynomus__asn-one__0.6.0/publisher.pom",
+      "sha256": "c2e7f76d229f2a35e392922a23a53a0e3110e9e9877da7e71566d3baa33d07d2"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.hierynomus__smbj__0.14.0/publisher.pom",
+      "sha256": "14c881662ac46a90bceaa0182502303721b67bee942c239a2358d3d6001ccad6"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.journeyapps__zxing-android-embedded__4.3.0/publisher.pom",
+      "sha256": "c4dd09974335c21efee7ca29183ecae5ef7e26b48265a605c653a3efce47f29b"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.orhanobut__logger__2.2.0/publisher.pom",
+      "sha256": "a9875654d7ef0094bbc347fb666072d8f65bdff9c9c88fdf0545fd4cb42b921a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.squareup.okhttp3__logging-interceptor__5.3.2/publisher.pom",
+      "sha256": "6e0bfa681445c4d5b9ef70371ae642dffdd3faec690aa73cfbfc91cdfe4433b6"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.squareup.okhttp3__okhttp-android__5.3.2/publisher.pom",
+      "sha256": "a426409e978b821d5ccf075e7daf10f8c670761a8d9085b704977b1a54942bf4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.squareup.okhttp3__okhttp-dnsoverhttps__5.3.2/publisher.pom",
+      "sha256": "5154250a2a2f10dbb1296de6029ca4beff6d3356da5978b35c1d10774f58e359"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.squareup.okhttp3__okhttp-jvm__5.3.2/publisher.pom",
+      "sha256": "aee87197bbfb2d7424b6241d300eb0cbffb1844c9cab0129cae5390408b33fa4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.squareup.okhttp3__okhttp__5.3.2/publisher.pom",
+      "sha256": "f947372c4dd848f752aef6837d1517461c444c1d43af5aeb15e6f2bd737bb072"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.squareup.okio__okio-jvm__3.16.4/publisher.pom",
+      "sha256": "66778f4d0597bce63f91ec000c575cc029b3201f7dd092cb808875155b3e86a1"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.squareup.okio__okio__3.16.4/publisher.pom",
+      "sha256": "08fbe97e1e2e815a14caf16ff5ac8708511bef5dde739d60c0713951876da263"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.twelvemonkeys.common__common-image__3.13.1/SOURCE-NOTICES.txt",
+      "sha256": "7d03d15e78425f78d3af598bc78ef47714f98da874da90fa5439787fb3cb3630"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.twelvemonkeys.common__common-image__3.13.1/publisher.pom",
+      "sha256": "b727927adc6ecc3d6f75f48a3239ba737d6377724c666dd0b9441060234eb527"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.twelvemonkeys.common__common-io__3.13.1/SOURCE-NOTICES.txt",
+      "sha256": "4a18df6f18e7182960366da2ff13e4cadeffded33305a9a266f4b148e8a20ace"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.twelvemonkeys.common__common-io__3.13.1/publisher.pom",
+      "sha256": "0726f2ec524ecefd05e597ed77bfda264a1f879f15ad56d438408bc0abbe829d"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.twelvemonkeys.common__common-lang__3.13.1/SOURCE-NOTICES.txt",
+      "sha256": "cb6e551e1ce7c7bea4a17c45e9db4c79c61a6f5239b0b352d8048fb302cc516e"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.twelvemonkeys.common__common-lang__3.13.1/publisher.pom",
+      "sha256": "e41bf9e8c41b140eb3540ec13edf7d093f80e534b2abb45525d82b4b24c1e376"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.twelvemonkeys.imageio__imageio-core__3.13.1/SOURCE-NOTICES.txt",
+      "sha256": "061991d9a66abd8f64de97b812b48cc2c6da4cf46372e19adb4ea863f95f01dc"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.twelvemonkeys.imageio__imageio-core__3.13.1/publisher.pom",
+      "sha256": "4f93b429f32c93cc738e4117b2e5d2b86bb91229c1530fa4acc876e162e2d980"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.twelvemonkeys.imageio__imageio-metadata__3.13.1/SOURCE-NOTICES.txt",
+      "sha256": "c81bdccd23b864095836648155f31a597e76be826e0f2316f7c9ae308ef93589"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.twelvemonkeys.imageio__imageio-metadata__3.13.1/publisher.pom",
+      "sha256": "1cd821fbe6bc2f284617c88b2909e809f382c92a7d08eba989106358d6176ed8"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.twelvemonkeys.imageio__imageio-webp__3.13.1/SOURCE-NOTICES.txt",
+      "sha256": "ff98b14575ae41b1a89ff9fc2c4aa7d6ca3c5b7e33036e156d33c7e66d891c06"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.twelvemonkeys.imageio__imageio-webp__3.13.1/publisher.pom",
+      "sha256": "fe08fb9dc6de6642d7ad2ca9cf77d9731bca7a5f5a7be8466fedfcf7fe3004a7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.vaadin.external.google__android-json__0.0.20131108.vaadin1/publisher.pom",
+      "sha256": "2ff6c17d9c060b89cd7ef18fa480ae2446eba86855a633f3892837fc3b848fef"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/io.antmedia__rtmp-client__3.2.0/publisher.pom",
+      "sha256": "75282a7ac5c778815c84fb7207b717fddbf0620ecdab29cf25a121a79dc12547"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/net.engio__mbassador__1.3.0/UPSTREAM-LICENSE.txt",
+      "sha256": "ab2654d8c44f6816b82afa9c45bd79a5b203b7b08634a67a95d02b26aa9a7fec"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/net.engio__mbassador__1.3.0/publisher.pom",
+      "sha256": "0bd5dd66857890df89f63f14c52ccfd8f61fcdc61f878724fd7c1c5ca8a3c1c7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.aomedia.avif.android__avif__0.11.1.3c786d2/UPSTREAM-LICENSE.txt",
+      "sha256": "10952217a6d404de8bf8a997fbea9b88f682df1fe98cb9b9f467ade641525639"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.aomedia.avif.android__avif__0.11.1.3c786d2/publisher.pom",
+      "sha256": "3be5ab9987b6f47eb18df646f0e357fc3745d687862198280241c1cb1007a4f2"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.bouncycastle__bcprov-jdk18on__1.79/bcprov-jdk18on-1.79.jar__org__bouncycastle__LICENSE.class",
+      "sha256": "f9e6b01128a66b9887432db0397034793bcb1667770990c27fd4fd04ffc0c12a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.bouncycastle__bcprov-jdk18on__1.79/publisher.pom",
+      "sha256": "d8f1a06b149d746e9d98de54e2f7aa9b2eb613fb35ca67d8ae396ceaac661ee4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.js__js-language__24.2.2/SOURCE-NOTICES.txt",
+      "sha256": "fcf0b5b8daa7ac208f02c40bb46e02fa4ae3c0e7b8f1d82bf08e89e8b2de55c3"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.js__js-language__24.2.2/publisher.pom",
+      "sha256": "f1b33c1debc06127294e5c4a425e056ad149c814a81164a3e7350adc22e56fe8"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.polyglot__polyglot__24.2.2/SOURCE-NOTICES.txt",
+      "sha256": "4ac9ad2836ac134ddb0a0b8312462abe8bde97eee95a96c0756bfc502daf7609"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.polyglot__polyglot__24.2.2/publisher.pom",
+      "sha256": "b2c8b867becbf3b6f213c7c78e2b40e09776d1db13e40eae651cfe3864fc246e"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.regex__regex__24.2.2/SOURCE-NOTICES.txt",
+      "sha256": "897d61d9a0db8c79694dea4c23fec46a8fd95841659f38461a3cc35cc9b3ecfa"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.regex__regex__24.2.2/publisher.pom",
+      "sha256": "93b9ead98076676f540fd4df0ec4fbdf0d0dcb9278c97ffb11b34e7bef77bc5a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.sdk__collections__24.2.2/SOURCE-NOTICES.txt",
+      "sha256": "5b60e7d0598e5c26e841917262fb9eb61d9a280879715dde1b197e7b3609bde7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.sdk__collections__24.2.2/publisher.pom",
+      "sha256": "5293185d63371a3434a5d65f11c6dbdce42c6d47a7cba68be6a2f059e081d4cb"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.sdk__nativeimage__24.2.2/SOURCE-NOTICES.txt",
+      "sha256": "ad60a8f5f1113c1aded80cabaf4981762f613a9f2b775cee21204acc73b96165"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.sdk__nativeimage__24.2.2/publisher.pom",
+      "sha256": "8f218e90be0416a37d49cf1b03c78304ac64fc62569923de1b9817859b1ede2f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.sdk__word__24.2.2/SOURCE-NOTICES.txt",
+      "sha256": "5107bbd075341a716fcbcce14722daee84c3b529552eddfad853fa4ec571c853"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.sdk__word__24.2.2/publisher.pom",
+      "sha256": "60afc03fa2a72d27fe8d9b75b53ef75367cf1729087fa500b44c6da94b45d185"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.shadowed__icu4j__24.2.2/SOURCE-NOTICES.txt",
+      "sha256": "e54ad349af920eb1974f807bd6302491b8f24daca2e6d57891e54822d72c2f7a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.shadowed__icu4j__24.2.2/publisher.pom",
+      "sha256": "ae21341ffe2cbbdd1c48b220bd5820764cc28851c2dfadeecb74573e8d1ac391"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.shadowed__xz__24.2.2/SOURCE-NOTICES.txt",
+      "sha256": "18a062b52ad16acf484f9925a0b1d441fe54037a3752be4c910bb8ccc0f43465"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.shadowed__xz__24.2.2/publisher.pom",
+      "sha256": "ffdf71ab8e0f79de648f6babf4ae6b901f913304ae5997ec60b6af787a4175cb"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.truffle__truffle-api__24.2.2/SOURCE-NOTICES.txt",
+      "sha256": "58a3aed3e75a5f45aeec54b85236c5b9a852b27ade0749c8c9bf33bd9db3b65e"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.graalvm.truffle__truffle-api__24.2.2/publisher.pom",
+      "sha256": "0a52bf395e77328dbf315fb2fb4d0bb162bb629a703d77e2e803b9c6e4e1e0ff"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.greenrobot__eventbus-java__3.3.1/publisher.pom",
+      "sha256": "cef811b7795d2c138b1efcf2c06cb464cc6c1a3fbea77697a3cd85b4ff9d8cf7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.greenrobot__eventbus__3.3.1/publisher.pom",
+      "sha256": "29d162e7cc57e2c0917d488312e73193748551c91f7a54ad09d19d5421239a0c"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlin__kotlin-bom__1.8.22/publisher.pom",
+      "sha256": "c8d794eb761888d34369e677de8eaba0b01f9e8a756cfbff53215ccfa5c58c3f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlin__kotlin-stdlib-common__2.4.10/publisher.pom",
+      "sha256": "006e9d6e7b2afa77cae70e16d80935c9e6aabf5aff594382957ae0715f2d3687"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlin__kotlin-stdlib-jdk7__1.8.0/publisher.pom",
+      "sha256": "dfa9644a6ae5b898ee475bb1f57e830ba1f770aee6c9c15f8112aa381180184a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlin__kotlin-stdlib-jdk7__1.9.0/publisher.pom",
+      "sha256": "c11074f0c898a98b863c614471d438d3df92a1ec3382a6e37f935d7d71954b5a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlin__kotlin-stdlib-jdk8__1.8.0/publisher.pom",
+      "sha256": "2bb6c7551b97c7ba029f9866582e7aa19d63abfd4cd53da3fc0c462f3ab5fc26"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlin__kotlin-stdlib-jdk8__1.9.0/publisher.pom",
+      "sha256": "64d598dd88e250466731e20304ab6f06cbbbbab7ee322b4703b6b59f881c4f92"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlin__kotlin-stdlib__2.4.10/publisher.pom",
+      "sha256": "9f81f25e96b919153392ded53bd33216e76624909cfd080a3edb278d44fc34f0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-coroutines-android__1.6.1/publisher.pom",
+      "sha256": "09ffe59f7cd9dcb5ec440803df8dcc8581c2de17d2eba0088ba3cdd8c57310a2"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-coroutines-android__1.9.0/publisher.pom",
+      "sha256": "be86020cd5b93b8a68ca43185a049b9b0baa345fd1be1fdaa014fdaef92d6e7c"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-coroutines-bom__1.6.1/publisher.pom",
+      "sha256": "43e780ec3da6959c7d2c97fd6b4462ca9997e9c03cd6c43ee92f6604022d4bae"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-coroutines-bom__1.9.0/publisher.pom",
+      "sha256": "bea5511e9001f2c593ab5080df131b219ab5e2085cc5979ce583eacd4946fd78"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-coroutines-core-jvm__1.6.1/publisher.pom",
+      "sha256": "96e60ab1b6af0ce4056ec868bf6a64a558ee97095da47f74aa69153314d3570e"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-coroutines-core-jvm__1.9.0/publisher.pom",
+      "sha256": "19c4889941b3aa098bd57cc64f02f9adacc654d571a12a956de4b5bb148c6499"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-coroutines-core__1.6.1/publisher.pom",
+      "sha256": "9037260973a51ff3953eb6d8d9078111dcf079c843a539673a58769fa5a894c8"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-coroutines-core__1.9.0/publisher.pom",
+      "sha256": "770f2793d05e2b027b9c799938ec1d2d4ef141ce5819c780c32c3995cadb0a47"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-coroutines-guava__1.9.0/publisher.pom",
+      "sha256": "3bb987bae11b2d61d3917ac1a7f732355e8b2d79a19581d35eb5085477176731"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-serialization-bom__1.8.1/publisher.pom",
+      "sha256": "00f3555ae7624851c67db12c308bc9ce26ae327cf0d724766a401e5ba00608c7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-serialization-core-jvm__1.8.1/publisher.pom",
+      "sha256": "446655e8d43828bfbb387ce9d151a9371a3092b48b909e80606b53fc58979e28"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-serialization-core__1.8.1/publisher.pom",
+      "sha256": "473f0aa3e4a17aab7860dca490dc42eabb6124f1d2953e6a995a08717e50c714"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains__annotations__13.0/publisher.pom",
+      "sha256": "965aeb2bedff369819bdde1bf7a0b3b89b8247dd69c88b86375d76163bb8c397"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains__annotations__23.0.0/publisher.pom",
+      "sha256": "c9490f655132328df2cfbcfdf743f53fc3916d6c1d10437175a6ca6e3a67771c"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jsoup__jsoup__1.22.1/jsoup-1.22.1.jar__META-INF__jsoup__LICENSE",
+      "sha256": "12f89090b34132ac86980044fba5f6d45cfbc02c1eb08e0b53a22b7cb40be446"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jsoup__jsoup__1.22.1/publisher.pom",
+      "sha256": "89c4213d6152a2699408caa440af5050a899073c82ba2df37a2f5f5eeda8e160"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jspecify__jspecify__1.0.0/publisher.pom",
+      "sha256": "cdab929a3b95211f43d2090c5e2d0dfe8465960e378bc32b35841dab324433a6"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.lsposed.hiddenapibypass__hiddenapibypass__6.1/publisher.pom",
+      "sha256": "55109914ea9c6ef31c903198e9af0b671be208412a1539bfab025ff47d9f9597"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.mozilla__rhino-engine__1.8.1/SOURCE-NOTICES.txt",
+      "sha256": "f95a8b62b530e266b7fb349a895846268e69e300e65b9016d8c6766b4c9d225b"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.mozilla__rhino-engine__1.8.1/publisher.pom",
+      "sha256": "cfcff2fe480d489010906b8ec9f7b584b6a4903ec9b135832dd14e952afce380"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.mozilla__rhino__1.8.1/SOURCE-NOTICES.txt",
+      "sha256": "71c29e35ce51e5f83ad145f3ffca306ccfbc318b216385fd3e83aebdc21bac2f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.mozilla__rhino__1.8.1/publisher.pom",
+      "sha256": "d2004c8eabce80829d8bbf570a2bde71a849868d2974085e9eb558b68b458a62"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.nanohttpd__nanohttpd__2.3.1/nanohttpd-2.3.1.jar__LICENSE.txt",
+      "sha256": "3825e0f8f684b3b89ecd56ea6b2faa2dda2b7a9c4127b2baf302d6d2b0cea765"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.nanohttpd__nanohttpd__2.3.1/publisher.pom",
+      "sha256": "567769c8e846fa98d24e656ac54f2a992226fa21086979f29b6ea44cdb8d91e3"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.ow2.asm__asm-tree__9.9/SOURCE-NOTICES.txt",
+      "sha256": "51c22bd7385fdd4c5c73a1771d3a94d0d2c7a5775d087b2d3f741782b4533727"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.ow2.asm__asm-tree__9.9/publisher.pom",
+      "sha256": "d01788ed8e6e8e24acaf6cb4a7bdcc2733416252faa00232959e3e2e9df1bf44"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.ow2.asm__asm__9.9/SOURCE-NOTICES.txt",
+      "sha256": "567def2129d5b75b97ee59492456b7a7e272341c05f57cf2387406822bc0406f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.ow2.asm__asm__9.9/publisher.pom",
+      "sha256": "cf861ef1e745d57154af79ae14df340ed5341e5dcd0157cefcd2eb7f1aa05c57"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.simpleframework__simple-xml__2.7.1/publisher.pom",
+      "sha256": "69ec88db191d97d90f9515256efec7605ed8c9b2e1721c7dc9c358366b575266"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.slf4j__slf4j-api__2.0.9/publisher.pom",
+      "sha256": "9c3a654f9d0aa1a34b3178ebe53a89c76792e1d81fc1e9739cbe9b1610523385"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.slf4j__slf4j-api__2.0.9/slf4j-api-2.0.9.jar__META-INF__LICENSE.txt",
+      "sha256": "4e7f90c86ab51278228bce153122f1d8df30149d13ce9ef524c8444a84c32dcc"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/pl.droidsonroids.gif__android-gif-drawable__1.2.32/SOURCE-NOTICES.txt",
+      "sha256": "e62ae75bf9be249a67d40f9a0047f20ebfc3439d588e4800b16ae33b941926b2"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/pl.droidsonroids.gif__android-gif-drawable__1.2.32/publisher.pom",
+      "sha256": "fb284de71f4bbf3bafa1092c5fb4b56a3fe07173fb8fd834463afd84e721a4ce"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/stax__stax-api__1.0.1/publisher.pom",
+      "sha256": "87b13ae136a2bb9299271a0dfe8c351f76661b654ed8fde035c2cabb198cf259"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/stax__stax__1.2.0/publisher.pom",
+      "sha256": "a6ee529708c261f7fba2eb0c7f780faf8796177cd045e624659b59bd36a777a3"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/wang.harlon.quickjs__wrapper-android__3.2.3/publisher.pom",
+      "sha256": "83717227ab9fb54fc80e1bc40ba33b66f30ba187edddd33bccefb2a32d1b0ce4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/wang.harlon.quickjs__wrapper-java__3.2.3/publisher.pom",
+      "sha256": "771548b02d957152c682fd0a243c56d2022a4c016880c47ca59df910c0e29a1a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python-native-libraries/CPython.txt",
+      "sha256": "78b12c3a81360b357002334f0e70ea0e92eebf7a9b358805c03c48484945f3bb"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python-native-libraries/OpenSSL.txt",
+      "sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python-native-libraries/README.md",
+      "sha256": "03015ff2cb5beb9f1a1d05948b43467d185d1fffa651448f360890c07513d558"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python-native-libraries/bzip2.txt",
+      "sha256": "c6dbbf828498be844a89eaa3b84adbab3199e342eb5cb2ed2f0d4ba7ec0f38a3"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python-native-libraries/libffi.txt",
+      "sha256": "2c9c2acb9743e6b007b91350475308aee44691d96aa20eacef8e199988c8c388"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python-native-libraries/libxml2.txt",
+      "sha256": "c99aae1afe013e50b8b3701e089222b351258043c3025b64053a233fd25b4be7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python-native-libraries/libxslt.txt",
+      "sha256": "7e48e290b6bfccc2ec1b297023a1d77f2fd87417f71fbb9f50aabef40a851819"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python-native-libraries/xz.txt",
+      "sha256": "29a1e305b2e34eefe5d4602d00cde1d528b71c5d9f2eec5106972cf6ddb6f73f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/beautifulsoup4-4.14.2.dist-info/licenses/AUTHORS",
+      "sha256": "b989238918e1fdac1e46717cb405b63e92497a272413af0d989c1df6c8abcb6f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/beautifulsoup4-4.14.2.dist-info/licenses/LICENSE",
+      "sha256": "55b4d8d4b1e5bc86d10efac91b74c87bcb77526b0f5b9edaf8b9cd2adc7397b2"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/cachetools-6.2.0.dist-info/licenses/LICENSE",
+      "sha256": "23c4eff7a1c027a977a0b79c4497e17582c334c5f17ef6ac8ca0b52d1e7d8417"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/certifi-2025.8.3.dist-info/licenses/LICENSE",
+      "sha256": "e93716da6b9c0d5a4a1df60fe695b370f0695603d21f6f83f053e42cfc10caf7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/charset_normalizer-3.4.3.dist-info/licenses/LICENSE",
+      "sha256": "6d0d41bfe170ac6c7dc248c9a63e254d0fb45a60d50a8257d0af92c6e249b887"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/cssselect-1.3.0.dist-info/AUTHORS",
+      "sha256": "d313a3dc7f22208e8cfca5a6a0361046ecd3ad8acb3db27c2b6915480a10e734"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/cssselect-1.3.0.dist-info/LICENSE",
+      "sha256": "5c8da9f744e0afba81a48c9b5dbe73048f798b3287d6f1af8a05ee08ebb10892"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/idna-3.10.dist-info/LICENSE.md",
+      "sha256": "a59f0b0ef3635874109a4461ca44ff7a70d50696e814767bfaf721d4c9b0db0f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/lxml-6.0.2.dist-info/licenses/LICENSE.txt",
+      "sha256": "8fc2b568133516e46845d2147917adeee1648e70ae9ab5ed6c5417afef4ce855"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/lxml-6.0.2.dist-info/licenses/LICENSES.txt",
+      "sha256": "41d49dd406aa0e1548a6d5f21a30d6bf638b3cd96eb7289dd348d83ed2e40392"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/pycryptodome-3.23.0.dist-info/AUTHORS.rst",
+      "sha256": "1cb670b6cc5bc3a1c38d7e12cdf944442ca790425cf2a628ffbe3012445fe1e4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/pycryptodome-3.23.0.dist-info/LICENSE.rst",
+      "sha256": "4e04660d77c1c64e89d79537919fb8240fa21484a7e3db29f358b2c7f84ea073"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/pyquery-2.0.1.dist-info/LICENSE.txt",
+      "sha256": "6e96459ce221aca0d34a41d909f55d2bc8898b14e5e24e74cdd2a51ceb603cb6"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/requests-2.32.5.dist-info/licenses/LICENSE",
+      "sha256": "09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/soupsieve-2.8.dist-info/licenses/LICENSE.md",
+      "sha256": "571d0dafef795a196a0bbc3ac9b160a06b3cad41c320fecd98da3e26a8c81971"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/typing_extensions-4.15.0.dist-info/licenses/LICENSE",
+      "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+    },
+    {
+      "path": "third_party/package-assets/third-party/python/urllib3-2.5.0.dist-info/licenses/LICENSE.txt",
+      "sha256": "130e3a64d5fdd5d096a752694634a7d9df284469de86e5732100268041e3d686"
+    },
+    {
+      "path": "third_party/package-assets/third-party/xz-COPYING",
+      "sha256": "1e77ef26cee5216d6531e49cbf2f6111a0270dc7b322fc65477063c5aff88766"
+    },
+    {
+      "path": "tools/js-bundle/package-lock.json",
+      "sha256": "88ab8180af6d18207dbcb720b769773d748b3620df6f0f329c0f0a7ece07d3dd"
+    },
+    {
+      "path": "tools/js-bundle/package.json",
+      "sha256": "de414c7194b8cbde7e2f214c377fe0810c7195b457865739573e6aa8bb79c02e"
+    },
+    {
+      "path": "vendor/cling-android/build.gradle",
+      "sha256": "a09038be260818865300a37df1f7fe310faac8f1b38a406807e1c7b92e77e9a7"
+    },
+    {
+      "path": "vendor/cling/build.gradle",
+      "sha256": "9a7cd282456e0321eb296a50ae2ad353e09a21c30e4e7d933d1d74a013fded69"
+    }
+  ]
+}

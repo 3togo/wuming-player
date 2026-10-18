@@ -1,0 +1,125 @@
+<resources>
+
+    <color name="transparent">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="black_05">#0D000000</color>
+    <color name="black_10">#1A000000</color>
+    <color name="black_15">#26000000</color>
+    <color name="black_20">#33000000</color>
+    <color name="black_30">#4D000000</color>
+    <color name="black_40">#66000000</color>
+    <color name="black_50">#80000000</color>
+    <color name="black_60">#99000000</color>
+    <color name="black_70">#B3000000</color>
+    <color name="black_80">#CC000000</color>
+    <color name="black_90">#E6000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_05">#0DFFFFFF</color>
+    <color name="white_15">#26FFFFFF</color>
+    <color name="white_10">#1AFFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_30">#4DFFFFFF</color>
+    <color name="white_40">#66FFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="white_90">#E6FFFFFF</color>
+
+    <color name="highlight">#FFAB40</color>
+    <color name="search_progress">#4CAF50</color>
+    <color name="setting_toggle_on">#00E676</color>
+    <color name="setting_toggle_off">#FF8A80</color>
+    <color name="cloud_login_connected">#00E676</color>
+    <color name="cloud_login_disconnected">#FF6E6E</color>
+
+    <color name="color_3D3D3D_50">#803D3D3D</color>
+    <color name="color_6A6A6A_95">#956A6A6A</color>
+    <color name="color_3D3D3D">#3D3D3D</color>
+
+    <!-- Ranking UI colors -->
+    <color name="ranking_blue">#FF64B5F6</color>
+    <color name="ranking_blue_transparent">#6664B5F6</color>
+    <color name="ranking_red">#FFFF5252</color>
+    <color name="ranking_gold">#FFFFD700</color>
+    <color name="ranking_green">#C84CAF50</color>
+    <color name="ranking_yellow">#C8FFC107</color>
+    <color name="ranking_error">#C8F44336</color>
+
+    <!-- Selection state colors -->
+    <color name="selection_surface">@color/black_50</color>
+    <color name="selection_surface_variant">@color/white_10</color>
+    <color name="selection_on_surface">@color/white</color>
+    <color name="selection_on_surface_variant">@color/white_80</color>
+    <color name="selection_outline">@color/white_30</color>
+    <color name="selection_indicator">@color/color_theme</color>
+    <color name="selection_ripple">@color/white_20</color>
+    <color name="selection_elevation">@color/black_30</color>
+
+    <!-- Focus state colors -->
+    <color name="focus_outline">@color/white</color>
+    <color name="focus_surface">@color/black_40</color>
+    <color name="focus_indicator">@color/white_50</color>
+
+    <!-- Item state colors -->
+    <color name="item_surface">@color/black_20</color>
+    <color name="item_surface_focused">@color/black_50</color>
+    <color name="item_surface_selected">@color/black_60</color>
+    <color name="item_surface_pressed">@color/black_70</color>
+    <color name="item_on_surface">@color/white</color>
+    <color name="item_on_surface_variant">@color/white_80</color>
+
+    <!-- Subtle translucency preserves depth without letting artwork compete with text. -->
+    <color name="dialog_surface">#F0292D32</color>
+    <color name="dialog_surface_variant">#E6383E45</color>
+    <color name="dialog_on_surface">@color/white</color>
+    <color name="dialog_on_surface_variant">@color/white_80</color>
+    <color name="dialog_outline">#626D78</color>
+    <color name="dialog_row_selected">#344B59</color>
+    <color name="dialog_row_focused">#41677E</color>
+    <color name="dialog_selection_outline">#8AB5CE</color>
+
+    <!-- Theme Colors -->
+    <color name="color_theme">#D81F26</color>
+    <color name="color_theme_80">#CCD81F26</color>
+    <color name="color_theme_70">#B3D81F26</color>
+    <color name="color_theme_60">#99D81F26</color>
+    <color name="color_theme_50">#80D81F26</color>
+    <color name="color_theme_40">#66D81F26</color>
+    <color name="color_theme_dark_70">#B3601216</color>
+
+    <!-- Aurora compatibility aliases to the shared semantic palette. -->
+    <color name="aurora_primary">@color/ds_accent_strong</color>
+    <color name="aurora_primary_80">@color/ds_accent_80</color>
+    <color name="aurora_primary_70">@color/ds_accent_70</color>
+    <color name="aurora_primary_60">@color/ds_accent_60</color>
+    <color name="aurora_primary_50">@color/ds_accent_50</color>
+    <color name="aurora_primary_40">@color/ds_accent_40</color>
+    <color name="aurora_primary_dark_70">@color/ds_accent_soft</color>
+    <color name="aurora_secondary">@color/ds_accent</color>
+    <color name="aurora_surface">@color/ds_surface</color>
+    <color name="aurora_surface_variant">@color/ds_surface_raised</color>
+    <color name="aurora_on_surface">@color/ds_text</color>
+    <color name="aurora_on_surface_variant">@color/ds_muted_text</color>
+    <color name="aurora_outline">@color/ds_divider</color>
+    <color name="aurora_overlay_start">@color/ds_background</color>
+    <color name="aurora_overlay_center">@color/ds_background_raised</color>
+    <color name="aurora_overlay_end">@color/ds_surface_raised</color>
+    <color name="aurora_navigation_active">@color/ds_background</color>
+
+    <color name="blue_50">#E3F2FD</color>
+    <color name="blue_200">#90CAF9</color>
+    <color name="blue_500">#2196F3</color>
+    <color name="green_a_400">#00E676</color>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="grey_500">#9E9E9E</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_900">#212121</color>
+    <color name="light_blue_500">#03A9F4</color>
+    <color name="light_blue_700">#0288D1</color>
+    <color name="yellow_500">#FFEB3B</color>
+    <color name="live">@color/white</color>
+    <color name="zxing_status_text">@color/white</color>
+    <color name="zxing_transparent">@color/transparent</color>
+
+</resources>

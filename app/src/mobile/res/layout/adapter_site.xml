@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/vs_40"
+    android:background="@drawable/selector_site_dialog_item"
+    android:clickable="true"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="?attr/dialogOnSurface"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="泥巴"
+        android:textSize="@dimen/font_body">
+        <tag android:id="@id/tag_typography_role" android:value="body" />
+    </TextView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/search"
+        android:layout_width="@dimen/vs_32"
+        android:layout_height="@dimen/vs_32"
+        android:layout_marginStart="@dimen/vs_8"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/site_search"
+        android:padding="@dimen/vs_4"
+        android:src="@drawable/ic_site_search"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/change"
+        app:layout_constraintStart_toEndOf="@id/text"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/change"
+        android:layout_width="@dimen/vs_32"
+        android:layout_height="@dimen/vs_32"
+        android:layout_marginStart="@dimen/vs_4"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/site_change"
+        android:padding="@dimen/vs_4"
+        android:src="@drawable/ic_site_change"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/search"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/vs_8">
+
+    <!-- Sort buttons row -->
+    <com.wuming.android.tv.ui.custom.VisibleFocusLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/vs_4">
+
+        <TextView
+            android:id="@+id/sortPerformance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_ranking_item"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusDown="@id/recycler"
+            android:paddingStart="@dimen/vs_8"
+            android:paddingEnd="@dimen/vs_8"
+            android:paddingTop="@dimen/vs_4"
+            android:paddingBottom="@dimen/vs_4"
+            android:textColor="?attr/dialogOnSurface"
+            android:textSize="@dimen/font_micro"
+            android:text="@string/sort_performance" >
+            <tag android:id="@id/tag_typography_role" android:value="micro" />
+        </TextView>
+
+        <TextView
+            android:id="@+id/sortReliability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/vs_4"
+            android:background="@drawable/selector_ranking_item"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusDown="@id/recycler"
+            android:paddingStart="@dimen/vs_8"
+            android:paddingEnd="@dimen/vs_8"
+            android:paddingTop="@dimen/vs_4"
+            android:paddingBottom="@dimen/vs_4"
+            android:textColor="?attr/dialogOnSurface"
+            android:textSize="@dimen/font_micro"
+            android:text="@string/sort_reliability" >
+            <tag android:id="@id/tag_typography_role" android:value="micro" />
+        </TextView>
+
+        <TextView
+            android:id="@+id/sortSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/vs_4"
+            android:background="@drawable/selector_ranking_item"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusDown="@id/recycler"
+            android:paddingStart="@dimen/vs_8"
+            android:paddingEnd="@dimen/vs_8"
+            android:paddingTop="@dimen/vs_4"
+            android:paddingBottom="@dimen/vs_4"
+            android:textColor="?attr/dialogOnSurface"
+            android:textSize="@dimen/font_micro"
+            android:text="@string/sort_speed" >
+            <tag android:id="@id/tag_typography_role" android:value="micro" />
+        </TextView>
+
+        <View
+            android:layout_width="@dimen/vs_0"
+            android:layout_height="@dimen/vs_0"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/selectToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_ranking_item"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusDown="@id/recycler"
+            android:paddingStart="@dimen/vs_8"
+            android:paddingEnd="@dimen/vs_8"
+            android:paddingTop="@dimen/vs_4"
+            android:paddingBottom="@dimen/vs_4"
+            android:textColor="?attr/dialogOnSurface"
+            android:textSize="@dimen/font_micro"
+            android:text="@string/select_sites" >
+            <tag android:id="@id/tag_typography_role" android:value="micro" />
+        </TextView>
+
+    </com.wuming.android.tv.ui.custom.VisibleFocusLinearLayout>
+
+    <!-- Site ranking list -->
+    <com.wuming.android.tv.ui.custom.CustomRecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
+        android:scrollbarTrackVertical="@drawable/shape_scrollbar_track"
+        app:maxHeight="@dimen/vs_376"
+        tools:itemCount="8"
+        tools:listitem="@layout/adapter_site_ranking" />
+
+    <!-- Clear button row at the bottom -->
+    <TextView
+        android:id="@+id/clearAll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vs_4"
+        android:background="@drawable/selector_ranking_item"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:nextFocusUp="@id/recycler"
+        android:gravity="center"
+        android:paddingTop="@dimen/vs_8"
+        android:paddingBottom="@dimen/vs_8"
+        android:textColor="@color/ranking_red"
+        android:textSize="@dimen/font_label"
+        android:text="@string/clear_ranking" >
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </TextView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

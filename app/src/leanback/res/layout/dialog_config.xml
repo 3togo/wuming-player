@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/vs_16">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/code"
+        android:layout_width="@dimen/vs_180"
+        android:layout_height="@dimen/vs_180"
+        android:layout_gravity="center_vertical"
+        android:scaleType="centerCrop" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/content"
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="@dimen/vs_214"
+        android:layout_marginStart="@dimen/vs_12"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lineSpacingExtra="@dimen/vs_4"
+            android:maxLines="3"
+            android:paddingStart="@dimen/vs_4"
+            android:paddingEnd="@dimen/vs_4"
+            android:textColor="?attr/dialogOnSurface"
+            android:textSize="@dimen/font_title"
+            tools:text="使用手机扫描二维码\n或于浏览器访问地址" >
+            <tag android:id="@id/tag_typography_role" android:value="title" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.wuming.android.tv.ui.custom.CustomEditText
+                android:foreground="@drawable/tv_focus_outline"
+                android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vs_2"
+            android:background="@null"
+            android:hint="@string/dialog_config_hint"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:nextFocusDown="@id/editName"
+            android:paddingStart="@dimen/vs_4"
+            android:paddingEnd="@dimen/vs_4"
+            android:singleLine="true"
+            android:textColor="?attr/dialogOnSurface"
+            android:textSize="@dimen/font_title" >
+            <tag android:id="@id/tag_typography_role" android:value="title" />
+        </com.wuming.android.tv.ui.custom.CustomEditText>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/vsp_2"
+            android:layout_marginBottom="@dimen/vs_10"
+            android:background="?attr/dialogOutline" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textSize="@dimen/font_body">
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.wuming.android.tv.ui.custom.CustomEditText
+                android:foreground="@drawable/tv_focus_outline"
+                android:id="@+id/editName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vs_4"
+            android:background="@null"
+            android:hint="@string/dialog_config_name"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:nextFocusDown="@id/help"
+            android:paddingStart="@dimen/vs_4"
+            android:paddingEnd="@dimen/vs_4"
+            android:singleLine="true"
+            android:textColor="?attr/dialogOnSurface"
+            android:textSize="@dimen/font_title" >
+            <tag android:id="@id/tag_typography_role" android:value="title" />
+        </com.wuming.android.tv.ui.custom.CustomEditText>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/chooseHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vs_4"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="?attr/dialogOnSurfaceVariant"
+            android:textSize="@dimen/font_micro"
+            tools:text="@string/dialog_config_choose_vod_hint" >
+            <tag android:id="@id/tag_typography_role" android:value="micro" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/vs_0"
+            android:layout_weight="1" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/help"
+                style="@style/DialogButton"
+                android:layout_marginEnd="@dimen/vs_16"
+                android:text="@string/dialog_config_help" >
+                <tag android:id="@id/tag_typography_role" android:value="label" />
+            </com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/choose"
+                style="@style/DialogButton"
+                android:layout_marginEnd="@dimen/vs_16"
+                android:text="@string/setting_choose" >
+                <tag android:id="@id/tag_typography_role" android:value="label" />
+            </com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/positive"
+                style="@style/DialogButton"
+                android:layout_marginEnd="@dimen/vs_16"
+                android:text="@string/dialog_positive" >
+                <tag android:id="@id/tag_typography_role" android:value="label" />
+            </com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/negative"
+                style="@style/DialogButton"
+                android:text="@string/dialog_negative" >
+                <tag android:id="@id/tag_typography_role" android:value="label" />
+            </com.google.android.material.textview.MaterialTextView>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

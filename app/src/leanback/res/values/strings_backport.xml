@@ -1,0 +1,12 @@
+<resources>
+    <!-- Timer strings for backported TimerDialog -->
+    <string name="timer_5">5 minutes</string>
+    <string name="timer_15">15 minutes</string>
+    <string name="timer_30">30 minutes</string>
+    <string name="timer_60">60 minutes</string>
+    <string name="timer_delay">Delay 5 minutes</string>
+    <string name="timer_cancel">Cancel timer</string>
+    
+    <!-- Episode dialog string -->
+    <string name="detail_episode">Episodes</string>
+</resources>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/vs_8">
+
+        <com.wuming.android.tv.ui.custom.CustomEditText
+                android:foreground="@drawable/tv_focus_outline"
+                android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/webdav_connector_name"
+            android:inputType="textCapSentences"
+            android:singleLine="true"
+            android:textSize="@dimen/font_body">
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.wuming.android.tv.ui.custom.CustomEditText>
+
+        <com.wuming.android.tv.ui.custom.CustomEditText
+                android:foreground="@drawable/tv_focus_outline"
+                android:id="@+id/url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/webdav_connector_url_hint"
+            android:inputType="textUri"
+            android:singleLine="true"
+            android:textSize="@dimen/font_body">
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.wuming.android.tv.ui.custom.CustomEditText>
+
+        <com.wuming.android.tv.ui.custom.CustomEditText
+                android:foreground="@drawable/tv_focus_outline"
+                android:id="@+id/path"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/webdav_connector_path_hint"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="@dimen/font_body">
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.wuming.android.tv.ui.custom.CustomEditText>
+
+        <com.wuming.android.tv.ui.custom.CustomEditText
+                android:foreground="@drawable/tv_focus_outline"
+                android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/webdav_connector_username"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="@dimen/font_body">
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.wuming.android.tv.ui.custom.CustomEditText>
+
+        <com.wuming.android.tv.ui.custom.CustomEditText
+                android:foreground="@drawable/tv_focus_outline"
+                android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/webdav_connector_password"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textSize="@dimen/font_body">
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.wuming.android.tv.ui.custom.CustomEditText>
+
+    </LinearLayout>
+</ScrollView>

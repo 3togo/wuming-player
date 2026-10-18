@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/ds_space_large">
+
+    <com.wuming.android.tv.ui.custom.CustomRecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbarThumbVertical="@drawable/shape_scrollbar_thumb"
+        android:scrollbarTrackVertical="@drawable/shape_scrollbar_track"
+        android:paddingEnd="@dimen/vs_8"
+        android:clipToPadding="false"
+        app:maxHeight="@dimen/vs_328"
+        tools:itemCount="5"
+        tools:listitem="@layout/adapter_site" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/action"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/vs_8"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/search"
+            style="@style/SiteDialogActionButton"
+            android:layout_marginTop="@dimen/vs_0"
+            android:nextFocusUp="@id/search"
+            android:nextFocusDown="@id/change"
+            android:src="@drawable/ic_site_search" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/change"
+            style="@style/SiteDialogActionButton"
+            android:nextFocusUp="@id/search"
+            android:nextFocusDown="@id/select"
+            android:src="@drawable/ic_site_change" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/select"
+            style="@style/SiteDialogActionButton"
+            android:nextFocusUp="@id/change"
+            android:nextFocusDown="@id/cancel"
+            android:src="@drawable/ic_site_select" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/cancel"
+            style="@style/SiteDialogActionButton"
+            android:nextFocusUp="@id/select"
+            android:nextFocusDown="@id/mode"
+            android:src="@drawable/ic_site_cancel" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/mode"
+            style="@style/SiteDialogActionButton"
+            android:nextFocusUp="@id/cancel"
+            android:nextFocusDown="@id/mode"
+            tools:src="@drawable/ic_site_list" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

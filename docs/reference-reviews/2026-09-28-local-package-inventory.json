@@ -1,0 +1,466 @@
+{
+  "date": "2026-09-28",
+  "root": "/home/developer/git/TVBoxOSC/推荐接口/本地包合集/本地包合集260728",
+  "productHead": "e166da13cbb89ce8af6a04ed0e8a73a574705220",
+  "workingTree": "pre-existing modifications inspected; not changed",
+  "scope": "Static metadata, all file hashes and ZIP directory inspection; no provider execution or endpoint requests",
+  "packages": [
+    {
+      "name": "嗷呜",
+      "files": 12,
+      "bytes": 1762360,
+      "fileDigests": {
+        "img/E6C166A7F2222B95D16551FD2EACFC4E.png": "282b7decfb80b18ab878b3d5f3afd7088617b3008fed8c6b1ce7901ac6e8231b",
+        "img/EC508FBD046D33EC4832BB76B63B6C94.gif": "9f012c88d1a425fb0baa41e83b5c89d9f681d49b1692480ce48a6d2e32bb1f7e",
+        "index.json": "72e229feab3ad380c9fe10af89a5b2bbe381223950a2425c4ca65e82afeb6b02",
+        "jar/4022779a787e68082599baafab8e0537.png": "d3a43bb4ae313702ddacccfca395fb546d5274571cf6307438de09bc4710e622",
+        "live/bililive.m3u": "194b436423d4edbb3eaf64b67574a2d765d2e27612536f69e2f3fe51107d3575",
+        "live/douyuyqk.m3u": "c5153a8d0573ed15550c3e970afdeb751de168c6831b6c4bab1bfec43d21d99d",
+        "live/huyayqk.m3u": "d6724f406d474ad50eb8a16c04449f96e555c8a9fa50b32969559407f1113cb8",
+        "live/iptv.m3u": "19d27ab6adaf867026bd772a8600c322d84318af7f0a77fa11480e8cfba9e310",
+        "live/yylunbo.m3u": "1c66584dd68a8d14cda7adedc565d0cd2f26579da4876a70a6cfa1a35e3ad022",
+        "origin.json": "93cf3f868c490655dfb4aaed6fb976eab9a8222bed73477bd11b686d9d10bd71",
+        "txt/app.txt": "ef566687c8c037b570943af6a24372bc04cbefc72bdd4c5e13ae0661fd72f038",
+        "txt/interface.txt": "930c43971b1ba8766e3931e3fe4175623baf179d081b31384b4d6b55ffb0b9e4"
+      },
+      "entry": "index.json",
+      "sites": 85,
+      "types": {
+        "3": 85
+      },
+      "artifacts": [
+        {
+          "path": "img/E6C166A7F2222B95D16551FD2EACFC4E.png",
+          "sha256": "282b7decfb80b18ab878b3d5f3afd7088617b3008fed8c6b1ce7901ac6e8231b",
+          "entries": [
+            "classes.dex",
+            "META-INF/MANIFEST.MF"
+          ]
+        },
+        {
+          "path": "jar/4022779a787e68082599baafab8e0537.png",
+          "sha256": "d3a43bb4ae313702ddacccfca395fb546d5274571cf6307438de09bc4710e622",
+          "entries": [
+            "classes.dex",
+            "META-INF/MANIFEST.MF",
+            "assets/woshinidie.bin"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "小米",
+      "files": 6,
+      "bytes": 1617927,
+      "fileDigests": {
+        "img/bba1cd11728b47106798119ad3cec3fdfc032335.jpg": "ea73f3c79b1d323f42bcad9a45af396af71485917bd7c0c61f9615c7603a439b",
+        "index.json": "2e43cc37a438af9d142223a02544337a545d869c7cc4d13b35e3c732c83eac50",
+        "jar/7fd101e440d84afa8608480893e72180aFnuu1Uq.jpg": "a2bbb6ba29ba83fc0cc7a6ebfeb1a0d8663b534ae815d61f7b51cd8b4b8c44d9",
+        "json/com.baiyunvideo.app.json": "4f706084e431357f7aa6dbe57c846d24cadcbfb214c56f1356f22352807d60b3",
+        "origin.json": "c32f6daa33ea9f81a09632e185f54bfb3a952179effcb55ce53720b7cddbcf56",
+        "txt/app.txt": "ef566687c8c037b570943af6a24372bc04cbefc72bdd4c5e13ae0661fd72f038"
+      },
+      "entry": "index.json",
+      "sites": 38,
+      "types": {
+        "3": 38
+      },
+      "artifacts": [
+        {
+          "path": "jar/7fd101e440d84afa8608480893e72180aFnuu1Uq.jpg",
+          "sha256": "a2bbb6ba29ba83fc0cc7a6ebfeb1a0d8663b534ae815d61f7b51cd8b4b8c44d9",
+          "entries": [
+            "META-INF/",
+            "META-INF/MANIFEST.MF",
+            "classes.dex"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "摸鱼",
+      "files": 12,
+      "bytes": 8695095,
+      "fileDigests": {
+        "img/avatar%2Ff5309172-1af6-4c4f-a1c5-a4773a1cc718.gif": "8e4ed289b7224effc5cd9565b9b72b590dad45e806b85d4e9f6df7e019744cc7",
+        "index.json": "be5b726417067779a315e7324dd8fca2847802682947e0729d06e7e6696928ea",
+        "jar/download.php": "e360ecbb21d75b5bd50be91b91a332011e1b19405f2ea543d1c32770c95c5161",
+        "json/douban.json": "191027146d6cc041e19f0c6035e5a4ce3155add6de40b0bc695c2c239ca9601a",
+        "json/fishdrive.json": "ea59a4665a0e1116673a37edefc3b5fc916ff25dad38f5b5289f8ff9bd8f5e13",
+        "json/share.json": "b9b70c8004565a801698af5c79e7cb948960ac8e2195565f33af30b5e96ecec7",
+        "json/tmdb.json": "c1b7d125cbfb299dee7ad7dae46ff5a8e6e9ac64e2e3e125953e7127b40e04f6",
+        "origin.json": "513a815afe0dbb3c0c16e77f425fbf782fa5ccd719336cfd316455d5d9ad6b39",
+        "txt/89370c8ddf36b5e1beb4d71adb921bda.txt": "37ca0c5fa38589a8d89ea60af5fac54e55212df3bebcddbd406c83c0c62692e4",
+        "txt/8f55d520f8d70056695740ef151744a7.txt": "92ae9af6b026347edbfdba9acacd29274368e7a3c7893f1fed03b4be5bcc2723",
+        "txt/c66a4b5356141c49fd45ec51568017b4.txt": "e46ac2350b93b48d404ad5c3d0c23adf0129a7473a7ceeddfc968df0efa15456",
+        "txt/d7a21cf34ede56f5c686ecfba5fc7e3f.txt": "67d790e00bf115c96195bc81cf4f883257324bfbff4246f7696d01a1f09e5763"
+      },
+      "entry": "index.json",
+      "sites": 85,
+      "types": {
+        "3": 85
+      },
+      "artifacts": [
+        {
+          "path": "jar/download.php",
+          "sha256": "e360ecbb21d75b5bd50be91b91a332011e1b19405f2ea543d1c32770c95c5161",
+          "entries": [
+            "META-INF/ANDROID.RSA",
+            "META-INF/ANDROID.SF",
+            "META-INF/MANIFEST.MF",
+            "assets/FishGuard-v7.so",
+            "assets/FishGuard-v8.so",
+            "assets/FishGuard.md5",
+            "classes.dex"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "无意云",
+      "files": 45,
+      "bytes": 6125445,
+      "fileDigests": {
+        "index.json": "ed1c65d982d8f69e63a0fe172b71682362338c136f3103cb5ec229aa75a77454",
+        "jar/wyxs.php": "55392e14020201b80f546d38c74c298a844e76edcae1b3c2171d6c1988a01863",
+        "js/Anime1.js": "8846fa412eace3805f019d730af2f42123bba4fb959c707b512acd7dd83d4461",
+        "js/drpy-core-lite.min.js": "18bab373dfa67a4956f25f273fafb3e5b6b9fdf7bafb21acf0f6264b474900f5",
+        "js/drpy2.min.js": "67f4f6b460db1ec7ef50585953ce826c5263ca91d72958490ef4702b4e154fe1",
+        "js/优酷视频.js": "a951be88a4ab2665052ca83aab8c92afe9f8e803163d4a44c09de89845a28dfa",
+        "js/去看吧.js": "ba47e885e5fcc63850fe4aede1cb1d03d657e1079f32747cc6169cc09c25349e",
+        "js/哔哩视频.js": "6d6d066e8a5d18dfaf98260d82285d7c063ada4bccb7890429c7efbee33340bd",
+        "js/爱奇艺.js": "5a690235aa86096341110508388b9052f52220a72c59071be1c49af0c844c9f1",
+        "js/腾讯视频.js": "107d41fa2a126c60f1efd79b0e2777fe439fc8b16914e652c441756db59f5bbe",
+        "js/芒果视频.js": "01fcd21bc3f5a919881acb1b0f0c85ff1ea3335e757b4d142db6a0420be61755",
+        "js/路漫漫.js": "1a0eb51705ae674bad0df4c9af44396c2ec0804bd311848e2cd7c7dbcb25c76f",
+        "json/初中课堂.json": "2a66c0f6f72eddf3be0617f647ed5498dc37d0aa391e69fd3f55b04014c96c1d",
+        "json/剧圈影视.json": "d71163f5c882cdaba811d7d932fa56f1276c02051f87adea293d3c90a5e9cf8f",
+        "json/哆啦新番社.json": "6821f8cdb4dcdc429d8e1c49168b7a842400cd16c3f285b02610e94e82c40424",
+        "json/哔哩合集.json": "c6ee220c48a3930a73ce0364e62d993468971f7aff5c4f85ee8106fd65234c6f",
+        "json/哔哩哔哩听书.json": "d4664ab2f9540c7ebfe614c6369581f97e78b386a2daf437d2cb4af4c101d30a",
+        "json/哔哩哔哩小品.json": "1c13f68d1981d241288047ce01ffcbd0404532aebeff9cde805544b0e25f76ef",
+        "json/哔哩哔哩戏曲.json": "ee7389e6a2047a99ee1cb53b66aedf8091bd30663d2590332c3af05e7442a180",
+        "json/哔哩哔哩演唱会.json": "819c9db52d218637b1ff59e9a1b480d30033a68876416d94163cbfdbd42e9bbb",
+        "json/哔哩哔哩相声.json": "8e492196a879ee63c2527a93b33d14047787fd5e53e637d10ea309e8d480c9e4",
+        "json/小学课堂.json": "50f7d84e962d1ae53f321c25638ff239e3aef0f70f2a36d2879a894203ffe635",
+        "json/小镇影视.json": "025a30110d7daa61b298781a4ed6eb40c6c7c8e8a408b504f7aeb816bb7f642e",
+        "json/少儿教育.json": "457e8550665081309699a96b1b2a529e9e2f85250776d026d3043b541c1de4f0",
+        "json/巴士动漫.json": "2793ab67508613e4dab409e978fb1d6807b5150ac79f7a9fce43dfdece65f289",
+        "json/永乐影视.json": "8c1677ff74db6194b8bf51d768487dfa8627c261229ce44525e4e30b74538e57",
+        "json/电影港.json": "10911e167f7ddca88baf721fd1814a39c650019c5ba40091afcf00a656fbaa94",
+        "json/面包影视.json": "82d97a26121cfc490d03ef13f898720959b0c3ca44e382e20634cfd74591a0bb",
+        "json/高中课堂.json": "696eac8f55eb7954ff06792736165625476eb17385f24f0ec802ffd8f1c27ff0",
+        "live/bililive.m3u": "194b436423d4edbb3eaf64b67574a2d765d2e27612536f69e2f3fe51107d3575",
+        "live/douyuyqk.m3u": "c5153a8d0573ed15550c3e970afdeb751de168c6831b6c4bab1bfec43d21d99d",
+        "live/huyayqk.m3u": "d6724f406d474ad50eb8a16c04449f96e555c8a9fa50b32969559407f1113cb8",
+        "live/yylunbo.m3u": "1c66584dd68a8d14cda7adedc565d0cd2f26579da4876a70a6cfa1a35e3ad022",
+        "origin.json": "bf6a8a58b701b69abf4c73f0cacf3bfd1d86f8155c11f0f9cbd778b46b12199d",
+        "php/logo.php": "982bd34931b46857c56996b77145e4c90c0b244dfa6ab099cd069e8b500af139",
+        "py/Symx.py": "4d302c186f74674b89b3e4f104cc11229ee40bcbceacfa105b6789b91b166df9",
+        "py/哔哩直播.py": "25db3ca922a39c4d6f43ca8c727a7bc4959ef47e9a530cd2d2ee10ee51365fa4",
+        "py/星芽短剧.py": "8718ab969c6c7a5d826817f1cf5b155254ee4ff977f4a05623071caf64a8899f",
+        "py/爱听音乐.py": "a37d90fe0425cf13815220427cb8f0d09252a8f96a5638ef70393c848622241c",
+        "py/网络直播.py": "87fbb69e2aef41b163d62da394d72d1872830cd1f27a84f1acdbffa4e7550b09",
+        "txt/app.txt": "ef566687c8c037b570943af6a24372bc04cbefc72bdd4c5e13ae0661fd72f038",
+        "txt/app_dyttandroid.txt": "0ca9e528acb37023da35f0f620bf3b28bb87ff235c92c003a358b3162550f668",
+        "txt/app_xpg_android.txt": "0ca9e528acb37023da35f0f620bf3b28bb87ff235c92c003a358b3162550f668",
+        "txt/az5.txt": "d93ae76a4241ee3bbcbac0a1a4a6678bfe38abdf50827574b0840f204822ca94",
+        "txt/xly.txt": "797cd1bc101ab7554150989b8f02b4637475330d822eeb5b53c354e7f00c9632"
+      },
+      "entry": "index.json",
+      "sites": 126,
+      "types": {
+        "3": 118,
+        "4": 1,
+        "1": 7
+      },
+      "artifacts": [
+        {
+          "path": "jar/wyxs.php",
+          "sha256": "55392e14020201b80f546d38c74c298a844e76edcae1b3c2171d6c1988a01863",
+          "entries": [
+            "META-INF/MANIFEST.MF",
+            "META-INF/WUYI.RSA",
+            "META-INF/WUYI.SF",
+            "classes.dex"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "王二小",
+      "files": 14,
+      "bytes": 2518535,
+      "fileDigests": {
+        "img/3CEAE9E_773_wexfnw_20250911190012684newMediaFile.gif": "f729b2f2a477496914045263fc7b5cfb5bb0efae69215496f9b5ebf14f3d1c50",
+        "index.json": "2f332145ab04ec3c36f2f27c0c66df19a60d42033e403d5e7225a8226e102770",
+        "jar/0fb7a341-b261-4664-b1d1-1b6a7ef21a4c.png": "608c3166fa1eebb8ecb40e5842eea38213c3cf920e6608fcc771a660b5df59a6",
+        "live/iptv.m3u": "19d27ab6adaf867026bd772a8600c322d84318af7f0a77fa11480e8cfba9e310",
+        "origin.json": "53a9faf60c784a470b6cd31d18d9b6d6695f38ec5326217cb8f0841581606663",
+        "txt/183E562_773_xiqu_20251130182006749newMediaImage.txt": "47f0f487b0aca077d6f99d8e28dd84dc7563074b2f1f0f4c8c92711785d58cd5",
+        "txt/19B1839_773_chuzhong_20250828171521929newMediaImage.txt": "2696c7001ee93b70b301dbf0cb1eae254820047dfeabbe8bb5819fd8a1a0be6e",
+        "txt/20260414181247-ae51abfbfe.txt": "84118e277692b721659fcca895565f17bb8ead56752e116fc25660562c6ee850",
+        "txt/345A587_773_gaozhong_20250828171449997newMediaImage.txt": "6251a365cb46183bb9677b47003440af61e69269d6abfa3df70c0fcca1fad129",
+        "txt/3C3AB7A_773_ertong_20250828171550247newMediaImage.txt": "738516bd6b15f512493f62b5a4a2f13423559d1364ff310fadf0d18d16a03f38",
+        "txt/4A3AA71_773_xiaoxue_20250828171535645newMediaImage.txt": "691f828cbccf2f34932f8c3e6fc25299de4f050572699ab1e413ee756e6a4647",
+        "txt/bili001.txt": "eaa5064dc8edb6b832d7c44d458c5f9e5fc8d0b4b7c80eb255d7a569afff7ff1",
+        "txt/bilisong.txt": "fa7da3ea55a8173315f6a071a2da2baa99f4d2b32f0d28676bae25e88f6d3085",
+        "txt/interface.txt": "930c43971b1ba8766e3931e3fe4175623baf179d081b31384b4d6b55ffb0b9e4"
+      },
+      "entry": "index.json",
+      "sites": 87,
+      "types": {
+        "3": 87
+      },
+      "artifacts": [
+        {
+          "path": "jar/0fb7a341-b261-4664-b1d1-1b6a7ef21a4c.png",
+          "sha256": "608c3166fa1eebb8ecb40e5842eea38213c3cf920e6608fcc771a660b5df59a6",
+          "entries": [
+            "classes.dex",
+            "META-INF/MANIFEST.MF",
+            "assets/wexguard_v7.so",
+            "assets/wexguard_v8.so",
+            "assets/wexshinidie.guard"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "肥猫",
+      "files": 8,
+      "bytes": 1408926,
+      "fileDigests": {
+        "img/fm.gif": "9dd1d5df0fd9f7186158d90974af2d7c9910686698d0254849dfbba5bce00ceb",
+        "index.json": "29a59c58ca5b651dfc50f8f2cef492728da8b06d36d40c912e91c64de988c0a3",
+        "jar/f7c90-40d96eab-56f3-4c13-a248-8d80bcb9b83a.png": "04f73a0bb4c79fd2547e6c7b488b82afcc20b42572f5ff3030b0c430cd0419ab",
+        "js/%E5%85%94%E5%B0%8F%E8%B4%9D.js": "4ceb30db84a99cf062037495940a1a2dd44f5c69b51059f0062f54cd6a871b7a",
+        "live/iptv.m3u": "19d27ab6adaf867026bd772a8600c322d84318af7f0a77fa11480e8cfba9e310",
+        "origin.json": "2240cefe192296f9999d75239aea13c5ca6822cc1e40428a1200a297f5937826",
+        "txt/0075389dca9afadd4614e9713765ff17.txt": "c7270ad05db2aefcc78bf257a58c7c6b8cc62bf735b0b16ffe965ede9b4acfea",
+        "txt/interface.txt": "930c43971b1ba8766e3931e3fe4175623baf179d081b31384b4d6b55ffb0b9e4"
+      },
+      "entry": "index.json",
+      "sites": 39,
+      "types": {
+        "3": 39
+      },
+      "artifacts": [
+        {
+          "path": "jar/f7c90-40d96eab-56f3-4c13-a248-8d80bcb9b83a.png",
+          "sha256": "04f73a0bb4c79fd2547e6c7b488b82afcc20b42572f5ff3030b0c430cd0419ab",
+          "entries": [
+            "classes.dex",
+            "META-INF/MANIFEST.MF",
+            "assets/push.html"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "虎斑",
+      "files": 21,
+      "bytes": 2300461,
+      "fileDigests": {
+        "index.json": "10da871e6f15c580e21b7ce1073e2b495c2ca034fd9e34d4ad36fd1a2c463571",
+        "jar/custom_spider.jar": "3b55cb66d60a26aa6ef01f78cda708b2c437dcd561f28e43e2143783a77f38dd",
+        "js/drpy2.min.js": "37b02e33ab224df3cffc974279af95c424c5c8fd3502adfe4940593dfd0eb80e",
+        "js/gbk.js": "cf46ccf34d32ce873f021fc5e94c43a73afcb7a551004be8d6a02e94986d0696",
+        "js/jinja.js": "6cf1781f0c32206236049d392383dbc558b530244926d93762dfa3362967bff2",
+        "js/jsencrypt.js": "dfba3a7905507484399622e0938cd5462a44c913450927ea8c3eb760d57660dd",
+        "js/json5.js": "1b3d54f76b9106641e540b6561dc950ffe281590f8546b88f26fc7a91c225e10",
+        "js/node-rsa.js": "b2e1d9c402ce06c19d08e1659624bfbbda91994d06339300970c395977e6d37c",
+        "js/pako.min.js": "7b7a3b8db4d7b65846b807f1309688a8955961dbde5538694862a6c5cbc932cf",
+        "js/优优.js": "71e163ea4605658c4fd1cbb45af5d171f505d9a2bc4b83085fddf1a687532ebe",
+        "js/养生.js": "4319639068a6b1740547f59d1e5fd2d0f4f22f8d08ca92adad08da026833066e",
+        "js/奇奇.js": "7958a8ffdf99cd5ee0e7e292f32da60bb7359f79171060aa93acd728b9cb3bfe",
+        "js/模板.js": "a8e0cace84bf897921f9208bb77d7ebd2d09ce53c0f2582693809bb4afb80fbc",
+        "js/腾腾.js": "625f3082239449dc85b6d14ba053424bc723ef5756017020f5598be6efdeef4a",
+        "js/茫茫.js": "3ddc8ea58cef937ee2dedc18f33ffe7a37e4b9e85c5f4eb2a9b2e6fa85b2c5b3",
+        "json/douban.json": "29b3b31a733069d1682c4be7fd3cf6bfe08b36184d820f055713b6b3bc3a752a",
+        "json/三九影视.json": "2861f85440859c0053de2ef26fbd32085d49216704d45b16c68c1cb354efcd51",
+        "json/三四影视.json": "684ed97fbeda15cb1b35ecfce3b86ff868379a23f8494e41744eba9eb38d44da",
+        "json/永乐影视.json": "8c1677ff74db6194b8bf51d768487dfa8627c261229ce44525e4e30b74538e57",
+        "json/雪糕影视.json": "c2c8a04acdac7ec8b3cf94817505f0d36088fb75a85ee0ce0a8dd08e5b59a5f5",
+        "origin.json": "fc2bcbf934b07900d0833680f0c3feb07ca19ce963f266f02da4a99e25031d02"
+      },
+      "entry": "index.json",
+      "sites": 66,
+      "types": {
+        "3": 59,
+        "4": 7
+      },
+      "artifacts": [
+        {
+          "path": "jar/custom_spider.jar",
+          "sha256": "3b55cb66d60a26aa6ef01f78cda708b2c437dcd561f28e43e2143783a77f38dd",
+          "entries": [
+            "META-INF/MANIFEST.MF",
+            "classes.dex"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "雷蒙",
+      "files": 1,
+      "bytes": 175070,
+      "fileDigests": {
+        "raw/source.txt": "f1162a3aac5b9e40cfd8e6eb8654c00e5f05a48790b177c5a180b361a518acbd"
+      },
+      "artifacts": []
+    },
+    {
+      "name": "雷蒙影视WP",
+      "files": 45,
+      "bytes": 6907685,
+      "fileDigests": {
+        "lib/4khdr.js": "2777d28532afe7155e41d559cde014344f34fbeab9ca9f0383158660cec0d901",
+        "lib/97tvs.js": "221f683eaf2dfe599dd8432bc080ca42bc87819ed6d7ce9826866002221452bd",
+        "lib/YTTV.txt": "733c390451c3303876a3f12df260ec320db3edd6f1b9a35c85e90500447d5ac2",
+        "lib/alistjar.json": "85460c434b4cd3dbfdc2286744c23758a5a0c04dc64cc6fca002b6af83303e4e",
+        "lib/cilixiongp.js": "fb4563b4b0cc2085c852bca5661bbae69c24511f78edbfe2c890e6d4016a2b17",
+        "lib/ctvpv.txt": "5c38284f0844dbf64f9792dd616c0a11c052d56f811ac4bbb1b469eb57ba5233",
+        "lib/ddyspg.js": "b84a6f0b1863f07c2eb8298204cd55517af499db117607b0e10af2b7156241b6",
+        "lib/douban.json": "e94bf6f43a6e4b4c020092a99fd1a36574dddaa36b20b237dbdad08738a0d87d",
+        "lib/drpy2.min.js": "bbe2e4312dd2ef894f77feba69fb13de4d64b7ad27e9b2c6552ad5906a9b7933",
+        "lib/dydhhy.js": "d92970fcc4aafe42e027a53c85042a7c9c87e2bc97bdc1550f12cb9978860722",
+        "lib/dygang.js": "076264bd265df9c94f72ce024ed0fcb5b82e3b9bdff9df93836fc031364e45ae",
+        "lib/funletu.js": "a8c95c4d5fbe8893303be2b637ee17cf3cb149ac2fc2ffd6b380f521f02aff05",
+        "lib/jiyingw.js": "2c2fad4c754efe688c55911151359948d3711538f5ddf4c1afefd42a471edcda",
+        "lib/kkpans.js": "1b0beebfa13118b2944eb9d1c1b31afdaaaa6599eb891baa279568ba156629fa",
+        "lib/kuba.js": "cd9aca5d4181ccbcef0da913dc85851b55a0444291acb35db23f3aa26b62452c",
+        "lib/lf_live.json": "70cb60087dc958d6c770fefa7ffef4f934609607608e83204b48aef65a8be2dc",
+        "lib/lf_live10_min-output.js": "dc3418c24b2590e755597df6766fc8323f4342f7b09bde12eb60db03e160d2ed",
+        "lib/lf_p2p2_min.js": "06dfa5dee148a940ff200ddb0bf9ad5a1422f7bb19885b0df50c0cb50d2df2f2",
+        "lib/lf_search3_min.js": "3e13db194b3b62fd39c27eff7de82afe3719dc0b228e27f5f9fceb9e145c5b20",
+        "lib/libvio.js": "c585121f52c7ac55d39e08ce863886fb712446ffd6b4951f963583cde5e45bd6",
+        "lib/litelive.m3u": "a033f7eefc6cc1576349f5b6a6904deeb88bc36e58abbf1a9326604518d9e292",
+        "lib/live.m3u": "513aa9ca86330cc9ff6c31953531d2afc706673480adf5078a5dbfabde50c49a",
+        "lib/live.txt": "4ec409b0858fe6cd0d055878611eeab176594fb4c2f1922b84f1053f0433f7a6",
+        "lib/live2cms.json": "651ea0de0df5e830b310b910c05bb84d1cc7a9313eb9004da12534e945c4be5d",
+        "lib/market.jar": "a14fcaa2fb67ba77c3131528221caa86d8333dcf6647b761ff9c128ed08bf28f",
+        "lib/market.json": "8ea25848993acee95cf671f29187c573e4943377d39e781d76fb1add91673dad",
+        "lib/meijumi.js": "8ed42c4e8ebd4ae0e8f4acb1cf5b9a41d2f5e445e9723ce9adecbb087e739498",
+        "lib/meow.js": "8d7075ae1994f12919c5c6956af6a7c7520d03793742c0f175023dceaf942993",
+        "lib/notice.jar": "1dd6f444471fee17290e955a330c4b6e8f94af75ebbbd252fb4f247c9dd2464d",
+        "lib/pansou.py": "d634b9d8fea4b40065068f9a479994f9ab5ea74136c78c04fa5c3780e8010111",
+        "lib/pg.json": "b04de59354108d87030bad6c47b7b4a90d0e0090f131d00d55969b268d0279e1",
+        "lib/qimiao.js": "17c002d4b6efe349b33f530dbe6dd7a8499503995875302d558e3c51bad98545",
+        "lib/rrdyw.js": "7adbbe99add9f11a49f2882e16aa910a30f9f21804fe9d8a3001479b746fdae6",
+        "lib/tzfile.js": "d9865e03ee2a122f0f12fa3e8d789adba89c1aeb38fe53ed652e387c9319b077",
+        "lib/xb6v.js": "ad490ce062d45dbdfecfe676b01fb314ff2ba8ffcff7d9a70b092dff1cfecb81",
+        "lib/xbpg.jar": "64637af0a0dc780cbe58d72904c16b9ff95d16917fed715c2aa6390512d6c49d",
+        "lib/xzys.js": "6f8b79445a19a0fcf59d6f9d051ab1aab53df0d3c1d747b2e65e63b6ef91e5af",
+        "lib/ytc.json": "51e7bc601943b95d1bbb297a5cfb2434dc1b978a2a0aa2c208980329462e9957",
+        "lib/盘搜-海报.py": "c220bb6b45389246492ec3233396b9331c388e70fb223d5cb83581ef21800e87",
+        "lib/荐片.js": "955649d959f8ab249dd49b60794efa6ab99739546e977d8ca113803fa881af86",
+        "lib/豆瓣[官].js": "f576800e4fa04ead8846ef9adb5c86f75b18bfa5ebc3e909be68837e8aa1c28a",
+        "lib/雷蒙资源静态.json$1": "2d623b066514376da58ae2e89b09c7f756e1f0a42480c277f7d44b52c6829637",
+        "lib/飞快TV[推].py": "b49548d901b70db4997c0b51f01859aad8032409ef8852390da06a2a53840fea",
+        "pg.jar": "729e5b4459aba5f3b4239d5367b12cb9c5267e4c101a4781c0bd342390fe9781",
+        "雷蒙影视WP.json": "365f9609b3bba4b486064d7ca6bb9c9f769cef392d6c93751081d5d035ef840a"
+      },
+      "entry": "雷蒙影视WP.json",
+      "sites": 130,
+      "types": {
+        "3": 126,
+        "1": 4
+      },
+      "artifacts": [
+        {
+          "path": "lib/market.jar",
+          "sha256": "a14fcaa2fb67ba77c3131528221caa86d8333dcf6647b761ff9c128ed08bf28f",
+          "entries": [
+            "classes.dex",
+            "META-INF/MANIFEST.MF"
+          ]
+        },
+        {
+          "path": "lib/notice.jar",
+          "sha256": "1dd6f444471fee17290e955a330c4b6e8f94af75ebbbd252fb4f247c9dd2464d",
+          "entries": [
+            "classes.dex",
+            "META-INF/MANIFEST.MF"
+          ]
+        },
+        {
+          "path": "lib/xbpg.jar",
+          "sha256": "64637af0a0dc780cbe58d72904c16b9ff95d16917fed715c2aa6390512d6c49d",
+          "entries": [
+            "classes.dex"
+          ]
+        },
+        {
+          "path": "pg.jar",
+          "sha256": "729e5b4459aba5f3b4239d5367b12cb9c5267e4c101a4781c0bd342390fe9781",
+          "entries": [
+            "classes.dex",
+            "META-INF/MANIFEST.MF",
+            "assets/ebook.mp4",
+            "assets/input.html",
+            "assets/mic.xml",
+            "assets/po_token.html",
+            "assets/push.html",
+            "assets/silence.mp3.gz",
+            "ShA1sUm.dat"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "饭太硬",
+      "files": 29,
+      "bytes": 2757591,
+      "fileDigests": {
+        "img/6941612717007.gif": "1faeeec7afe943fa1b11c1ccbdb42bce55b64bfff44ce2c11d3b01d018e76872",
+        "index.json": "5c14ffa27ef14f5f97ae992d599df5572dbb0afc009f775f764e847d09c46b18",
+        "jar/a3ef9fdc-e70b-4ede-8a98-bd56cd7ec65a.jpg": "53092b423a2a93e96c64304f26325de49d5c152b36ce509e83025c07a71ae9d5",
+        "js/%E5%85%94%E5%B0%8F%E8%B4%9D.js": "7173a949be786609d3c16cd02d9797889c6086a485aeff2f29bc77c602dc4676",
+        "js/drpy2.min.js": "1fd5ecd4077f106dfd3952c208d7d0a25762ca90d1ae416dde996065e1507ab9",
+        "js/gbk.js": "28097cea4538c34653cd1e2c39aef3ad5bc892caa54b0761105f26fa4a3a339a",
+        "js/jinja.js": "6cf1781f0c32206236049d392383dbc558b530244926d93762dfa3362967bff2",
+        "js/json5.js": "1b3d54f76b9106641e540b6561dc950ffe281590f8546b88f26fc7a91c225e10",
+        "js/node-rsa.js": "b2e1d9c402ce06c19d08e1659624bfbbda91994d06339300970c395977e6d37c",
+        "js/pako.min.js": "7b7a3b8db4d7b65846b807f1309688a8955961dbde5538694862a6c5cbc932cf",
+        "js/斗鱼直播.js": "114a5ec86e6d48545ce0a99b1a5552380d735998737166e8fa3887479e04d64d",
+        "js/模板.js": "1da00bdcb30ab1a7875a84ee6fc82256e705330b6cc9d84144f163df68b665cb",
+        "js/虎牙.js": "efe1013ec759d66767d356f6769d79a697cb9ecdac44deb682a38b32f83e01fc",
+        "live/2C9AF1F98DBC1523826C0CD4DA8D8947.m3u": "143c90badae9dc707e2cf403bb8c4e5961adecb33e5699d7b618b1f1fa1e9177",
+        "live/370FAE41BD301F89BA1FCD6FDB8D5BD6.m3u": "4ff332e032e33374fdc5cab36e0108aee790c8fcadf9b5694262253a888c34e1",
+        "live/3FB56B2C49DF92B3252352FBE5CD00F1.m3u": "b4f5ab8aeca17ddd7e45b0fa1b2e3fb0e38c44a51c672b477111f6eef0ab41fe",
+        "live/3d75a78a0fc7ede372c03598d6d10367.m3u": "ea3ee5d7e0861c147b2c5fdb21c4887eec37d0fd8754a8d0fa9c974a1d7ab947",
+        "live/ECB0A5FBED1D8C4D4E049E95DB9F756F.m3u": "4cf464c74fd43cee94b4b9de6384a9d40e4da3f5032be23a3ad4f57dffea5416",
+        "live/iptv.m3u": "19d27ab6adaf867026bd772a8600c322d84318af7f0a77fa11480e8cfba9e310",
+        "origin.json": "96d6d570bff896c0c320ea3735ddf39f36cae3dfe897b94a704ce8b075b61738",
+        "txt/0075389dca9afadd4614e9713765ff17.txt": "c7270ad05db2aefcc78bf257a58c7c6b8cc62bf735b0b16ffe965ede9b4acfea",
+        "txt/5af5fbe12a88b7c45aa1c21e6551826c.txt": "b96a6aa94b64ef29ff115b4ad590c41cd7b776ceab025ebbcf1fed7ec131bc12",
+        "txt/6496356286589c68f52c2f99c0c674c7.txt": "f32bde4ace081623ce02d1e8fa4294f05c3cd776e68b4affb9e6df4c0aa313f0",
+        "txt/89370c8ddf36b5e1beb4d71adb921bda.txt": "37ca0c5fa38589a8d89ea60af5fac54e55212df3bebcddbd406c83c0c62692e4",
+        "txt/8f55d520f8d70056695740ef151744a7.txt": "92ae9af6b026347edbfdba9acacd29274368e7a3c7893f1fed03b4be5bcc2723",
+        "txt/Cloud-drive.txt": "66b17f0f90218f36e6dbbcf3d0cc97b52d19b7138c36399a3ed9ef50b7d0d373",
+        "txt/c66a4b5356141c49fd45ec51568017b4.txt": "e46ac2350b93b48d404ad5c3d0c23adf0129a7473a7ceeddfc968df0efa15456",
+        "txt/d7a21cf34ede56f5c686ecfba5fc7e3f.txt": "67d790e00bf115c96195bc81cf4f883257324bfbff4246f7696d01a1f09e5763",
+        "txt/interface.txt": "930c43971b1ba8766e3931e3fe4175623baf179d081b31384b4d6b55ffb0b9e4"
+      },
+      "entry": "index.json",
+      "sites": 49,
+      "types": {
+        "3": 49
+      },
+      "artifacts": [
+        {
+          "path": "jar/a3ef9fdc-e70b-4ede-8a98-bd56cd7ec65a.jpg",
+          "sha256": "53092b423a2a93e96c64304f26325de49d5c152b36ce509e83025c07a71ae9d5",
+          "entries": [
+            "classes.dex",
+            "META-INF/MANIFEST.MF",
+            "assets/ftyguard_v7.so",
+            "assets/ftyguard_v8.so",
+            "assets/ftyshinidie.guard"
+          ]
+        }
+      ]
+    }
+  ]
+}

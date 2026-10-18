@@ -1,0 +1,139 @@
+{
+  "version": 1,
+  "production": [
+    {
+      "id": "identity",
+      "mode": "all",
+      "ui": false,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.VerificationIsolationInstrumentedTest#instrumentationTargetsTheIsolatedApplication",
+        "com.wuming.android.tv.ui.CriticalManifestInstrumentedTest#launcherResolvesToHomeActivity",
+        "com.wuming.android.tv.ui.CriticalManifestInstrumentedTest#criticalActivitiesAreDeclaredAndResizable"
+      ]
+    },
+    {
+      "id": "state",
+      "mode": "all",
+      "ui": false,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.bean.StateRestorationInstrumentedTest#valueParcelKeepsLegacyFieldOrderAndActivationByte",
+        "com.wuming.android.tv.bean.StateRestorationInstrumentedTest#filterParcelKeepsNullFieldsAndIndependentValueList",
+        "com.wuming.android.tv.bean.StateRestorationInstrumentedTest#vodScreenResultSurvivesFrameworkParcelRoundTrip",
+        "com.wuming.android.tv.bean.StateRestorationInstrumentedTest#nestedFolderArgumentsSurviveProcessStyleBundleMarshalling"
+      ]
+    },
+    {
+      "id": "playback-wiring",
+      "mode": "all",
+      "ui": false,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.player.PlaybackLaunchInstrumentedTest#inheritedUrlAndFileLaunchersUseTheFlavorActivity",
+        "com.wuming.android.tv.player.PlayerManagerInstrumentedTest#realMedia3EngineCanBeCreatedAndReleasedOnMainThread"
+      ]
+    },
+    {
+      "id": "phone-critical",
+      "mode": "mobile",
+      "ui": true,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.ui.MobileCriticalFlowInstrumentedTest#frontPageVodNavigationSurvivesActivityRecreation",
+        "com.wuming.android.tv.ui.MobileCriticalFlowInstrumentedTest#playerSettingControlsHaveTouchTargetsAndVisibleLabels"
+      ]
+    },
+    {
+      "id": "tv-critical",
+      "mode": "leanback",
+      "ui": true,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.ui.LeanbackCriticalFlowInstrumentedTest#nestedSearchResultsAlwaysUseMultiColumnTvGrid",
+        "com.wuming.android.tv.ui.LeanbackCriticalFlowInstrumentedTest#settingsCloudShareRouteAcceptsRemoteFocusAndToggles"
+      ]
+    }
+  ],
+  "deep": [
+    {
+      "id": "http",
+      "mode": "all",
+      "ui": false,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.api.HttpIntegrationInstrumentedTest#decoderLoadsConfigAndResolvesRelativeResourcePaths",
+        "com.wuming.android.tv.api.HttpIntegrationInstrumentedTest#sharedHttpClientFollowsRedirects",
+        "com.wuming.android.tv.api.HttpIntegrationInstrumentedTest#requestHeadersReachProviderEndpoints",
+        "com.wuming.android.tv.api.HttpIntegrationInstrumentedTest#configuredTimeoutStopsSlowProviderRequests"
+      ]
+    },
+    {
+      "id": "database",
+      "mode": "all",
+      "ui": false,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.db.AppDatabaseInstrumentedTest#favoritesCanBeInsertedUpdatedFilteredAndDeleted",
+        "com.wuming.android.tv.db.AppDatabaseInstrumentedTest#historyQueriesRespectConfigAndRecencyOrdering",
+        "com.wuming.android.tv.db.AppDatabaseInstrumentedTest#viewingRecordsKeepSeparateSessionsAndWatchDuration",
+        "com.wuming.android.tv.db.AppDatabaseInstrumentedTest#configurationSelectionUsesTypeAndMostRecentTimestamp"
+      ]
+    },
+    {
+      "id": "runtime",
+      "mode": "all",
+      "ui": false,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.api.parser.EpgXmlRuntimeInstrumentedTest#platformSaxSupportsUnicodeEntitiesAndTheLexicalGuard",
+        "com.wuming.android.tv.api.parser.EpgXmlRuntimeInstrumentedTest#platformSaxRejectsDtdAndExpandedGzipOverBudget",
+        "com.wuming.android.tv.player.exo.AliAdaptiveRangeDataSourceInstrumentedTest#adaptiveReadsPreserveBytesAndRecoverAtLowerConcurrency",
+        "com.wuming.android.tv.player.exo.AliAdaptiveRangeDataSourceInstrumentedTest#cancellationStopsBlockedRequestPromptly",
+        "com.wuming.android.tv.player.exo.AliAdaptiveRangeDataSourceInstrumentedTest#wrongContentRangeIsRejectedAndRetryAfterSupportsDates"
+      ]
+    },
+    {
+      "id": "player-lifecycle",
+      "mode": "all",
+      "ui": false,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.player.PlayerManagerInstrumentedTest#playbackCanStopForBackgroundAndRestartAfterConnectivityReturns",
+        "com.wuming.android.tv.player.PlayerManagerInstrumentedTest#lateControlsAndCallbacksCannotRestartAReleasedManager"
+      ]
+    },
+    {
+      "id": "native-resources",
+      "mode": "all",
+      "ui": false,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.player.QuickJsResourcesInstrumentedTest#failedConversionsReleasePartialArraysOnTheirOwningThread",
+        "com.wuming.android.tv.player.QuickJsResourcesInstrumentedTest#repeatedHttpRepliesReleaseOptionsHeadersAndArrays",
+        "com.wuming.android.tv.player.QuickJsResourcesInstrumentedTest#repeatedPromisesReleaseTheirNativeWrappers",
+        "com.wuming.android.tv.player.QuickJsResourcesInstrumentedTest#firedAndCanceledTimersReleaseNativeFunctions"
+      ]
+    },
+    {
+      "id": "phone-lifecycle",
+      "mode": "mobile",
+      "ui": true,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.ui.MobileCriticalFlowInstrumentedTest#homeAndSearchLayoutsRedrawAcrossBothOrientations",
+        "com.wuming.android.tv.ui.MobileCriticalFlowInstrumentedTest#playerSettingsAndSelectedFragmentSurviveRecreation"
+      ]
+    },
+    {
+      "id": "tv-dialogs",
+      "mode": "leanback",
+      "ui": true,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.ui.LeanbackRemoteDialogsInstrumentedTest#remoteCanLeaveEditorsAndReachConfirmation",
+        "com.wuming.android.tv.ui.LeanbackRemoteDialogsInstrumentedTest#dynamicDialogActionsReceiveFocusAndRemainReachable"
+      ]
+    }
+  ]
+}

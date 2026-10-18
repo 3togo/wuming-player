@@ -1,0 +1,95 @@
+{
+  "sourceCommit": "1be12f71c228182b84fd771af2e7a6da1c4c99d6",
+  "checkedAtUtc": "2026-10-18T12:48:19.641879+00:00",
+  "environment": {
+    "os": "Ubuntu 26.10 (Stonking Stingray), development branch",
+    "architecture": "x86_64",
+    "buildJvm": "openjdk version \"21.0.12.1\" 2026-08-18",
+    "python": "Python 3.14.8",
+    "gradle": "9.7.1"
+  },
+  "gate": {
+    "command": "bash scripts/verify-release.sh",
+    "status": "passed"
+  },
+  "pythonTests": 210,
+  "junit": {
+    "tests": 8139,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 16
+  },
+  "lint": {
+    "mobileArm64_v8a": {
+      "Warning": 507,
+      "Hint": 26
+    },
+    "leanbackArm64_v8a": {
+      "Warning": 504,
+      "Hint": 31
+    },
+    "leanbackArmeabi_v7a": {
+      "Warning": 504,
+      "Hint": 31
+    }
+  },
+  "artifacts": [
+    {
+      "variant": "mobileArm64_v8a",
+      "fileName": "mobile-arm64_v8a-202610181be1.apk",
+      "size": 38707949,
+      "sha256": "5ffb9a33bf382c1bf3929d97a8c80a4293906bd94d4a572902894ac930326b57",
+      "applicationId": "com.wuming.android.tv.publicedition",
+      "certificateSha256": "693d58ae3f2ec6cd2f43db00d044c294357411bf135dfad9a647dacfe88ce75c",
+      "signatureVerified": true,
+      "removedSdkScan": "passed",
+      "removedSdkManifestScan": "passed"
+    },
+    {
+      "variant": "leanbackArm64_v8a",
+      "fileName": "leanback-arm64_v8a-202610181be1.apk",
+      "size": 39291404,
+      "sha256": "2991784425d15c6b30b1ad2a033d8be9bb3c014c16718593049175968a788063",
+      "applicationId": "com.wuming.android.tv.publicedition",
+      "certificateSha256": "693d58ae3f2ec6cd2f43db00d044c294357411bf135dfad9a647dacfe88ce75c",
+      "signatureVerified": true,
+      "removedSdkScan": "passed",
+      "removedSdkManifestScan": "passed"
+    },
+    {
+      "variant": "leanbackArmeabi_v7a",
+      "fileName": "leanback-armeabi_v7a-202610181be1.apk",
+      "size": 34019654,
+      "sha256": "f1e427c0d0edd1dbb01a7c2cf236621786e1a653bfd5e25ac483070e8956c047",
+      "applicationId": "com.wuming.android.tv.publicedition",
+      "certificateSha256": "693d58ae3f2ec6cd2f43db00d044c294357411bf135dfad9a647dacfe88ce75c",
+      "signatureVerified": true,
+      "removedSdkScan": "passed",
+      "removedSdkManifestScan": "passed"
+    }
+  ],
+  "junitCountNote": "Repeated test executions across Android variants are included; skipped cases are not passes.",
+  "privacy": {
+    "knownPersonalHomePathMatches": 0,
+    "scope": "APK ZIP entries through two nested archive levels, entries <=60 MB; known personal home prefixes only."
+  },
+  "removedSdks": [
+    "ForceTech",
+    "JianPian",
+    "Thunder",
+    "TVBus"
+  ],
+  "removalChecks": {
+    "sourceAndAars": "passed",
+    "finalApks": 3,
+    "method": "scripts/check-removed-sdks.py; removed JNI filenames and DEX package prefixes; merged manifests separately checked",
+    "regression": "Release gate rejects a ZIP-based APK fixture containing removed libjpa.so and removes success receipts"
+  },
+  "readiness": {
+    "tvPlaybackCastingDpad": "deferred by user",
+    "phoneRuntime": "not tested on these optimized APKs",
+    "vendorReview": "The four SDK redistribution blockers were removed. Remaining Hook/test-fixture reproduction limits and transitive review scope are documented.",
+    "publication": "No repository or update channel configured; nothing published"
+  },
+  "priorAttempt": "The initial candidate stopped on a release-gate test fixture missing the new scanner. The fixture was updated and the full gate passed on sourceCommit."
+}

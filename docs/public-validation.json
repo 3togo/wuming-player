@@ -1,0 +1,112 @@
+{
+  "sourceCommit": "dbaa8b4accfde4d12bf183bcc127510134b54328",
+  "checkedAtUtc": "2026-10-18T10:11:20.423276+00:00",
+  "executionEnvironment": {
+    "os": "Ubuntu 26.10 (Stonking Stingray), development branch",
+    "architecture": "x86_64",
+    "buildJvm": "OpenJDK 21.0.12.1",
+    "jvmToolchain": 17,
+    "gradle": "9.7.1",
+    "agp": "9.3.1",
+    "kotlin": "2.4.10",
+    "androidCompileSdk": 37,
+    "artifactInspectionBuildTools": "36.0.0"
+  },
+  "buildJvm": 21,
+  "declaredJvmToolchain": 17,
+  "offlineAcceptance": {
+    "status": "passed",
+    "pythonTests": 205,
+    "junitReports": {
+      "testExecutions": 8237,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 16
+    },
+    "countNote": "JUnit counts include repeated cases across Android variants; skipped tests are not passes."
+  },
+  "releaseLint": {
+    "status": "passed",
+    "variants": [
+      "mobileArm64_v8a",
+      "leanbackArm64_v8a",
+      "leanbackArmeabi_v7a"
+    ],
+    "errorsPerVariant": 0,
+    "warningsPerVariant": 511,
+    "jdk17Attempt": "Lint parser crashed with List.removeLast(); JDK 21 retry passed without disabling the detector."
+  },
+  "verificationArtifacts": [
+    {
+      "variant": "mobileArm64_v8a",
+      "fileName": "mobile-arm64_v8a-20261018dbaa.apk",
+      "sha256": "ecb53a56d8397a8546446c8b0c536be4affe9193449009af0ec9268ed22d2c49",
+      "size": 69361071,
+      "applicationId": "com.wuming.android.tv.publicedition.verification",
+      "signature": "Verified; isolated ephemeral test certificate, not the production identity."
+    },
+    {
+      "variant": "leanbackArm64_v8a",
+      "fileName": "leanback-arm64_v8a-20261018dbaa.apk",
+      "sha256": "6b8edaacf92319d3a85b1e535a2134de154f046bc15a9a85a39e5e7ca9f56bf2",
+      "size": 70201819,
+      "applicationId": "com.wuming.android.tv.publicedition.verification",
+      "signature": "Verified; isolated ephemeral test certificate, not the production identity."
+    },
+    {
+      "variant": "leanbackArmeabi_v7a",
+      "fileName": "leanback-armeabi_v7a-20261018dbaa.apk",
+      "sha256": "35f4434974f8ab928e5ab6814d072025175d052089d10f8a0e2f5a0560579a44",
+      "size": 62885153,
+      "applicationId": "com.wuming.android.tv.publicedition.verification",
+      "signature": "Verified; isolated ephemeral test certificate, not the production identity."
+    }
+  ],
+  "helperAssembly": {
+    "guarded-spider-helper": "passed",
+    "guarded-webview-helper": "passed"
+  },
+  "privacy": {
+    "sourceFilesScanned": 3102,
+    "sourceArchivesInspected": 15,
+    "nestedSourceArchiveEntriesInspected": 252,
+    "knownSensitiveMatches": 0,
+    "apkPersonalHomePathMatches": 0,
+    "scope": "Known removed values and token/key patterns in tracked sources; known personal home prefixes in APK ZIP entries through two nested levels, entries up to 60 MB. This is not an exhaustive audit of opaque vendor code."
+  },
+  "nativePolicy": "Shipped prebuilt executables/exports retained, guarded Kotlin fallback used. Rust cross-build candidates never replace shipped artifacts automatically. See public-native-verification.json.",
+  "runtimeEvidence": {
+    "phone": {
+      "status": "passed limited smoke check",
+      "os": "Android 15",
+      "abi": "arm64-v8a",
+      "apkSha256": "ecb53a56d8397a8546446c8b0c536be4affe9193449009af0ec9268ed22d2c49",
+      "installation": "Verified installed version after normal system-installer confirmation; two earlier ADB package-manager attempts were rejected by the device.",
+      "checks": {
+        "coldLaunch": "passed",
+        "syntheticH264AacVideoAndAudio": "passed; confirmed by user",
+        "playheadProgress": "observed at 5876 ms and 12944 ms",
+        "seek": "observed from 15000 ms to 10000 ms",
+        "backgroundReturn": "playback advanced after the task returned",
+        "fatalExceptionObserved": false,
+        "playbackExceptionObserved": false
+      },
+      "temporarySettings": "Original screen-lock, stay-awake and logging settings restored and read back successfully.",
+      "scope": "Synthetic 15-second 320x180 MP4 only; no account data imported. Does not validate cloud-provider routes, process-death restoration, optimized release APKs, or casting."
+    },
+    "tvCasting": "not-tested: TV unavailable",
+    "tvDpad": "not-tested: TV unavailable"
+  },
+  "stableReleaseGate": {
+    "status": "passed on subsequent SDK-free production candidate",
+    "sourceCommit": "1be12f71c228182b84fd771af2e7a6da1c4c99d6",
+    "evidence": "public-sdk-removal-validation.json",
+    "scope": "Offline acceptance, release lint and three optimized signed APKs, including removed-SDK scans; no new runtime or TV evidence."
+  },
+  "openItems": [
+    "Retain the remaining Hook/test-fixture reproduction limits and dependency-review scope recorded in vendor-provenance-review.md; the four SDKs with unresolved permissions are removed.",
+    "Perform TV playback/casting and D-pad checks on actual candidate artifacts when authorized hardware is available.",
+    "Evaluate existing lint warnings and document supported native/rebuild behavior."
+  ],
+  "documentationNote": "Subsequent documentation-only commits record these results; application, runtime packaging and tests were checked at sourceCommit."
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textview.MaterialTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notify_popup"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:accessibilityLiveRegion="polite"
+    android:background="@drawable/bg_notify"
+    android:elevation="@dimen/vs_8"
+    android:ellipsize="end"
+    android:gravity="center"
+    android:maxWidth="@dimen/vs_600"
+    android:maxLines="3"
+    android:minHeight="@dimen/vs_48"
+    android:paddingHorizontal="@dimen/vs_24"
+    android:paddingVertical="@dimen/vs_12"
+    android:textColor="?attr/dialogOnSurface"
+    android:textSize="@dimen/font_label" >
+    <tag android:id="@id/tag_typography_role" android:value="label" />
+</com.google.android.material.textview.MaterialTextView>

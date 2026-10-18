@@ -1,0 +1,43 @@
+/*
+ * Cloud-login runtime implementation module.
+ *
+ * ARCHITECTURE — shared contract, separate implementation:
+ * This module implements the catalog runtime contract declared in
+ * `:libraries:catalog-core` (and `:libraries:cloud-core` where relevant). It holds
+ * ONLY the code unique to this runtime family. Any behavior that could be shared
+ * with another runtime family belongs in the shared contract module — never copied
+ * here. Each runtime family is its own module so a consumer pulls only its own
+ * heavy dependencies (GraalJS/QuickJS, native Python, CatVod/UnidBG, WebView/ADB,
+ * cloud). We prefer a shared contract + separate implementations over duplicating
+ * similar code across runtime modules.
+ */
+plugins {
+    id 'java-library'
+    alias(libs.plugins.kotlin.jvm)
+}
+
+group = 'com.wuming.tv'
+version = '0.1.0-SNAPSHOT'
+
+base {
+    archivesName = 'tvbox-cloud-login-runtime'
+}
+
+java {
+    withSourcesJar()
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+dependencies {
+    api project(':libraries:cloud-core')
+    implementation libs.gson
+
+    testImplementation libs.junit
+}
+
+tasks.named('check') {
+    dependsOn rootProject.tasks.named('verifyGenericLibraryBoundaries')
+}

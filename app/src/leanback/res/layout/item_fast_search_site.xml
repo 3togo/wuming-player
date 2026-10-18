@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fast Search Site Item -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvSearchSite"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/vs_50"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="@dimen/vs_2"
+    android:background="@drawable/selector_item_round"
+    android:ellipsize="marquee"
+    android:focusable="true"
+    android:gravity="center"
+    android:marqueeRepeatLimit="marquee_forever"
+    android:paddingStart="@dimen/vs_4"
+    android:paddingEnd="@dimen/vs_4"
+    android:singleLine="true"
+    android:textAlignment="center"
+    android:textColor="@color/white"
+    android:textSize="@dimen/font_label" >
+    <tag android:id="@id/tag_typography_role" android:value="label" />
+</TextView>

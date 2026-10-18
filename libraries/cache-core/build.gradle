@@ -1,0 +1,27 @@
+plugins {
+    id 'java-library'
+    alias(libs.plugins.kotlin.jvm)
+}
+
+group = 'com.wuming.tv'
+version = '0.1.0-SNAPSHOT'
+
+base {
+    archivesName = 'tvbox-cache-core'
+}
+
+java {
+    withSourcesJar()
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+dependencies {
+    testImplementation libs.junit
+}
+
+tasks.named('check') {
+    dependsOn rootProject.tasks.named('verifyGenericLibraryBoundaries')
+}

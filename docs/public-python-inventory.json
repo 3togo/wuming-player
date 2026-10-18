@@ -1,0 +1,191 @@
+[
+  {
+    "name": "beautifulsoup4",
+    "version": "4.14.2",
+    "license": "MIT License",
+    "licenseClassifiers": [
+      "License :: OSI Approved :: MIT License"
+    ],
+    "notices": [
+      {
+        "path": "third_party/package-assets/third-party/python/beautifulsoup4-4.14.2.dist-info/licenses/LICENSE",
+        "sha256": "55b4d8d4b1e5bc86d10efac91b74c87bcb77526b0f5b9edaf8b9cd2adc7397b2"
+      },
+      {
+        "path": "third_party/package-assets/third-party/python/beautifulsoup4-4.14.2.dist-info/licenses/AUTHORS",
+        "sha256": "b989238918e1fdac1e46717cb405b63e92497a272413af0d989c1df6c8abcb6f"
+      }
+    ]
+  },
+  {
+    "name": "cachetools",
+    "version": "6.2.0",
+    "license": "MIT",
+    "licenseClassifiers": [
+      "License :: OSI Approved :: MIT License"
+    ],
+    "notices": [
+      {
+        "path": "third_party/package-assets/third-party/python/cachetools-6.2.0.dist-info/licenses/LICENSE",
+        "sha256": "23c4eff7a1c027a977a0b79c4497e17582c334c5f17ef6ac8ca0b52d1e7d8417"
+      }
+    ]
+  },
+  {
+    "name": "certifi",
+    "version": "2025.8.3",
+    "license": "MPL-2.0",
+    "licenseClassifiers": [
+      "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)"
+    ],
+    "notices": [
+      {
+        "path": "third_party/package-assets/third-party/python/certifi-2025.8.3.dist-info/licenses/LICENSE",
+        "sha256": "e93716da6b9c0d5a4a1df60fe695b370f0695603d21f6f83f053e42cfc10caf7"
+      }
+    ]
+  },
+  {
+    "name": "charset-normalizer",
+    "version": "3.4.3",
+    "license": "MIT",
+    "licenseClassifiers": [],
+    "notices": [
+      {
+        "path": "third_party/package-assets/third-party/python/charset_normalizer-3.4.3.dist-info/licenses/LICENSE",
+        "sha256": "6d0d41bfe170ac6c7dc248c9a63e254d0fb45a60d50a8257d0af92c6e249b887"
+      }
+    ]
+  },
+  {
+    "name": "cssselect",
+    "version": "1.3.0",
+    "license": "BSD",
+    "licenseClassifiers": [
+      "License :: OSI Approved :: BSD License"
+    ],
+    "notices": [
+      {
+        "path": "third_party/package-assets/third-party/python/cssselect-1.3.0.dist-info/LICENSE",
+        "sha256": "5c8da9f744e0afba81a48c9b5dbe73048f798b3287d6f1af8a05ee08ebb10892"
+      },
+      {
+        "path": "third_party/package-assets/third-party/python/cssselect-1.3.0.dist-info/AUTHORS",
+        "sha256": "d313a3dc7f22208e8cfca5a6a0361046ecd3ad8acb3db27c2b6915480a10e734"
+      }
+    ]
+  },
+  {
+    "name": "idna",
+    "version": "3.10",
+    "license": "BSD-3-Clause (full package license retained)",
+    "licenseClassifiers": [
+      "License :: OSI Approved :: BSD License"
+    ],
+    "notices": [
+      {
+        "path": "third_party/package-assets/third-party/python/idna-3.10.dist-info/LICENSE.md",
+        "sha256": "a59f0b0ef3635874109a4461ca44ff7a70d50696e814767bfaf721d4c9b0db0f"
+      }
+    ]
+  },
+  {
+    "name": "lxml",
+    "version": "6.0.2",
+    "license": "BSD-3-Clause",
+    "licenseClassifiers": [],
+    "notices": [
+      {
+        "path": "third_party/package-assets/third-party/python/lxml-6.0.2.dist-info/licenses/LICENSE.txt",
+        "sha256": "8fc2b568133516e46845d2147917adeee1648e70ae9ab5ed6c5417afef4ce855"
+      },
+      {
+        "path": "third_party/package-assets/third-party/python/lxml-6.0.2.dist-info/licenses/LICENSES.txt",
+        "sha256": "41d49dd406aa0e1548a6d5f21a30d6bf638b3cd96eb7289dd348d83ed2e40392"
+      }
+    ]
+  },
+  {
+    "name": "pycryptodome",
+    "version": "3.23.0",
+    "license": "BSD, Public Domain",
+    "licenseClassifiers": [
+      "License :: OSI Approved :: BSD License",
+      "License :: Public Domain"
+    ],
+    "notices": [
+      {
+        "path": "third_party/package-assets/third-party/python/pycryptodome-3.23.0.dist-info/AUTHORS.rst",
+        "sha256": "1cb670b6cc5bc3a1c38d7e12cdf944442ca790425cf2a628ffbe3012445fe1e4"
+      },
+      {
+        "path": "third_party/package-assets/third-party/python/pycryptodome-3.23.0.dist-info/LICENSE.rst",
+        "sha256": "4e04660d77c1c64e89d79537919fb8240fa21484a7e3db29f358b2c7f84ea073"
+      }
+    ]
+  },
+  {
+    "name": "pyquery",
+    "version": "2.0.1",
+    "license": "BSD",
+    "licenseClassifiers": [],
+    "notices": [
+      {
+        "path": "third_party/package-assets/third-party/python/pyquery-2.0.1.dist-info/LICENSE.txt",
+        "sha256": "6e96459ce221aca0d34a41d909f55d2bc8898b14e5e24e74cdd2a51ceb603cb6"
+      }
+    ]
+  },
+  {
+    "name": "requests",
+    "version": "2.32.5",
+    "license": "Apache-2.0",
+    "licenseClassifiers": [
+      "License :: OSI Approved :: Apache Software License"
+    ],
+    "notices": [
+      {
+        "path": "third_party/package-assets/third-party/python/requests-2.32.5.dist-info/licenses/LICENSE",
+        "sha256": "09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b"
+      }
+    ]
+  },
+  {
+    "name": "soupsieve",
+    "version": "2.8",
+    "license": "MIT",
+    "licenseClassifiers": [
+      "License :: OSI Approved :: MIT License"
+    ],
+    "notices": [
+      {
+        "path": "third_party/package-assets/third-party/python/soupsieve-2.8.dist-info/licenses/LICENSE.md",
+        "sha256": "571d0dafef795a196a0bbc3ac9b160a06b3cad41c320fecd98da3e26a8c81971"
+      }
+    ]
+  },
+  {
+    "name": "typing_extensions",
+    "version": "4.15.0",
+    "license": "PSF-2.0",
+    "licenseClassifiers": [],
+    "notices": [
+      {
+        "path": "third_party/package-assets/third-party/python/typing_extensions-4.15.0.dist-info/licenses/LICENSE",
+        "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+      }
+    ]
+  },
+  {
+    "name": "urllib3",
+    "version": "2.5.0",
+    "license": "MIT",
+    "licenseClassifiers": [],
+    "notices": [
+      {
+        "path": "third_party/package-assets/third-party/python/urllib3-2.5.0.dist-info/licenses/LICENSE.txt",
+        "sha256": "130e3a64d5fdd5d096a752694634a7d9df284469de86e5732100268041e3d686"
+      }
+    ]
+  }
+]

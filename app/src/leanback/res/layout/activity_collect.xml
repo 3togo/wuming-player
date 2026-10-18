@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vs_24"
+        android:layout_marginTop="@dimen/vs_24"
+        android:layout_marginEnd="@dimen/vs_24"
+        android:layout_marginBottom="@dimen/vs_16"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/result"
+            android:layout_width="@dimen/vs_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body"
+            tools:text="@string/collect_result" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/vs_16"
+            android:singleLine="true"
+            android:textColor="@color/search_progress"
+            android:textSize="@dimen/font_body"
+            android:visibility="gone"
+            tools:text="Searching... 3/10"
+            tools:visibility="visible" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/strictSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/vs_16"
+            android:background="@drawable/selector_item_round"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:nextFocusDown="@id/recycler"
+            android:paddingHorizontal="@dimen/vs_12"
+            android:paddingVertical="@dimen/vs_8"
+            android:text="@string/search_strict_off"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.leanback.widget.HorizontalGridView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/vs_24"
+        android:paddingTop="@dimen/vs_4"
+        android:paddingEnd="@dimen/vs_24"
+        android:paddingBottom="@dimen/vs_4"
+        app:focusOutEnd="false"
+        app:focusOutFront="false" />
+
+    <com.wuming.android.tv.ui.custom.CustomViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,0 +1,52 @@
+// Compare each resolved runtime graph with the reviewed license inventory.
+// Root-component providers keep resolution in the owning project and remain cacheable.
+def publicInventory = rootProject.file('docs/public-maven-inventory.json')
+def runtimeAuditTasks = []
+gradle.projectsEvaluated {
+    [':app', ':desktop', ':guarded-catvod-host', ':guarded-spider-helper', ':guarded-webview-helper'].each { path ->
+        def owner = rootProject.project(path)
+        def configurations = owner.configurations.findAll { configuration ->
+            configuration.canBeResolved && configuration.name in [
+                'runtimeClasspath', 'mobileArm64_v8aReleaseRuntimeClasspath',
+                'leanbackArm64_v8aReleaseRuntimeClasspath', 'leanbackArmeabi_v7aReleaseRuntimeClasspath',
+                'releaseRuntimeClasspath', 'debugRuntimeClasspath'
+            ]
+        }
+        def audit = owner.tasks.register('verifyPublicRuntimeLicenses') {
+            inputs.file(publicInventory)
+            configurations.each { configuration ->
+                inputs.property('coordinates-' + configuration.name,
+                    configuration.incoming.resolutionResult.rootComponent.map { component ->
+                        def found = new TreeSet<String>()
+                        def visited = new HashSet()
+                        def pending = [component]
+                        while (!pending.isEmpty()) {
+                            def current = pending.remove(pending.size() - 1)
+                            if (!visited.add(current.id)) continue
+                            if (current.id instanceof org.gradle.api.artifacts.component.ModuleComponentIdentifier) {
+                                found.add(current.moduleVersion.toString())
+                            }
+                            current.dependencies.each { dependency ->
+                                if (dependency instanceof org.gradle.api.artifacts.result.ResolvedDependencyResult) {
+                                    pending.add(dependency.selected)
+                                } else {
+                                    throw new GradleException('Unresolved runtime dependency: ' + dependency.requested)
+                                }
+                            }
+                        }
+                        found.toList()
+                    })
+            }
+            doLast { task ->
+                def report = new groovy.json.JsonSlurper().parse(task.inputs.files.singleFile)
+                if (report.unresolved) throw new GradleException('Unresolved public dependency licenses')
+                def reviewed = report.components.collect { it.coordinate } as Set
+                def actual = task.inputs.properties.values().flatten() as Set
+                def unknown = actual - reviewed
+                if (!unknown.isEmpty()) throw new GradleException('Runtime dependencies need provenance review: ' + unknown.sort())
+            }
+        }
+        runtimeAuditTasks.add(audit)
+    }
+    rootProject.tasks.named('unitAcceptanceBaseline') { dependsOn runtimeAuditTasks }
+}

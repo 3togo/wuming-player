@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/vs_16"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/overlayTitle"
+            style="@style/Shadow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/clock"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_headline"
+            tools:text="民視" >
+            <tag android:id="@id/tag_typography_role" android:value="headline" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/clock"
+            style="@style/Shadow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:fontFeatureSettings="tnum"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_headline"
+            tools:text="09:20:00" >
+            <tag android:id="@id/tag_typography_role" android:value="headline" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_widget"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/vs_56"
+            android:layout_height="@dimen/vs_56"
+            android:src="@drawable/ic_widget_error" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/overlayText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vs_8"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body"
+            tools:text="@string/error_play_url" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/digital"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_widget"
+        android:includeFontPadding="false"
+        android:letterSpacing="0.05"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_display"
+        android:visibility="gone"
+        tools:text="05"
+        tools:visibility="visible" >
+        <tag android:id="@id/tag_typography_role" android:value="display" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_widget"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/overlayAction"
+            android:layout_width="@dimen/vs_56"
+            android:layout_height="@dimen/vs_56"
+            android:src="@drawable/ic_widget_play" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFeatureSettings="tnum"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_body"
+                tools:text="00:00:00" >
+                <tag android:id="@id/tag_typography_role" android:value="body" />
+            </com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/vs_4"
+                android:layout_marginEnd="@dimen/vs_4"
+                android:text="/"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_body" >
+                <tag android:id="@id/tag_typography_role" android:value="body" />
+            </com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFeatureSettings="tnum"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_body"
+                tools:text="00:00:00" >
+                <tag android:id="@id/tag_typography_role" android:value="body" />
+            </com.google.android.material.textview.MaterialTextView>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vs_64"
+        android:layout_gravity="bottom"
+        android:background="@drawable/shape_live_info"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/vs_16"
+        android:paddingEnd="@dimen/vs_16"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body"
+            tools:text="005" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/logo"
+            android:layout_width="@dimen/vs_48"
+            android:layout_height="@dimen/vs_36"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:visibility="gone" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:maxEms="48"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body"
+            tools:text="民視" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/overlayPlay"
+            android:layout_width="@dimen/vs_0"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:layout_weight="1"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body"
+            tools:text="正在播放：食神" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/overlayLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body"
+            tools:text="來源 1" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</FrameLayout>

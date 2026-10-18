@@ -1,0 +1,721 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- App -->
+    <string name="app_name">無名</string>
+
+    <!-- Live -->
+    <string name="live_pass">Pass</string>
+    <string name="live_line">Line <xliff:g name="name">%s</xliff:g></string>
+
+    <!-- Detail -->
+    <string name="detail_title"><xliff:g name="name">%1$s</xliff:g> : <xliff:g name="name">%2$s</xliff:g></string>
+    <string name="detail_title_total"><xliff:g name="name">%1$s</xliff:g> : <xliff:g name="name">%2$s</xliff:g> (共<xliff:g name="count">%3$d</xliff:g>集)</string>
+    <string name="detail_site">Site: <xliff:g name="name">%s</xliff:g></string>
+    <string name="detail_year">Year: <xliff:g name="name">%s</xliff:g></string>
+    <string name="detail_area">Area: <xliff:g name="name">%s</xliff:g></string>
+    <string name="detail_type">Type: <xliff:g name="name">%s</xliff:g></string>
+    <string name="detail_director">Director: <xliff:g name="name">%s</xliff:g></string>
+    <string name="detail_actor">Actor: <xliff:g name="name">%s</xliff:g></string>
+    <string name="detail_desc">Summary</string>
+
+    <!-- Keep -->
+    <string name="keep">Keep</string>
+    <string name="keep_add">Added</string>
+    <string name="keep_del">Removed</string>
+
+    <!-- Play -->
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="play_op">OP</string>
+    <string name="play_ed">ED</string>
+    <string name="play_exo">EXO</string>
+    <string name="play_next">Next</string>
+    <string name="play_prev">Prev</string>
+    <string name="play_loop">Loop</string>
+    <string name="cast">Cast</string>
+    <string name="cast_no_video">No video to cast</string>
+    <string name="cast_failed">Cast failed</string>
+    <string name="cast_notification_channel">Casting</string>
+    <string name="cast_notification_title">Casting to %1$s</string>
+    <string name="cast_notification_connecting">Connecting: %1$s</string>
+    <string name="cast_notification_resolving">Preparing: %1$s</string>
+    <string name="cast_notification_playing">Playing: %1$s</string>
+    <string name="cast_notification_error">Cast failed: %1$s</string>
+    <string name="cast_compat_mode">Device lacks HLS support — compatibility cast: no duration info, seeking unavailable</string>
+    <string name="cast_compatible_quality">TV compatibility playback: %1$s</string>
+    <string name="cast_compat_badge">compat cast</string>
+    <string name="cast_compat_no_seek">Compatibility cast cannot seek</string>
+    <string name="device_select">Select devices</string>
+    <string name="device_offline">Device is offline</string>
+    <string name="dlna_next_episode_failed">Failed to resolve next episode URL</string>
+    <string name="device_disconnect">Disconnect</string>
+    <string name="remote_pairing_required">Scan the QR code shown by the TV to pair this device first</string>
+    <string name="remote_pairing_qr_description">Remote access pairing QR code. Press OK to refresh. Long press to revoke paired devices</string>
+    <string name="remote_pairing_reset">Remote access pairing has been reset</string>
+    <string name="device_connected">Connected to %s</string>
+    <string name="device_scan">Scan devices</string>
+    <string name="device_refresh">Refresh devices</string>
+    <string name="device_sync_mode">Sync mode</string>
+    <string name="dlna_mode_relay">Relay mode</string>
+    <string name="dlna_mode_direct">Direct mode</string>
+    <string name="dlna_mode_auto">Auto mode</string>
+    <string name="device_type">Device type</string>
+    <string name="site_ranking">Site Ranking</string>
+    <string name="video_rankings">Saved Video Quality Scores</string>
+    <string name="video_rank_title">Video quality score: %1$s</string>
+    <string name="video_rank_hint">Move the slider to score the video quality.</string>
+    <string name="video_rank_manage">Manage saved quality scores</string>
+    <string name="video_rank_item">%1$d — %2$s</string>
+    <string name="video_rank_clear_all">Clear all</string>
+    <string name="video_rankings_empty">No saved video quality scores.</string>
+    <string name="video_quality_rank_scope">Set video quality score</string>
+    <string name="video_quality_this_episode">This episode: %1$s  •  Current score: %2$d</string>
+    <string name="video_quality_whole_series">All episodes from this source: %1$s  •  Current score: %2$d</string>
+    <string name="video_quality_source_title">%1$s — %2$s</string>
+    <string name="video_score_value">Score: %1$d</string>
+    <string name="video_score_scale">−1 Hide   •   0 Unrated   •   10 Best</string>
+    <string name="video_score_slider_description">Video quality score from minus one to ten</string>
+    <string name="video_score_action">Score</string>
+    <string name="sort_performance">Performance</string>
+    <string name="sort_reliability">Reliability</string>
+    <string name="sort_speed">Speed</string>
+    <string name="clear_ranking">Clear All</string>
+    <string name="select_sites">Select</string>
+    <string name="select_done">Done</string>
+    <string name="clear_selected">Clear Selected (%d)</string>
+    <string name="play_info">Info</string>
+    <string name="play_forward">→</string>
+    <string name="play_backward">←</string>
+    <string name="play_speed">1.00</string>
+    <string name="play_reset">Reset</string>
+    <string name="play_decode">Hard</string>
+    <string name="play_timer">Timer</string>
+    <string name="play_title">Chapter</string>
+    <string name="play_scale">Default</string>
+    <string name="play_config">Config</string>
+    <string name="play_change">Change</string>
+    <string name="play_invert">Invert</string>
+    <string name="play_across">Across</string>
+    <string name="play_reverse">Reverse</string>
+    <string name="play_normal_order">Normal order</string>
+    <string name="play_track_text">Text</string>
+    <string name="play_track_audio">Audio</string>
+    <string name="play_track_video">Video</string>
+    <string name="play_forward_hint">Normal play switched</string>
+    <string name="play_backward_hint">Reverse play switched</string>
+    <string name="play_ready">Ready to play: <xliff:g name="name">%s</xliff:g></string>
+    <string name="play_switch_flag">Switching flag to <xliff:g name="name">%s</xliff:g></string>
+    <string name="play_switch_site">Switching site to <xliff:g name="name">%s</xliff:g></string>
+    <string name="play_switch_parse">Switching parse to <xliff:g name="name">%s</xliff:g></string>
+
+    <!-- Danmaku -->
+    <!-- Danmaku Setting -->
+    <string name="danmaku_setting">Danmaku setting</string>
+    <string name="danmaku_text_size">Text scale</string>
+    <string name="danmaku_transparency">Opacity</string>
+    <string name="danmaku_text_bold">Bold</string>
+    <string name="danmaku_style_mode">Text style</string>
+    <string name="danmaku_style_none">None</string>
+    <string name="danmaku_style_shadow">Shadow</string>
+    <string name="danmaku_style_stroke">Stroke</string>
+    <string name="danmaku_style_projection">Projection</string>
+    <string name="danmaku_shadow_transparency">Shadow opacity</string>
+    <string name="danmaku_stroke_width">Stroke width</string>
+    <string name="danmaku_projection_offset_x">Projection offset X</string>
+    <string name="danmaku_projection_offset_y">Projection offset Y</string>
+    <string name="danmaku_projection_transparency">Projection opacity</string>
+    <string name="danmaku_color_mode">Color mode</string>
+    <string name="danmaku_color_default">Default</string>
+    <string name="danmaku_color_colorful">Colorful</string>
+    <string name="danmaku_color_gradient">Gradient</string>
+    <string name="danmaku_color_override_hint">Original colors will be ignored</string>
+    <string name="danmaku_auto">Auto</string>
+    <string name="danmaku_duration">Scroll duration</string>
+    <string name="danmaku_fixed_duration">Fixed duration</string>
+    <string name="danmaku_time_offset">Time offset</string>
+    <string name="danmaku_max_on_screen">Max on screen</string>
+    <string name="danmaku_scroll_area_ratio">Scroll area</string>
+    <string name="danmaku_max_scroll_lines">Max scroll rows</string>
+    <string name="danmaku_max_top_lines">Max top rows</string>
+    <string name="danmaku_max_bottom_lines">Max bottom rows</string>
+    <string name="danmaku_line_spacing">Line gap</string>
+    <string name="danmaku_scroll_gap_ratio">Row gap</string>
+    <string name="danmaku_show_scroll">Scrolling</string>
+    <string name="danmaku_show_top">Top pinned</string>
+    <string name="danmaku_show_bottom">Bottom pinned</string>
+    <string name="danmaku_show_reverse">Reverse scroll</string>
+    <string name="danmaku_show_positioned">Positioned</string>
+    <string name="danmaku_show_subtitle">Subtitle type</string>
+    <string name="danmaku_show_special">Special type</string>
+    <string name="danmaku_section_appearance">Appearance</string>
+    <string name="danmaku_section_display">Display</string>
+    <string name="danmaku_section_timing">Timing</string>
+    <string name="danmaku_section_density">Density</string>
+    <string name="danmaku_reset">Reset</string>
+    <string name="offset_setting">Offset setting</string>
+    <string name="offset_audio">Audio offset</string>
+    <string name="offset_text">Subtitle offset</string>
+    <string name="danmaku">Danmaku</string>
+    <string name="danmaku_select">Select danmaku</string>
+
+    <!-- Parse -->
+    <string name="parse">Parse</string>
+    <string name="parse_god">Super</string>
+    <string name="parse_from">Parse from: <xliff:g name="name">%s</xliff:g></string>
+
+    <!-- Push -->
+    <string name="push">Push</string>
+
+    <!-- Setting -->
+    <string name="setting_vod">Vod</string>
+    <string name="setting_live">Live</string>
+    <string name="setting_wall">Wallpaper</string>
+    <string name="setting_player">Player setting</string>
+    <string name="setting_incognito">Incognito mode</string>
+    <string name="setting_mobile_video">Stream/download video on mobile data</string>
+    <string name="setting_roaming_video">Stream/download video while roaming</string>
+    <string name="video_mobile_data_blocked">Mobile data video is disabled in Settings</string>
+    <string name="video_roaming_data_blocked">Roaming data video is disabled in Settings</string>
+    <string name="video_using_mobile_data">Warning: using mobile data</string>
+    <string name="video_using_roaming_data">Warning: using roaming data</string>
+    <string name="setting_multi_site_search">Multi-site search</string>
+    <string name="search_strict_on">Strict: On</string>
+    <string name="search_strict_off">Strict: Off</string>
+    <string name="setting_site_list_layout">Site list layout</string>
+    <string name="setting_result_layout">Result layout</string>
+    <string name="setting_theme">Appearance</string>
+    <string name="setting_color_theme">Color style</string>
+    <string name="setting_live_scale">Live scale</string>
+    <string name="setting_update">Auto update</string>
+    <string name="setting_size">Image size</string>
+    <string name="setting_ui_scale_cap">Text scale cap</string>
+    <string name="setting_ui_scale_baseline">Text scale baseline</string>
+    <string name="setting_ui_scale_applied">Text size updated. Other screens apply on revisit.</string>
+    <string name="setting_doh">DoH</string>
+    <string name="setting_legacy_tls">Legacy HTTPS compatibility</string>
+    <string name="setting_legacy_tls_warning">This accepts invalid or hostname-mismatched certificates. Enable it only when a trusted legacy provider cannot connect with normal HTTPS validation.</string>
+    <string name="setting_github_proxy">GitHub Proxy</string>
+    <string name="setting_github_proxy_speed">Speed Test</string>
+    <string name="setting_github_proxy_fastest">Fastest: %1$s (%2$dms)</string>
+    <string name="setting_home_btn">Home</string>
+    <string name="setting_history_btn">History</string>
+    <string name="setting_default_btn">Default</string>
+    <string name="setting_ranking_btn">Ranking</string>
+    <string name="setting_refresh_btn">Refresh</string>
+    <string name="setting_speed_btn">Speed Test</string>
+    <string name="setting_depot">Depot Sources</string>
+    <string name="setting_depot_update">Update from GitHub</string>
+    <string name="setting_depot_validate">Validate Sources</string>
+    <string name="setting_depot_updated">Depot updated: %1$d VOD, %2$d Live</string>
+    <string name="setting_depot_validated">Depot validated: %1$d valid, %2$d invalid</string>
+    <string name="setting_depot_progress">Checking sources: %1$d / %2$d</string>
+    <string name="setting_depot_copied">Copied: %1$s</string>
+    <string name="setting_depot_use">Use</string>
+    <string name="setting_depot_warehouse_loading">Loading warehouse choices…</string>
+    <string name="setting_depot_warehouse_empty">This warehouse has no usable configurations.</string>
+    <string name="setting_depot_offline_links">Browse offline link catalog</string>
+    <string name="setting_depot_offline_links_empty">The bundled link catalog is empty.</string>
+    <string name="setting_depot_offline_links_unverified">%1$s (playback unverified)</string>
+    <string name="setting_depot_search_hint">Search name or address</string>
+    <string name="setting_depot_filter_title">Show sources</string>
+    <string name="setting_depot_filter_all">All sources</string>
+    <string name="setting_depot_filter_vod">VOD</string>
+    <string name="setting_depot_filter_live">Live TV</string>
+    <string name="setting_depot_filter_curated">Curated</string>
+    <string name="setting_depot_filter_screened">Screened</string>
+    <string name="setting_depot_source_screened">Screened</string>
+    <string name="setting_depot_source_curated">Curated</string>
+    <string name="setting_depot_bundled_source">Bundled source · select row to edit with password</string>
+    <string name="setting_depot_protected_source">Protected source · URL hidden · select row to edit</string>
+    <string name="setting_depot_admin_password">Admin password</string>
+    <string name="setting_depot_edit">Edit source URL</string>
+    <string name="setting_depot_wrong_password">Incorrect password</string>
+    <string name="setting_depot_header">Total: %1$d sources (%2$d VOD, %3$d Live) | %4$d with ping data</string>
+    <string name="depot_ping">Ping: </string>
+    <string name="depot_count">Count: </string>
+    <string name="depot_last">Last: </string>
+    <string name="setting_cache">Cache</string>
+
+    <string name="cache_clear_failed">Could not clear the cache. Please retry.</string>
+    <string name="cache_size_unavailable">Cache size unavailable</string>
+    <string name="p2p_low_storage_stopped">P2P playback stopped because storage is low. Free some space and try again.</string>
+    <string name="setting_cloud_storage">Accounts &amp; cloud drives</string>
+    <string name="setting_link_route">Share link route</string>
+    <string name="cloud_qr_auto">Auto</string>
+    <string name="cloud_qr_searching">Looking for the provider QR code…</string>
+    <string name="cloud_qr_not_ready">The provider login page is not ready yet. Please try Auto again.</string>
+    <string name="cloud_qr_not_found">No supported QR code was found. Select QR login on the page, then choose Auto again.</string>
+    <string name="cloud_storage_login_confirmed">%1$s login confirmed. Playback routes refreshed.</string>
+    <string name="opendrive_mdrive_uc_fallback">Built-in OpenDrive failed, so playback switched to MDrive. Start UC login from MDrive.</string>
+    <string name="cloud_storage_title">Accounts &amp; cloud drives</string>
+    <string name="cloud_storage_cache_title">TVBox cloud cache</string>
+    <string name="open_drive_share_title">Cloud share</string>
+    <string name="open_drive_login_description">Manage cloud-drive and Bilibili logins. Select a signed-out service for a fresh official QR code; logged-in cloud drives open their file manager.</string>
+    <string name="open_drive_status_logged_in">Logged in</string>
+    <string name="open_drive_status_not_logged_in">Not logged in</string>
+    <string name="open_drive_status_unavailable">Unavailable</string>
+    <string name="open_drive_status_checking">Checking credentials…</string>
+    <string name="open_drive_status_invalid">Login expired</string>
+    <string name="open_drive_status_verify_failed">Saved login — verification unavailable</string>
+    <string name="open_drive_provider_status">%1$s — %2$s</string>
+    <string name="open_drive_provider_alipan">Aliyun Drive</string>
+    <string name="open_drive_provider_quark">Quark Drive</string>
+    <string name="open_drive_provider_uc">UC Drive</string>
+    <string name="open_drive_provider_baidu">Baidu Netdisk</string>
+    <string name="open_drive_provider_123">123 Netdisk</string>
+    <string name="open_drive_provider_tianyi">Tianyi Cloud</string>
+    <string name="open_drive_provider_115">115</string>
+    <string name="open_drive_inactive">Inactive</string>
+    <string name="open_drive_logout">Log out</string>
+    <string name="open_drive_logout_title">Log out of %1$s?</string>
+    <string name="open_drive_logout_message">Clear the account session stored by TVBox? This does not delete cloud files.</string>
+    <string name="open_drive_logout_complete">%1$s session cleared.</string>
+    <string name="open_drive_logout_failed">Could not clear the %1$s session.</string>
+    <string name="open_drive_manage_cache">Manage cache</string>
+    <string name="cloud_credentials_export">Export accounts</string>
+    <string name="cloud_credentials_import">Import accounts</string>
+    <string name="cloud_credentials_export_title">Export accounts</string>
+    <string name="cloud_credentials_import_title">Import accounts</string>
+    <string name="cloud_credentials_passphrase">Passphrase (at least 8 characters)</string>
+    <string name="cloud_credentials_confirm_passphrase">Confirm passphrase</string>
+    <string name="cloud_credentials_export_warning">Save an encrypted copy for reinstalling TVBox. You will need this passphrase to restore it.</string>
+    <string name="cloud_credentials_import_warning">Importing replaces all cloud drive, Bilibili and connector credentials currently stored on this device.</string>
+    <string name="cloud_credentials_passphrase_short">Use at least 8 characters.</string>
+    <string name="cloud_credentials_passphrase_mismatch">Passphrases do not match.</string>
+    <string name="cloud_credentials_none">There are no account credentials to export.</string>
+    <string name="cloud_credentials_exported">Exported %1$d protected credential entries.</string>
+    <string name="cloud_credentials_imported">Imported %1$d protected credential entries.</string>
+    <string name="cloud_credentials_export_failed">Could not export accounts.</string>
+    <string name="cloud_credentials_import_failed">Could not import accounts. Check the file and passphrase.</string>
+    <string name="cloud_storage_description">Each service opens its official file manager so you can review all account contents. Direct cleanup accepts only files recorded by a reviewed adapter built and signed with TVBox; the cleanup feature never delegates deletion to downloaded spider JARs.</string>
+    <string name="cloud_storage_back">Back</string>
+    <string name="cloud_storage_reset_login">Reset</string>
+    <string name="cloud_storage_login_reset">%1$s login reset. A clean login page is loading.</string>
+    <string name="cloud_provider_qr_connecting">Creating a secure %1$s QR login session…</string>
+    <string name="cloud_provider_qr_title">%1$s QR login</string>
+    <string name="cloud_provider_qr_new">New QR</string>
+    <string name="cloud_provider_qr_instruction">Scan this code in %1$s, or choose Auto to save it and open the official app.</string>
+    <string name="cloud_provider_qr_failed">%1$s QR login could not be confirmed. Choose Auto to create a new code.</string>
+    <string name="cloud_provider_qr_expired">The %1$s login QR expired. Choose Auto to create a new one.</string>
+    <string name="webdav_connector_title">OpenList / WebDAV</string>
+    <string name="webdav_connector_description">Add a WebDAV endpoint such as https://your-openlist.example/dav/. Its folders and videos will appear in OpenDrive and use the standard catalog, cache, history, and player pipeline. Credentials stay encrypted on this device. Use HTTPS outside a trusted LAN because HTTP exposes Basic authentication in transit.</string>
+    <string name="webdav_connector_manage">Manage OpenList / WebDAV connectors</string>
+    <string name="webdav_connector_pending">OpenList / WebDAV connectors — Pending</string>
+    <string name="webdav_connector_pending_detail">Pending: the connector implementation is retained but disabled while the 115 integration strategy is reviewed.</string>
+    <string name="webdav_connector_add">Add connector</string>
+    <string name="webdav_connector_edit">Edit</string>
+    <string name="webdav_connector_delete">Delete</string>
+    <string name="webdav_connector_delete_title">Delete connector?</string>
+    <string name="webdav_connector_delete_message">Remove “%1$s” and its protected credentials from this device?</string>
+    <string name="webdav_connector_empty">No connectors configured.</string>
+    <string name="webdav_connector_root">Root folder</string>
+    <string name="webdav_connector_name">Connector name</string>
+    <string name="webdav_connector_url_hint">WebDAV URL, for example https://host.example/dav/</string>
+    <string name="webdav_connector_path_hint">Initial folder (optional)</string>
+    <string name="webdav_connector_username">Username (optional)</string>
+    <string name="webdav_connector_password">Password (optional)</string>
+    <string name="webdav_connector_password_unchanged">Leave blank to keep the saved password</string>
+    <string name="webdav_connector_saved">WebDAV connector saved</string>
+    <string name="webdav_connector_save_failed">Unable to save WebDAV connector</string>
+    <string name="credential_title">Service logins</string>
+    <string name="credential_description">Save cookies, tokens, or passwords for non-cloud services (danmaku, VIP parse sites, live OAuth). Each entry is matched to a request host and replayed as a header — the app never logs in for you. Secrets stay encrypted on this device and are included in the credential backup.</string>
+    <string name="credential_empty">No service logins saved.</string>
+    <string name="credential_manage">Manage service logins</string>
+    <string name="credential_add">Add login</string>
+    <string name="credential_edit">Edit</string>
+    <string name="credential_delete">Delete</string>
+    <string name="credential_delete_title">Delete login?</string>
+    <string name="credential_delete_message">Remove “%1$s” and its protected secret from this device?</string>
+    <string name="credential_name">Display name</string>
+    <string name="credential_service_id">Service id (letters/digits/-/_, e.g. danmaku)</string>
+    <string name="credential_url_hint">Host to match, e.g. https://api-lmteam.koyeb.app</string>
+    <string name="credential_method">Credential type</string>
+    <string name="credential_secret">Cookie / token / password</string>
+    <string name="credential_password_unchanged">Leave blank to keep the saved secret</string>
+    <string name="credential_saved">Service login saved</string>
+    <string name="credential_method_cookie">Cookie</string>
+    <string name="credential_method_token">Bearer token</string>
+    <string name="credential_method_password">Password</string>
+    <string-array name="credential_method_entries">
+        <item>Cookie</item>
+        <item>Bearer token</item>
+        <item>Password</item>
+    </string-array>
+    <string name="cloud_storage_manage">Manage files</string>
+    <string name="cloud_storage_open_external">Open official app</string>
+    <string name="link_route_direct">CatVod direct</string>
+    <string name="link_route_builtin">OpenDrive built-in</string>
+    <string name="link_route_downloaded_missing">The active source has no downloaded CatVod cloud provider</string>
+    <string name="cloud_storage_app_missing">Install the official %1$s app first</string>
+    <string name="cloud_storage_tracked_empty">No trusted cache files recorded</string>
+    <string name="cloud_storage_tracked">%1$d trusted cache files · %2$s</string>
+    <string name="cloud_storage_clear">Clear TVBox cache</string>
+    <string name="cloud_storage_clearing">Clearing…</string>
+    <string name="cloud_storage_clear_title">Clear cloud cache?</string>
+    <string name="cloud_storage_clear_confirm">Delete app-created files for %1$s from the dedicated %2$s folder? Personal files outside this folder will not be touched.</string>
+    <string name="cloud_storage_clear_result">Removed %1$d cached files (%2$s).</string>
+    <string name="cloud_storage_provider_unsupported_title">Trusted adapter required</string>
+    <string name="cloud_storage_provider_unsupported">A reviewed built-in adapter is not available for this service. The cleanup feature will not call a downloaded provider JAR to delete cloud files. Open the official file manager to review and delete files manually.</string>
+    <string name="cloud_storage_browser_missing">No browser is available to open this storage service.</string>
+    <string name="cloud_qr_opening">Opening %1$s authorization…</string>
+    <string name="cloud_qr_saved_opening">QR saved to Pictures/TVBox. Opening %1$s—choose the newest image from the app album.</string>
+    <string name="cloud_qr_save_failed">Could not save the QR image. Authorization was not opened; please try again.</string>
+    <string name="cloud_qr_open_failed">Could not safely open this QR authorization.</string>
+    <string name="setting_backup">Backup</string>
+    <string name="setting_restore">Restore</string>
+    <string name="setting_version">Version</string>
+    <string name="setting_choose">Choose</string>
+    <string name="setting_default">Default</string>
+    <string name="setting_off">Off</string>
+    <string name="setting_on">On</string>
+
+    <!-- Backup & Restore -->
+    <string name="restore_select">Select backup</string>
+    <string name="restore_success">Restore successful</string>
+    <string name="restore_fail">Restore failed</string>
+    <string name="backup_success">Backup successful</string>
+    <string name="backup_fail">Backup failed</string>
+
+    <!-- Player -->
+    <string name="player_render">Render</string>
+    <string name="player_scale">Scale</string>
+    <string name="player_caption">Caption style</string>
+    <string name="player_background">Background play</string>
+    <string name="player_audio_decode">Audio software decode</string>
+    <string name="player_video_decode">Video software decode</string>
+    <string name="player_aac_track">Prefer aac track</string>
+    <string name="player_danmaku_load">Danmaku load</string>
+    <string name="player_danmaku_show">Danmaku show</string>
+    <string name="player_across">Play across</string>
+    <string name="player_change">Auto change</string>
+    <string name="player_invert">Invert order</string>
+    <string name="player_video_info">Video info</string>
+    <string name="video_info_mode_0">Info + Clock</string>
+    <string name="video_info_mode_1">Info</string>
+    <string name="video_info_mode_2">Clock</string>
+    <string name="video_info_mode_3">None</string>
+    <string name="player_boot_live">Boot to live</string>
+    <string name="player_zhuyin">Zhuyin input</string>
+    <string name="player_adblock">Remove ads</string>
+    <string name="player_tunnel">Tunnel mode</string>
+    <string name="player_buffer">Buffer time</string>
+    <string name="player_speed">Press speed</string>
+    <string name="buffer_status_eta">Cache ~%1$d s</string>
+    <string name="player_network_ipv6">IPv6</string>
+    <string name="ipv6_test_ready">Tap to test</string>
+    <string name="ipv6_test_checking">Testing…</string>
+    <string name="ipv6_test_available">Available</string>
+    <string name="ipv6_test_unavailable">Unavailable</string>
+    <string name="ipv6_test_available_title">IPv6 is available</string>
+    <string name="ipv6_test_unavailable_title">IPv6 is unavailable</string>
+    <string name="ipv6_test_available_message">This network can reach the IPv6 internet.\n\nDevice address: %1$s</string>
+    <string name="ipv6_test_no_route_message">The device has an IPv6 address, but the external IPv6 probe could not connect.\n\nDevice address: %1$s</string>
+    <string name="ipv6_test_no_address_message">No usable IPv6 address was found on the active network.</string>
+    <string name="player_ua">User-Agent</string>
+    <string name="player_restart_mode">Next restart</string>
+    <string name="restart_mode_0">Save</string>
+    <string name="restart_mode_1">Forget Session (once)</string>
+    <string name="restart_mode_2">Forget All (once)</string>
+    <string name="restart_mode_3">Always Forget Session</string>
+    <string name="restart_mode_4">Always Forget All</string>
+    <string name="setting_reload_quit">Reload &amp; Quit</string>
+
+    <!-- Search -->
+    <string name="search_keyword">Keywords…</string>
+    <string name="search_record">History</string>
+    <string name="search_suggest">Suggest</string>
+    <string name="search_hot">Hot</string>
+
+    <!-- Grid Search -->
+    <string name="grid_search_title">Grid Search (%d)</string>
+    <string name="grid_search_results">Results: %d</string>
+    <string name="fs_show_all">Show All</string>
+
+    <!-- Dialog -->
+    <string name="dialog_edit">Edit</string>
+    <string name="dialog_positive">OK</string>
+    <string name="dialog_negative">Cancel</string>
+    <string name="dialog_config_hint">Please enter the config…</string>
+    <string name="dialog_config_name">Please enter the name…</string>
+    <string name="dialog_config_url">Please enter the url…</string>
+    <string name="dialog_config_choose_vod_hint">Choose file: VOD config in JSON format</string>
+    <string name="dialog_config_choose_live_hint">Choose file: live config in JSON, TXT, M3U, or M3U8 format</string>
+    <string name="dialog_config_choose_wall_hint">Choose file: JPG, PNG, GIF, or video wallpaper</string>
+    <string name="dialog_config_help">Help</string>
+    <string name="dialog_config_help_title">Configuration file help</string>
+    <string name="dialog_config_help_vod">Back up the currently active VOD configuration to Download/TV, then use Select to load that local JSON file.</string>
+    <string name="dialog_config_help_live">If the active live configuration is JSON, back it up to Download/TV and use Select to load it. Select also supports TXT, M3U, and M3U8 channel lists.</string>
+    <string name="dialog_config_help_wall">Select a local JPG, PNG, GIF, or video file. JSON is not used for wallpaper selection.</string>
+    <string name="dialog_config_backup_current">Back up current JSON</string>
+    <string name="dialog_config_backup_success">JSON saved to Download/TV</string>
+    <string name="dialog_config_backup_fail">Unable to save JSON</string>
+    <string name="dialog_config_loading_json">Loading current JSON…</string>
+    <string name="dialog_config_preview_fail">Unable to load the current JSON preview.</string>
+
+    <!-- Error -->
+    <string name="error_config_get">Configuration get failed</string>
+    <string name="error_play_next">It\'s the last episode!</string>
+    <string name="error_play_prev">It\'s the first episode!</string>
+    <string name="error_play_parse">Unable to parse url</string>
+    <string name="error_play_drm">This device does not support the required DRM scheme</string>
+    <string name="error_play_url">Unable to load url</string>
+    <string name="error_play_access_denied">The server denied this request. Possible causes include regional restrictions, an expired link or required authentication. Retry later or choose another source.</string>
+    <string name="error_play_connection">Unable to connect to the stream server right now. It may be temporarily unavailable or restricted in your region. Retry later or choose another source.</string>
+    <string name="error_play_timeout">Timed out</string>
+
+    <string name="error_detail">No play data</string>
+    <string name="error_empty">Nothing here 👀</string>
+    <string name="error_no_playable_episodes">This source has no playable episodes. Choose another source from the search results.</string>
+
+    <!-- Update -->
+    <string name="update_version">New version <xliff:g name="name">%s</xliff:g></string>
+    <string name="update_check">Checking for updates…</string>
+    <string name="update_confirm">Update</string>
+
+    <!-- Crash -->
+    <string name="crash_info">An unexpected error occurred.\nSorry for the inconvenience.</string>
+    <string name="crash_restart">Restart app</string>
+    <string name="crash_details">Error details</string>
+    <string name="crash_details_title">Error details</string>
+    <string name="crash_details_close">Close</string>
+    <string name="dialog_close">Close</string>
+
+    <!-- Hint -->
+    <string name="copied">Copied</string>
+
+    <!-- UNIT -->
+    <string name="all">All</string>
+    <string name="none">None</string>
+    <string name="times">times</string>
+
+    <string-array name="select_decode">
+        <item>Soft</item>
+        <item>Hard</item>
+    </string-array>
+
+    <string-array name="select_render">
+        <item>Surface</item>
+        <item>Texture</item>
+    </string-array>
+
+    <string-array name="select_site_list_layout">
+        <item>Vertical left</item>
+        <item>Horizontal top</item>
+        <item>Compact</item>
+    </string-array>
+
+    <string-array name="select_result_layout">
+        <item>List</item>
+        <item>Horizontal</item>
+        <item>Grid</item>
+    </string-array>
+
+    <string-array name="select_theme">
+        <item>System</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
+    <string-array name="select_color_theme">
+        <item>Classic</item>
+        <item>Aurora</item>
+    </string-array>
+
+    <string-array name="select_size">
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+        <item>Extra</item>
+    </string-array>
+
+    <string-array name="select_ui_scale_cap">
+        <item>No cap (1.0x)</item>
+        <item>1.1x</item>
+        <item>1.25x</item>
+        <item>1.4x</item>
+    </string-array>
+
+    <string-array name="select_ui_scale_baseline">
+        <item>Compact (320dp)</item>
+        <item>Standard (360dp)</item>
+        <item>Roomier (400dp)</item>
+    </string-array>
+
+    <string-array name="select_scale">
+        <item>Default</item>
+        <item>16:9</item>
+        <item>4:3</item>
+        <item>Fill</item>
+        <item>Zoom</item>
+    </string-array>
+
+    <string-array name="select_reset">
+        <item>Reset</item>
+        <item>Replay</item>
+    </string-array>
+
+    <string-array name="select_caption">
+        <item>Default</item>
+        <item>System</item>
+    </string-array>
+
+    <string-array name="select_track">
+        <item>Select audio track</item>
+        <item>Select video track</item>
+        <item>Select subtitle track</item>
+    </string-array>
+
+    <string name="select_audio_track">Audio track</string>
+    <string name="audio_track_default">Default</string>
+
+    <string-array name="github_proxy_name">
+        <item>None</item>
+        <item>ghproxy.net</item>
+        <item>gh-proxy.com</item>
+        <item>v6.gh-proxy.org</item>
+        <item>gh.idayer.com</item>
+        <item>gh-proxy.org</item>
+        <item>v4.gh-proxy.org</item>
+        <item>cdn.gh-proxy.org</item>
+        <item>axisnow.gh-proxy.org</item>
+    </string-array>
+
+    <!-- Cloud drive login dialog -->
+    <string name="dialog_scan_qr_title">Scan QR Code</string>
+    <string name="dialog_scan_qr_provider_hint">Scan with the corresponding UC or Quark app, confirm login, then select Retry.</string>
+    <string name="dialog_scan_qr_baidu_hint">Scan with the Baidu app and confirm the login. Keep this screen open; playback will continue after authorization, or select Retry after confirmation.</string>
+    <string name="dialog_scan_qr_retry">Retry</string>
+    <string name="dialog_scan_qr_skip">Skip</string>
+    <string name="bilibili_login_action">Bilibili login</string>
+    <string name="bilibili_provider_name">Bilibili</string>
+    <string name="bilibili_logout_message">Clear the Bilibili account session stored on this device?</string>
+    <string name="bilibili_login_title">Bilibili login</string>
+    <string name="bilibili_login_starting">Creating a login QR code…</string>
+    <string name="bilibili_login_waiting">Scan with the Bilibili app and confirm the login on your phone.</string>
+    <string name="bilibili_login_confirm">Scanned. Confirm the login on your phone.</string>
+    <string name="bilibili_login_success">Login successful. Retrying playback…</string>
+    <string name="bilibili_login_expired">The QR code expired. Select Refresh to create another one.</string>
+    <string name="bilibili_login_failed">Unable to complete Bilibili login. Select Refresh to try again.</string>
+    <string name="bilibili_login_refresh">Refresh</string>
+    <string name="bilibili_login_auto">Auto</string>
+    <string name="bilibili_already_logged_in">Already logged in to Bilibili.</string>
+    <string name="cloud_login_reopen_hint">After logging in or changing an account to Enabled, close this window and open it again. Only enabled accounts appear as cloud-drive tabs.</string>
+
+    <string name="search_check_source">Select source</string>
+    <string name="collect_sort">Sort</string>
+    <string name="collect_sort_relevance">Relevance</string>
+    <string name="collect_sort_name">Name</string>
+    <string name="collect_sort_year">Year</string>
+    <string name="collect_filter">Filter</string>
+    <string name="collect_filter_movie">Movie</string>
+    <string name="collect_filter_tv">TV</string>
+    <string name="player_time_zero" translatable="false">00:00</string>
+    <string name="offline_download_channel">Offline video downloads</string>
+    <string name="offline_download_channel_description">Progress and network status for resumable video downloads</string>
+
+    <!-- Provider Lab -->
+
+    <!-- Online subtitle search -->
+    <string name="error_play_hdr_display">This display cannot show this HDR video. Choose an SDR quality or another source.</string>
+    <string name="error_play_no_compatible_quality">No compatible video quality is available for this device. Choose another source.</string>
+    <string name="error_play_video_unsupported">This video exceeds this device’s decoder capabilities. Choose a lower-quality or compatible version.</string>
+    <string name="setting_video_capabilities">Detect and save hardware capabilities</string>
+    <string name="video_capabilities_checking">Detecting hardware capabilities…</string>
+    <string name="video_capabilities_updated">Hardware capabilities saved (%1$d decoders). Detection runs again only when you select this option.</string>
+    <string name="video_capabilities_not_detected">Not detected. Select to detect.</string>
+    <string name="video_capabilities_saved">Saved %1$s (%2$d decoders). Select to detect again.</string>
+    <string name="video_capabilities_failed">Unable to refresh video capability data. Please try again.</string>
+    <string name="video_info_unknown">Unknown</string>
+    <string name="video_info_format">Codec: %1$s\nResolution: %2$s · %3$s</string>
+    <string name="video_info_exceeds">Decoder reports: exceeds capabilities</string>
+    <string name="video_info_unsupported">Decoder reports: unsupported format</string>
+    <string name="cloud_credentials_path">Backup file path</string>
+    <string name="cloud_credentials_path_hint">Enter a full file path. Relative paths start in /sdcard/. For export, choose a new filename in an existing folder.</string>
+    <string name="cloud_credentials_path_invalid">Choose a new export filename in an existing folder, or an existing file to import.</string>
+    <string name="tv_web_remote_hint">D-pad: move pointer · OK: click · Hold an arrow at the edge: scroll · Menu / Back: toolbar</string>
+    <string name="error_quark_smart_quality_unavailable">Quark has not provided a playable transcode at 1080p or below for this video. Choose an original-quality route or another source manually.</string>
+    <string name="file_import_failed">Unable to import file. Check that it is accessible and try again.</string>
+    <string name="quark_smart_using_original">Quark cannot transcode this disguised video. Playing its normalized original.</string>
+    <string name="cloud_storage_clear_incomplete">%1$d failed; %2$d skipped. Failed files remain tracked for retry.</string>
+    <string name="error_cloud_auth_required">Cloud authentication failed. Check your account in Settings > Cloud Storage.</string>
+    <string name="error_cloud_quota">There is not enough cloud space to save this file.</string>
+    <string name="error_cloud_transcode">The cloud provider returned no playable smart rendition.</string>
+    <string name="error_cloud_resource">The requested cloud resource is unavailable.</string>
+    <string name="error_cloud_access">The cloud provider denied this request. Check the share or file permissions.</string>
+    <string name="error_cloud_network">Unable to connect to the cloud provider. Check your connection and try again.</string>
+    <string name="error_cloud_provider">The cloud provider could not complete this playback request.</string>
+    <string name="cloud_using_original_quota">Cloud space is full. Playing the shared original without saving a copy.</string>
+    <string name="cloud_using_saved_original">Playing the original through a temporary cloud copy.</string>
+    <string name="cloud_using_original_preview">The cloud preview was rejected. Playing the original.</string>
+    <string name="cloud_stream_tools">Stream tools</string>
+    <string name="cloud_check_stream">Check stream</string>
+    <string name="cloud_check_running">Checking media reachability…</string>
+    <string name="cloud_check_bytes">Media bytes are reachable. This does not verify decoding or smooth playback.</string>
+    <string name="cloud_check_segment">An HLS media segment is reachable. This does not verify decoding or smooth playback.</string>
+    <string name="cloud_check_http">The media request returned HTTP %1$d.</string>
+    <string name="cloud_check_invalid">The response did not provide usable media or a supported playlist.</string>
+    <string name="cloud_check_limit">The check reached its time, size, or request limit.</string>
+    <string name="cloud_check_cancelled">Stream check cancelled.</string>
+    <string name="cloud_check_unsupported">This stream address is not supported by the check.</string>
+    <string name="cloud_credentials_clear_password">Clear password</string>
+    <string name="update_latest">You are up to date</string>
+    <string name="update_failed">Unable to update. Please try again.</string>
+    <string name="database_recovery_schema">This database needs a compatible app version. Your history, favorites and cloud-copy records have been retained. Export a recovery copy, then install a compatible version and retry. The export contains private data; share it only with someone you trust.</string>
+    <string name="database_recovery_storage">The database could not be read. This may be a storage or damaged-file problem. Original files have been retained. Export a recovery copy before attempting repair.</string>
+    <string name="database_recovery_export">Export recovery copy</string>
+    <string name="database_recovery_retry">Retry</string>
+    <string name="database_recovery_exported">Recovery copy exported. Original data is unchanged.</string>
+    <string name="database_recovery_failed">Export failed. Choose another location or check available storage.</string>
+    <string name="renderer_capabilities">Capabilities</string>
+    <string name="renderer_profile_unavailable">Renderer profile unavailable. Rediscover the device or check the configuration file.</string>
+    <string name="renderer_manual_override">Manual override</string>
+    <string name="renderer_profile_export">Copy report</string>
+    <string name="renderer_profile_reset">Reset profile</string>
+    <string name="renderer_profile_reset_confirm">Remove all observations and overrides for this renderer?</string>
+    <string name="renderer_profile_copied">Capability report copied</string>
+    <string-array name="renderer_capability_labels">
+        <item>MP4</item><item>HLS</item><item>DASH</item><item>H.264</item><item>HEVC</item><item>AAC</item>
+        <item>Seeking</item><item>HTTP byte ranges</item><item>Chunked transfer</item><item>Stop</item><item>Recast</item>
+    </string-array>
+    <string-array name="renderer_capability_choices">
+        <item>Unknown</item><item>Supported</item><item>Unsupported</item><item>Use learned result</item>
+    </string-array>
+    <string name="renderer_profiles_saved">Saved TV profiles</string>
+    <string name="renderer_profiles_empty">No saved DLNA profiles yet. Discover a renderer first.</string>
+    <string name="renderer_querying">Reading TV capabilities…</string>
+    <string name="renderer_advertised">Advertised by TV</string>
+    <string name="renderer_query_complete">TV declarations read; playback still needs verification.</string>
+    <string name="renderer_query_offline">TV offline. Showing saved evidence.</string>
+    <string name="renderer_query_empty">TV supplies no format list. Playback tests needed.</string>
+    <string name="renderer_query_failed">TV query failed. Reopen to retry; saved evidence retained.</string>
+    <string name="renderer_query_retry">Read TV capabilities again</string>
+    <string name="renderer_query_denied">TV denied query (HTTP %1$d). Check TV casting permissions.</string>
+    <string name="renderer_pairing_required">Pair your phone with 無名 on the TV</string>
+    <string name="renderer_pairing_instructions">On the TV, open 無名 → Settings → DLNA pairing.\nConnect your phone to the same Wi-Fi, scan the QR code with its camera, and tap Pair in the browser.\nReturn here and tap Read TV capabilities again.</string>
+    <string name="renderer_query_http_error">TV capability query failed (HTTP %1$d). Saved evidence retained.</string>
+    <string name="renderer_query_upnp_error">TV capability query failed (UPnP %1$d). Saved evidence retained.</string>
+    <string name="renderer_query_timeout">TV capability query timed out. Saved evidence retained; retry when reachable.</string>
+    <string name="renderer_not_verified">Not verified — no evidence</string>
+    <string name="renderer_evidence_insufficient">Not verified — more playback evidence needed</string>
+    <string name="renderer_evidence_conflicting">Not verified — conflicting playback results</string>
+    <string name="renderer_run_test">Test sample playback…</string>
+    <string name="renderer_test_start">Play a 15-second moving pattern and tone on this TV? This replaces its current playback.</string>
+    <string name="renderer_test_observe">Watch the TV. Confirm only if both the pattern moves and the tone is audible. A command acknowledgement alone is not a successful test. The test connection closes after 45 seconds.</string>
+    <string name="renderer_test_success">Picture and sound worked</string>
+    <string name="renderer_test_inconclusive">Failed / inconclusive</string>
+    <string name="renderer_test_not_fetched">The TV did not request sample media. Result remains unknown.</string>
+    <string name="renderer_test_saved">Confirmed sample result saved.</string>
+    <string name="source_package_import">Import source package ZIP</string>
+    <string name="source_package_select">Select enabled sources</string>
+    <string name="source_package_name">Package name</string>
+    <string name="source_package_name_hint">Using an existing name updates that package. Imported sources are not playback-verified.</string>
+    <string name="source_package_install">Install</string>
+    <string name="source_package_installed">Package installed. Use it from the depot.</string>
+    <string name="source_package_rollback">Roll back source package</string>
+    <string name="source_package_restored">Previous version restored. Reload the configuration.</string>
+    <string name="source_package_no_previous">No previous package version is available.</string>
+    <string name="source_package_not_found">No source configuration found.</string>
+    <string name="popup_sites">Choose site</string>
+    <string name="popup_config_history">Configuration history</string>
+    <string name="error_play_protocol_unsupported">This playback protocol is not supported in this build. Choose another source.</string>
+</resources>

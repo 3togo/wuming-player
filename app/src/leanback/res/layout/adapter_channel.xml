@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wuming.android.tv.ui.custom.CustomLeftRightLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_live"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/vs_12"
+        android:duplicateParentState="true"
+        android:fontFeatureSettings="tnum"
+        android:textColor="@color/live"
+        android:textSize="@dimen/font_body"
+        tools:text="01" >
+        <tag android:id="@id/tag_typography_role" android:value="body" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/logo"
+        android:layout_width="@dimen/vs_48"
+        android:layout_height="@dimen/vs_36"
+        android:layout_marginEnd="@dimen/vs_12"
+        android:visibility="gone" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/name"
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:minWidth="@dimen/vs_120"
+        android:duplicateParentState="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/live"
+        android:textSize="@dimen/font_body"
+        tools:text="CNN" >
+        <tag android:id="@id/tag_typography_role" android:value="body" />
+    </com.google.android.material.textview.MaterialTextView>
+
+</com.wuming.android.tv.ui.custom.CustomLeftRightLayout>

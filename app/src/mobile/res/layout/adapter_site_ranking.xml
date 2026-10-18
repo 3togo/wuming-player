@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_config_item"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/vs_4"
+    android:paddingEnd="@dimen/vs_4"
+    android:paddingTop="@dimen/vs_2"
+    android:paddingBottom="@dimen/vs_2">
+
+    <TextView
+        android:id="@+id/rank"
+        android:layout_width="@dimen/vs_28"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="?attr/dialogOnSurface"
+        android:textSize="@dimen/font_label"
+        android:textStyle="bold"
+        tools:text="1" >
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </TextView>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="?attr/dialogOnSurface"
+        android:textSize="@dimen/font_label"
+        tools:text="泥巴" >
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </TextView>
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="@dimen/vs_40"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textColor="?attr/dialogOnSurface"
+        android:textSize="@dimen/font_micro"
+        tools:text="85%" >
+        <tag android:id="@id/tag_typography_role" android:value="micro" />
+    </TextView>
+
+    <TextView
+        android:id="@+id/stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vs_8"
+        android:textColor="?attr/dialogOnSurfaceVariant"
+        android:textSize="@dimen/font_caption"
+        tools:text="10/12" >
+        <tag android:id="@id/tag_typography_role" android:value="caption" />
+    </TextView>
+
+</LinearLayout>

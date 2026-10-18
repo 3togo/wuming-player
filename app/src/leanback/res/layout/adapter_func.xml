@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/vs_100"
+    android:layout_height="@dimen/vs_100"
+    android:background="@drawable/selector_item"
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/vs_36"
+        android:layout_height="@dimen/vs_36"
+        tools:src="@drawable/ic_home_vod" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vs_4"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_title"
+        tools:text="點播" >
+        <tag android:id="@id/tag_typography_role" android:value="title" />
+    </com.google.android.material.textview.MaterialTextView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

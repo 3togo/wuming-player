@@ -1,0 +1,7 @@
+plugins { id 'java-library' }
+java { toolchain { languageVersion = JavaLanguageVersion.of(17) }; withSourcesJar() }
+dependencies {
+    api project(':vendor:cling')
+    def sdk = System.getenv('ANDROID_HOME') ?: System.getenv('ANDROID_SDK_ROOT')
+    compileOnly files(['android-37', 'android-37.0'].collect { file("$sdk/platforms/$it/android.jar") }.find { it.isFile() })
+}

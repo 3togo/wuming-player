@@ -1,0 +1,353 @@
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.jvm) apply false
+}
+
+apply from: rootProject.file('gradle/user-config.gradle')
+apply from: rootProject.file('gradle/rust-native.gradle')
+
+tasks.register('clean', Delete) {
+    delete rootProject.layout.buildDirectory
+}
+
+def isolatedNativeSources = [:]
+
+def genericLibraryPackages = [
+        'base-core'    : 'com.wuming.tv.core.base',
+        'cache-core'   : 'com.wuming.tv.core.cache',
+        'text-core'    : 'com.wuming.tv.core.text',
+        'design-core'  : 'com.wuming.tv.core.design',
+        'catalog-core' : 'com.wuming.tv.core.catalog',
+        'cloud-core'   : 'com.wuming.tv.core.cloud',
+        'js-runtime'             : 'com.wuming.tv.core.runtime.js',
+        'python-runtime'         : 'com.wuming.tv.core.runtime.python',
+        'jvm-spider-runtime'     : 'com.wuming.tv.core.runtime.jvmspider',
+        'guarded-runtime'        : 'com.wuming.tv.core.runtime.guardspider',
+        'cloud-login-runtime'    : 'com.wuming.tv.core.runtime.cloudlogin',
+        'epg-core'     : 'com.wuming.tv.core.epg',
+        'live-core'    : 'com.wuming.tv.core.live',
+        'upnp-core'    : 'com.wuming.tv.core.upnp',
+        'media-core'   : 'com.wuming.tv.core.media',
+        'playback-core': 'com.wuming.tv.core.playback',
+        'search-core'  : 'com.wuming.tv.core.search',
+        'source-core'  : 'com.wuming.tv.core.source',
+        'user-library-core': 'com.wuming.tv.core.library',
+        'maccms-core': 'com.wuming.tv.core.maccms',
+]
+
+// Capture only plain values for task actions; inspect Gradle models after every
+// project has been configured, before the configuration cache is serialized.
+def verificationRoot = rootDir
+def genericModelViolations = []
+def desktopModelViolations = []
+def lifecycleModelViolations = []
+
+def verifyGenericLibraryBoundaries = tasks.register('verifyGenericLibraryBoundaries') {
+    group = 'verification'
+    description = 'Enforces package ownership and prevents Android dependencies in generic libraries.'
+
+    def librarySources = fileTree(new File(verificationRoot, 'libraries')) {
+        include '*/src/**/*.java', '*/src/**/*.kt'
+    }
+    def androidSources = fileTree(rootProject.file('app/src')) {
+        include '**/*.java', '**/*.kt'
+    }
+
+    def sharedVendorSources = fileTree(new File(verificationRoot, 'vendor/cling/src/main/java')) {
+        include '**/*.java'
+    }
+
+    doLast {
+        def violations = new ArrayList(genericModelViolations)
+        def librariesRoot = new File(verificationRoot, 'libraries').canonicalFile.toPath()
+
+        genericLibraryPackages.each { libraryName, packagePrefix ->
+            def libraryDir = new File(verificationRoot, "libraries/${libraryName}")
+            if (!libraryDir.isDirectory()) {
+                violations << "Generic library directory is missing: libraries/${libraryName}"
+            }
+        }
+
+        librarySources.each { source ->
+            def relative = librariesRoot.relativize(source.canonicalFile.toPath())
+            def libraryName = relative.getName(0).toString()
+            def expectedPackage = genericLibraryPackages[libraryName]
+            if (expectedPackage == null) {
+                violations << "Unregistered generic library source: ${source.path}"
+                return
+            }
+            def packageDeclaration = source.readLines().find { line ->
+                line ==~ /\s*package\s+\S+\s*;?\s*/
+            }
+            def packagePattern = ~("\\s*package\\s+" +
+                    java.util.regex.Pattern.quote(expectedPackage) + "(?:\\..+)?\\s*;?\\s*")
+            if (packageDeclaration == null || !(packageDeclaration ==~ packagePattern)) {
+                violations << "${source.path}: ${libraryName} must own only ${expectedPackage}.*"
+            }
+            source.eachLine { line, number ->
+                if (line ==~ /\s*import\s+(?:static\s+)?android(?:\..*)?\s*;?\s*/ ||
+                        line ==~ /\s*import\s+(?:static\s+)?androidx(?:\..*)?\s*;?\s*/ ||
+                        line ==~ /\s*import\s+(?:static\s+)?com\.wuming\.android(?:\..*)?\s*;?\s*/) {
+                    violations << "${source.path}:${number}: ${line.trim()}"
+                }
+            }
+        }
+
+        // Frozen Cling protocol source is shared; its Android adapters are a separate module.
+        sharedVendorSources.each { source ->
+            source.eachLine { line, number ->
+                if (line ==~ /\s*import\s+(?:static\s+)?(?:android|androidx)(?:\..*)?\s*;?\s*/) {
+                    violations << "${source.path}:${number}: Android import in shared vendor protocol source"
+                }
+            }
+        }
+
+        androidSources.each { source ->
+            source.eachLine { line, number ->
+                if (line ==~ /\s*package\s+com\.wuming\.tv\.core(?:\..+)?\s*;?\s*/) {
+                    violations << "${source.path}:${number}: Android source cannot own a core package"
+                }
+            }
+        }
+
+        def androidBoundaryRules = [
+                'app/src/main/java/com/wuming/android/tv/bean/History':
+                        ~/(?:com\.wuming\.android\.tv\.(?:db|repository)|HistoryRepository|DataCache|AppDatabase)/,
+                'app/src/main/java/com/wuming/android/tv/bean/Keep':
+                        ~/(?:com\.wuming\.android\.tv\.(?:db|repository)|FavoriteRepository|DataCache|AppDatabase)/,
+                'app/src/main/java/com/wuming/android/tv/recommendation/ViewingHistoryTracker':
+                        ~/(?:com\.wuming\.android\.tv\.db|AppDatabase|Task\.scheduler|RecommendationEngine)/,
+        ]
+        androidBoundaryRules.each { path, forbidden ->
+            def candidates = ['java', 'kt'].collect { new File(verificationRoot, "${path}.${it}") }
+                    .findAll { it.isFile() }
+            if (candidates.size() != 1) {
+                violations << "${path}: expected exactly one Java or Kotlin source, found ${candidates.size()}"
+                return
+            }
+            def source = candidates.first()
+            source.eachLine { line, number ->
+                if (line =~ forbidden) violations << "${source.path}:${number}: ${line.trim()}"
+            }
+        }
+
+        if (!violations.isEmpty()) {
+            throw new GradleException(
+                    "Generic library boundary verification failed:\n" + violations.join('\n'))
+        }
+    }
+}
+
+def verifyDesktopBoundaries = tasks.register('verifyDesktopBoundaries') {
+    group = 'verification'
+    description = 'Keeps the desktop client independent from Android and Android runtime modules.'
+
+    def desktopSources = fileTree(rootProject.file('desktop/src')) {
+        include '**/*.java', '**/*.kt'
+    }
+
+    doLast {
+        def violations = new ArrayList(desktopModelViolations)
+
+        desktopSources.each { source ->
+            source.eachLine { line, number ->
+                if (line ==~ /\s*import\s+(?:static\s+)?(?:android|androidx|com\.wuming\.android|com\.github\.catvod)(?:\..*)?\s*;?\s*/) {
+                    violations << "${source.path}:${number}: ${line.trim()}"
+                }
+            }
+        }
+
+        if (!violations.isEmpty()) {
+            throw new GradleException(
+                    "Desktop boundary verification failed:\n" + violations.join('\n'))
+        }
+    }
+}
+
+def verifyCodeLifecycleIsolation = tasks.register('verifyCodeLifecycleIsolation') {
+    group = 'verification'
+    description = 'Prevents incubating, archived, or frozen vendor source from entering production builds.'
+
+    def nativeArtifacts = fileTree('app/libs') {
+        include '*.aar', '*.jar'
+    }
+
+    doLast {
+        def violations = new ArrayList(lifecycleModelViolations)
+
+
+        isolatedNativeSources.each { sourceName, metadata ->
+            if (!new File(verificationRoot, metadata.source).isDirectory()) {
+                violations << "Isolated native source is missing: ${metadata.source}/"
+            }
+            def artifact = new File(verificationRoot, "app/libs/${metadata.artifact}")
+            if (!artifact.isFile()) {
+                violations << "Production artifact is missing: app/libs/${metadata.artifact}"
+            } else {
+                def digest = java.security.MessageDigest.getInstance('SHA-256')
+                        .digest(artifact.bytes).encodeHex().toString()
+                if (digest != metadata.sha256) {
+                    violations << "Production artifact hash changed without lifecycle review: " +
+                            "app/libs/${metadata.artifact}"
+                }
+            }
+        }
+
+        nativeArtifacts.each { artifact ->
+            if (artifact.name ==~ /(?i).*(?:incubat|experimental|prototype|abandon|archive).*/) {
+                violations << "Isolated lifecycle artifact must not be packaged: ${artifact.path}"
+            }
+        }
+
+        if (!violations.isEmpty()) {
+            throw new GradleException(
+                    "Code lifecycle isolation failed:\n" + violations.join('\n'))
+        }
+    }
+}
+
+tasks.register('check') {
+    group = 'verification'
+    dependsOn verifyCodeLifecycleIsolation, verifyGenericLibraryBoundaries, verifyDesktopBoundaries
+    dependsOn 'verifyJavaRetention'
+}
+
+tasks.register('verifyJavaRetention', Exec) {
+    group = 'verification'
+    description = 'Protects explicitly retained Java contracts from routine language migration.'
+    workingDir verificationRoot
+    commandLine 'python3', 'scripts/check-java-retention.py'
+}
+
+def pythonUnitTests = tasks.register('pythonUnitTests', Exec) {
+    group = 'verification'
+    description = 'Runs deterministic unit tests for repository tooling and validation policies.'
+    workingDir verificationRoot
+    commandLine 'python3', '-m', 'unittest', 'discover', '-v', '-s', 'tests'
+    inputs.files(fileTree(new File(verificationRoot, 'tests')) {
+        include '**/*.py'
+        exclude '**/__pycache__/**'
+    })
+}
+
+def unitAcceptanceTasks = [
+        ':app:test',
+        ':catvod:test',
+        ':quickjs:test',
+        ':guarded-catvod-host:test',
+        ':guarded-spider-helper:test',
+        ':guarded-webview-helper:test',
+        ':desktop:test',
+] + genericLibraryPackages.keySet().collect { name -> ":libraries:${name}:test" }
+
+tasks.register('unitAcceptanceBaseline') {
+    group = 'verification'
+    description = 'Runs the deterministic offline unit-test acceptance baseline for every production module.'
+    dependsOn pythonUnitTests
+    dependsOn 'verifyJavaRetention'
+    dependsOn unitAcceptanceTasks
+    dependsOn verifyCodeLifecycleIsolation, verifyGenericLibraryBoundaries, verifyDesktopBoundaries
+}
+
+// Align Room's kotlin-metadata-jvm reader (pulled transitively by room-compiler-processing)
+// with the Kotlin 2.4.10 compiler that emits Kotlin metadata 2.4.0. Without this, Room's
+// annotation processing cannot parse the core libraries' Kotlin metadata and the app build fails
+// with "Provided Metadata instance has version 2.4.0, while maximum supported version is 2.3.0".
+allprojects {
+    configurations.all {
+        // Android supplies XmlPullParser; desktop uses its JDK StAX implementation.
+        exclude group: 'xpp3', module: 'xpp3'
+        resolutionStrategy {
+            force 'org.jetbrains.kotlin:kotlin-metadata-jvm:2.4.10'
+        }
+    }
+}
+
+subprojects {
+    tasks.matching { it.name == 'check' || it.name == 'preBuild' }.configureEach {
+        dependsOn rootProject.tasks.named('verifyCodeLifecycleIsolation')
+        dependsOn rootProject.tasks.named('verifyJavaRetention')
+    }
+}
+gradle.projectsEvaluated {
+    genericLibraryPackages.each { libraryName, packagePrefix ->
+        def libraryProject = rootProject.findProject(":libraries:${libraryName}")
+        if (libraryProject == null) {
+            genericModelViolations << "Generic library is not included in settings.gradle: ${libraryName}"
+        } else if (libraryProject.plugins.hasPlugin('com.android.application') ||
+                libraryProject.plugins.hasPlugin('com.android.library')) {
+            genericModelViolations << "Generic library applies an Android plugin: ${libraryProject.path}"
+        } else {
+            libraryProject.configurations.each { configuration ->
+                configuration.dependencies.withType(org.gradle.api.artifacts.ProjectDependency).each { dependency ->
+                    if (!dependency.path.startsWith(':libraries:') && dependency.path != ':vendor:cling') {
+                        genericModelViolations << "${libraryProject.path}:${configuration.name} depends on " +
+                                "platform module ${dependency.path}"
+                    }
+                }
+            }
+        }
+    }
+    def desktopProject = rootProject.findProject(':desktop')
+    if (desktopProject == null) {
+        desktopModelViolations << ':desktop is not included in settings.gradle'
+    } else {
+        if (desktopProject.plugins.hasPlugin('com.android.application') ||
+                desktopProject.plugins.hasPlugin('com.android.library')) {
+            desktopModelViolations << ':desktop applies an Android plugin'
+        }
+        desktopProject.configurations.each { configuration ->
+            configuration.dependencies.withType(org.gradle.api.artifacts.ProjectDependency).each { dependency ->
+                def allowedGuardHost = configuration.name == 'runtimeOnly' &&
+                        dependency.path == ':guarded-catvod-host'
+                if (!dependency.path.startsWith(':libraries:') && !allowedGuardHost) {
+                    desktopModelViolations << ":desktop:${configuration.name} depends on platform module ${dependency.path}"
+                }
+            }
+        }
+    }
+    def isolatedRoot = rootProject.file('isolated').canonicalFile.toPath()
+    rootProject.allprojects.each { candidate ->
+        if (candidate == rootProject) return
+        def projectPath = candidate.projectDir.canonicalFile.toPath()
+        if (projectPath.startsWith(isolatedRoot)) {
+            lifecycleModelViolations << "${candidate.path} is included from the isolated code tree"
+        }
+
+        def inspectedContainers = Collections.newSetFromMap(new IdentityHashMap())
+        def inspectSourceSets = { container ->
+            if (container == null || !inspectedContainers.add(container)) return
+            container.each { sourceSet ->
+                sourceSet.properties.each { propertyName, sourceDirectory ->
+                    if (sourceDirectory == null ||
+                            !sourceDirectory.metaClass.respondsTo(sourceDirectory, 'getSrcDirs')) {
+                        return
+                    }
+                    sourceDirectory.srcDirs.each { sourceRoot ->
+                        if (sourceRoot.canonicalFile.toPath().startsWith(isolatedRoot)) {
+                            lifecycleModelViolations << "${candidate.path}:${sourceSet.name}.${propertyName} " +
+                                    "uses isolated source directory ${sourceRoot.path}"
+                        }
+                    }
+                }
+            }
+        }
+        inspectSourceSets(candidate.extensions.findByName('sourceSets'))
+        inspectSourceSets(candidate.extensions.findByName('android')?.sourceSets)
+    }
+
+    isolatedNativeSources.each { sourceName, metadata ->
+        if (rootProject.findProject(":${sourceName}") != null) {
+            lifecycleModelViolations << ":${sourceName} is isolated native source and must not be included"
+        }
+    }
+}
+
+// Generated Android/Swing adapters must remain in sync with the canonical design tokens.
+tasks.register('verifyDesignTokens', Exec) {
+    group = 'verification'
+    commandLine 'python3', rootProject.file('scripts/generate-design-tokens.py'), '--check'
+}
+
+apply from: rootProject.file('gradle/public-provenance.gradle')

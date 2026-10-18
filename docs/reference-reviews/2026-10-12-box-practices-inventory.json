@@ -1,0 +1,12 @@
+{
+  "mode": "dry-run",
+  "updatePerformed": false,
+  "box": {
+    "repository": "references/Box",
+    "role": "reference",
+    "before": "258a5fef61578869ae905ca230bdde9e99fc19a8",
+    "after": "258a5fef61578869ae905ca230bdde9e99fc19a8",
+    "dirty": false,
+    "outcome": "would-update"
+  }
+}

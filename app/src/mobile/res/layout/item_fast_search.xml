@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:foreground="@drawable/shape_vod">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivThumb"
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="@dimen/vs_0"
+        android:background="@color/black_20"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/Vod.Grid.Large"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/vs_8"
+        android:background="@drawable/shape_vod_remark"
+        android:ellipsize="end"
+        android:maxWidth="@dimen/vs_100"
+        android:paddingHorizontal="@dimen/vs_8"
+        android:paddingVertical="@dimen/vs_3"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/ivThumb"
+        app:layout_constraintTop_toTopOf="@+id/ivThumb"
+        tools:text="1080p"
+        tools:visibility="visible"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvSite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/vs_8"
+        android:background="@drawable/shape_vod_site"
+        android:ellipsize="end"
+        android:maxWidth="@dimen/vs_100"
+        android:paddingHorizontal="@dimen/vs_10"
+        android:paddingVertical="@dimen/vs_4"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/ivThumb"
+        app:layout_constraintTop_toTopOf="@+id/ivThumb"
+        tools:text="泥巴"
+        tools:visibility="visible"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvName"
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_vod_name"
+        android:breakStrategy="high_quality"
+        android:ellipsize="end"
+        android:gravity="center|start"
+        android:hyphenationFrequency="none"
+        android:includeFontPadding="false"
+        android:maxLines="2"
+        android:paddingHorizontal="@dimen/vs_8"
+        android:paddingVertical="@dimen/vs_6"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivThumb"
+        tools:text="蜘蛛人：纵横宇宙"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.textview.MaterialTextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

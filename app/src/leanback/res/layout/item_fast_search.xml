@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fast Search Result Item - geometry matches the shared Leanback search cards. -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:foreground="@drawable/selector_vod">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivThumb"
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="@dimen/vs_0"
+        android:background="@color/black_20"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/Vod.Grid.Large" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vs_3"
+        android:layout_marginBottom="@dimen/vs_3"
+        android:background="@drawable/shape_vod_remark"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_micro"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ivThumb"
+        app:layout_constraintStart_toStartOf="@+id/ivThumb"
+        tools:text="1080p"
+        tools:visibility="visible" >
+        <tag android:id="@id/tag_typography_role" android:value="micro" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvSite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vs_3"
+        android:layout_marginEnd="@dimen/vs_3"
+        android:background="@drawable/shape_vod_site"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_micro"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/ivThumb"
+        app:layout_constraintTop_toTopOf="@+id/ivThumb"
+        tools:text="泥巴"
+        tools:visibility="visible" >
+        <tag android:id="@id/tag_typography_role" android:value="micro" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_vod_name"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivThumb"
+        tools:text="蜘蛛人" >
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.textview.MaterialTextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

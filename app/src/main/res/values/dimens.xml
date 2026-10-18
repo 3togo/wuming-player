@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ============================================================== -->
+    <!-- Semantic font sizes (sp) - categorized by role, not raw value   -->
+    <!-- ============================================================== -->
+    <!-- Display: large numbers, channel digits, timer digits            -->
+    <dimen name="font_display">@dimen/ds_ui_display_text</dimen>
+    <!-- Headline: page main titles, VOD names in detail page            -->
+    <dimen name="font_headline">@dimen/ds_ui_headline_text</dimen>
+    <!-- Title: section titles, overlay titles, control bar titles       -->
+    <dimen name="font_title">@dimen/ds_ui_title_text</dimen>
+    <!-- Body: detail info, list items, dialog content                   -->
+    <dimen name="font_body">@dimen/ds_ui_body_text</dimen>
+    <!-- Label: buttons, tags, secondary info, chips                     -->
+    <dimen name="font_label">@dimen/ds_ui_label_text</dimen>
+    <!-- Caption: tech params, clock, network warning, smallest text     -->
+    <dimen name="font_caption">@dimen/ds_ui_caption_text</dimen>
+    <!-- Micro: very small text (mobile live info bar, PIP info)         -->
+    <dimen name="font_micro">@dimen/ds_ui_micro_text</dimen>
+
+    <!-- ============================================================== -->
+    <!-- Negative view sizes (dp) - used for negative margins/offsets     -->
+    <!-- ============================================================== -->
+    <dimen name="vs_neg4">-4dp</dimen>
+    <dimen name="vs_neg6">-6dp</dimen>
+    <dimen name="vs_neg8">-8dp</dimen>
+    <dimen name="vs_neg12">-12dp</dimen>
+    <dimen name="vs_neg16">-16dp</dimen>
+    <dimen name="vs_neg40">-40dp</dimen>
+
+    <!-- ============================================================== -->
+    <!-- View sizes (dp) - scale with screen density, NOT raw pixels     -->
+    <!-- ============================================================== -->
+    <dimen name="vs_0">0dp</dimen>
+    <dimen name="vs_1">1dp</dimen>
+    <dimen name="vs_2">2dp</dimen>
+    <dimen name="vs_3">3dp</dimen>
+    <dimen name="vs_4">4dp</dimen>
+    <dimen name="vs_5">5dp</dimen>
+    <dimen name="vs_6">6dp</dimen>
+    <dimen name="vs_7">7dp</dimen>
+    <dimen name="vs_8">8dp</dimen>
+    <dimen name="vs_10">10dp</dimen>
+    <dimen name="vs_12">12dp</dimen>
+    <dimen name="vs_14">14dp</dimen>
+    <dimen name="vs_15">15dp</dimen>
+    <dimen name="vs_16">16dp</dimen>
+    <dimen name="vs_18">18dp</dimen>
+    <dimen name="vs_20">20dp</dimen>
+    <dimen name="vs_22">22dp</dimen>
+    <dimen name="vs_24">24dp</dimen>
+    <dimen name="vs_25">25dp</dimen>
+    <dimen name="vs_26">26dp</dimen>
+    <dimen name="vs_28">28dp</dimen>
+    <dimen name="vs_29">29dp</dimen>
+    <dimen name="vs_30">30dp</dimen>
+    <dimen name="vs_32">32dp</dimen>
+    <dimen name="vs_33">33dp</dimen>
+    <dimen name="vs_35">35dp</dimen>
+    <dimen name="vs_36">36dp</dimen>
+    <dimen name="vs_40">40dp</dimen>
+    <dimen name="vs_44">44dp</dimen>
+    <dimen name="vs_45">45dp</dimen>
+    <dimen name="vs_48">48dp</dimen>
+    <dimen name="vs_50">50dp</dimen>
+    <dimen name="vs_52">52dp</dimen>
+    <dimen name="vs_55">55dp</dimen>
+    <dimen name="vs_56">56dp</dimen>
+    <dimen name="vs_60">60dp</dimen>
+    <dimen name="vs_64">64dp</dimen>
+    <dimen name="vs_70">70dp</dimen>
+    <dimen name="vs_72">72dp</dimen>
+    <dimen name="vs_80">80dp</dimen>
+    <dimen name="vs_90">90dp</dimen>
+    <dimen name="vs_95">95dp</dimen>
+    <dimen name="vs_96">96dp</dimen>
+    <dimen name="vs_100">100dp</dimen>
+    <dimen name="vs_110">110dp</dimen>
+    <dimen name="vs_120">120dp</dimen>
+    <dimen name="vs_128">128dp</dimen>
+    <dimen name="vs_140">140dp</dimen>
+    <dimen name="vs_150">150dp</dimen>
+    <dimen name="vs_160">160dp</dimen>
+    <dimen name="vs_180">180dp</dimen>
+    <dimen name="vs_185">185dp</dimen>
+    <dimen name="vs_190">190dp</dimen>
+    <dimen name="vs_192">192dp</dimen>
+    <dimen name="vs_200">200dp</dimen>
+    <dimen name="vs_204">204dp</dimen>
+    <dimen name="vs_214">214dp</dimen>
+    <dimen name="vs_216">216dp</dimen>
+    <dimen name="vs_220">220dp</dimen>
+    <dimen name="vs_224">224dp</dimen>
+    <dimen name="vs_225">225dp</dimen>
+    <dimen name="vs_232">232dp</dimen>
+    <dimen name="vs_240">240dp</dimen>
+    <dimen name="vs_250">250dp</dimen>
+    <dimen name="vs_260">260dp</dimen>
+    <dimen name="vs_264">264dp</dimen>
+    <dimen name="vs_280">280dp</dimen>
+    <dimen name="vs_296">296dp</dimen>
+    <dimen name="vs_300">300dp</dimen>
+    <dimen name="vs_320">320dp</dimen>
+    <dimen name="vs_328">328dp</dimen>
+    <dimen name="vs_340">340dp</dimen>
+    <dimen name="vs_352">352dp</dimen>
+    <dimen name="vs_360">360dp</dimen>
+    <dimen name="vs_376">376dp</dimen>
+    <dimen name="vs_400">400dp</dimen>
+    <dimen name="vs_420">420dp</dimen>
+    <dimen name="vs_440">440dp</dimen>
+    <dimen name="vs_460">460dp</dimen>
+    <dimen name="vs_480">480dp</dimen>
+    <dimen name="vs_530">530dp</dimen>
+    <dimen name="vs_600">600dp</dimen>
+
+    <!-- Shared edge offset for transient, non-interactive notification banners. -->
+    <dimen name="notify_edge_margin">24dp</dimen>
+    <dimen name="vs_640">640dp</dimen>
+    <dimen name="vs_720">720dp</dimen>
+    <dimen name="vs_960">960dp</dimen>
+
+    <!-- ============================================================== -->
+    <!-- Stroke / divider sizes (dp)                                    -->
+    <!-- Named "vsp" for historical reasons; still density-independent.  -->
+    <!-- ============================================================== -->
+    <dimen name="vsp_2">2dp</dimen>
+</resources>

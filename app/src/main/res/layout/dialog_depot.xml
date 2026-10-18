@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/vs_16">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/setting_depot"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:textColor="?attr/dialogOnSurface"
+        android:textSize="@dimen/font_title">
+        <tag android:id="@id/tag_typography_role" android:value="title" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vs_4"
+        android:textAppearance="?attr/textAppearanceCaption"
+        android:textColor="?attr/dialogOnSurfaceVariant"
+        android:textSize="@dimen/font_title">
+        <tag android:id="@id/tag_typography_role" android:value="title" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <EditText
+        android:id="@+id/searchSources"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vs_8"
+        android:hint="@string/setting_depot_search_hint"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textColor="?attr/dialogOnSurface"
+        android:textColorHint="?attr/dialogOnSurfaceVariant"
+        android:textSize="@dimen/font_body">
+        <tag android:id="@id/tag_typography_role" android:value="body" />
+    </EditText>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/browseOfflineLinks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:text="@string/setting_depot_filter_all"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.button.MaterialButton>
+
+    <com.wuming.android.tv.ui.custom.CustomRecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vs_8"
+        android:fadeScrollbars="false"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:maxHeight="@dimen/vs_376" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/importPackage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:text="@string/source_package_import"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.button.MaterialButton>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/rollbackPackage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:text="@string/source_package_rollback"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.button.MaterialButton>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/vs_8"
+        android:text="@android:string/cancel"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </com.google.android.material.button.MaterialButton>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

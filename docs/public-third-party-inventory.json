@@ -1,0 +1,166 @@
+{
+  "scope": "Tracked bundled artifacts, original artwork/media, source-built Cling/Seamless, pinned JavaScript packages and resolved Android/desktop/helper runtime dependency licenses and notices. Build tools other than the shipped Gradle wrapper and dynamically loaded user providers are outside this inventory.",
+  "rootLicense": "LICENSE.md (GPL version 3 text retained)",
+  "upstreamAttribution": "README.md retains the CatVod origin reference; source notices are preserved. Original private Git history is not distributed.",
+  "artifacts": [
+    {
+      "path": "app/libs/dfm-release.aar",
+      "sha256": "c7e475270237109630db0b32e9b1b7f196b952b8f157a79daa76de63dc3449ac",
+      "embeddedNoticePaths": [],
+      "reviewStatus": "Public artifact origin and Apache-2.0 upstream identified; license and attribution added. Exact source-to-binary reproduction not established.",
+      "publicArtifactEvidence": {
+        "artifact": "dfm-release.aar",
+        "url": "https://raw.githubusercontent.com/FongMi/TV/f9db62624d97a6593180ac0ac8b6d197375ceb3f/app/libs/dfm-release.aar",
+        "upstreamSha256": "c7e475270237109630db0b32e9b1b7f196b952b8f157a79daa76de63dc3449ac",
+        "localSha256": "c7e475270237109630db0b32e9b1b7f196b952b8f157a79daa76de63dc3449ac",
+        "identical": true
+      },
+      "upstreamLicenseEvidence": {
+        "repository": "bilibili/DanmakuFlameMaster",
+        "commit": "e2846461a09e33720a049f628f09c653f55531f0",
+        "licenseUrl": "https://raw.githubusercontent.com/bilibili/DanmakuFlameMaster/e2846461a09e33720a049f628f09c653f55531f0/LICENSE",
+        "licenseSha256": "dc1f5d2d43c5531dfe0acaf4e950ea5dbe3e61e1850cf0e983bda7efc10d6693"
+      },
+      "binaryVersion": "BuildConfig.VERSION_NAME=0.9.25"
+    },
+    {
+      "path": "desktop/src/test/resources/guarded/GmsProbe-dexed.jar",
+      "sha256": "3da9a427690d9c9b12dc5c3f06bbff002e5b2ce035c92215c389920aac67bffd",
+      "license": "GPL-3.0",
+      "productionPackaged": false,
+      "reviewStatus": "Rebuilt from project-authored Java fixture sources using the retained javac/D8 recipe; compile-only Spider and Android framework classes are excluded.",
+      "sourceRecipe": "scripts/build-guarded-fixtures.py"
+    },
+    {
+      "path": "desktop/src/test/resources/guarded/WebViewProbe-dexed.jar",
+      "sha256": "33bf120bb56b470e92d88038e5681b778dd6af3fe687d88562a2a0f7809671c8",
+      "license": "GPL-3.0",
+      "productionPackaged": false,
+      "reviewStatus": "Rebuilt from project-authored Java fixture sources using the retained javac/D8 recipe; compile-only Spider and Android framework classes are excluded.",
+      "sourceRecipe": "scripts/build-guarded-fixtures.py"
+    }
+  ],
+  "stableReleaseReviewComplete": true,
+  "reviewedAt": "2026-10-18",
+  "evidenceReviewComplete": true,
+  "releaseBlockers": [],
+  "brandingReview": "Original replacements cover launcher/banner/placeholder branding, all inherited UI vector glyphs, TV home tiles and wallpapers; recipes under artwork/ and scripts/.",
+  "removedArtifacts": [
+    {
+      "path": "app/libs/forcetech-release.aar",
+      "sha256": "0fb6a1eff9ba4ccf85803bfb72c2d05f4bcacb5ba0b46e474bf9ffbb11e7b926",
+      "embeddedNoticePaths": [],
+      "reviewStatus": "Origin identified; redistribution blocked pending SDK-specific permission and corresponding-source review.",
+      "sourceSnapshotRecord": "isolated/vendor-snapshots/forcetech/LIFECYCLE.md",
+      "sourceToArtifactReproduction": "Not established in existing lifecycle record",
+      "lifecycleRecordedSha256": "0fb6a1eff9ba4ccf85803bfb72c2d05f4bcacb5ba0b46e474bf9ffbb11e7b926",
+      "lifecycleHashMatchesArtifact": true,
+      "publicArtifactEvidence": {
+        "artifact": "forcetech-release.aar",
+        "url": "https://raw.githubusercontent.com/FongMi/TV/f9db62624d97a6593180ac0ac8b6d197375ceb3f/app/libs/forcetech-release.aar",
+        "upstreamSha256": "0fb6a1eff9ba4ccf85803bfb72c2d05f4bcacb5ba0b46e474bf9ffbb11e7b926",
+        "localSha256": "0fb6a1eff9ba4ccf85803bfb72c2d05f4bcacb5ba0b46e474bf9ffbb11e7b926",
+        "identical": true
+      },
+      "disposition": "Removed from source and production packaging at user request on 2026-10-18; historical origin evidence only."
+    },
+    {
+      "path": "app/libs/jianpian-release.aar",
+      "sha256": "f2e2e18e2ab8980d4755b188c3384b29e7d9a8973d5d7c10be3ed56224bd8702",
+      "embeddedNoticePaths": [],
+      "reviewStatus": "Origin identified; redistribution blocked pending SDK-specific permission and corresponding-source review.",
+      "publicArtifactEvidence": {
+        "artifact": "jianpian-release.aar",
+        "url": "https://raw.githubusercontent.com/FongMi/TV/f9db62624d97a6593180ac0ac8b6d197375ceb3f/app/libs/jianpian-release.aar",
+        "upstreamSha256": "f2e2e18e2ab8980d4755b188c3384b29e7d9a8973d5d7c10be3ed56224bd8702",
+        "localSha256": "f2e2e18e2ab8980d4755b188c3384b29e7d9a8973d5d7c10be3ed56224bd8702",
+        "identical": true
+      },
+      "disposition": "Removed from source and production packaging at user request on 2026-10-18; historical origin evidence only."
+    },
+    {
+      "path": "app/libs/thunder-release.aar",
+      "sha256": "a0c212caa235d94011932e00efa5b85c388f678873d31226754a73aa19e88606",
+      "embeddedNoticePaths": [],
+      "reviewStatus": "Origin identified; redistribution blocked pending SDK-specific permission and corresponding-source review.",
+      "sourceSnapshotRecord": "isolated/vendor-snapshots/thunder/LIFECYCLE.md",
+      "sourceToArtifactReproduction": "Not established in existing lifecycle record",
+      "lifecycleRecordedSha256": "a0c212caa235d94011932e00efa5b85c388f678873d31226754a73aa19e88606",
+      "lifecycleHashMatchesArtifact": true,
+      "publicArtifactEvidence": {
+        "artifact": "thunder-release.aar",
+        "url": "https://raw.githubusercontent.com/FongMi/TV/f9db62624d97a6593180ac0ac8b6d197375ceb3f/app/libs/thunder-release.aar",
+        "upstreamSha256": "a0c212caa235d94011932e00efa5b85c388f678873d31226754a73aa19e88606",
+        "localSha256": "a0c212caa235d94011932e00efa5b85c388f678873d31226754a73aa19e88606",
+        "identical": true
+      },
+      "disposition": "Removed from source and production packaging at user request on 2026-10-18; historical origin evidence only."
+    },
+    {
+      "path": "app/libs/tvbus-release.aar",
+      "sha256": "8ff2a0085c585624ff6a0cd11a6d2d29e428e3bd328f7d8b1780a7bd5895b97d",
+      "embeddedNoticePaths": [],
+      "reviewStatus": "Restricted BINSTREAM terms found; matching version, redistribution authorization and runtime-native provenance remain unresolved.",
+      "sourceSnapshotRecord": "isolated/vendor-snapshots/tvbus/LIFECYCLE.md",
+      "sourceToArtifactReproduction": "Not established in existing lifecycle record",
+      "lifecycleRecordedSha256": "8ff2a0085c585624ff6a0cd11a6d2d29e428e3bd328f7d8b1780a7bd5895b97d",
+      "lifecycleHashMatchesArtifact": true,
+      "publicArtifactEvidence": {
+        "artifact": "tvbus-release.aar",
+        "url": "https://raw.githubusercontent.com/FongMi/TV/f9db62624d97a6593180ac0ac8b6d197375ceb3f/app/libs/tvbus-release.aar",
+        "upstreamSha256": "8ff2a0085c585624ff6a0cd11a6d2d29e428e3bd328f7d8b1780a7bd5895b97d",
+        "localSha256": "8ff2a0085c585624ff6a0cd11a6d2d29e428e3bd328f7d8b1780a7bd5895b97d",
+        "identical": true
+      },
+      "upstreamLicenseEvidence": {
+        "repository": "binstreamio/tvbus.android",
+        "commit": "98190fd679e2542f2cd7dc5d9ac786383272e8d7",
+        "licenseUrl": "https://raw.githubusercontent.com/binstreamio/tvbus.android/98190fd679e2542f2cd7dc5d9ac786383272e8d7/LICENSE",
+        "licenseSha256": "9ae22b996591aebf1bedcf42d7a1b0e88b9657deb2db7ceafa3f3eea509b015d"
+      },
+      "disposition": "Removed from source and production packaging at user request on 2026-10-18; historical origin evidence only."
+    },
+    {
+      "path": "app/libs/hook-release.aar",
+      "sha256": "da614a885ab8f6a0a828a2c16208751d5181c9efc4f1d11e20dedf9601801e72",
+      "embeddedNoticePaths": [],
+      "reviewStatus": "Public artifact origin and namespace-relocation relationship identified; GPL source snapshot retained. Reproducible artifact build remains unverified.",
+      "sourceSnapshotRecord": "isolated/vendor-snapshots/hook/LIFECYCLE.md",
+      "sourceToArtifactReproduction": "Not established in existing lifecycle record",
+      "lifecycleRecordedSha256": "da614a885ab8f6a0a828a2c16208751d5181c9efc4f1d11e20dedf9601801e72",
+      "lifecycleHashMatchesArtifact": true,
+      "previousLifecycleSha256": "50cb2376064781c79ec3708fe2c29d1c1efcec56cfb471b25172b433172cb9b7",
+      "historyNote": "Wrapper package renamed from com.fongmi.hook to com.wuming.hook. Lifecycle hash corrected to the current artifact; reproduction is still not established.",
+      "publicArtifactEvidence": {
+        "artifact": "hook-release.aar",
+        "url": "https://raw.githubusercontent.com/FongMi/TV/f9db62624d97a6593180ac0ac8b6d197375ceb3f/app/libs/hook-release.aar",
+        "upstreamSha256": "50cb2376064781c79ec3708fe2c29d1c1efcec56cfb471b25172b433172cb9b7",
+        "localSha256": "da614a885ab8f6a0a828a2c16208751d5181c9efc4f1d11e20dedf9601801e72",
+        "identical": false,
+        "changedArchiveEntries": [
+          "AndroidManifest.xml",
+          "META-INF/com/android/build/gradle/aar-metadata.properties",
+          "classes.jar"
+        ],
+        "normalizedClassesIdentical": true
+      },
+      "disposition": "Removed during final provenance cleanup; historical evidence only."
+    }
+  ],
+  "sdkRedistributionBlockersRemoved": true,
+  "removalRecord": "vendor-sdk-removal.md",
+  "runtimeDependencyInventory": "docs/public-maven-inventory.json",
+  "pythonInventory": "docs/public-python-inventory.json",
+  "javascriptInventory": "third_party/javascript/inventory.json",
+  "sourceBuiltDlna": "vendor/cling/upstream/inventory.json",
+  "sourceArchiveInventory": "third_party/corresponding-source/inventory.json",
+  "gradleWrapper": "docs/public-gradle-wrapper.json",
+  "limits": [
+    "TV/device verification is deferred and is separate from provenance review.",
+    "Future user-loaded providers and remote catalogs require their own rights and security review.",
+    "DFM has matching public artifact origin and Apache-2.0 license evidence; a bit-identical source build was not required or established.",
+    "Matching source and full notices must accompany public binary distribution."
+  ],
+  "embeddedNativeDependencyInventory": "docs/public-native-dependency-inventory.json",
+  "webArtworkInventory": "docs/public-web-artwork-inventory.json"
+}

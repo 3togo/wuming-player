@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Blur removes readable page detail while the translucent surface retains hue. -->
+    <style name="AppDialogStyle" parent="AppDialogStyle.Base">
+        <item name="android:windowBlurBehindEnabled">true</item>
+        <item name="android:windowBlurBehindRadius">@dimen/vs_48</item>
+    </style>
+
+</resources>

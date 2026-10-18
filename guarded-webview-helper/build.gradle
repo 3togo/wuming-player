@@ -1,0 +1,35 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace = 'com.wuming.tv.guardwebview'
+    compileSdk 37
+
+    defaultConfig {
+        applicationId "com.wuming.tv.guardwebview.publicedition"
+        minSdk 26
+        targetSdk 37
+        versionCode 1
+        versionName "0.1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig = false
+    }
+
+    // Dev/debug-only helper; do not fail the build on strict lint.
+    lint {
+        abortOnError = false
+        disable 'ForegroundServiceType', 'MissingDefaultActivity'
+    }
+}
+
+dependencies {
+    implementation project(':libraries:guarded-runtime')
+}

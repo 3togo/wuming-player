@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="relay_title">电脑中继</string>
+    <string name="relay_find">查找电脑</string>
+    <string name="relay_enable">启用中继</string>
+    <string name="relay_disable">停用中继</string>
+    <string name="relay_forget">取消配对</string>
+    <string name="relay_searching">正在搜索局域网…</string>
+    <string name="relay_not_found">找不到电脑。请在电脑设置启用局域网中继，并连接同一网络。</string>
+    <string name="relay_code">六位数配对码</string>
+    <string name="relay_code_help">在电脑打开「设置 → LAN relay → Pair a device」，并输入显示的配对码。</string>
+    <string name="relay_paired">配对成功。直播 HLS 播放持续缓冲时，将请求电脑协助下载。</string>
+    <string name="relay_pair_failed">配对失败。请确认配对码，或在电脑生成新码。</string>
+</resources>

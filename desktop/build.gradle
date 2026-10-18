@@ -1,0 +1,137 @@
+plugins {
+    id 'application'
+    alias(libs.plugins.kotlin.jvm)
+}
+
+group = 'com.wuming.tv'
+version = '0.1.0-SNAPSHOT'
+
+application {
+    mainClass = 'com.wuming.tv.desktop.DesktopMainKt'
+    applicationName = 'tvbox-desktop'
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+dependencies {
+    implementation project(':libraries:design-core')
+    implementation project(':libraries:cache-core')
+    implementation project(':libraries:base-core')
+    implementation project(':libraries:catalog-core')
+    implementation project(':libraries:cloud-core')
+    implementation project(':libraries:epg-core')
+    implementation project(':libraries:live-core')
+    implementation project(':libraries:upnp-core')
+    implementation project(':libraries:media-core')
+    implementation project(':libraries:playback-core')
+    implementation project(':libraries:text-core')
+    implementation project(':libraries:search-core')
+    implementation project(':libraries:source-core')
+    implementation project(':libraries:user-library-core')
+    implementation project(':libraries:maccms-core')
+    // Runtime families: each is a SEPARATE implementation of the shared
+    // catalog-core / cloud-core contracts. Pull only the families this client needs.
+    implementation project(':libraries:js-runtime')
+    implementation project(':libraries:python-runtime')
+    implementation project(':libraries:jvm-spider-runtime')
+    implementation project(':libraries:guarded-runtime')
+    implementation project(':libraries:cloud-login-runtime')
+    runtimeOnly project(':guarded-catvod-host')
+    implementation libs.gson
+    implementation libs.imageio.webp
+    implementation libs.okhttp
+    implementation libs.zxing.core
+
+    testImplementation libs.junit
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir rootProject.file('app/src/main/assets')
+            include 'depot.json'
+            include 'link_catalog.json'
+            include 'live/**'
+            include 'third-party/**'
+        }
+    }
+}
+
+// Share Android's high-resolution launcher artwork instead of maintaining a desktop copy.
+tasks.named('processResources') {
+    from(rootProject.file('third_party/package-assets'))
+    from(rootProject.file('app/src/main/ic_launcher-playstore.png')) {
+        into 'icons'
+        rename { 'tvbox-desktop.png' }
+    }
+}
+
+tasks.named('check') {
+    dependsOn rootProject.tasks.named('verifyDesktopBoundaries')
+    dependsOn rootProject.tasks.named('verifyDesignTokens')
+    dependsOn rootProject.tasks.named('verifyCodeLifecycleIsolation')
+    dependsOn rootProject.tasks.named('verifyGenericLibraryBoundaries')
+}
+
+tasks.named('run') {
+    systemProperty 'file.encoding', 'UTF-8'
+}
+
+// Forward device-serial/hardware-test switches from the Gradle launcher to the forked test JVM so
+// the emulator-fallback and GMS-relay hardware tests can opt in via -D on the command line.
+test {
+    // Offline Swing rendering must not inherit the host monitor's DPI/size or need a display.
+    // Hardware opt-in tests use their explicit transport, not a desktop window.
+    systemProperty 'java.awt.headless', 'true'
+    ['tvbox.guarded.hardware.test.serial', 'tvbox.guarded.gms.serial',
+     'tvbox.guarded.emulator.serial', 'TVBOX_GUARDED_GMS_SERIAL',
+     'tvbox.hongguo.vodId', 'tvbox.hongguo.jar'].each { key ->
+        def value = System.getProperty(key)
+        if (value != null) systemProperty(key, value)
+    }
+}
+
+tasks.register('writeDebPackageVersion') {
+    description = 'Writes the desktop version consumed by the Debian packaging script.'
+    group = 'distribution'
+    def desktopVersion = project.version.toString()
+    def versionFile = layout.buildDirectory.file('packaging/version.txt')
+    inputs.property('desktopVersion', desktopVersion)
+    outputs.file(versionFile)
+    doLast {
+        def target = versionFile.get().asFile
+        target.parentFile.mkdirs()
+        target.setText(desktopVersion + '\n', 'UTF-8')
+    }
+}
+
+tasks.register('collectEpisodeNames', JavaExec) {
+    group = 'tools'
+    description = 'Collects raw episode names from the guarded desktop sources for display redundancy analysis.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.wuming.tv.desktop.tools.EpisodeNameCollectorKt'
+    systemProperty 'file.encoding', 'UTF-8'
+    args = (findProperty('collectArgs') ?: '').toString().split(' ').findAll { it != '' }
+}
+
+// Include the self-contained Python home and JNI libraries in desktop distributions.
+def nativePythonRuntime = rootProject.layout.buildDirectory.dir('python-native/linux')
+tasks.named('run') {
+    systemProperty 'wuming.python.runtime', nativePythonRuntime.get().asFile.absolutePath
+}
+distributions.main.contents {
+    from(nativePythonRuntime) { into 'lib/python-runtime' }
+}
+
+tasks.named('run') { dependsOn ':libraries:python-runtime:prepareLinuxPython' }
+tasks.named('installDist') { dependsOn ':libraries:python-runtime:prepareLinuxPython' }
+tasks.named('distZip') { dependsOn ':libraries:python-runtime:prepareLinuxPython' }
+tasks.named('distTar') { dependsOn ':libraries:python-runtime:prepareLinuxPython' }
+
+tasks.named('test') {
+    inputs.dir(nativePythonRuntime)
+    dependsOn ':libraries:python-runtime:prepareLinuxPython'
+    systemProperty 'wuming.python.runtime', nativePythonRuntime.get().asFile.absolutePath
+}

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_900"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/vs_12">
+
+        <TextView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_cloud_storage_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/cloud_storage_back"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_title" >
+            <tag android:id="@id/tag_typography_role" android:value="title" />
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="@dimen/vs_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/vs_16"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_headline" >
+                <tag android:id="@id/tag_typography_role" android:value="headline" />
+            </TextView>
+
+            <TextView
+                android:id="@+id/credential_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/grey_500"
+                android:textSize="@dimen/font_label" >
+                <tag android:id="@id/tag_typography_role" android:value="label" />
+            </TextView>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vs_8"
+            android:background="@drawable/bg_cloud_storage_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/cloud_storage_reset_login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </TextView>
+
+        <TextView
+            android:id="@+id/auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vs_8"
+            android:background="@drawable/bg_cloud_storage_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/cloud_qr_auto"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </TextView>
+
+        <TextView
+            android:id="@+id/external"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_cloud_storage_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/cloud_storage_open_external"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_body" >
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </TextView>
+
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/web"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vs_0"
+        android:layout_weight="1" />
+
+    </LinearLayout>
+
+</FrameLayout>

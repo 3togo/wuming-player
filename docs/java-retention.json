@@ -1,0 +1,162 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "id": "hls-nullable-varargs",
+      "kind": "language-required",
+      "reason": "The published factory must accept a null array and retain JVM ACC_VARARGS. Ordinary Kotlin vararg emits a non-null array check. Keep only the entry facade in Java; normalization and orchestration stay in Kotlin.",
+      "release_when": "Deliberately retire nullable-array compatibility or demonstrate a supported replacement preserving both null-array behavior and JVM varargs with the Java caller tests. Do not delete or weaken those tests to complete migration.",
+      "evidence": [
+        "libraries/playback-core/src/test/java/com/wuming/tv/core/playback/hls/HlsPipelineJavaContractTest.java",
+        "libraries/playback-core/src/main/kotlin/com/wuming/tv/core/playback/hls/HlsPipelineEngine.kt"
+      ],
+      "paths": [
+        "libraries/playback-core/src/main/java-required/com/wuming/tv/core/playback/hls/HlsPipeline.java"
+      ],
+      "markers": [
+        "libraries/playback-core/src/main/java-required/com/wuming/tv/core/playback/hls/HlsPipeline.java"
+      ]
+    },
+    {
+      "id": "catvod-spider-api",
+      "kind": "compatibility-hold",
+      "reason": "Separately compiled provider jars subclass these API shells and use public fields, static factories, overloads, checked exceptions and nullable defaults. Kotlin is possible but requires explicit API parity evidence; Android and host implementations have different runtime behavior.",
+      "release_when": "Compare affected public/protected JVM descriptors, fields, modifiers, checked exceptions, null and dispatch behavior against the old API and run representative precompiled-provider linkage tests on both hosts. Extract implementation behind unchanged entry points first when useful.",
+      "evidence": [
+        "docs/spider.md",
+        "guarded-catvod-host/src/test/java/com/wuming/tv/guardhost/GuardedCatVodHostMainTest.java"
+      ],
+      "paths": [
+        "catvod/src/main/java/com/github/catvod/crawler/Spider.java",
+        "guarded-catvod-host/src/main/java/com/github/catvod/crawler/Spider.java"
+      ],
+      "markers": [
+        "catvod/src/main/java/com/github/catvod/crawler/Spider.java",
+        "guarded-catvod-host/src/main/java/com/github/catvod/crawler/Spider.java"
+      ]
+    },
+    {
+      "id": "android-host-shims",
+      "kind": "compatibility-hold",
+      "reason": "These android.* classes emulate a foreign JVM API for separately compiled provider jars. Names, hierarchy, fields, static members, constructors and open methods are linkage contracts, not ordinary application models.",
+      "release_when": "A scoped migration must compare the affected ABI and run representative precompiled-provider linkage tests, including null/default/override behavior. Existing partial shim tests alone do not establish complete compatibility.",
+      "evidence": [
+        "guarded-catvod-host/src/test/java/android/view/ViewLinkageTest.java",
+        "guarded-catvod-host/src/test/java/android/database/sqlite/SQLiteLinkageTest.java",
+        "guarded-catvod-host/src/test/java/com/wuming/tv/guardhost/webview/WebViewShimTest.java"
+      ],
+      "scope": "guarded-catvod-host/src/main/java/android",
+      "paths": [
+        "guarded-catvod-host/src/main/java/android/annotation/TargetApi.java",
+        "guarded-catvod-host/src/main/java/android/app/Activity.java",
+        "guarded-catvod-host/src/main/java/android/app/AlertDialog.java",
+        "guarded-catvod-host/src/main/java/android/app/Application.java",
+        "guarded-catvod-host/src/main/java/android/app/Dialog.java",
+        "guarded-catvod-host/src/main/java/android/app/ProgressDialog.java",
+        "guarded-catvod-host/src/main/java/android/content/ActivityNotFoundException.java",
+        "guarded-catvod-host/src/main/java/android/content/ClipData.java",
+        "guarded-catvod-host/src/main/java/android/content/ClipboardManager.java",
+        "guarded-catvod-host/src/main/java/android/content/ComponentName.java",
+        "guarded-catvod-host/src/main/java/android/content/ContentProvider.java",
+        "guarded-catvod-host/src/main/java/android/content/ContentResolver.java",
+        "guarded-catvod-host/src/main/java/android/content/ContentValues.java",
+        "guarded-catvod-host/src/main/java/android/content/Context.java",
+        "guarded-catvod-host/src/main/java/android/content/DialogInterface.java",
+        "guarded-catvod-host/src/main/java/android/content/Intent.java",
+        "guarded-catvod-host/src/main/java/android/content/MemorySharedPreferences.java",
+        "guarded-catvod-host/src/main/java/android/content/SharedPreferences.java",
+        "guarded-catvod-host/src/main/java/android/content/pm/ApplicationInfo.java",
+        "guarded-catvod-host/src/main/java/android/content/pm/PackageInfo.java",
+        "guarded-catvod-host/src/main/java/android/content/pm/PackageItemInfo.java",
+        "guarded-catvod-host/src/main/java/android/content/pm/PackageManager.java",
+        "guarded-catvod-host/src/main/java/android/content/pm/ProviderInfo.java",
+        "guarded-catvod-host/src/main/java/android/content/pm/Signature.java",
+        "guarded-catvod-host/src/main/java/android/content/res/ColorStateList.java",
+        "guarded-catvod-host/src/main/java/android/content/res/Configuration.java",
+        "guarded-catvod-host/src/main/java/android/content/res/Resources.java",
+        "guarded-catvod-host/src/main/java/android/content/res/XmlResourceParser.java",
+        "guarded-catvod-host/src/main/java/android/database/Cursor.java",
+        "guarded-catvod-host/src/main/java/android/database/sqlite/SQLiteClosable.java",
+        "guarded-catvod-host/src/main/java/android/database/sqlite/SQLiteDatabase.java",
+        "guarded-catvod-host/src/main/java/android/graphics/Bitmap.java",
+        "guarded-catvod-host/src/main/java/android/graphics/BitmapFactory.java",
+        "guarded-catvod-host/src/main/java/android/graphics/Color.java",
+        "guarded-catvod-host/src/main/java/android/graphics/Point.java",
+        "guarded-catvod-host/src/main/java/android/graphics/Rect.java",
+        "guarded-catvod-host/src/main/java/android/graphics/Typeface.java",
+        "guarded-catvod-host/src/main/java/android/graphics/drawable/ColorDrawable.java",
+        "guarded-catvod-host/src/main/java/android/graphics/drawable/Drawable.java",
+        "guarded-catvod-host/src/main/java/android/graphics/drawable/GradientDrawable.java",
+        "guarded-catvod-host/src/main/java/android/graphics/drawable/InsetDrawable.java",
+        "guarded-catvod-host/src/main/java/android/graphics/drawable/StateListDrawable.java",
+        "guarded-catvod-host/src/main/java/android/net/Uri.java",
+        "guarded-catvod-host/src/main/java/android/net/wifi/WifiInfo.java",
+        "guarded-catvod-host/src/main/java/android/net/wifi/WifiManager.java",
+        "guarded-catvod-host/src/main/java/android/os/Build.java",
+        "guarded-catvod-host/src/main/java/android/os/Environment.java",
+        "guarded-catvod-host/src/main/java/android/os/Handler.java",
+        "guarded-catvod-host/src/main/java/android/os/IBinder.java",
+        "guarded-catvod-host/src/main/java/android/os/Looper.java",
+        "guarded-catvod-host/src/main/java/android/os/Process.java",
+        "guarded-catvod-host/src/main/java/android/os/SystemClock.java",
+        "guarded-catvod-host/src/main/java/android/preference/PreferenceManager.java",
+        "guarded-catvod-host/src/main/java/android/provider/Settings.java",
+        "guarded-catvod-host/src/main/java/android/text/Editable.java",
+        "guarded-catvod-host/src/main/java/android/text/TextUtils.java",
+        "guarded-catvod-host/src/main/java/android/text/format/Formatter.java",
+        "guarded-catvod-host/src/main/java/android/util/AttributeSet.java",
+        "guarded-catvod-host/src/main/java/android/util/Base64.java",
+        "guarded-catvod-host/src/main/java/android/util/DisplayMetrics.java",
+        "guarded-catvod-host/src/main/java/android/util/Log.java",
+        "guarded-catvod-host/src/main/java/android/util/TypedValue.java",
+        "guarded-catvod-host/src/main/java/android/view/Display.java",
+        "guarded-catvod-host/src/main/java/android/view/KeyEvent.java",
+        "guarded-catvod-host/src/main/java/android/view/MotionEvent.java",
+        "guarded-catvod-host/src/main/java/android/view/View.java",
+        "guarded-catvod-host/src/main/java/android/view/ViewGroup.java",
+        "guarded-catvod-host/src/main/java/android/view/ViewParent.java",
+        "guarded-catvod-host/src/main/java/android/view/Window.java",
+        "guarded-catvod-host/src/main/java/android/view/WindowManager.java",
+        "guarded-catvod-host/src/main/java/android/view/inputmethod/InputMethodManager.java",
+        "guarded-catvod-host/src/main/java/android/webkit/SimpleWebResourceRequest.java",
+        "guarded-catvod-host/src/main/java/android/webkit/WebResourceRequest.java",
+        "guarded-catvod-host/src/main/java/android/webkit/WebResourceResponse.java",
+        "guarded-catvod-host/src/main/java/android/webkit/WebSettings.java",
+        "guarded-catvod-host/src/main/java/android/webkit/WebView.java",
+        "guarded-catvod-host/src/main/java/android/webkit/WebViewClient.java",
+        "guarded-catvod-host/src/main/java/android/widget/Adapter.java",
+        "guarded-catvod-host/src/main/java/android/widget/ArrayAdapter.java",
+        "guarded-catvod-host/src/main/java/android/widget/Button.java",
+        "guarded-catvod-host/src/main/java/android/widget/EditText.java",
+        "guarded-catvod-host/src/main/java/android/widget/FrameLayout.java",
+        "guarded-catvod-host/src/main/java/android/widget/HorizontalScrollView.java",
+        "guarded-catvod-host/src/main/java/android/widget/ImageView.java",
+        "guarded-catvod-host/src/main/java/android/widget/LinearLayout.java",
+        "guarded-catvod-host/src/main/java/android/widget/ListAdapter.java",
+        "guarded-catvod-host/src/main/java/android/widget/ProgressBar.java",
+        "guarded-catvod-host/src/main/java/android/widget/ScrollView.java",
+        "guarded-catvod-host/src/main/java/android/widget/TextView.java",
+        "guarded-catvod-host/src/main/java/android/widget/Toast.java"
+      ],
+      "markers": [
+        "guarded-catvod-host/src/main/java/android/AGENTS.md"
+      ]
+    },
+    {
+      "id": "cast-remux-key-record",
+      "kind": "compatibility-hold",
+      "reason": "The remux key is a JVM record with a canonical constructor that defensively copies headers. Retain the small Java facade while cache, workers and lease ownership live in Kotlin.",
+      "release_when": "Demonstrate a supported Kotlin replacement preserving record reflection, canonical constructor normalization and immutable headers with the existing Java contract tests.",
+      "evidence": [
+        "app/src/test/java/com/wuming/android/tv/server/process/CastRemuxCacheTest.java",
+        "app/src/main/java/com/wuming/android/tv/server/process/CastRemuxCacheEngine.kt"
+      ],
+      "paths": [
+        "app/src/main/java/com/wuming/android/tv/server/process/CastRemuxCache.java"
+      ],
+      "markers": [
+        "app/src/main/java/com/wuming/android/tv/server/process/CastRemuxCache.java"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <com.wuming.android.tv.ui.custom.VisibleFocusLinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:focusWrapAround="true">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/next"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/play_next" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/cast"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/cast" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/prev"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/play_prev" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/reset"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/play_reset" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/change2"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/play_change" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/player"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/play_exo" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/decode"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/play_decode" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.wuming.android.tv.ui.custom.CustomUpDownView
+            android:id="@+id/speed"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:fontFeatureSettings="tnum"
+            android:text="@string/play_speed" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.wuming.android.tv.ui.custom.CustomUpDownView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/scale"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/play_scale" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.wuming.android.tv.ui.custom.CustomUpDownView
+            android:id="@+id/subtitleTracks"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:tag="3"
+            android:text="@string/play_track_text" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.wuming.android.tv.ui.custom.CustomUpDownView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/audio"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:tag="1"
+            android:text="@string/play_track_audio" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/videoTracks"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:tag="2"
+            android:text="@string/play_track_video" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.wuming.android.tv.ui.custom.CustomUpDownView
+            android:id="@+id/opening"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/play_op" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.wuming.android.tv.ui.custom.CustomUpDownView>
+
+        <com.wuming.android.tv.ui.custom.CustomUpDownView
+            android:id="@+id/ending"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/play_ed" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.wuming.android.tv.ui.custom.CustomUpDownView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/danmakuSettings"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/danmaku"
+            android:visibility="gone"
+            tools:visibility="visible" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/actionTitle"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/play_title"
+            android:visibility="gone"
+            tools:visibility="visible" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/loop"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/play_loop" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/timer"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/play_timer" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/episodes"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/detail_episode" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/reverse"
+            style="@style/Control"
+            android:layout_marginEnd="@dimen/vs_12"
+            android:text="@string/play_reverse" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/actionInfo"
+            style="@style/Control"
+            android:text="@string/play_info" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/streamTools"
+            style="@style/Control"
+            android:layout_marginStart="@dimen/vs_12"
+            android:text="@string/cloud_stream_tools" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </com.wuming.android.tv.ui.custom.VisibleFocusLinearLayout>
+</HorizontalScrollView>

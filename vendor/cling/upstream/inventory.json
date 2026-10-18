@@ -1,0 +1,2898 @@
+{
+  "cling": {
+    "version": "2.1.2",
+    "commit": "c1a9b8bf37a36a45b9924902179f9b23950b7340",
+    "origin": "https://github.com/4thline/cling",
+    "tag": "2.1.2",
+    "sourceUrl": "https://github.com/4thline/cling/tree/c1a9b8bf37a36a45b9924902179f9b23950b7340"
+  },
+  "seamless": {
+    "version": "1.1.2",
+    "commit": "50c0fe2af31ce0ae4f08292de61cba1ff8c426f7",
+    "origin": "https://github.com/4thline/seamless"
+  },
+  "selectedLicense": "LGPL-2.1-or-later",
+  "files": [
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/UpnpServiceImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/UpnpServiceImpl.java",
+      "upstreamSha256": "336446757d02a5969f13bdfdb68f1953b9975ff163f9a76696a819146d3981e4",
+      "modifiedSha256": "01f98017d5f009e038c81f579ef40244b6dd857d2bbdffa277a36cd5d78346ac"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/UpnpServiceConfiguration.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/UpnpServiceConfiguration.java",
+      "upstreamSha256": "febab648e1c284a0801d50afb82a87ece24d5085009f31d04cb6800c6e5ad027"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/UpnpService.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/UpnpService.java",
+      "upstreamSha256": "e1e2c798f3d3ea2b613ccc3fb29ff4c76a4c61a3d6c633add3b5af057010a4cc"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/Main.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/Main.java",
+      "upstreamSha256": "aec1246802997bad2ab46edd61265cfa574ed0ad168b66fb2549396e8e674b5c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/DefaultUpnpServiceConfiguration.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/DefaultUpnpServiceConfiguration.java",
+      "upstreamSha256": "57cde64c7b323891a573704006cf6defe21e541ae30f993f479ad63d5ce0839c",
+      "modifiedSha256": "1d3f9f14109c2aa3d27aa17b238b12410d679751f2bc9078d748f96fc92e006b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/RouterImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/RouterImpl.java",
+      "upstreamSha256": "ab61e956164c91769be77afe7425f50ab8a05577fb3abc752b46b97238456d78",
+      "modifiedSha256": "5f9f083158e440762ea06d69dec4c2ca3887d491e5802f8fafc29153edf22381"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/RouterException.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/RouterException.java",
+      "upstreamSha256": "eccfb94bea6a0f6aad770f257c1d54a7e34fa41a861539730b94b361d7965f24"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/Router.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/Router.java",
+      "upstreamSha256": "f64eddf2603737331a2c45f0a4093d8381f94673c5ab235f006aff4b97f9ca6e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/EnableRouter.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/EnableRouter.java",
+      "upstreamSha256": "3514c14da4f9431c4b53a966d9da3c716fc392486d9d076392c04a2ec41e81e7"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/DisableRouter.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/DisableRouter.java",
+      "upstreamSha256": "de2116c06f38ab6375fab2da432f7193d7a3a3b7039276f703460af2c7abf578"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/RemoteItems.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/RemoteItems.java",
+      "upstreamSha256": "d75881ff334753a5c509faf661bdcb9b83c2dd1da6e21be73f6fa84a61cd169d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/RegistryMaintainer.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/RegistryMaintainer.java",
+      "upstreamSha256": "78c95ecb5d9b19b8fddb26d21df7952863c04f314515c033c227188a8d417a3c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/RegistryListener.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/RegistryListener.java",
+      "upstreamSha256": "d40f57884ce5ea93889480f13358903c8ac9a314dabfc673e466a7e529b168bc"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/RegistryItems.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/RegistryItems.java",
+      "upstreamSha256": "f87ef6e6f5c80db4bc89ca09c9f16f11ab54397afd7dc3bb765488208d86f6dd"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/RegistryItem.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/RegistryItem.java",
+      "upstreamSha256": "979306eb62da983a7a81c6638b129c7290d779796bf8313d8bf361a3a92032d2"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/RegistryImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/RegistryImpl.java",
+      "upstreamSha256": "8d0ed2dddcf84815abbf4e11625f4e0b998768ca9005c913c59a33e61b4de472",
+      "modifiedSha256": "c1f559e4876009f587b828bcb0697a6b94f9a7fc926be4fe2c597f4a3dabdfa4"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/Registry.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/Registry.java",
+      "upstreamSha256": "f36a81ae85eb88b7c798b0e3daa8ca9c2c66b5ff7cf189ddba1d603d190ad5ea"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/RegistrationException.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/RegistrationException.java",
+      "upstreamSha256": "9b7864a46ae53043b5d67bd25e6090a3e954a46a1f9a34190516f4bc860fafdb"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/LocalItems.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/LocalItems.java",
+      "upstreamSha256": "22643a1ddbf2ac0435d21b24c08eb2708224f031ee92b6bd03d75a9d94fcd48c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/DefaultRegistryListener.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/DefaultRegistryListener.java",
+      "upstreamSha256": "83793d7483bf97927cfd67024d227cbc13d95c25e6bf83ba2ab058436cccb842"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/SendingSync.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/SendingSync.java",
+      "upstreamSha256": "d949bf5720ae0590d40e803d08c1b7d53c4f22859cd7a0ad65b504990e9b25dd"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/SendingAsync.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/SendingAsync.java",
+      "upstreamSha256": "2704911aab2387dfb2b2e11db53d874057633ab89e0d56bf66a734ea3e79df31"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/RetrieveRemoteDescriptors.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/RetrieveRemoteDescriptors.java",
+      "upstreamSha256": "eac774209755faae29aa2e5418e8eb07f1a65e6b9c83dcd1dfe7a1e95ae9d5f6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/ReceivingSync.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/ReceivingSync.java",
+      "upstreamSha256": "2c6572d3d671acfd799cd95ecdb09e9f4d06c8b84a94ff57bb3b4291dfb3316b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/ReceivingAsync.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/ReceivingAsync.java",
+      "upstreamSha256": "e69a767dd05613d671552311fd11fb2c75bd0caa8ccff042864822b9da31bc7a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/ProtocolFactoryImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/ProtocolFactoryImpl.java",
+      "upstreamSha256": "1336a56e541b4164aac3104258dc400a55259e0806317aeb9fb246ececafa5cc",
+      "modifiedSha256": "1fbe708d9bc8134e30fa3c23cfb4dac3be77682a3e59370ba8ec9d1a81df1701"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/ProtocolFactory.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/ProtocolFactory.java",
+      "upstreamSha256": "e00bfa0d8bc0b9d790c775f80ac5b1ab457bd14e89d5f4177974e4db75e6d759"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/ProtocolCreationException.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/ProtocolCreationException.java",
+      "upstreamSha256": "217cf8776feee4791c3c20b35219e4eabab33908d9a5f844da23c20c023901a4"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/XMLUtil.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/XMLUtil.java",
+      "upstreamSha256": "fb7ac935d7e6274388b664032e43633a63b2d61f82753ade96bd85c45b3d9b3e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/VariableValue.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/VariableValue.java",
+      "upstreamSha256": "c6d462bac41c5061525cecb2c62c7251442ff8a1ecd38864027b926f36b06b10"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/ValidationException.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/ValidationException.java",
+      "upstreamSha256": "a48e2e71b7c23e8b1b75a825cb4500fa56f2c2d77b709f4b0ca781688f9dcf28"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/ValidationError.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/ValidationError.java",
+      "upstreamSha256": "04b4caf08cc1ba404a8e5608d828dba2417d89b929a83c181e61e853924b604e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/Validatable.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/Validatable.java",
+      "upstreamSha256": "a149037d31a8e1693b48748b8d7f6377dbd26f27a23034f30356164c66bb7265"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/UserConstants.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/UserConstants.java",
+      "upstreamSha256": "829fae7b6b6dc7c4e7caab5e356e9eb57207a6a0fea90f43e322dd881651affc"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/UnsupportedDataException.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/UnsupportedDataException.java",
+      "upstreamSha256": "6163f2e28117b92648a3f43e9ed7e00c2f388768aa6d34a541305fad3b97f1bd"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/ServiceReference.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/ServiceReference.java",
+      "upstreamSha256": "16623c5e585f128e5b6319115dc1dc0f4f13702836192c2992c0b847fd3ad5ec"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/ServiceManager.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/ServiceManager.java",
+      "upstreamSha256": "8a6d60bd3b789761ab30735e745b1d01243385453836c143b72e24a3ed5badb7"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/ServerClientTokens.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/ServerClientTokens.java",
+      "upstreamSha256": "7fd0d110805bc021ba817a9f90163cc23888efbf9bcf0b91b1cffebbc954f716"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/NetworkAddress.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/NetworkAddress.java",
+      "upstreamSha256": "9ea556c050b4f620aba16062007cb4366c2631c92e745ee37d5d5d33929be89a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/Namespace.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/Namespace.java",
+      "upstreamSha256": "65d868eb9bffa4783f1f20d5b4f635b06f817d6c3a7ae37d4fca8d22f78c2191"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/ModelUtil.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/ModelUtil.java",
+      "upstreamSha256": "7c881e20e1d0ffcc1f734843e40224c3fef276671d56408629ca2d254b050677"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/Location.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/Location.java",
+      "upstreamSha256": "d1fa90e03c9bd05b820dcaa037c6a69d99387aebfd925d566698c5856179e0ae"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/ExpirationDetails.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/ExpirationDetails.java",
+      "upstreamSha256": "3a3cbeb91868e4b50b16d62c1158ce8af17344391721b2c8e6a7f90bdae130bd"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/DiscoveryOptions.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/DiscoveryOptions.java",
+      "upstreamSha256": "87709a207f3a171a981a4b612832be7ed062d0d725b5ae46981d6794ba8c6e83"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/DefaultServiceManager.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/DefaultServiceManager.java",
+      "upstreamSha256": "b7743ead3d3ac7ffe8568447f9d378b0bb49826b7a486230dd68088f5467ebd4"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/Constants.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/Constants.java",
+      "upstreamSha256": "1468e752a2603ed76f5b2275c509f6d34453f0b52025f861a1711d17e49de400"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/Command.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/Command.java",
+      "upstreamSha256": "99251681a022d922fa557a1ef80dda136325f081344d3969d904af0dd7b05aca"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/controlpoint/SubscriptionCallback.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/controlpoint/SubscriptionCallback.java",
+      "upstreamSha256": "cc9d8ca5bc100a473e980e0224a1aaca5acfefd5fd8f726f4cd7cf0f481d575c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/controlpoint/ControlPointImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/controlpoint/ControlPointImpl.java",
+      "upstreamSha256": "5d07bea9741b4571637ec75dbb17c5a53022bba163b111a2c5766b454d1db36b",
+      "modifiedSha256": "c21971798e382799973fcced68f34489cd6cb6ae2f1648f8b88eb4e91920a50b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/controlpoint/ControlPoint.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/controlpoint/ControlPoint.java",
+      "upstreamSha256": "ab2d74548c93ce524a4ef7e9a50cc74303c5ac6687102cd64998d7d849392f06"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/controlpoint/ActionCallback.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/controlpoint/ActionCallback.java",
+      "upstreamSha256": "2143306faef5968b756be85974b6f2f63ca3b645040884b7031efa3a73a89318"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/LocalServiceBindingException.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/LocalServiceBindingException.java",
+      "upstreamSha256": "7a9f8432ce1f06b8f9ff136801925295daa0d5b1df6d7e27d4b13125a6a825ee"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/LocalServiceBinder.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/LocalServiceBinder.java",
+      "upstreamSha256": "9dc74d6776202bdd2c0eb1f82a892267230c0359bea0fc2cbcf95d5979a3657a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/AllowedValueRangeProvider.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/AllowedValueRangeProvider.java",
+      "upstreamSha256": "cf5c613bc0faa3d7c8616ca1d7d86ccb476e954006b73a8c691e90cb0334f82f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/AllowedValueProvider.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/AllowedValueProvider.java",
+      "upstreamSha256": "acbfa2205bae051f5a9be34571c351846f7acd0a1b83d62a108db1b0ebb54c88"
+    },
+    {
+      "path": "vendor/cling-android/src/main/java/org/fourthline/cling/android/NetworkUtils.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/android/NetworkUtils.java",
+      "upstreamSha256": "7f6d70a1145d82715047b719299071bba09a9acf9858fa1e294ea1a5c19b51ba"
+    },
+    {
+      "path": "vendor/cling-android/src/main/java/org/fourthline/cling/android/FixedAndroidLogHandler.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/android/FixedAndroidLogHandler.java",
+      "upstreamSha256": "25eb3935c5951869edd3fecbe1fea051c80c6f64da4c79fcba421e44582941b3"
+    },
+    {
+      "path": "vendor/cling-android/src/main/java/org/fourthline/cling/android/AndroidUpnpServiceImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/android/AndroidUpnpServiceImpl.java",
+      "upstreamSha256": "0a0be79f35d3293a147d97a981a65b3e673d01a36790fee681a9ae7e39d9401c"
+    },
+    {
+      "path": "vendor/cling-android/src/main/java/org/fourthline/cling/android/AndroidUpnpServiceConfiguration.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/android/AndroidUpnpServiceConfiguration.java",
+      "upstreamSha256": "9595908079d5d0ddf9ec388567138e90ec7a07272441c63b91820544aa965143",
+      "modifiedSha256": "463b6d22e7d4da31ee5f281499273ad1469282c3300ad088fe276d333513f368"
+    },
+    {
+      "path": "vendor/cling-android/src/main/java/org/fourthline/cling/android/AndroidUpnpService.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/android/AndroidUpnpService.java",
+      "upstreamSha256": "86a23258ffc60bd847b3bb14440ba48767d573679bf73622ef78c94a13813598"
+    },
+    {
+      "path": "vendor/cling-android/src/main/java/org/fourthline/cling/android/AndroidRouter.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/android/AndroidRouter.java",
+      "upstreamSha256": "bf995b5b39361d48fccc8fdbcb99427aee25c363aea4e275050f5b9612961196"
+    },
+    {
+      "path": "vendor/cling-android/src/main/java/org/fourthline/cling/android/AndroidNetworkAddressFactory.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/android/AndroidNetworkAddressFactory.java",
+      "upstreamSha256": "8df35cba15132bfd448b41db0b5543347bab494ae935bbfa500c5a47bbba1ce8"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/xml/UDA10ServiceDescriptorBinderSAXImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/xml/UDA10ServiceDescriptorBinderSAXImpl.java",
+      "upstreamSha256": "e5333a7a000e4de5ad558c0c9c0846a101e59ec5c72ab2b4f320db0e2e58589d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/xml/UDA10ServiceDescriptorBinderImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/xml/UDA10ServiceDescriptorBinderImpl.java",
+      "upstreamSha256": "2328125fc184feb3540ffdd149163257a3a97138b248989dd9f1b30971c1fada"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/xml/UDA10DeviceDescriptorBinderSAXImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/xml/UDA10DeviceDescriptorBinderSAXImpl.java",
+      "upstreamSha256": "25fc6e517ac84cda29f51cb94927a4d7ed37c17e35b382d507e15d7fe5226a0b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/xml/UDA10DeviceDescriptorBinderImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/xml/UDA10DeviceDescriptorBinderImpl.java",
+      "upstreamSha256": "ecee7358db7df5c040ed5b2ebcc89c90050e8a8fd347c5bcfb46ce49204a8f9e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/xml/ServiceDescriptorBinder.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/xml/ServiceDescriptorBinder.java",
+      "upstreamSha256": "89c047bc995c0a364b0c26186cef97d218b144edb9ad18d206fda66afd1f69ba"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/xml/RecoveringUDA10DeviceDescriptorBinderImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/xml/RecoveringUDA10DeviceDescriptorBinderImpl.java",
+      "upstreamSha256": "5607b5d158ef91aa73e6c3390e327c53d0f02c7de34a44e383a8dae7918ada23"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/xml/DeviceDescriptorBinder.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/xml/DeviceDescriptorBinder.java",
+      "upstreamSha256": "7e603e27b361f3cbd11f3732c0d2d4a52db5a40652f1155bca9030bae3d3433b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/xml/DescriptorBindingException.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/xml/DescriptorBindingException.java",
+      "upstreamSha256": "24516ee248022b9968bedf1753d93460cf2919f1d731899ed18f789691bb7405"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/xml/Descriptor.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/xml/Descriptor.java",
+      "upstreamSha256": "a63ac254a50d296947e5b61c9b569078fda5b8d938a2207d867f817b26740e64"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/staging/MutableUDAVersion.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/staging/MutableUDAVersion.java",
+      "upstreamSha256": "266a8c645af2d970387956d20daffeeaf53fca5b840945019f9de9e6890e5c00"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/staging/MutableStateVariable.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/staging/MutableStateVariable.java",
+      "upstreamSha256": "7ccbd66a555fcf99de184b088cfa5fef638d190617ec2e9e3291ff3a5d6f4f9c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/staging/MutableService.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/staging/MutableService.java",
+      "upstreamSha256": "bd3f6c3f89f76f1eee4b5fd4a1d40dcdba8b9a57f87f076f7d4ca036473ec51a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/staging/MutableIcon.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/staging/MutableIcon.java",
+      "upstreamSha256": "7cb79b7bd17d84bfc216128a68f9619e6ee1c3ce4457684549a6009d9337aa22"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/staging/MutableDevice.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/staging/MutableDevice.java",
+      "upstreamSha256": "9da3cd0bff7cd19efa1103787740ed15f5ea94635ee29f7ac3e4c8f7c7c8bd3d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/staging/MutableAllowedValueRange.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/staging/MutableAllowedValueRange.java",
+      "upstreamSha256": "029e11afb01d9a9bd25881822979a850b2500cf3b798dd48e36a48edd25033e4"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/staging/MutableActionArgument.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/staging/MutableActionArgument.java",
+      "upstreamSha256": "16c48f84a04329a5a4b0793ee0eb7995c4b893d25b41c1beb9ae200f69900617"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/staging/MutableAction.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/staging/MutableAction.java",
+      "upstreamSha256": "9257156d1e526035123a90a77d1e36fdf02e76d9a701ac41f150f739b9df29a3"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/annotations/UpnpStateVariables.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/annotations/UpnpStateVariables.java",
+      "upstreamSha256": "6ebdf34cfd78c5ea8cb4e05dd9756744ec2d7190e9bccd0d7d4f9accc3fbbf2b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/annotations/UpnpStateVariable.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/annotations/UpnpStateVariable.java",
+      "upstreamSha256": "e20943cefeb16c4b4f4f0b09cf002682adad54c7e7b6a5da1ea623dac7c811d9"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/annotations/UpnpServiceType.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/annotations/UpnpServiceType.java",
+      "upstreamSha256": "4e844a1912cd9eaeb69dc3a2eaa382e3900dd21916c6935df18d0e7bd8ab5400"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/annotations/UpnpServiceId.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/annotations/UpnpServiceId.java",
+      "upstreamSha256": "83755feccba67a7b5438bf361770f9ed64956cd5c0e6521d7facd54d8b6fa743"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/annotations/UpnpService.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/annotations/UpnpService.java",
+      "upstreamSha256": "4ba335668d34ceeac07f35ddbf3d6bd9fccfb5020bbb9a24100bc5f78a9547f2"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/annotations/UpnpOutputArgument.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/annotations/UpnpOutputArgument.java",
+      "upstreamSha256": "950e87f8c9d9e3dc2f66a878d052401f11a2a5fad6a6a7d487b5896b6183f5fe"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/annotations/UpnpInputArgument.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/annotations/UpnpInputArgument.java",
+      "upstreamSha256": "ea8ad57f2a14758a36277444ef2ad4b2f8008d68e46c011f5e53c4a6e80bad6e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/annotations/UpnpAction.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/annotations/UpnpAction.java",
+      "upstreamSha256": "0732fdae9bbc576e386b48a0d11baf3f63cae3240409b479058b5abe913279a8"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/annotations/AnnotationStateVariableBinder.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/annotations/AnnotationStateVariableBinder.java",
+      "upstreamSha256": "d6cecbbe4044c4c2bafee6de16f05b2529f7f843063d252233e881e7edbb9752"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/annotations/AnnotationLocalServiceBinder.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/annotations/AnnotationLocalServiceBinder.java",
+      "upstreamSha256": "248e6468f6bf2d10786ef02328f8b9783765a8c9fb8c24d2e3c3a79f40983c93"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/binding/annotations/AnnotationActionBinder.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/binding/annotations/AnnotationActionBinder.java",
+      "upstreamSha256": "c8bdd076be45214d9841b0d4798e881ca9c279a6f8c3834f27303269a7c8a109"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/controlpoint/event/Search.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/controlpoint/event/Search.java",
+      "upstreamSha256": "14c1c91ccb482adaec37b5be8c06595e88f0caaf987d2c6a9d2eb47e82c4dd29"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/controlpoint/event/ExecuteAction.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/controlpoint/event/ExecuteAction.java",
+      "upstreamSha256": "f78c13829fdc0840f46086791b8b52b42f130e71b27775dd54726a32078872ef"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/UnsignedVariableInteger.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/UnsignedVariableInteger.java",
+      "upstreamSha256": "3a24c9a2114995c378858deb2058f8a9040a6cca416cfcc8f0da0aad9a8845a9"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/UnsignedIntegerTwoBytesDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/UnsignedIntegerTwoBytesDatatype.java",
+      "upstreamSha256": "448096bd685b626856ae8189416c8e99fba800734028b59b7ac1c40b24c1da43"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/UnsignedIntegerTwoBytes.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/UnsignedIntegerTwoBytes.java",
+      "upstreamSha256": "c41a510be3a093857093774ae5939c39130bc38f6000dfaae6996340012cda6c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/UnsignedIntegerOneByteDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/UnsignedIntegerOneByteDatatype.java",
+      "upstreamSha256": "1db627d9f69b62be189ab4decb230814ab3589eccf9757685dc36e7848d54782"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/UnsignedIntegerOneByte.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/UnsignedIntegerOneByte.java",
+      "upstreamSha256": "1b7abe7165247a42c8cb85ce891e79145c6a5ff4fdd02f5cd11e4ef3a941a048"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/UnsignedIntegerFourBytesDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/UnsignedIntegerFourBytesDatatype.java",
+      "upstreamSha256": "38c4b4cfe0710c4cad5e6a1c30fbd79b60d79b3fdafd3c648293bc162304c7f3"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/UnsignedIntegerFourBytes.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/UnsignedIntegerFourBytes.java",
+      "upstreamSha256": "43a39775b8904bc43966d73780b80dbdb8adb533a942aa30a5cc4d5ef127599d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/URIDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/URIDatatype.java",
+      "upstreamSha256": "964558105152c49b6078232105cf3f15f5b288bf1e9017b292c8e35a91f974e5"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/UDN.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/UDN.java",
+      "upstreamSha256": "7e5983b804497a4ccabdb7b75077b7a49b13564db6f577411647cad2a6e11ec3"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/UDAServiceType.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/UDAServiceType.java",
+      "upstreamSha256": "0f250369ebf53ee4a121a0180c55b52a11e901fa711c0ee135b78a07b2539f47"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/UDAServiceId.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/UDAServiceId.java",
+      "upstreamSha256": "cdbc85c4961e443f267e3b607226cb2609482c400b31c9274427304509ec966f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/UDADeviceType.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/UDADeviceType.java",
+      "upstreamSha256": "4cb94ee95dc54de260da69131c17c691fcab0603a71989a3be06e1586c8e8d19"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/StringDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/StringDatatype.java",
+      "upstreamSha256": "6ffa13699aacae501b31d35666e313dc0aa51e9000407206eb6263c5e559e14e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/SoapActionType.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/SoapActionType.java",
+      "upstreamSha256": "14bb79b3a61404f34a3826481e04b28d770b733251417b0ba6e7b83c8c41278b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/ShortDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/ShortDatatype.java",
+      "upstreamSha256": "c5f0e527c9a2ecc807fcfd17cd60be8726c72e38e5293d41c2b555a1262ed845"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/ServiceType.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/ServiceType.java",
+      "upstreamSha256": "786d6339a95d313b3b535aceb2b0d262dff9a21d6496a097101e6f9f3da1822b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/ServiceId.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/ServiceId.java",
+      "upstreamSha256": "655dacc97eed59a70c8c943378f124ddfd8541bd16d2b3a69e9fcd3bbe660463"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/PragmaType.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/PragmaType.java",
+      "upstreamSha256": "a7277638cb4560c0aaefcc319b13fcac5d06d8b9aa5ae0a303dd3d01582d0912"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/NotificationSubtype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/NotificationSubtype.java",
+      "upstreamSha256": "e5da4e70dcc351b56a94f9963626e67db53a0ca2f4bc4a3d9c72d7c78fa63b5d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/NamedServiceType.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/NamedServiceType.java",
+      "upstreamSha256": "44b0ba9287f6bb7badd990d8da4c965b27b39ae49eeb796436f0347d82ea3c11"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/NamedDeviceType.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/NamedDeviceType.java",
+      "upstreamSha256": "1c11a372e00429926341a1cf8d5df541311521a390534c53618a3905a0df9ed1"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/InvalidValueException.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/InvalidValueException.java",
+      "upstreamSha256": "ba4dfacfb4c8e9e1f6d7f42b3149ab60eee5f24f3f724a40fadfbedb87e204ee"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/IntegerDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/IntegerDatatype.java",
+      "upstreamSha256": "782397904f8cd076303042a3fa951f63a0f823fabbc283be27bdd2c132cfcf13"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/HostPort.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/HostPort.java",
+      "upstreamSha256": "ae337236761bdbf92e2d406f477fc6ff1fba8efa5c472a8da8daa9d22ac70ff5"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/FloatDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/FloatDatatype.java",
+      "upstreamSha256": "b486428dc036c3c1555d2e8312b1b2aef7e6a8c4591fee146f605567f9ca13d2"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/ErrorCode.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/ErrorCode.java",
+      "upstreamSha256": "f8a3320d348fefe4d89e843369eeada37beb85c29922e596d8a5feff3c031251"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/DoubleDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/DoubleDatatype.java",
+      "upstreamSha256": "051b751b699fb2e4933511f0574b5e549d4a8631e8798af2b25fc0c29144d5aa"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/DeviceType.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/DeviceType.java",
+      "upstreamSha256": "347cb9d825019a37284ddfe63da2e3d390c993da299785c26c1124d20603e3df"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/DateTimeDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/DateTimeDatatype.java",
+      "upstreamSha256": "e74c4ce5c1adaaf8ab61999df6feaecdc6463d5db204bda6566e5b34a57fc3e6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/Datatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/Datatype.java",
+      "upstreamSha256": "3795dcaf9d3c636107352c4d9b8de076eea8c2c8ef3fa479704614f3cf788e4e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/DLNADoc.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/DLNADoc.java",
+      "upstreamSha256": "eb5f3de884c9a468d008845f943625947542944ad7f4628e60d74cf7e7d8a32d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/DLNACaps.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/DLNACaps.java",
+      "upstreamSha256": "a2e48002211d5f2150cf7585fc01f004dc2756d932bdb644251390f9b67c6cb5"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/CustomDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/CustomDatatype.java",
+      "upstreamSha256": "5628195d7fee7f55ce5a5e214ae803c852c5e9b8664140a7f5843776a080abc2"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/CharacterDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/CharacterDatatype.java",
+      "upstreamSha256": "95ddc7a936c7bc217e2add119fe7b52c83169442c98cb53d6d77b710aff05767"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/BytesRange.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/BytesRange.java",
+      "upstreamSha256": "af4c7146e4bdfc18840956df782efc1af2ad871e27f4d1d6748b9572fec8a48f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/BooleanDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/BooleanDatatype.java",
+      "upstreamSha256": "c069d3c282f63244c149e7688660818fee280ea8f54c9439e2387eb8545b477e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/BinHexDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/BinHexDatatype.java",
+      "upstreamSha256": "124e35ae6803882b05b54023bf82da5dccac57ee404c7c2eafdab52b7ea60d8c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/Base64Datatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/Base64Datatype.java",
+      "upstreamSha256": "3bc25ca59b5032618edc6f4fe577611fa0c4c19c9b3d13cfadf8690f42199306"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/AbstractDatatype.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/AbstractDatatype.java",
+      "upstreamSha256": "b9b4fbc678dab22863c9ae6ce36febd5ac6dfe16101d8e04b8ff7f3fc4903751"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/state/StateVariableValue.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/state/StateVariableValue.java",
+      "upstreamSha256": "48df3fb1baba5cdcd33eaca7f5ffd81acc08cbf6f5996a6cd3ca562248c0fa9d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/state/StateVariableAccessor.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/state/StateVariableAccessor.java",
+      "upstreamSha256": "cbad81b03296657a28f0c11e563eaec6490b4d027246dfe2fe04de06a08a8dd6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/state/GetterStateVariableAccessor.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/state/GetterStateVariableAccessor.java",
+      "upstreamSha256": "a3f11086e124e31b8939a802c712df22bc8a7944177dd4ed432c2c3b5f40e322"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/state/FieldStateVariableAccessor.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/state/FieldStateVariableAccessor.java",
+      "upstreamSha256": "6d61397715b9b5d968b870835aa0f5fcc6ca7c8732481e51735803a59d1ad6dd"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/resource/ServiceEventSubscriptionResource.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/resource/ServiceEventSubscriptionResource.java",
+      "upstreamSha256": "fd15a835876e805c3a5443076ca14e061f05b526e00001380edbc4910cb466e4"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/resource/ServiceEventCallbackResource.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/resource/ServiceEventCallbackResource.java",
+      "upstreamSha256": "5f56a00369aa3a344d525684e3943bbc09bb0572f1bae4c55cdb6b1052cbaff6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/resource/ServiceDescriptorResource.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/resource/ServiceDescriptorResource.java",
+      "upstreamSha256": "17eb634da1327f5dbbba7dc333f1e9d0b7d690c8787b351735e0286d5b7ec124"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/resource/ServiceControlResource.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/resource/ServiceControlResource.java",
+      "upstreamSha256": "d8ec6bcd63b6f46a7359471e3e63a28df7a94531b24936e49e327f4c781a46d9"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/resource/Resource.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/resource/Resource.java",
+      "upstreamSha256": "4a6c7433d0920f516decd8ecdda8b029288874f748f35763d25f0e576b2b0972"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/resource/IconResource.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/resource/IconResource.java",
+      "upstreamSha256": "0fbc4d4ece5767e228afccceb7f71e1256fd70116849d1c3c09d7a56bb163756"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/resource/DeviceDescriptorResource.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/resource/DeviceDescriptorResource.java",
+      "upstreamSha256": "edc4dbf519edcf3a1bccff824af0aca0faf84624185971a473abab12c440e94b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/profile/RemoteClientInfo.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/profile/RemoteClientInfo.java",
+      "upstreamSha256": "7b690cd785478b9be0f5eac34b64eb339ea22b7a9c7fc966d321bbbf3b2c4092"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/profile/HeaderDeviceDetailsProvider.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/profile/HeaderDeviceDetailsProvider.java",
+      "upstreamSha256": "48c97c6f4d8900839252dae3cf74ca35172912e15b868bfe569eb2ebd4600f38"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/profile/DeviceDetailsProvider.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/profile/DeviceDetailsProvider.java",
+      "upstreamSha256": "6970b2aaae7505addbe6c5616926adb9ee89ebcbdabe9a15d499fcce2eaf36b6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/profile/ClientInfo.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/profile/ClientInfo.java",
+      "upstreamSha256": "9c05701e7d80d394f6b69e69e4d36a1af5c2196ff5b5c2a4f5274c01273168b8"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/UDAVersion.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/UDAVersion.java",
+      "upstreamSha256": "ee225020f27ae8277faca0512c7dd7a5d21741d8d5dacf8e1cb20ffab76aadb0"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/StateVariableTypeDetails.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/StateVariableTypeDetails.java",
+      "upstreamSha256": "840f92223e8f61dad888fd0bc7640b96e2fd7f21f578a2a0d233c448f20743dd"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/StateVariableEventDetails.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/StateVariableEventDetails.java",
+      "upstreamSha256": "6bdf0974d7022ca2dc9c7fe6db424b0d02feb56481a2601d2fe4e8f59c3ae0ea"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/StateVariableAllowedValueRange.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/StateVariableAllowedValueRange.java",
+      "upstreamSha256": "c87e9eca647cb6c90b75abac23e8b4afedf0850f8f39c5dcfb18ff4c0277cc33"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/StateVariable.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/StateVariable.java",
+      "upstreamSha256": "576f6a66d21968f275452e88b6176c954aad6b3421d8a32ec135c297ff12fd0b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/Service.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/Service.java",
+      "upstreamSha256": "d79cfe0a3a91e8cbb78c4657eecf1540c85bcfb5d06a2f8a1c9f704f8637af78"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/RemoteService.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/RemoteService.java",
+      "upstreamSha256": "823dd0a0eab0c7818348a66e94e424ab48f0911ec851a3cc1a26771c388eb2e0"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/RemoteDeviceIdentity.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/RemoteDeviceIdentity.java",
+      "upstreamSha256": "5cd630b791f8dc854242bc7c9a03a049a86dd73552aa0bfdbfcfab36e914789f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/RemoteDevice.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/RemoteDevice.java",
+      "upstreamSha256": "08c559b0fb83128ef831754be9dbd79a4152c6863e613bd486a8113f66711759"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/QueryStateVariableAction.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/QueryStateVariableAction.java",
+      "upstreamSha256": "860e903aa10f01c7c98895c73fd0bfd01be0e7a993530bf83a2a0f730d27e6fa"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/ModelDetails.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/ModelDetails.java",
+      "upstreamSha256": "852ad633e4b0c93c101a3d363ba96659b6dd7677144778e16dfc0488b7daad54"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/ManufacturerDetails.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/ManufacturerDetails.java",
+      "upstreamSha256": "0da1c45569c7be0340d42c3c6560d255386774c6e2528a26287d7370f904bb0d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/LocalService.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/LocalService.java",
+      "upstreamSha256": "028d3e7a0bcd64b8a7a781d5e586d36b2b2f0fa89532b09c19bab8eee7dbc93a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/LocalDevice.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/LocalDevice.java",
+      "upstreamSha256": "233741e78da8dfb6214aaf2838cf64e845258980d1a658825ff4c447e2a08d4e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/Icon.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/Icon.java",
+      "upstreamSha256": "8b7311a0cfa7a48c9215883d370941e5cd3441e337f549eeef547041580c75fc"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/DeviceIdentity.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/DeviceIdentity.java",
+      "upstreamSha256": "d8d238fbd079814316154fc42627fdfb0e4f66a58e61a75c5bd0b2e2afbf5193"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/DeviceDetails.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/DeviceDetails.java",
+      "upstreamSha256": "ccc515a58e1323a163494eede9db8ff374f2cfd838f651fc3d6c6b7dcddd6b5c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/Device.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/Device.java",
+      "upstreamSha256": "ecfa6a78957fc1c916c5b758463b44a7bf59fb0a2a5e308a5c125d066b334590"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/ActionArgument.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/ActionArgument.java",
+      "upstreamSha256": "4f21548b7800877c12eacc47bb1f360feb062845cac75215f432017668180b04"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/meta/Action.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/meta/Action.java",
+      "upstreamSha256": "7aa543a4e06e7b489c3a4a63c9ab540ce950ac7f7d911c76a7683791a7cfe022"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/UpnpResponse.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/UpnpResponse.java",
+      "upstreamSha256": "623112756744e77f352f53e9e0bee0bc79d5ad0651d4d64c6309bfe86e0ce38f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/UpnpRequest.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/UpnpRequest.java",
+      "upstreamSha256": "b1e85b3eb5102a9fb7c4b78f7c5498fd5f3f3bef088e342fa613992a2b80ef5d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/UpnpOperation.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/UpnpOperation.java",
+      "upstreamSha256": "3cdb7d2e4c0d0b591c8fa8f9821fd829616f69e018661abc3088a5df9120b267"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/UpnpMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/UpnpMessage.java",
+      "upstreamSha256": "27cac3c2a4a0495b3e6590d630249708d41f086eb7d253ae04935b8e4fa77ea7"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/UpnpHeaders.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/UpnpHeaders.java",
+      "upstreamSha256": "f106840ee87f09c13cdf6da503c30396a94f4f2f5d8df6d6c634138945ccdbd4"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/StreamResponseMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/StreamResponseMessage.java",
+      "upstreamSha256": "d985b75a70d05561cf98e59d5ac3efc84be2956ce15bb5dbaa981023487886d8"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/StreamRequestMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/StreamRequestMessage.java",
+      "upstreamSha256": "b322d2f729b3a8727220bca3061f31698c6a254967b17e58269ad6388c5685f0"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/OutgoingDatagramMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/OutgoingDatagramMessage.java",
+      "upstreamSha256": "fb59408974f11ca26bf42dcb06f02f1c2e4c7f805785a8b1705175310217eb80"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/IncomingDatagramMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/IncomingDatagramMessage.java",
+      "upstreamSha256": "0c12d984cb979bc37672c03493260f024afda352a4ee3dfc9485ac8c66fbcdd8"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/Connection.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/Connection.java",
+      "upstreamSha256": "8a404ec844cc4cf0f21b442c3a2d6e70812429a7451aa9b2891e624a73a5f0fa"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/gena/RemoteGENASubscription.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/gena/RemoteGENASubscription.java",
+      "upstreamSha256": "5cf8b9b8dc4063fed13821caacc7bee7d64453eaa76239179d917b15fe103554"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/gena/LocalGENASubscription.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/gena/LocalGENASubscription.java",
+      "upstreamSha256": "5bd918910a4839d9f5eb91230055b3f9710946deb9254bcd4653010266b5a99a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/gena/GENASubscription.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/gena/GENASubscription.java",
+      "upstreamSha256": "ea62d883197a7ba563ec07f6441354c58da5263b3930f8d17e70f5ab29ff88ab"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/gena/CancelReason.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/gena/CancelReason.java",
+      "upstreamSha256": "1c753af67b8b046a47130889fec424d3e109bb5c1d63afd4da6f0c4fb5f14746"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/action/RemoteActionInvocation.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/action/RemoteActionInvocation.java",
+      "upstreamSha256": "d4c17e1a467e714f9c2f5804c985a781b2d40ef02532fb200b08e070a50814f0"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/action/QueryStateVariableExecutor.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/action/QueryStateVariableExecutor.java",
+      "upstreamSha256": "92a4e8b56c52ceb848b37a76883f547fab2ecf1c18c6338f7bfb0f7ed5ed541d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/action/MethodActionExecutor.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/action/MethodActionExecutor.java",
+      "upstreamSha256": "3cddd252e787c11a110a60793f8d85d3d89fb070e6047535f9581fb9cd1f5b92"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/action/ActionInvocation.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/action/ActionInvocation.java",
+      "upstreamSha256": "9dc1309ab678f2f61a76cc99738eaef4137a330f278f34bdf4f8f3a66d8bf629"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/action/ActionExecutor.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/action/ActionExecutor.java",
+      "upstreamSha256": "a23fe26bdc0a03b5568a3ed41b148977ad29df7647b3bce1efe87ba25ed61fe1"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/action/ActionException.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/action/ActionException.java",
+      "upstreamSha256": "6f2a5a36bb02fc00b8454895db9834b81b86b4f6d2cd65b1ee79ed279ffd6c60"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/action/ActionCancelledException.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/action/ActionCancelledException.java",
+      "upstreamSha256": "5623a37c7e72dcee4ac6c7b0789a39e67e1a494e015650a76afcdccabc4f5db4"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/action/ActionArgumentValue.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/action/ActionArgumentValue.java",
+      "upstreamSha256": "1cadeec4b120a51c5b37d673f504b3443a1d6d3381c33f1a57e7b465a0071cfe"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/action/AbstractActionExecutor.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/action/AbstractActionExecutor.java",
+      "upstreamSha256": "d953f0764d9bd4c58225562d3b877bd02dde9f619af610334c348d246dbc1040"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/UserAgentHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/UserAgentHeader.java",
+      "upstreamSha256": "cf84ffb74e0d9c2b057051adcd697c267079cf0e2fdd9fc48391476f7bc5f559"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/UpnpHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/UpnpHeader.java",
+      "upstreamSha256": "0486a9690b90265d0745a719865e4ce24d2f66a94cbc1ef9f91d37503b0f7d0a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/USNRootDeviceHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/USNRootDeviceHeader.java",
+      "upstreamSha256": "bcdb2d2c91a7ba3585a7b27610079488c277bf5fc34586ef11f1c6cfb1f1832d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/UDNHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/UDNHeader.java",
+      "upstreamSha256": "dfe85f31e98de6d8c961c5ac584a2b7baec0238791988d2fe227e61aff67e19a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/UDAServiceTypeHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/UDAServiceTypeHeader.java",
+      "upstreamSha256": "d9a7d25b799ad40555efb418a27c138c96c753c830efd22fd09f44569dae0206"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/UDADeviceTypeHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/UDADeviceTypeHeader.java",
+      "upstreamSha256": "c5f06ba7982b0a03a2fcb835503a27f3492afd8d18afeea1aa71047877be80c3"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/TimeoutHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/TimeoutHeader.java",
+      "upstreamSha256": "1504f310496596953a2d1410942e255dd0dbc75adf2ab2c658c2873160de56e5"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/SubscriptionIdHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/SubscriptionIdHeader.java",
+      "upstreamSha256": "beb8b41b92e6d005bc8ff5950d3245ca4d7ddc647fd55990a533aba17c528151"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/SoapActionHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/SoapActionHeader.java",
+      "upstreamSha256": "52816b43715bbe2a47adba228a004cd76d2245cce717cb06a15f5df48e3c934a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/ServiceUSNHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/ServiceUSNHeader.java",
+      "upstreamSha256": "76b6dca71d6ea6dc092504874742a343e514d0fa607f00e04f03c5ed72c5b04e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/ServiceTypeHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/ServiceTypeHeader.java",
+      "upstreamSha256": "1efd93645d3d6bec375c88ecc29ba5ef03ee685c708a37aaf5448fb5841d2a8c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/ServerHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/ServerHeader.java",
+      "upstreamSha256": "19438b1eb9bfdb858a435848ed4cb5a21f64f56b857e77147c3de8ed3dba7c84"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/STAllHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/STAllHeader.java",
+      "upstreamSha256": "89afbfa00574eafa90e5a0b1911e3d3b78aa67040f8460ad850620b267fd82ca"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/RootDeviceHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/RootDeviceHeader.java",
+      "upstreamSha256": "53607bfb8dcb69aff0a6479235b14ffcb21eb65dedb73374b2b002aa10b8ff1c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/RangeHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/RangeHeader.java",
+      "upstreamSha256": "1516f7d89ad365a73728ec29a5646e8dca273c0c527ca5e44875cbdc1bc72d0a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/PragmaHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/PragmaHeader.java",
+      "upstreamSha256": "62f4a9bb944ad6749a5406bec0cec10fed8cd60511e317a9346605f29c5cc791"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/NTSHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/NTSHeader.java",
+      "upstreamSha256": "2a14dfb9c477a0edfbfeb72cccc7ca716008ed51ad3acd4c4ab81ada8e83cfc6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/NTEventHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/NTEventHeader.java",
+      "upstreamSha256": "b4c4704b442654fe310e2212484942be03e56e5cfd8ecbfbbdaa2ba10f1ad1cc"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/MaxAgeHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/MaxAgeHeader.java",
+      "upstreamSha256": "48eca3aa7a0758c5a18247731aa8768382ece58420942202e5d6a7ebcb544c3f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/MXHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/MXHeader.java",
+      "upstreamSha256": "1a66f4893a43b1dffdba21372481b51de9ee5efb82e6ffe2f268050315003c2e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/MANHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/MANHeader.java",
+      "upstreamSha256": "bb52723dc521eb0ec40734cc5a3e5fd833f58377902ad647ccd8532b27a61896"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/LocationHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/LocationHeader.java",
+      "upstreamSha256": "f2a4c1f4065723788932ebf9be69684d91c1bcac5df1937090f400496cab0fb9"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/InvalidHeaderException.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/InvalidHeaderException.java",
+      "upstreamSha256": "6255340db4bf428a80be44882072232ef80600a7138dbf5588bdc8fb7b484ff2"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/InterfaceMacHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/InterfaceMacHeader.java",
+      "upstreamSha256": "a1af9a818a5758a538b7f9d567a882775fcb333206ff32110390201b3f5ae443"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/HostHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/HostHeader.java",
+      "upstreamSha256": "a434c6bd0a6a44377af7191ee655e6847963ef8faebd0ddf748cc6b59996a187"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/EventSequenceHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/EventSequenceHeader.java",
+      "upstreamSha256": "69a737410094b44333079f32410c8ff2cf208bf0b03362b86959d000c634c7f0"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/EXTHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/EXTHeader.java",
+      "upstreamSha256": "460b42b3db32ca5cf462a1b0c681b7aa7b01fb64ddd871a03694063069a7477d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/DeviceUSNHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/DeviceUSNHeader.java",
+      "upstreamSha256": "e9a40a4f3779626dbda928a7242d003b8da45b7a0f5794bcb71502f0e2befbf2"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/DeviceTypeHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/DeviceTypeHeader.java",
+      "upstreamSha256": "e2b556dd730556cce54ed28edec82df31b88fcb8e0c565ff21089d43c1507cef"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/ContentTypeHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/ContentTypeHeader.java",
+      "upstreamSha256": "08d9bcc6b2c9f0d7af70c2e8a727f448c13a8928d60527a88f56f61b6a88b823"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/ContentRangeHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/ContentRangeHeader.java",
+      "upstreamSha256": "a5508dedc27156d59d72fffab1c934bdc851e69dd31bf55776f9b6ff21a625c1"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/CallbackHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/CallbackHeader.java",
+      "upstreamSha256": "6860acf41eacc288041ca0d8759bbaf53dec93954b6c82028f63699fbfdf9e77",
+      "modifiedSha256": "fc4407aee8cdba88c96bc655f509dadc479e9d3426d554e840640690c2f72fa0"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/AVClientInfoHeader.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/header/AVClientInfoHeader.java",
+      "upstreamSha256": "552e65841d91d078d3c13d501932e816025e89294924775375dfa7d4c11d0b6a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/gena/OutgoingUnsubscribeRequestMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/gena/OutgoingUnsubscribeRequestMessage.java",
+      "upstreamSha256": "a13af4dd0dac959f8c8d67d2dc83b44ef623dfbda6f877a4a8f95490687b2f0f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/gena/OutgoingSubscribeResponseMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/gena/OutgoingSubscribeResponseMessage.java",
+      "upstreamSha256": "e4cada3eafabdbbb755ab1903adc4b1777ec031e3c401d32e38b4242d659c6c8"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/gena/OutgoingSubscribeRequestMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/gena/OutgoingSubscribeRequestMessage.java",
+      "upstreamSha256": "a8d1579b2f01aef3222bdb5a19ed5c03adee6853a0dc41265742b4e6b32126fc"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/gena/OutgoingRenewalRequestMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/gena/OutgoingRenewalRequestMessage.java",
+      "upstreamSha256": "ecb866ffac0a2f04b338c1237a6363a1ffac572ec637e27e3a79fa5f51bd3db5"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/gena/OutgoingEventResponseMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/gena/OutgoingEventResponseMessage.java",
+      "upstreamSha256": "4bcb0d940fcd4d8ba8a6ee8cccb8448ed0015ba5eaa175d8b7c17231546935fb"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/gena/OutgoingEventRequestMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/gena/OutgoingEventRequestMessage.java",
+      "upstreamSha256": "cea73dfcd64c347921f349f159244d4f04e09dc432dcb7f4260f5d017a0fdf5e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/gena/IncomingUnsubscribeRequestMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/gena/IncomingUnsubscribeRequestMessage.java",
+      "upstreamSha256": "19d94d0299ec7f18783f3454a76b473b36e197fb19dc73c06f580f7a4b1f8820"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/gena/IncomingSubscribeResponseMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/gena/IncomingSubscribeResponseMessage.java",
+      "upstreamSha256": "5176667640def2dc169ef9304d9dd802ae24000deba9a605c71be1ac83ee03e7"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/gena/IncomingSubscribeRequestMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/gena/IncomingSubscribeRequestMessage.java",
+      "upstreamSha256": "cfd5f316f42590c5711e887fad12b0aa1fbffcd6e3d3d2187f62c33f37b3376f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/gena/IncomingEventRequestMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/gena/IncomingEventRequestMessage.java",
+      "upstreamSha256": "03d42d693bf2e9d62d1d0f3c772c72c1bb9e19a76f7be6b761368a5396419048"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingSearchResponseUDN.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingSearchResponseUDN.java",
+      "upstreamSha256": "cb1fb5cad4f8a65a4177a38957b363c92359d2bc638f997f305dddb02e45c3eb"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingSearchResponseServiceType.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingSearchResponseServiceType.java",
+      "upstreamSha256": "dfd620d1d401132df30f1f059216e7cfcf301dab3af0341986aeca11dd7692f3"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingSearchResponseRootDevice.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingSearchResponseRootDevice.java",
+      "upstreamSha256": "1f7f6849a2e786a20450664b13646e699636b16523e0b57cb8854070a6df9048"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingSearchResponseDeviceType.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingSearchResponseDeviceType.java",
+      "upstreamSha256": "ee1d96fba387837f6b212e54f40e3444461842631cb344f7597cdbaebcfb076d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingSearchResponse.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingSearchResponse.java",
+      "upstreamSha256": "396add4cb143f90ed6959c9ea22bf99cc514c042f358a84b896fb572c093835f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingSearchRequest.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingSearchRequest.java",
+      "upstreamSha256": "2ce59469a4dc13148ff88496c4d807815ec6f60e457dad55275c2e2e193bccc0"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingNotificationRequestUDN.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingNotificationRequestUDN.java",
+      "upstreamSha256": "3586f19d90a835815230b39a536cf0e5a340d688b124150e2b8bb0f34fa188ed"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingNotificationRequestServiceType.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingNotificationRequestServiceType.java",
+      "upstreamSha256": "ee7600b18c9624ad5b5f4954061744dbb5e24ac8400214aed42e951dbc5f45d3"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingNotificationRequestRootDevice.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingNotificationRequestRootDevice.java",
+      "upstreamSha256": "9f86310a8f03b3bff0a3c8cdf469c27964b706ecaf1a26c389796ac671fae1e5"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingNotificationRequestDeviceType.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingNotificationRequestDeviceType.java",
+      "upstreamSha256": "47421dcb42f89192b1bcc6ba6b015c094851f882b32ffb543e0895fc60805df6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingNotificationRequest.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/discovery/OutgoingNotificationRequest.java",
+      "upstreamSha256": "5e8f6279b7e97e141d48a6f83098e1aa7067d1c3cc0bf9be40c7a2916e2bbdc5"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/discovery/IncomingSearchResponse.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/discovery/IncomingSearchResponse.java",
+      "upstreamSha256": "66b71d8d95f28dd8cdf7f6b1df800cb9b51b9e8851ed033a0e1dd1e6eb99ce42"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/discovery/IncomingSearchRequest.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/discovery/IncomingSearchRequest.java",
+      "upstreamSha256": "24a54e275eae4032a0351cc27458e378e41c46d71fdc2aab01ce477cb477387a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/discovery/IncomingNotificationRequest.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/discovery/IncomingNotificationRequest.java",
+      "upstreamSha256": "3777a8e54f62bd161ee9a1cd4859075688f246e7e8599f84a4ca38ceff409aeb"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/control/OutgoingActionResponseMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/control/OutgoingActionResponseMessage.java",
+      "upstreamSha256": "9862ed5d2f999a46a3a40d7a5dbe7d95eb65a108e0eaa917f56114e488c6e63a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/control/OutgoingActionRequestMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/control/OutgoingActionRequestMessage.java",
+      "upstreamSha256": "3aab970e6cf8b23089498b0d169d894ede856b4bfea0545d7406bd06f9ca921c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/control/IncomingActionResponseMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/control/IncomingActionResponseMessage.java",
+      "upstreamSha256": "e1c8afc5d2a1950a553403b1ae29f85006611b948ab7d2f36cf5db290bcc9197"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/control/IncomingActionRequestMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/control/IncomingActionRequestMessage.java",
+      "upstreamSha256": "45ef8fc1ef38aecba672afad1bed2dc774dd72dda50b812aa099b2ff9961c3d5"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/control/ActionResponseMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/control/ActionResponseMessage.java",
+      "upstreamSha256": "b62f2355cfea3c85f8666781e12f3b6df7dda187a0b4df4fa6962d78d5572218"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/control/ActionRequestMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/control/ActionRequestMessage.java",
+      "upstreamSha256": "171980e9b8cec230e9e5c27f63a0958351e9b5ebea1758fd41a101436475099b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/control/ActionMessage.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/message/control/ActionMessage.java",
+      "upstreamSha256": "6cda44dbf7309f0c30985384d5f8768ab7eac74d56337bdf1aa0b15a546871db"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/csv/CSVUnsignedIntegerTwoBytes.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/csv/CSVUnsignedIntegerTwoBytes.java",
+      "upstreamSha256": "e58a17e91271e52723a0ea0673696be171daf5913e5c34b75d9df6597a65e60e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/csv/CSVUnsignedIntegerOneByte.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/csv/CSVUnsignedIntegerOneByte.java",
+      "upstreamSha256": "fe998ea208d1357b22a32d4cad2f67755e535bf7e452b32b29bc36d3c2d0fd2a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/csv/CSVUnsignedIntegerFourBytes.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/csv/CSVUnsignedIntegerFourBytes.java",
+      "upstreamSha256": "66b5f8a5432e6ab16a179c2e3b5c0ec784844c45db7f7c84179ad3bc4ce54a2c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/csv/CSVURI.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/csv/CSVURI.java",
+      "upstreamSha256": "41e75bff5b532c59d55eff385da672c27f84cf60e17cc41ff109d73b3f8617c6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/csv/CSVString.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/csv/CSVString.java",
+      "upstreamSha256": "0222e4699b2ea520c1755a985c41a64be4e7314b2217eeb058fa6964d72ddccb"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/csv/CSVShort.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/csv/CSVShort.java",
+      "upstreamSha256": "4a80eebc2df2e853aa4633b66639667e63bfa67132d32ca874546f1cea5263bd"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/csv/CSVInteger.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/csv/CSVInteger.java",
+      "upstreamSha256": "341d32c35d2850d93ac30b95e116670468b30d3f09bb89481135a30ebb6a0b3a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/csv/CSVFloat.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/csv/CSVFloat.java",
+      "upstreamSha256": "0d512acf3889c4f76a973148b6477d2504ef592c156ab54a734c129a08326dfe"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/csv/CSVDouble.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/csv/CSVDouble.java",
+      "upstreamSha256": "3f7cf744556d80512196c41b81c44cf7ce175c092ca8e75ef551f29ba6e76603"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/csv/CSVDate.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/csv/CSVDate.java",
+      "upstreamSha256": "1d6ea98a09d0a7f8d8e08347c589d135ee83d4e716a6694ad339b8e5b9fce45c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/csv/CSVCharacter.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/csv/CSVCharacter.java",
+      "upstreamSha256": "706f908c0d58779f9794968f30b4b6c9386375176c385f6eafacd24668c09b89"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/csv/CSVBytes.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/csv/CSVBytes.java",
+      "upstreamSha256": "4cf46cb0d126c894c3898794caf57fd15a05166ad16020dbe028ca4240406225"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/csv/CSVBoolean.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/csv/CSVBoolean.java",
+      "upstreamSha256": "620d1f5d9c738158171390860797e669887fb8e28ab9a2c863605aa2b23b8f7c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/types/csv/CSV.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/model/types/csv/CSV.java",
+      "upstreamSha256": "71a7f3ac9b0c5ace72add61f37d627b3fda6503f25d55162219634f653615355"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/sync/SendingUnsubscribe.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/sync/SendingUnsubscribe.java",
+      "upstreamSha256": "666c9276a8cfb0c3598275fa0f99946b7577bbe32d2f69eca4975383d0888ccf"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/sync/SendingSubscribe.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/sync/SendingSubscribe.java",
+      "upstreamSha256": "2cbd632d38407ee2934f7763ec00a4c281ef76b0044a75b901cf00e4abea2c43"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/sync/SendingRenewal.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/sync/SendingRenewal.java",
+      "upstreamSha256": "3ff7e65f1e1eae273b3f75c4b1db870fcb035605b1263fb0f3d40d658565f44e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/sync/SendingEvent.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/sync/SendingEvent.java",
+      "upstreamSha256": "47234df7f6cc191c7ee09f7cb99ecfafe3e2e06586c90966b46e4927757a011c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/sync/SendingAction.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/sync/SendingAction.java",
+      "upstreamSha256": "71e2abe472c1c53d19b48143a694e39ff009d9ca99c189e9ae4db2bf2faf15d0"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/sync/ReceivingUnsubscribe.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/sync/ReceivingUnsubscribe.java",
+      "upstreamSha256": "5674277a11a66c89787e06c06e0fed4f682f6de4507cc2ce882261a7756e55ed"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/sync/ReceivingSubscribe.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/sync/ReceivingSubscribe.java",
+      "upstreamSha256": "c56ca299165cc47047564605b26c47910ffcce29d2b2cde8f805c0b3efc31665",
+      "modifiedSha256": "f04e7614ff5b5404c58e9f3e75d4607aadae1afa5161262f2a069163efb01815"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/sync/ReceivingRetrieval.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/sync/ReceivingRetrieval.java",
+      "upstreamSha256": "6051d4b9697eabcde7b295c6dd15aa8f24a2520d31d211e8a869522d0a8f478b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/sync/ReceivingEvent.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/sync/ReceivingEvent.java",
+      "upstreamSha256": "327f2205e172fb091bc561a7e835ba46405bf9d9ba04a71bd69992fc826a5c4b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/sync/ReceivingAction.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/sync/ReceivingAction.java",
+      "upstreamSha256": "60816d2e0ad7ad2b88705ae7228c1a8480cc1545407b7114f10752d9573497f8"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/async/SendingSearch.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/async/SendingSearch.java",
+      "upstreamSha256": "706b0d3d29b659a14f0c5a05e0a53ed6139deb49933c2a86b096356dee873a7b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/async/SendingNotificationByebye.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/async/SendingNotificationByebye.java",
+      "upstreamSha256": "8a0fbaea50968e6ad8a3fbc096528c3751522debb19549abae2b07f0a53ba50d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/async/SendingNotificationAlive.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/async/SendingNotificationAlive.java",
+      "upstreamSha256": "ea975ad078a945dd5369344acc238e98251295bd1f3a087dabaaf2013c712ed9"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/async/SendingNotification.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/async/SendingNotification.java",
+      "upstreamSha256": "fda7bb40ccdc8605c07f3b949c7b6e45e9aba0b0a65b77cda54f6c957f3a615f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/async/ReceivingSearchResponse.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/async/ReceivingSearchResponse.java",
+      "upstreamSha256": "5d91aa29f5004eca813b37d6585a3a7d643d61e1e4b34936831164bc828fd231"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/async/ReceivingSearch.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/async/ReceivingSearch.java",
+      "upstreamSha256": "d8c55b981cf33454459082083282d5ece6e7e0a475cc90ec266409362ccfb552"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/protocol/async/ReceivingNotification.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/protocol/async/ReceivingNotification.java",
+      "upstreamSha256": "5a009df321d93da4e996d39baa1f4d4d73079fa3d7a03d041dcb1f4305787209"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/event/RemoteDeviceDiscovery.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/event/RemoteDeviceDiscovery.java",
+      "upstreamSha256": "1619c25a4271795f0cd73cd50d1e7dbc87ed01780a537b7412c95b3fe3084455"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/event/RegistryShutdown.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/event/RegistryShutdown.java",
+      "upstreamSha256": "28eadb7e13987591161734b5eda0893c045e5b4019d7cd53c0b8b74618e1c760"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/event/LocalDeviceDiscovery.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/event/LocalDeviceDiscovery.java",
+      "upstreamSha256": "376dc79e0f7c4f27acbb31073bd02830d4751ab9ac8624e22f2ed301bd63fd1d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/event/FailedRemoteDeviceDiscovery.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/event/FailedRemoteDeviceDiscovery.java",
+      "upstreamSha256": "7450f698206f6f0d90b1bcf1613eab902c9b1cd4df211f865a18954b2448b043"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/registry/event/DeviceDiscovery.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/registry/event/DeviceDiscovery.java",
+      "upstreamSha256": "2bf08cb4aabae6dfd5aac02696e94580f6e6f59fc2f9371fd3170ad1ed3fd32a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/UpnpStream.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/UpnpStream.java",
+      "upstreamSha256": "5603d832579340e89755cdd8d74785de619d6fd92373af780ce559cae853ff20"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/StreamServerConfiguration.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/StreamServerConfiguration.java",
+      "upstreamSha256": "efc9039b8f22ad59ee1025cb71ade15f5b9dced2d40c7c8e4935066f23e629e6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/StreamServer.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/StreamServer.java",
+      "upstreamSha256": "e941f60bfe4de0ca403f816a1dc11a885b55d9daab659032a87f2d9308ead07a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/StreamClientConfiguration.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/StreamClientConfiguration.java",
+      "upstreamSha256": "3f6433447bd2107488377342b46943fea2670f4d71e2429b9ca9b72a84358982"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/StreamClient.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/StreamClient.java",
+      "upstreamSha256": "958f5f7e08327f69bff44998ad68c82a14a08885f71e6f403e356fca28c101ce"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/SOAPActionProcessor.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/SOAPActionProcessor.java",
+      "upstreamSha256": "75c025c91efe5102e847262578cc78cc8e6ac1e27ea787ff631f512e0646ff27"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/NoNetworkException.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/NoNetworkException.java",
+      "upstreamSha256": "7e7d198343b0eb26f674d693aa137f8ca7654c61c0398ca6cb8a06bee4d4d2af"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/NetworkAddressFactory.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/NetworkAddressFactory.java",
+      "upstreamSha256": "6dbc9a92e1ff238953e34a23f0acb934653bda7f375c4d48a75c5a102359de36"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/MulticastReceiverConfiguration.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/MulticastReceiverConfiguration.java",
+      "upstreamSha256": "d924559084ead5228b6ccb99e8731bf5200d289a6cfadc2850b9f3427a473f03"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/MulticastReceiver.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/MulticastReceiver.java",
+      "upstreamSha256": "ff13696a2e5d8c62eac64b5b5342fcb7c487232acc13b28a87e96dd09dc4c358"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/InitializationException.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/InitializationException.java",
+      "upstreamSha256": "b701b859796f1b5d49aa117f5902439b8fcb71520f1999b8172f490bb5ec37ec"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/GENAEventProcessor.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/GENAEventProcessor.java",
+      "upstreamSha256": "d416fe5bd5be35f69eadf9444ef38ac0c1d6d1431958aaea8021e66cfa88941b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/DatagramProcessor.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/DatagramProcessor.java",
+      "upstreamSha256": "b269f763517a92ec512d66989a878f989933f1487e5b2e265db7c8ca0ba591e6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/DatagramIOConfiguration.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/DatagramIOConfiguration.java",
+      "upstreamSha256": "43793fc2ffe219133d0fb843acf796f298328c514c54a3ed04cb96cf6efaabe6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/DatagramIO.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/DatagramIO.java",
+      "upstreamSha256": "70deb2db20b1f6ec057f11046dbf4f27d9667f1c8beb82f7ad6b714bfb560ff3"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/AbstractStreamClientConfiguration.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/AbstractStreamClientConfiguration.java",
+      "upstreamSha256": "0f300fa351a959d9a6a3862a3f197845f58cf37f16a1266b37df5392747ff56e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/spi/AbstractStreamClient.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/spi/AbstractStreamClient.java",
+      "upstreamSha256": "197e8bfee3d5e2da71304ea950e446dc4442e899535eb44317fa0a4c77d37feb"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/StreamServerConfigurationImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/StreamServerConfigurationImpl.java",
+      "upstreamSha256": "bd52b7cc6c869b2a5635ebda2d474ac2bb48e4e13d97d0e25a7dea890b620dbd"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/StreamClientConfigurationImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/StreamClientConfigurationImpl.java",
+      "upstreamSha256": "bc1c61de254c62f3a84d7846ceeea8261542945161f90f11f989d9d55940df10"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/SOAPActionProcessorImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/SOAPActionProcessorImpl.java",
+      "upstreamSha256": "fff94f160de369458cda32199a4fe9d2feb871063a342c30848bf4f22ae87d1f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/RecoveringSOAPActionProcessorImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/RecoveringSOAPActionProcessorImpl.java",
+      "upstreamSha256": "342a500918c66f49aabec556f1bfcd77913c53810d78e02f3b2f0273e8b21fd6",
+      "modifiedSha256": "2e6197ca9d03f441c7f6b0e7b7a867dd2b49d9ab47c1d88837d829955e83b371"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/RecoveringGENAEventProcessorImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/RecoveringGENAEventProcessorImpl.java",
+      "upstreamSha256": "3080509c9c1d7ef4217e863ddbec1407093e753b4704a31badb901455c3425a0",
+      "modifiedSha256": "f5a6fed1b38e839ad17a62208cf3ab77540f838ac9e8b89a176276c8af29d7c8"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/PullSOAPActionProcessorImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/PullSOAPActionProcessorImpl.java",
+      "upstreamSha256": "91e1d64832d117efc8d50f9ac67ef532d78fe330d44fa2984031318b58aee29e",
+      "modifiedSha256": "fbc0dc89a69b87531637c10935f13567eea5276086e3589602ff080369d40efb"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/PullGENAEventProcessorImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/PullGENAEventProcessorImpl.java",
+      "upstreamSha256": "7b8504cff276054ea7a86f0b1b9b259dd60f8dec45015e65e47b5900d099475e",
+      "modifiedSha256": "38021187fe6f003e97d152d65e9f42e157bf851dd5d068d80aaf634556799dc7"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/NetworkAddressFactoryImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/NetworkAddressFactoryImpl.java",
+      "upstreamSha256": "b6e5511347face11821a443dc48e8e5ab00efeeae979b20b11e60b502d765f70"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/MulticastReceiverImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/MulticastReceiverImpl.java",
+      "upstreamSha256": "5d7c75b77dfb7313b55b238c9585c78a9a683a31e4f477d163bbe3313552a3e1"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/MulticastReceiverConfigurationImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/MulticastReceiverConfigurationImpl.java",
+      "upstreamSha256": "79b845a394f6539e65b25b12b8ba077fb6bbb2aaae373217f624e3671e84d67d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/HttpExchangeUpnpStream.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/HttpExchangeUpnpStream.java",
+      "upstreamSha256": "1b5812d5725fd630ac3f5386ac65efde5386267afe5607528a1a78bf931f48b4"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/GENAEventProcessorImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/GENAEventProcessorImpl.java",
+      "upstreamSha256": "99d5685305a3cbbe62cc283a21121cfe640c7323caee1c041a0c6f45c9676bac"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/DatagramProcessorImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/DatagramProcessorImpl.java",
+      "upstreamSha256": "3041cdba086b0ca64c3db5303ece96181766a9d6bfde96c6e89f25ee8ee1d3fb"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/DatagramIOImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/DatagramIOImpl.java",
+      "upstreamSha256": "84cd42fa84d167097962fd2c46fda4a56dbb8c0b632e21f3c63a5720ef378e98"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/transport/impl/DatagramIOConfigurationImpl.java",
+      "upstreamPath": "cling/core/src/main/java/org/fourthline/cling/transport/impl/DatagramIOConfigurationImpl.java",
+      "upstreamSha256": "2714d42cf6c544d5cdffd0993b7d34fef2705ad52b6e15ac1e6cdab2a2da5a55"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/xmicrosoft/AbstractMediaReceiverRegistrarService.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/xmicrosoft/AbstractMediaReceiverRegistrarService.java",
+      "upstreamSha256": "0508dc57fee34d7e2d799d2942f31d0117155a35a9c5ded4e963fcbf38267ae1"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/shared/AbstractMap.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/shared/AbstractMap.java",
+      "upstreamSha256": "c7052c283d46c43e16dae8abaada0ebf96963c4956a85a709cadae5b755aa955"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/RenderingControlException.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/RenderingControlException.java",
+      "upstreamSha256": "413165216aaa06f87d636a73e05a3e7d5f8bcdafa4c829643e87d760ab76ae1b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/RenderingControlErrorCode.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/RenderingControlErrorCode.java",
+      "upstreamSha256": "c62e36c1b276304896d7b2d682864bcd609014a748836f9ad199309f8d1b7c8c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/AbstractAudioRenderingControl.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/AbstractAudioRenderingControl.java",
+      "upstreamSha256": "1665334fe14961f3512eeb064865287db885e9a756a6c9b1f2156c5195cefb81"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/WriteStatus.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/WriteStatus.java",
+      "upstreamSha256": "15b0c452a81a95039c226c7e2e4ff48d7d92d1816f8e6a5b6f24d761f2cd0926"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/VolumeDBRange.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/VolumeDBRange.java",
+      "upstreamSha256": "856e3d853c7cb5b70e150657ed07e7c47d845564bf6152f1946fd9759de6200c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/TransportStatus.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/TransportStatus.java",
+      "upstreamSha256": "4172d4a05b89e69c2cdfc99546c6f292ddadca6a308ad5ec72334f32b2514029"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/TransportState.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/TransportState.java",
+      "upstreamSha256": "483f342c735d4739fa3cc4a037e7db756d8ddedb5e79df4c7aa281e273c7436c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/TransportSettings.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/TransportSettings.java",
+      "upstreamSha256": "1c6fdf23dc0033b96b39a156b1e010abe07f275ddddfd5aa40918a4b03b05314"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/TransportInfo.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/TransportInfo.java",
+      "upstreamSha256": "de184cb5f305460717687bcbb4391b91bb89eb10a14210e9f1088fa903500d6b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/TransportAction.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/TransportAction.java",
+      "upstreamSha256": "5cf0e3afd898e284ba1ec9f255c7f20dde04dfaa717e2921d31348d8ac6d29b0"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/StorageMedium.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/StorageMedium.java",
+      "upstreamSha256": "183d8da922e71779c51f82f86256cb6550dd4e4a7a708fbd9d90ab318085e432"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/SortCriterion.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/SortCriterion.java",
+      "upstreamSha256": "46124b3a10b8ac5ff1d7dc2a136e0229edee4d13bb46edccc514aa1348af38e6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/SeekMode.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/SeekMode.java",
+      "upstreamSha256": "b34d78a6eceb306afa70d21db8b375b3b76b7e20d2999e649d59ec6a1e12565e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/SearchResult.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/SearchResult.java",
+      "upstreamSha256": "0f0edecf50413d58b2d988afea19ee3221045e72c7ace277cb367d3205b1a9f5"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/Res.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/Res.java",
+      "upstreamSha256": "0a7d1c797bb810ddd08aeacc4b740bac046994239835ca7c68a554ba2051d6ca"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/RecordQualityMode.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/RecordQualityMode.java",
+      "upstreamSha256": "5054cae92127f34dcab9b987bb1c7ec75ee83282dd1cabb20446ae0172891331"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/RecordMediumWriteStatus.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/RecordMediumWriteStatus.java",
+      "upstreamSha256": "088d1a3cf1b21cf1780f6b08a64857c6b0f5fdd267ba28336dbda5988575095c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/ProtocolInfos.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/ProtocolInfos.java",
+      "upstreamSha256": "4368f00e6cafc46029a2b7e85396ce645d8ab6ffd4a10013365ceb75e0361c0f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/ProtocolInfo.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/ProtocolInfo.java",
+      "upstreamSha256": "c8e6d3d13ca8f7557976edcf1719221e799bdc1c3d8e97fc30c6f4e2c9d7a440"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/Protocol.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/Protocol.java",
+      "upstreamSha256": "b4b2088055888ba1ffbceaf50a7d3f131da0408824e78bdc72f587975a8a1467"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/PresetName.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/PresetName.java",
+      "upstreamSha256": "3fd26b68714af25330bd01a58e18ca33a680bb6ab4c131f31cc0882a168c618b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/PositionInfo.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/PositionInfo.java",
+      "upstreamSha256": "b9088adfd3ab30f7f1ec0fec60ed09012ecf70c17f236bdb761e4528afb7bf35"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/PortMapping.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/PortMapping.java",
+      "upstreamSha256": "f722e7e8805c587c7ad49fdafefe17326d270690b000b1d570eb74ac2a4d480d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/PlayMode.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/PlayMode.java",
+      "upstreamSha256": "32473bf495930aa0a15afea115ab98f30165f71afe68d90db5ce70047efbf89e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/PersonWithRole.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/PersonWithRole.java",
+      "upstreamSha256": "fea519283ed4108bf9518c2ea8526c79e75308d89f8f79100929965da6110620"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/Person.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/Person.java",
+      "upstreamSha256": "4fc8c38dd3a38ee6c16bd160944afff47233c1cf02c6651cfce37111e6290749"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/MediaInfo.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/MediaInfo.java",
+      "upstreamSha256": "806cd60b35a3675a992d17870b8713927093c0f0df94283044f4f9c0d96013db"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/DeviceCapabilities.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/DeviceCapabilities.java",
+      "upstreamSha256": "0b3a9cdb25342537f05c3cedd71cd7b08c937c97db1b125ca5eb759184dd535f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/DescMeta.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/DescMeta.java",
+      "upstreamSha256": "eb8ce6bc74aafe2a561b5d79bc035cde762a9bf526a642767d33a74e28b14281"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/DIDLObject.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/DIDLObject.java",
+      "upstreamSha256": "432e5db6c6d3a99eca8dc10a1ae1b1a242fb1fff4d2cd26f0449ffc89eda97fe"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/DIDLContent.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/DIDLContent.java",
+      "upstreamSha256": "2e4d61a37fdd028a3efdad6eba89dc32c52b13205faaca614854032638527715"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/DIDLAttribute.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/DIDLAttribute.java",
+      "upstreamSha256": "05b52c4ff9b3e7c6301885d7a422ccf5a4dce605cf8d4c718c90b3d1b3b86b60"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/ConnectionInfo.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/ConnectionInfo.java",
+      "upstreamSha256": "6d409a56f7214894f04a20590c28558e506df17d049b87c04af9d145e3ad1146"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/Connection.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/Connection.java",
+      "upstreamSha256": "a6a71b8f0dd7cc8adb835cfce9d4216835223fbc9483e7871de0e5ac16813a21"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/Channel.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/Channel.java",
+      "upstreamSha256": "288092b19759a7aaa231b31116474275a5f88ddf0ac440bf04d6d9062744c40f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/BrowseResult.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/BrowseResult.java",
+      "upstreamSha256": "7df370035fead3e1025b3773939de5c4c670d21bf50af58a80ffc6eaccc339d1"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/BrowseFlag.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/BrowseFlag.java",
+      "upstreamSha256": "86186a979bac6bb2ed1653f1cb66663eed9d87174eaefde68edc66c62c206672"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/AVTransport.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/AVTransport.java",
+      "upstreamSha256": "b7d5997f4fcbf2183ac6790df80c181cc041e9db2a282418a11293c46ab5e0cc"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/messagebox/RemoveMessage.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/messagebox/RemoveMessage.java",
+      "upstreamSha256": "e617308f3c9a5e4a02a5ded8f6deb561ca6a097f0e330ce73091f8ae38c24dbb"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/messagebox/AddMessage.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/messagebox/AddMessage.java",
+      "upstreamSha256": "f30faa721825620485f1e5eb17188bee476a398a639cc62562c8f04d78ff0d64"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/lastchange/LastChangeParser.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/lastchange/LastChangeParser.java",
+      "upstreamSha256": "7b7f6a3ea0efbf25a47e86140d7e2ae010c0eb99398d54ac78d6896ee757aba2"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/lastchange/LastChangeDelegator.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/lastchange/LastChangeDelegator.java",
+      "upstreamSha256": "8a893e623d1829e53929e2a23d98bc6b9a7f76bec9bd866d174e408f68299489"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/lastchange/LastChangeAwareServiceManager.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/lastchange/LastChangeAwareServiceManager.java",
+      "upstreamSha256": "cd5f6f3b7c0e2811f38f5f2c3f50bf2cd63e41467cda8a5fbc984bd68b50c33f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/lastchange/LastChange.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/lastchange/LastChange.java",
+      "upstreamSha256": "ee1344efa487b7e9f78bcbf42f147bfef05a3b76988b06f7fe8c58c1b797ea7d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/lastchange/InstanceID.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/lastchange/InstanceID.java",
+      "upstreamSha256": "6b6ce3928ffb1ee357c1ee18142aeacefc84eecb40bbe17733f9ac0d553cd6e9"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/lastchange/EventedValueUnsignedIntegerTwoBytes.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/lastchange/EventedValueUnsignedIntegerTwoBytes.java",
+      "upstreamSha256": "cb062433dcaf26b5de050804bcd071ff65aae2306661bd473fb9551b8e546f04"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/lastchange/EventedValueUnsignedIntegerFourBytes.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/lastchange/EventedValueUnsignedIntegerFourBytes.java",
+      "upstreamSha256": "24e89eec7720c6f22ceeb72c9666a2f5a40e6ac02cf97e223487557739e68f2f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/lastchange/EventedValueURI.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/lastchange/EventedValueURI.java",
+      "upstreamSha256": "c9ec6a92b3fa331297d6a79d422fe0ad36b19a35ed2e00ad3d3cf429e9eb7d8e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/lastchange/EventedValueString.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/lastchange/EventedValueString.java",
+      "upstreamSha256": "fc06adf35b98efc7f7ea6f77e37f2ef75737ea7cb649a170dc1d94c438eda38c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/lastchange/EventedValueShort.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/lastchange/EventedValueShort.java",
+      "upstreamSha256": "5246f4cbcab84023c9c09efcd06b368d73db19b763977871474ddacb27ce5952"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/lastchange/EventedValueEnumArray.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/lastchange/EventedValueEnumArray.java",
+      "upstreamSha256": "df0249aa800b1bf3c102d7f1962da51396c50ab620f6423275a0e5e4ab4036df"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/lastchange/EventedValueEnum.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/lastchange/EventedValueEnum.java",
+      "upstreamSha256": "5ae51b92d44871e70f74f43f5d67e0c0324900761f16750c6f0b9a61a49d69a1"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/lastchange/EventedValue.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/lastchange/EventedValue.java",
+      "upstreamSha256": "8c15dbc02c7fa21681516979feec9e5644c5c753ddc286978a58e12f07cba885"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/lastchange/Event.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/lastchange/Event.java",
+      "upstreamSha256": "6ba5693cb51d1c55e375d87e7bc27dfb4c55f790d2c34e56ee73d9780d47c67c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/igd/PortMappingListener.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/igd/PortMappingListener.java",
+      "upstreamSha256": "e2b82064bc2740f6286b41a777616c2131575d675a1aeb379f4ad6bc43f67af5"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/contentdirectory/DIDLParser.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/contentdirectory/DIDLParser.java",
+      "upstreamSha256": "9dec66db947a91735f15d30670b5afbaa6232722b36fe09c0e28d5bba89918bb"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/contentdirectory/ContentDirectoryException.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/contentdirectory/ContentDirectoryException.java",
+      "upstreamSha256": "b945ee5ccb46640d5d63a8ef21ac129ecbd8c76776da733bd3487eb3eb06c430"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/contentdirectory/ContentDirectoryErrorCode.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/contentdirectory/ContentDirectoryErrorCode.java",
+      "upstreamSha256": "43eddcc264640629e9fd677cd2adb87246f8318d38d1ec468d7150711c9cafdb"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/contentdirectory/AbstractContentDirectoryService.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/contentdirectory/AbstractContentDirectoryService.java",
+      "upstreamSha256": "a46b85b57bd37c1955aa97bd0866f6bb904ec1d75ddbfb4263a9836e36368d0b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/connectionmanager/ConnectionManagerService.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/connectionmanager/ConnectionManagerService.java",
+      "upstreamSha256": "88d7f7bed09a942c67dfceb050107224a7f03f741ae9bab56421a1bc5753a7aa"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/connectionmanager/ConnectionManagerException.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/connectionmanager/ConnectionManagerException.java",
+      "upstreamSha256": "7500bbdc821a4412a8cd4b0c62b6abc14e69d1673be07946a180fd4ab17f3b79"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/connectionmanager/ConnectionManagerErrorCode.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/connectionmanager/ConnectionManagerErrorCode.java",
+      "upstreamSha256": "4626865b8def3e60dc17594fa02c590638f1d07e88be78687c07f3f088f639ba"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/connectionmanager/AbstractPeeringConnectionManagerService.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/connectionmanager/AbstractPeeringConnectionManagerService.java",
+      "upstreamSha256": "65410a3946418203bcf4604dc406f3a4499dd0cc5baf2c61087c556bf6265ba1"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/AbstractAVTransportService.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/AbstractAVTransportService.java",
+      "upstreamSha256": "f659d14f1db38dc16a9c55fee8fa7858fb1bf36cf594bf86ed28e280718c5fac"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/AVTransportException.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/AVTransportException.java",
+      "upstreamSha256": "4a71a8c04bef29148976997acbe40e6215f764557fa8be7bc6aea67ef25a598c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/AVTransportErrorCode.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/AVTransportErrorCode.java",
+      "upstreamSha256": "da993b2eee599c131c6d25bd746643fa852f9ada93387aba67d79da4292889db"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/lastchange/AVTransportVariable.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/lastchange/AVTransportVariable.java",
+      "upstreamSha256": "e024edfb55fd6b75eb7323f0467365caa3b1dab4137b357c9fb2d7ac3f7e6fcc"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/lastchange/AVTransportLastChangeParser.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/lastchange/AVTransportLastChangeParser.java",
+      "upstreamSha256": "5a553444ce65c941d076d1116a9b330ba8d04c3c5fa47abb87b407d4cd6b6969"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/impl/AVTransportStateMachine.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/impl/AVTransportStateMachine.java",
+      "upstreamSha256": "3c1eb78782569980da1e54592413e22d0da170a4c578d5c0b5e20f8e6a4880bf"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/impl/AVTransportService.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/impl/AVTransportService.java",
+      "upstreamSha256": "3acbc14a836189a1672be917aa3204009f852f34a6adced7e03abeb5a3600af4"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/callback/Stop.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/callback/Stop.java",
+      "upstreamSha256": "bcb8109f432904f5625a72b884c6f96a71c14670ee89a9fcc9057aa0da9d5b61"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/callback/SetPlayMode.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/callback/SetPlayMode.java",
+      "upstreamSha256": "1515275c7fe31c6bf0e0104ce817072aded4d2d249a8df27e4227c33c2f151a6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/callback/SetAVTransportURI.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/callback/SetAVTransportURI.java",
+      "upstreamSha256": "d8e3dfccbbc2bceae4096d2d9cc641f9632a73e753d21f4c4321b98a0ff5d283"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/callback/Seek.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/callback/Seek.java",
+      "upstreamSha256": "1c7ad8493c4e16a87aaf7bd3f957dd2105d9b79de06cab42edcb877731daf2a0"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/callback/Previous.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/callback/Previous.java",
+      "upstreamSha256": "d4efae9f6f8197d033b6911de64c80f61a19f8f893df58af12c633f25685a162"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/callback/Play.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/callback/Play.java",
+      "upstreamSha256": "b943794a949dd5f7380208dc841fc1543d3ee654a78d928b4c804aa77cfaaf5d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/callback/Pause.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/callback/Pause.java",
+      "upstreamSha256": "828ba57349400e9f21ead53cae409ba624bcdfcf5d7feeed2587240ba7f36c08"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/callback/Next.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/callback/Next.java",
+      "upstreamSha256": "5389359559ab99817cd41e73d8254ff64428d4c8939af8d99250f61cb9f79e22"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/callback/GetTransportInfo.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/callback/GetTransportInfo.java",
+      "upstreamSha256": "0f700330281fea205e71b34f52c66023e47d8a24acdb262cdccf58665fd01b4a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/callback/GetPositionInfo.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/callback/GetPositionInfo.java",
+      "upstreamSha256": "f070fbd07568a0b264ca165f9c67ee3d263ff56937e53d19570bf797c776ff29"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/callback/GetMediaInfo.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/callback/GetMediaInfo.java",
+      "upstreamSha256": "d31e0997bec038f53fc8825dc048b13b4a3bd84eec98ae00d6893620867aaa45"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/callback/GetDeviceCapabilities.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/callback/GetDeviceCapabilities.java",
+      "upstreamSha256": "0c2a34969da31eb015c01bb743d4b6e3c7e5b44d5ff8bc0a235856b999ef2d4e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/callback/GetCurrentTransportActions.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/callback/GetCurrentTransportActions.java",
+      "upstreamSha256": "fc09ad9108d5174c63c9196c6e9e283957803a5df337db94f513573ec10d1cc6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/impl/state/Stopped.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/impl/state/Stopped.java",
+      "upstreamSha256": "b13761c1223a3f12f91426ec5b6e640e904091d32d312c61652a0a99be22030a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/impl/state/Playing.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/impl/state/Playing.java",
+      "upstreamSha256": "aeeac9c723bf316e70fe902f6aa266dfc2f72a4006e0b64797f9de7565e03500"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/impl/state/PausedPlay.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/impl/state/PausedPlay.java",
+      "upstreamSha256": "05c1279eeb20c63457d21e4f3096a7124fceaf94fccc305c1f804704ccd67b0f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/impl/state/NoMediaPresent.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/impl/state/NoMediaPresent.java",
+      "upstreamSha256": "dcaa73102f9bf05aa6adfa9e34768a4bedd1de84b76f9ea9684c16a9f55f0520"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/avtransport/impl/state/AbstractState.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/avtransport/impl/state/AbstractState.java",
+      "upstreamSha256": "257d9cf877d6f57e0fdbb841932b09afbd33124d38b5e4bd09e36314f04cbc39"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/connectionmanager/callback/PrepareForConnection.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/connectionmanager/callback/PrepareForConnection.java",
+      "upstreamSha256": "fb07a087ec4010283f4cacec5d6997f4a080956eccdf46cf75f053dfdbf033e7"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/connectionmanager/callback/GetProtocolInfo.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/connectionmanager/callback/GetProtocolInfo.java",
+      "upstreamSha256": "c0f185e7f7e1cfe09bc6f52e4b876599e2bd1550b850cf8ad90c7e347c63917f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/connectionmanager/callback/GetCurrentConnectionInfo.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/connectionmanager/callback/GetCurrentConnectionInfo.java",
+      "upstreamSha256": "9edd877a7ea329899b317698a9fa602172a34ca10a0cb8090140c965fc37df54"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/connectionmanager/callback/ConnectionComplete.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/connectionmanager/callback/ConnectionComplete.java",
+      "upstreamSha256": "0cf50956941085f73f37c361a51b9e306824e89d0ba052cd3eceb1f8cf849d1a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/contentdirectory/callback/Search.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/contentdirectory/callback/Search.java",
+      "upstreamSha256": "9e3866c38d5c69e0f6fb992b7e8301a4625f9e6c057a14f59d9c2bd419584d3e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/contentdirectory/callback/GetSystemUpdateID.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/contentdirectory/callback/GetSystemUpdateID.java",
+      "upstreamSha256": "061c42bb54b1aeb5ddcd3814b47e047b6f16cdc9ebbc0a81d223a404da8d827f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/contentdirectory/callback/Browse.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/contentdirectory/callback/Browse.java",
+      "upstreamSha256": "daf717460cb679637059712d4fbd733d1d5e8d97ba794e6e4b64f6862b9813d4"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/igd/callback/PortMappingEntryGet.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/igd/callback/PortMappingEntryGet.java",
+      "upstreamSha256": "8557e98e4be02b467593662c684b305131a0a3043e68d7011824a71d4a9f1688"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/igd/callback/PortMappingDelete.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/igd/callback/PortMappingDelete.java",
+      "upstreamSha256": "5e84ef6490779e0233f1f8309b9f47bfbb05c9ab2f0c635b5e7f832488cf5a57"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/igd/callback/PortMappingAdd.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/igd/callback/PortMappingAdd.java",
+      "upstreamSha256": "76829d11523ff85231276c8864d355acbe55dc0828b71b35a1e89645444084d3"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/igd/callback/GetStatusInfo.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/igd/callback/GetStatusInfo.java",
+      "upstreamSha256": "e6713cde70dd4d29efb0ccd15c9af4e4fb4ae4c26babac5ed3eac4ae0b80b809"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/igd/callback/GetExternalIP.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/igd/callback/GetExternalIP.java",
+      "upstreamSha256": "eaecf48b25710ba9a462f88a918406573d5da9f3845b6e04a44cbfa01b58230c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/messagebox/parser/MessageElement.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/messagebox/parser/MessageElement.java",
+      "upstreamSha256": "54cb694d92727c6a9622529eac8658960cf5ebfa8fc1cdb9e98df439639003c7"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/messagebox/parser/MessageDOMParser.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/messagebox/parser/MessageDOMParser.java",
+      "upstreamSha256": "8b137126abe877f38d7c89f955d30d1a07390da5d81bcfde9090d9cc886da529"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/messagebox/parser/MessageDOM.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/messagebox/parser/MessageDOM.java",
+      "upstreamSha256": "1a0ec07c29f0b7a72e1e74369bc6dbc3cc6edec3aaae08f3700323512c99ebb4"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/messagebox/model/NumberName.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/messagebox/model/NumberName.java",
+      "upstreamSha256": "8fc58e925a91947447122c1a9246ccfb1a82464a1302b2cb19c6021712d8bd74"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/messagebox/model/MessageScheduleReminder.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/messagebox/model/MessageScheduleReminder.java",
+      "upstreamSha256": "18f3621a2c1c761b28cd8c4484226f857e8e0c89f9c4552882681e4f7e368ea1"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/messagebox/model/MessageSMS.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/messagebox/model/MessageSMS.java",
+      "upstreamSha256": "7053c954e621f5b8dcf43ec0675d4a5bc6d9a2864204ffa5a5a1504eb4e408db"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/messagebox/model/MessageIncomingCall.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/messagebox/model/MessageIncomingCall.java",
+      "upstreamSha256": "a91271245debb78b78206be5ad548433dbc431a227ee818906e8c59bddbbb320"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/messagebox/model/Message.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/messagebox/model/Message.java",
+      "upstreamSha256": "cb091f77b058af4090fba0477d84e0a17bd0b4eff119c5f51cb0424df67161c2"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/messagebox/model/ElementAppender.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/messagebox/model/ElementAppender.java",
+      "upstreamSha256": "f47b898b7739910b384595bec9c98204c88e7feb88e2b4c87da3bb443328bc8f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/messagebox/model/DateTime.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/messagebox/model/DateTime.java",
+      "upstreamSha256": "86fc702d81c24b52cde4502ba2ca177725f6e361e752987730d297f4ad021061"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/item/VideoItem.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/item/VideoItem.java",
+      "upstreamSha256": "18c7e66ba5eeae9b57ade69f95e0c38522452dfb79639b1b2d26bb120b4fcd15"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/item/VideoBroadcast.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/item/VideoBroadcast.java",
+      "upstreamSha256": "64d6afcd4eb215772dfb69e9a36eca6f6e5b7102f11dc340b6a826289966843f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/item/TextItem.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/item/TextItem.java",
+      "upstreamSha256": "276ca9cefa79fe324141157ab671c7031ed29012c667eb66a2c4169387f8b1e2"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/item/PlaylistItem.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/item/PlaylistItem.java",
+      "upstreamSha256": "e7c852ed21b94c13335371bde0e025d11150fa7e4225b9739ce024d9467b1082"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/item/Photo.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/item/Photo.java",
+      "upstreamSha256": "1343cd41a95b5958d61a0ab6fecbeb7db38782c130c1a3745dc93ef2a8984998"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/item/MusicVideoClip.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/item/MusicVideoClip.java",
+      "upstreamSha256": "b635469acfc58234c3510da9e26af7531d7120f38253a6aa685361a7ba5d0218"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/item/MusicTrack.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/item/MusicTrack.java",
+      "upstreamSha256": "f115aa4970045073cef59aec955925c3623e630a18b807d8f7e5f36d15433de9"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/item/Movie.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/item/Movie.java",
+      "upstreamSha256": "64a881fc4a886b9c56568fdcd5f2be30951a98cf88ee2fe54ec90111e1a3b092"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/item/Item.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/item/Item.java",
+      "upstreamSha256": "8c716ae9cf43812200e84f30b3b160438039a0fcee11a643d4a792cd968550fb"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/item/ImageItem.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/item/ImageItem.java",
+      "upstreamSha256": "1ff6c3598a03e0a6ac9c39b8328108bf3543cb7ed4790e73b8e21d5bff4a01c3"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/item/AudioItem.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/item/AudioItem.java",
+      "upstreamSha256": "cdc17013e58b520ad51fbee20936104c748c36323ac62ec9f4a33b7dcf31c09d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/item/AudioBroadcast.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/item/AudioBroadcast.java",
+      "upstreamSha256": "c42a24c333ec6b48a90741c147491ce05e45a5fd1bd9c6d1bbc9228cdd208c3a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/item/AudioBook.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/item/AudioBook.java",
+      "upstreamSha256": "1628315b72e05a02eb52ea2b78a270a24b2beb538d927aaec4374fee80c72cc2"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/InvalidDLNAProtocolAttributeException.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/InvalidDLNAProtocolAttributeException.java",
+      "upstreamSha256": "4dd3bb1f1f5e7f04a28c9a104aaeb63f5b69b4e3d8e7d1f00ea7b1e3f0876220"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/DLNAProtocolInfo.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/DLNAProtocolInfo.java",
+      "upstreamSha256": "adc60634171349e5ce313911f60868ea0782a30b679b7f558c78e02386865c6a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/DLNAProfiles.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/DLNAProfiles.java",
+      "upstreamSha256": "fd36bccd05305f0d6f711db007f82c9f4912975668f4003d86fb16639b82ebc9"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/DLNAProfileAttribute.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/DLNAProfileAttribute.java",
+      "upstreamSha256": "5f1bf00016989ce59318a2dd7096cc774e8ebd56ffa2edc72a0073030544d3d7"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/DLNAPlaySpeedAttribute.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/DLNAPlaySpeedAttribute.java",
+      "upstreamSha256": "14193c19142f86e2311e05280c1012b6bdca0f2e99bb94b18d68b6821008a732"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/DLNAOperationsAttribute.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/DLNAOperationsAttribute.java",
+      "upstreamSha256": "793cac0f2d442cf3cc825dc1d14e759cbc57eaaa036ccaa33f9ad82e093c20ed"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/DLNAOperations.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/DLNAOperations.java",
+      "upstreamSha256": "fba4e5a2d4e0cb561dbceced2cd9de77fd000d368214885741775de1daf63c2e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/DLNAFlagsAttribute.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/DLNAFlagsAttribute.java",
+      "upstreamSha256": "f59e092a14f2f2647af210d7a9e4f47b8d3c3934fdde50f5c9ce3dd61b95f681"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/DLNAFlags.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/DLNAFlags.java",
+      "upstreamSha256": "e93773453ba4f2381c339a86e4fbcbc7c4cfd9556103df2881a99219b35fb31a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/DLNAConversionIndicatorAttribute.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/DLNAConversionIndicatorAttribute.java",
+      "upstreamSha256": "ebdd910344b60925cab94237aab3f7fbda9913383f8296ce004aeac6b143abff"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/DLNAConversionIndicator.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/DLNAConversionIndicator.java",
+      "upstreamSha256": "e5a64d0afc017c286f2993651caf3477637d74a4217b81e91513771707e3ec0d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/DLNAAttribute.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/DLNAAttribute.java",
+      "upstreamSha256": "5d5772266f32c62cb7eaefb2767f36a9c771ca36e8da7bc57fe73a0730800a1e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/container/StorageVolume.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/container/StorageVolume.java",
+      "upstreamSha256": "c4a0e9f2233e27d3baa078312161f30e72fc4b818c8d37c8748537d07e500485"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/container/StorageSystem.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/container/StorageSystem.java",
+      "upstreamSha256": "38262fdb47d2942fc2981a6bfb4362f1a848787727cd929d8129e934ee7de001"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/container/StorageFolder.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/container/StorageFolder.java",
+      "upstreamSha256": "73b0dc316430ba2782370f0ccdd4f2af55f9db13b2bbeb477e9db7b3493234c0"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/container/PlaylistContainer.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/container/PlaylistContainer.java",
+      "upstreamSha256": "07e8461bbc2790867e9d4a6df5392704136116796ade7a50a2d52c9943f8241b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/container/PhotoAlbum.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/container/PhotoAlbum.java",
+      "upstreamSha256": "b85d83be7a71e016da11580bc1e885a02c4e76567937be1a99f5e6ed5df0e402"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/container/PersonContainer.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/container/PersonContainer.java",
+      "upstreamSha256": "2ece71c69ea1b7bf9ba2b3f1907b7ccd5c2dae167c0c30eebb9870c9a6e1e7da"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/container/MusicGenre.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/container/MusicGenre.java",
+      "upstreamSha256": "0b8702178fbbab693e10e34074c165126532bab0ccc8e21a1db95b9040384f4d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/container/MusicArtist.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/container/MusicArtist.java",
+      "upstreamSha256": "b63597e50063f28cf0d758dd13ef8ccc871a9ae9f27bbbd916650b699d85a444"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/container/MusicAlbum.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/container/MusicAlbum.java",
+      "upstreamSha256": "acb7e9b20feb27d9529340aa8c87e745cdff0fe1e60446e387a2328ed4536d3a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/container/MovieGenre.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/container/MovieGenre.java",
+      "upstreamSha256": "b2e00514db09bc734442e370920954194b3ee266bbe97314dda36eecfca6bf15"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/container/GenreContainer.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/container/GenreContainer.java",
+      "upstreamSha256": "a278e09bb6d93a3c6b5215f467250a04d3d410aa34c97d6a28461c83c4524d59"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/container/Container.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/container/Container.java",
+      "upstreamSha256": "d9e276c8ccadf5c8b3a011d85f34c9b9710b8ab93fc85f9ae802460ee94c812d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/container/Album.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/container/Album.java",
+      "upstreamSha256": "ed3fec3da86d6e27d69a2fc3e8004a487c9fd508b399161459f4520dada93e7f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/types/TimeSeekRangeType.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/types/TimeSeekRangeType.java",
+      "upstreamSha256": "6dd3c6d4e3d87f95964e36e8a90d409b81821d265ea8676b87686a385f98045b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/types/ScmsFlagType.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/types/ScmsFlagType.java",
+      "upstreamSha256": "17718d78b2e046145e3357bc2ecbb257ccc1e3bd3304db6ec586fb3bfda90b5d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/types/NormalPlayTimeRange.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/types/NormalPlayTimeRange.java",
+      "upstreamSha256": "e77890e5406c35d5cf82237f826660bea11917e32ef0d09fb287dca8f3fb1830"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/types/NormalPlayTime.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/types/NormalPlayTime.java",
+      "upstreamSha256": "6f4e841941bd901c13a5d6308899f204b5b17fcf4235ef5bf74a305542d210b9"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/types/CodedDataBuffer.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/types/CodedDataBuffer.java",
+      "upstreamSha256": "f76fed3f46d7169f1a5903e333ce24918c25f574506f7c8de1ec3dcbf2bb92a7"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/types/BufferInfoType.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/types/BufferInfoType.java",
+      "upstreamSha256": "7db16fccec048747acda5b1625a431fd0e845a694b5cd030acbafca2dc0e4325"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/types/AvailableSeekRangeType.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/types/AvailableSeekRangeType.java",
+      "upstreamSha256": "0f106293574c695f4b27888c594cf809fcc5ec7e67294a48ce5902cde0ce605e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/DLNAHeaders.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/DLNAHeaders.java",
+      "upstreamSha256": "d73aa0255da1193afcc711df6627cda6e4ce1b21fb9a3111659d9256b134291e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/WCTHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/WCTHeader.java",
+      "upstreamSha256": "a45c55ad07c34762d1e3296776a4888aaf694baecb57dc18173482a9075619f5"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/TransferModeHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/TransferModeHeader.java",
+      "upstreamSha256": "6683cb61b4ac45e5203c3b2ec250b1a755e1105529da6d6e10fae0aa5d83eab0"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/TimeSeekRangeHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/TimeSeekRangeHeader.java",
+      "upstreamSha256": "bb6e78ad276804935d5668738035470db03d095e76a79f5a6b22b3226f925a0c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/SupportedHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/SupportedHeader.java",
+      "upstreamSha256": "8ce0f77d2553514db55cd9876fdefd044e140eed7755bde6abbf39be863f98fc"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/ScmsFlagHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/ScmsFlagHeader.java",
+      "upstreamSha256": "48cef596ec15da812aac837b60388a89725bfb3b189b303cd1046ea9aeb70df8"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/SCIDHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/SCIDHeader.java",
+      "upstreamSha256": "c708628cb746e5dd2c2a7e27fc43fd9efd0c3a167531afb87ae46f4f7f25dcff"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/RealTimeInfoHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/RealTimeInfoHeader.java",
+      "upstreamSha256": "c2a6afe4c122ad66e0d5a2ac4c6bc1ca6d967a7366dd6f748954b5dc7d9202a3"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/PragmaHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/PragmaHeader.java",
+      "upstreamSha256": "a4280cf069f965cd522945a4630024af071cb4fb6aefebf362f574efb970cead"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/PlaySpeedHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/PlaySpeedHeader.java",
+      "upstreamSha256": "34a69d31936ea1507bc66c3e86d9dae389aedcccb024b317892fc13b0a0a7fc2"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/PeerManagerHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/PeerManagerHeader.java",
+      "upstreamSha256": "91fc0b9b454045057b9d38766bb398524d49a7d399c720971ed797e02ee537ef"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/MaxPrateHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/MaxPrateHeader.java",
+      "upstreamSha256": "7996eb8a220f466bd845b4d50f6058143bc9cf8d12925360c4e22682809c4bcf"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/GetContentFeaturesHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/GetContentFeaturesHeader.java",
+      "upstreamSha256": "0045beb38b8b2c5c8c9dcb3bd45702b672f8ce4db8ee9d2c2ef054cda3b53895"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/GetAvailableSeekRangeHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/GetAvailableSeekRangeHeader.java",
+      "upstreamSha256": "9ef3cafd758a8ca3f705acac45b63c6abe062fcd89fb1ca38d65c788803a4db0"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/FriendlyNameHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/FriendlyNameHeader.java",
+      "upstreamSha256": "cefa4b34f21d1458e63af0f6792d32746f1e76f07d129cd4709afa831c616d83"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/EventTypeHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/EventTypeHeader.java",
+      "upstreamSha256": "33323dda8e67e0949694696526c2ff829223f8a653e2f1e98d252fe8d73c86ea"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/DLNAHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/DLNAHeader.java",
+      "upstreamSha256": "947163cf451d090b996ab26e2734aee317eddf5f793d048b454d7b9c433765fb"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/ContentFeaturesHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/ContentFeaturesHeader.java",
+      "upstreamSha256": "006c278d7dcbd95b4de2afeac23bb5a7a478988baedbe9136036e391327b98b4"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/BufferInfoHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/BufferInfoHeader.java",
+      "upstreamSha256": "ea0b2bc2acb41d27793af0201002605247850b4de026bb5b2ea76971f9e47804"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/BufferBytesHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/BufferBytesHeader.java",
+      "upstreamSha256": "ef23098a7671877c122fb6e211e05f512d83179aa314e7e342ffdfe57810ea0a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/AvailableSeekRangeHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/AvailableSeekRangeHeader.java",
+      "upstreamSha256": "b0ba3d9e5273872b27dece4d174a89d36a194c337664e36bdf9062ae477c75da"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/model/dlna/message/header/AvailableRangeHeader.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/model/dlna/message/header/AvailableRangeHeader.java",
+      "upstreamSha256": "1c9364e72359770e25e12986c03598066988ec74e3ccdad725b8334091efa17c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/RenderingControlVariable.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/RenderingControlVariable.java",
+      "upstreamSha256": "b98dbf219cdd8c2aa81227d34b9626854ac6496c49918eff958d2ec96fcd3bc1"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/RenderingControlLastChangeParser.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/RenderingControlLastChangeParser.java",
+      "upstreamSha256": "8ae213a12481168e24229c8d7aea46c577aafa57e330c17e0d3f967e6d870aec"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/EventedValueChannelVolumeDB.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/EventedValueChannelVolumeDB.java",
+      "upstreamSha256": "9f55a5345e6b3bb376ce94314e165fa4de3ac63ca8ec98d68d1481754b5bca88"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/EventedValueChannelVolume.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/EventedValueChannelVolume.java",
+      "upstreamSha256": "47b9470f66c06c2c0d30fff126cbcd5bc44de544f5a242f02bdcb941672c91ad"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/EventedValueChannelMute.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/EventedValueChannelMute.java",
+      "upstreamSha256": "802eff34908ed1cec9efdebb3874244a8235cca7566858cab912d87b39aa04da"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/EventedValueChannelLoudness.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/EventedValueChannelLoudness.java",
+      "upstreamSha256": "aa669fe34e120c4df9ab0e0b67094272f56787b796e23e3a885dbe4ec2fb6066"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/ChannelVolumeDB.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/ChannelVolumeDB.java",
+      "upstreamSha256": "5dd7a7d537ed5d94a97bf9141380368c33f901a26b2be01499d32b679d6d2e8c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/ChannelVolume.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/ChannelVolume.java",
+      "upstreamSha256": "7c3a21bfda501e7484954c3c4a80053d7f0a534de62db3de47f586d8ae4b3255"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/ChannelMute.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/ChannelMute.java",
+      "upstreamSha256": "887e8fd858bf9276ec4a7b03e57ba8fa732c5af22d92460a100b2467465823e1"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/ChannelLoudness.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/lastchange/ChannelLoudness.java",
+      "upstreamSha256": "8d517db5b647c6f3a560214424e14d60b78ba1f04d4a4d773038423e6de164be"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/callback/SetVolume.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/callback/SetVolume.java",
+      "upstreamSha256": "b00a23ff17103c85eeeb44efb8a9bddb2e9add4de49fca85dac7e1e21b90e677"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/callback/SetMute.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/callback/SetMute.java",
+      "upstreamSha256": "570693d6e76fc58f830b9d451a8173c1a0b4a9d12890e5dabf39d4b24417ac36"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/callback/GetVolume.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/callback/GetVolume.java",
+      "upstreamSha256": "6fb32a36a85dbab0cea7369dcf840ceff02cfe854c6d75e86c3179383b2ced31"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/support/renderingcontrol/callback/GetMute.java",
+      "upstreamPath": "cling/support/src/main/java/org/fourthline/cling/support/renderingcontrol/callback/GetMute.java",
+      "upstreamSha256": "b6388a16ab5aec22959abcec6444232fbd288f7189fb02c045e815b7c5c2f7e3"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/URIUtil.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/URIUtil.java",
+      "upstreamSha256": "c8c6c9e7566786f3db6d510678a30e80dfdcf32350e89740393fd926b9731c0d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/Threads.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/Threads.java",
+      "upstreamSha256": "19cde3572e713a1c83e635ed8177fb8a26e3081de712ac3c608b9c9d7ba45a33"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/Text.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/Text.java",
+      "upstreamSha256": "39b2879259096e27ea748cbe89789269444920c26c9294a01d57dfc906db8250"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/Reflections.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/Reflections.java",
+      "upstreamSha256": "cdc87b97efa918ee82096144f19496a36304f4043a4f10a5717f43e4589505a6"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/RandomToken.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/RandomToken.java",
+      "upstreamSha256": "7869f0a790756a0f924d1e8ffb1128001886b943ad663f0e263f21b95a295e2a"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/Pager.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/Pager.java",
+      "upstreamSha256": "1b9242f45d366ff898187789f76a28251b4dd2d3f6b9b51301da6608b4c16de1"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/OS.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/OS.java",
+      "upstreamSha256": "6abe3345e6e763928b0505a38655ec7af5275405397f67c7e7b92d90fe19a91c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/MimeType.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/MimeType.java",
+      "upstreamSha256": "b486a6277ac966c9fc9d87eb16fcb78a81159083a841f5c128183bfeb554de01"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/Iterators.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/Iterators.java",
+      "upstreamSha256": "29ed97413d36aa048e423ebf3914950255b52de66d61e5e1be45bc0e1fd4faea"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/Exceptions.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/Exceptions.java",
+      "upstreamSha256": "55d7d8ba0a89bf651bfbb2dbb46484628f1553350fd52b00313f5c5fdb6f6993"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/ByteArray.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/ByteArray.java",
+      "upstreamSha256": "54e562d4e1a0da50683d9f1ef9832a597413928bf032317bd6a8ae1a1857b3c9"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/statemachine/TransitionException.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/statemachine/TransitionException.java",
+      "upstreamSha256": "7cdf14ae2239c0392fa2f5ff94443c0c4813dec457d9638d12eb885748aee7f3"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/statemachine/States.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/statemachine/States.java",
+      "upstreamSha256": "7af0b36dc6eeffa6e4211fe930dab85a5bb42415207a4dc5d2862fb44aad55ac"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/statemachine/StateMachineInvocationHandler.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/statemachine/StateMachineInvocationHandler.java",
+      "upstreamSha256": "fab66624968ac24fb8c8bdce0619b9db60b91af7c436e774ccccd8e8cfbb6e65"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/statemachine/StateMachineBuilder.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/statemachine/StateMachineBuilder.java",
+      "upstreamSha256": "40b408108c4f840818701c0e401ff1b7e7d61264a8407199f230cc44e4e5e396"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/statemachine/StateMachine.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/statemachine/StateMachine.java",
+      "upstreamSha256": "f67df2c9babe620c11c6167497861f653a958c509b65f706cc3cd3b1e69644be"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/time/DateRangeOption.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/time/DateRangeOption.java",
+      "upstreamSha256": "3704c53fee84bfcebf751f18d08ea4248a34c0be14e5b8b5d96ed80c7f121136"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/time/DateRange.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/time/DateRange.java",
+      "upstreamSha256": "0ec44d9be2e318d0270023c57d9c3aeb18b45869c6d95a20f36caf34732d2bfb"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/time/DateFormat.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/time/DateFormat.java",
+      "upstreamSha256": "4927f54c23c564e92dae15f979158b021206357dcdbc6950bef0d8fd624cf834"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/math/Rectangle.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/math/Rectangle.java",
+      "upstreamSha256": "7fd1f836c75a6fd0cc0e9ab20c3641f75771bb328cbca6b26ea03590c87075c1"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/math/Point.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/math/Point.java",
+      "upstreamSha256": "9e6120eb49593da90f2f249014cea0785e227f046eeb4e1ed46526092d84925b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/logging/SystemOutLoggingHandler.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/logging/SystemOutLoggingHandler.java",
+      "upstreamSha256": "e0bad3fc23ec86d66fb027fdca5af0d9b93b14074906c1632bd61a461a92bff3"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/logging/LoggingUtil.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/logging/LoggingUtil.java",
+      "upstreamSha256": "e3fe5f518539ed089a44d6690bcd151dee70e3d97e7c894018216a83dcd14a0e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/io/MD5Crypt.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/io/MD5Crypt.java",
+      "upstreamSha256": "2694c54ba37fa942071c74b721506bea717afcbec86f6d7b037a62667982cde2"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/io/IO.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/io/IO.java",
+      "upstreamSha256": "c5cccc083def2f40586c8b1661ac85f9ba06bd22fe8064ac345507c17c2f65e9"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/io/HexBin.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/io/HexBin.java",
+      "upstreamSha256": "c46ddb009197ce3d55a13100dcb98b2ce4f28dce38c36d0ce14f0603c494a025"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/io/Base64Coder.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/io/Base64Coder.java",
+      "upstreamSha256": "6fdfa24890ff4e4845f1ef6e42ca5ef7cf964d91a0e2eda3a7b6dd711117a34f"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/util/i18n/Country.java",
+      "upstreamPath": "seamless/util/src/main/java/org/seamless/util/i18n/Country.java",
+      "upstreamSha256": "7ccc476bb0f56cf0768b7f300b71930d685a1b654810ae525fb0d8e9b15bc2d8"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/http/Representation.java",
+      "upstreamPath": "seamless/http/src/main/java/org/seamless/http/Representation.java",
+      "upstreamSha256": "4b0c5a4c3cfc2b0a601eb95a28317499502a5ed13adbbb08794b370e4ba31a30"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/http/Query.java",
+      "upstreamPath": "seamless/http/src/main/java/org/seamless/http/Query.java",
+      "upstreamSha256": "64ef134798d3ce377ba7a2fa98adab2b73a7ef6a17201ef85c2308dbbea523c7"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/http/HttpFetch.java",
+      "upstreamPath": "seamless/http/src/main/java/org/seamless/http/HttpFetch.java",
+      "upstreamSha256": "b72b27387e5e8127c6bcd294f6d38ba819bcc3612ddb0b3d83ed37a1a69c5ed5"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/http/Headers.java",
+      "upstreamPath": "seamless/http/src/main/java/org/seamless/http/Headers.java",
+      "upstreamSha256": "e6e4a60b50d1a9c23d24eb3cdb9b8420cd99d59f50e14c361a11fd34cb456c8c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/http/CacheControl.java",
+      "upstreamPath": "seamless/http/src/main/java/org/seamless/http/CacheControl.java",
+      "upstreamSha256": "b65d40e1e286b0bb15b7fc19823981756069708f7150409a5f624f167f525652"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xml/XmlPullParserUtils.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xml/XmlPullParserUtils.java",
+      "upstreamSha256": "cc7ef634ec3639160c183d0be7edb076520c37f7f876270c100a5d3492cad134"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xml/SAXParser.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xml/SAXParser.java",
+      "upstreamSha256": "78c05418cd9a54b3f6d7557e4debd27f991e6f03e5e19bf8b13d953c11d3e5f1"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xml/ParserException.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xml/ParserException.java",
+      "upstreamSha256": "860834e900aad3fea9297d91df9dc80b12143bc758bc9b9ca1d7d36c96d2860c"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xml/NamespaceContextMap.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xml/NamespaceContextMap.java",
+      "upstreamSha256": "c1d2e32cc92b1c8fbd115cc550924a95352c2d924904b77fc18364f4c9d2bb7d"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xml/DOMParser.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xml/DOMParser.java",
+      "upstreamSha256": "7d7ed67b438019c2adf0ae21407a6a15610299345524580ffd1efef9b1d444f2"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xml/DOMElement.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xml/DOMElement.java",
+      "upstreamSha256": "cda65f4b7fbd8c895db08bcfa857a74ae1563490829ed53b1e7ada5b60347cda"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xml/DOM.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xml/DOM.java",
+      "upstreamSha256": "3cf7472bd378cb80e5106fe3e6923baad1446bd158b296b4f76a3e4b7f6e1497"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xml/CatalogResourceResolver.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xml/CatalogResourceResolver.java",
+      "upstreamSha256": "c6bc148a0734642a0d48b52d439e13e2a6ab1ec463c6af057f3e1893f2f28219"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xhtml/XHTMLParser.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xhtml/XHTMLParser.java",
+      "upstreamSha256": "eed9fd5db885ac5feded44f60253fab4ea587d6d56378be4b4366447d7f5682b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xhtml/XHTMLElement.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xhtml/XHTMLElement.java",
+      "upstreamSha256": "76f2235614a5b6f9d278fdb0988d1881106bbbad8afe47a3d4c6c820b9546b6e"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xhtml/XHTML.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xhtml/XHTML.java",
+      "upstreamSha256": "c5350a80337cd8f918f41ceaaf0009e004dd87fd2647df65d1b9b1e506d832da"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xhtml/Root.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xhtml/Root.java",
+      "upstreamSha256": "9ae940f75561389f17ac916951298ff7c84829d1554b66e79e131743bf025762"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xhtml/Option.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xhtml/Option.java",
+      "upstreamSha256": "7e2865959eae2f62c3e0e5a455ab2c89f3edc07fdf342ee479061c2cf7944f80"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xhtml/Meta.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xhtml/Meta.java",
+      "upstreamSha256": "bd8a3777d1ec13dc1563c290ed0d34a083900abb7b63dafbfbd54b1df20c4a49"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xhtml/Link.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xhtml/Link.java",
+      "upstreamSha256": "dcac6c3defd50448d83b2eb3cc5cf06a1f7a082515613986f57d722b8060a732"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xhtml/Href.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xhtml/Href.java",
+      "upstreamSha256": "8d910bf0803d670e44353893e63e98f14bab86de3d59a3311fe448d248558189"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xhtml/Head.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xhtml/Head.java",
+      "upstreamSha256": "fc6a8c42ce8e0be22a21a4f53f61ecd9319953a258d14bb33296bcf303f1e802"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xhtml/Body.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xhtml/Body.java",
+      "upstreamSha256": "8820c0bcccf217fec5ae75f79b6a4a06b8f5c08d2e6005a8e13edc471a9bfbfe"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/xhtml/Anchor.java",
+      "upstreamPath": "seamless/xml/src/main/java/org/seamless/xhtml/Anchor.java",
+      "upstreamSha256": "4b854fb1a02a042acafe913afb79eef140eb7bb15892d2fdda22669266282e2b"
+    },
+    {
+      "path": "vendor/cling/src/main/java/org/seamless/http/RequestInfo.java",
+      "upstreamPath": "seamless/http/src/main/java/org/seamless/http/RequestInfo.java",
+      "upstreamSha256": "513f74bc3ad8802711920210ce5f767eaa992b241f895b4a68dba53088816c88",
+      "modifiedSha256": "26ed6375a48631a46c859d1cc23387a93ea72654c8a0fdf19eb6d3c9a71cacb9"
+    }
+  ],
+  "excludedTransports": [
+    "Jetty",
+    "JDK HttpURLConnection internal sun.net handler",
+    "JDK HTTP server"
+  ],
+  "excludedManagedContainer": "CDI-managed service/configuration (application uses direct service construction)",
+  "modifications": [
+    "Android and default configuration require application HTTP transports",
+    "Callback header bounds and source-address validation in ReceivingSubscribe",
+    "Android adapters separated from neutral protocol source",
+    "Unused CDI annotations, mocks, servlet adapters and servlet RequestInfo overloads removed; retains identical string-based client detection"
+  ],
+  "addedFiles": [
+    {
+      "path": "vendor/cling/src/main/java/org/fourthline/cling/model/message/header/CallbackAddressPolicy.java",
+      "sha256": "72277c190cbe09a06a457804b8eeb1f3bdd1c0a0d25f6932dff06d52d1417504",
+      "license": "GPL-3.0",
+      "origin": "Project-authored source patch or event envelope schema"
+    },
+    {
+      "path": "vendor/cling/src/main/resources/org/fourthline/cling/support/avtransport/metadata-1.01-avt.xsd",
+      "sha256": "ae5be1058081a368ad81cf1b1bc931dcf347b6c48381fec6ce2de6fca4e3a13d",
+      "license": "GPL-3.0",
+      "origin": "Project-authored source patch or event envelope schema"
+    },
+    {
+      "path": "vendor/cling/src/main/resources/org/fourthline/cling/support/renderingcontrol/metadata-1.0-rcs.xsd",
+      "sha256": "ccc941da968521cf51b365630c4e244628d8bfca195bcde136007ad42293091f",
+      "license": "GPL-3.0",
+      "origin": "Project-authored source patch or event envelope schema"
+    }
+  ]
+}

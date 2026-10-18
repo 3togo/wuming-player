@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="relay_title">電腦中繼</string>
+    <string name="relay_find">尋找電腦</string>
+    <string name="relay_enable">啟用中繼</string>
+    <string name="relay_disable">停用中繼</string>
+    <string name="relay_forget">取消配對</string>
+    <string name="relay_searching">正在搜尋區域網路…</string>
+    <string name="relay_not_found">找不到電腦。請在電腦設定啟用區域網路中繼，並連接同一網路。</string>
+    <string name="relay_code">六位數配對碼</string>
+    <string name="relay_code_help">在電腦開啟「設定 → LAN relay → Pair a device」，並輸入顯示的配對碼。</string>
+    <string name="relay_paired">配對成功。直播 HLS 播放持續緩衝時，將請求電腦協助下載。</string>
+    <string name="relay_pair_failed">配對失敗。請確認配對碼，或在電腦產生新碼。</string>
+</resources>

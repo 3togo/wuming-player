@@ -1,0 +1,507 @@
+[
+  {
+    "path": "app/src/leanback/res/drawable/ic_action_choose.xml",
+    "motif": "check"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_action_more.xml",
+    "motif": "more"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_action_reverse.xml",
+    "motif": "sync"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_action_subtitle.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_danmaku_setting.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_detail_change.xml",
+    "motif": "sync"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_detail_desc.xml",
+    "motif": "list"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_detail_keep_off.xml",
+    "motif": "star"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_detail_keep_on.xml",
+    "motif": "star"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_home_playlist.xml",
+    "motif": "list"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_keyboard.xml",
+    "motif": "keyboard"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_keyboard_back.xml",
+    "motif": "back"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_keyboard_left.xml",
+    "motif": "back"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_keyboard_remote.xml",
+    "motif": "keyboard"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_keyboard_right.xml",
+    "motif": "right"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_keyboard_search.xml",
+    "motif": "search"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_live_block.xml",
+    "motif": "block"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_live_boot.xml",
+    "motif": "screen"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_live_pass.xml",
+    "motif": "check"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_search_mic.xml",
+    "motif": "mic"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_setting_delete.xml",
+    "motif": "delete"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_site_cancel.xml",
+    "motif": "close"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_site_change.xml",
+    "motif": "sync"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_site_grid.xml",
+    "motif": "grid"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_site_list.xml",
+    "motif": "list"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_site_search.xml",
+    "motif": "search"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_site_select.xml",
+    "motif": "check"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_subtitle_down.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_subtitle_large.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_subtitle_reset.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_subtitle_small.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_subtitle_up.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_vod_delete.xml",
+    "motif": "delete"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_vod_filter_off.xml",
+    "motif": "filter"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_vod_filter_on.xml",
+    "motif": "filter"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_widget_error.xml",
+    "motif": "block"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/ic_widget_play.xml",
+    "motif": "play"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/shape_search_checkall.xml",
+    "motif": "boxcheck",
+    "strokeColor": "#276AAD"
+  },
+  {
+    "path": "app/src/leanback/res/drawable/shape_search_clearall.xml",
+    "motif": "boxclear",
+    "strokeColor": "#276AAD"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_action_audio.xml",
+    "motif": "audio"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_action_direct.xml",
+    "motif": "link"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_action_refresh.xml",
+    "motif": "refresh"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_action_scan.xml",
+    "motif": "scan"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_action_search.xml",
+    "motif": "search"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_cast_disconnect.xml",
+    "motif": "cast"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_cast_mobile.xml",
+    "motif": "phone"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_cast_tv.xml",
+    "motif": "cast"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_file.xml",
+    "motif": "file"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_folder.xml",
+    "motif": "folder"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_search_strict_off.xml",
+    "motif": "search"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_search_strict_on.xml",
+    "motif": "search"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_setting_default.xml",
+    "motif": "settings"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_setting_history.xml",
+    "motif": "settings"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_setting_home.xml",
+    "motif": "settings"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_setting_ranking.xml",
+    "motif": "settings"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_setting_refresh.xml",
+    "motif": "settings"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_setting_speed.xml",
+    "motif": "settings"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_sync_two.xml",
+    "motif": "sync"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_widget_forward.xml",
+    "motif": "forward"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_widget_rewind.xml",
+    "motif": "rewind"
+  },
+  {
+    "path": "app/src/main/res/drawable/icon_alist.xml",
+    "motif": "cloud",
+    "strokeColor": "#276AAD"
+  },
+  {
+    "path": "app/src/main/res/drawable/icon_circle_node.xml",
+    "motif": "node",
+    "strokeColor": "#276AAD"
+  },
+  {
+    "path": "app/src/main/res/drawable/icon_delete.xml",
+    "motif": "delete",
+    "strokeColor": "#276AAD"
+  },
+  {
+    "path": "app/src/main/res/drawable/icon_drive.xml",
+    "motif": "cloud",
+    "strokeColor": "#276AAD"
+  },
+  {
+    "path": "app/src/main/res/drawable/icon_file.xml",
+    "motif": "file",
+    "strokeColor": "#276AAD"
+  },
+  {
+    "path": "app/src/main/res/drawable/icon_film.xml",
+    "motif": "film",
+    "strokeColor": "#276AAD"
+  },
+  {
+    "path": "app/src/main/res/drawable/icon_folder.xml",
+    "motif": "folder",
+    "strokeColor": "#276AAD"
+  },
+  {
+    "path": "app/src/main/res/drawable/icon_sdcard.xml",
+    "motif": "card",
+    "strokeColor": "#276AAD"
+  },
+  {
+    "path": "app/src/main/res/drawable/icon_setting.xml",
+    "motif": "settings",
+    "strokeColor": "#276AAD"
+  },
+  {
+    "path": "app/src/main/res/drawable/shape_search_checkall.xml",
+    "motif": "boxcheck",
+    "strokeColor": "#276AAD"
+  },
+  {
+    "path": "app/src/main/res/drawable/shape_search_clearall.xml",
+    "motif": "boxclear",
+    "strokeColor": "#276AAD"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_action_choose.xml",
+    "motif": "check"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_action_delete.xml",
+    "motif": "delete"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_action_filter.xml",
+    "motif": "filter"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_action_history.xml",
+    "motif": "clock"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_action_keep.xml",
+    "motif": "star"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_action_more.xml",
+    "motif": "more"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_action_reset.xml",
+    "motif": "refresh"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_action_reverse.xml",
+    "motif": "sync"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_action_site.xml",
+    "motif": "screen"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_action_sort.xml",
+    "motif": "sort"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_action_subtitle.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_action_sync.xml",
+    "motif": "sync"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_control_back.xml",
+    "motif": "back"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_control_cast.xml",
+    "motif": "cast"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_control_cast_on.xml",
+    "motif": "cast"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_control_danmaku_off.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_control_danmaku_on.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_control_info.xml",
+    "motif": "info"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_control_keep_off.xml",
+    "motif": "star"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_control_keep_on.xml",
+    "motif": "star"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_control_lock_off.xml",
+    "motif": "openlock"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_control_lock_on.xml",
+    "motif": "lock"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_control_rotate.xml",
+    "motif": "refresh"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_control_setting.xml",
+    "motif": "settings"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_danmaku_setting.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_fab_filter.xml",
+    "motif": "filter"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_fab_link.xml",
+    "motif": "link"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_fab_top.xml",
+    "motif": "up"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_live_block.xml",
+    "motif": "block"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_live_boot.xml",
+    "motif": "screen"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_live_pass.xml",
+    "motif": "check"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_nav_live.xml",
+    "motif": "screen"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_nav_setting.xml",
+    "motif": "settings"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_nav_vod.xml",
+    "motif": "film"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_setting_delete.xml",
+    "motif": "delete"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_site_block.xml",
+    "motif": "block"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_site_change.xml",
+    "motif": "sync"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_site_search.xml",
+    "motif": "search"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_subtitle_down.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_subtitle_large.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_subtitle_reset.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_subtitle_small.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_subtitle_up.xml",
+    "motif": "caption"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_sync_download.xml",
+    "motif": "sync"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_sync_upload.xml",
+    "motif": "sync"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_vod_delete.xml",
+    "motif": "delete"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_widget_bright_high.xml",
+    "motif": "sun"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_widget_bright_low.xml",
+    "motif": "sun"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_widget_bright_medium.xml",
+    "motif": "sun"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_widget_volume_high.xml",
+    "motif": "audio"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_widget_volume_low.xml",
+    "motif": "audio"
+  },
+  {
+    "path": "app/src/mobile/res/drawable/ic_widget_volume_medium.xml",
+    "motif": "audio"
+  }
+]

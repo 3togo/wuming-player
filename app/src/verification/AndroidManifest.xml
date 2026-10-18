@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <activity android:name="com.wuming.android.tv.ui.activity.MemoryTestActivity"
+            android:exported="false" />
+        <activity android:name="com.wuming.android.tv.ui.activity.DatabaseRecoveryTestActivity"
+            android:exported="false" android:theme="@android:style/Theme.Material.Light.NoActionBar" />
+    </application>
+</manifest>

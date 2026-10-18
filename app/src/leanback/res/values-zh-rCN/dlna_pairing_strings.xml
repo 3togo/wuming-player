@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dlna_pairing_title">DLNA 扫码配对</string>
+    <string name="dlna_pairing_instructions">手机与电视连接同一 Wi-Fi，用手机相机扫码并在浏览器中点击配对，然后回到投屏应用选择此电视。一次仅允许一部手机，授权有效期为 2 小时，电视应用重启后失效。</string>
+    <string name="dlna_pairing_refresh">刷新二维码</string>
+    <string name="dlna_pairing_revoke">断开手机</string>
+    <string name="dlna_pairing_locked">尚未配对手机，已拦截未配对设备投屏。</string>
+    <string name="dlna_pairing_paired">已配对：%1$s</string>
+    <string name="dlna_pairing_expired">二维码已失效或已使用，请选择刷新二维码。</string>
+    <string name="dlna_pairing_qr">配对二维码 · 5 分钟内有效</string>
+    <string name="dlna_name_edit">编辑 DLNA 设备显示名称</string>
+    <string name="dlna_name_title">DLNA 设备显示名称</string>
+    <string name="dlna_name_hint">此名称显示在手机投屏列表中，下次启动电视应用时生效。名称本身不能阻止投屏。</string>
+    <string name="dlna_name_save">保存</string>
+    <string name="dlna_name_default">恢复默认名称</string>
+    <string name="dlna_name_saved">名称已保存，重启电视应用后生效。</string>
+</resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="@dimen/vs_24">
+        <TextView android:id="@+id/remoteTitle" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vs_16" android:text="@string/remote_title"
+            android:textColor="@color/white" android:textSize="@dimen/font_headline" >
+            <tag android:id="@id/tag_typography_role" android:value="headline" />
+        </TextView>
+        <TextView android:id="@+id/remoteHelp" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vs_16" android:text="@string/remote_help"
+            android:textColor="@color/white" android:textSize="@dimen/font_title" >
+            <tag android:id="@id/tag_typography_role" android:value="title" />
+        </TextView>
+        <TextView android:id="@+id/remoteEvent" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vs_16" android:text="@string/remote_no_key"
+            android:textColor="@color/white" android:textSize="@dimen/font_title" >
+            <tag android:id="@id/tag_typography_role" android:value="title" />
+        </TextView>
+        <TextView android:id="@+id/remoteMapping" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vs_16" android:text="@string/remote_no_key"
+            android:textColor="@color/white" android:textSize="@dimen/font_title" >
+            <tag android:id="@id/tag_typography_role" android:value="title" />
+        </TextView>
+        <TextView android:id="@+id/remoteTest" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vs_8" android:padding="@dimen/vs_12"
+            android:background="@drawable/selector_item" android:clickable="true" android:focusable="true"
+            android:focusableInTouchMode="true" android:nextFocusUp="@id/remoteTest" android:nextFocusDown="@id/remoteAssign"
+            android:text="@string/remote_test" android:textColor="@color/white" android:textSize="@dimen/font_title" >
+            <tag android:id="@id/tag_typography_role" android:value="title" />
+        </TextView>
+        <TextView android:id="@+id/remoteAssign" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vs_8" android:padding="@dimen/vs_12"
+            android:background="@drawable/selector_item" android:clickable="true" android:focusable="true"
+            android:focusableInTouchMode="true" android:nextFocusUp="@id/remoteTest" android:nextFocusDown="@id/remoteReset"
+            android:text="@string/remote_assign" android:textColor="@color/white" android:textSize="@dimen/font_title" >
+            <tag android:id="@id/tag_typography_role" android:value="title" />
+        </TextView>
+        <TextView android:id="@+id/remoteReset" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vs_8" android:padding="@dimen/vs_12"
+            android:background="@drawable/selector_item" android:clickable="true" android:focusable="true"
+            android:focusableInTouchMode="true" android:nextFocusUp="@id/remoteAssign" android:nextFocusDown="@id/remoteClose"
+            android:text="@string/remote_reset" android:textColor="@color/white" android:textSize="@dimen/font_title" >
+            <tag android:id="@id/tag_typography_role" android:value="title" />
+        </TextView>
+        <TextView android:id="@+id/remoteClose" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vs_8" android:padding="@dimen/vs_12"
+            android:background="@drawable/selector_item" android:clickable="true" android:focusable="true"
+            android:focusableInTouchMode="true" android:nextFocusUp="@id/remoteReset" android:nextFocusDown="@id/remoteClose"
+            android:text="@string/remote_close" android:textColor="@color/white" android:textSize="@dimen/font_title" >
+            <tag android:id="@id/tag_typography_role" android:value="title" />
+        </TextView>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

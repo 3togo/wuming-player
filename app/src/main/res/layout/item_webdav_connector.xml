@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/vs_12"
+    android:background="@drawable/bg_cloud_storage_card"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/vs_16">
+
+    <LinearLayout
+        android:layout_width="@dimen/vs_0"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_headline" >
+            <tag android:id="@id/tag_typography_role" android:value="headline" />
+        </TextView>
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vs_4"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:textColor="@color/white_60"
+            android:textSize="@dimen/font_label" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </TextView>
+
+        <TextView
+            android:id="@+id/path"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vs_4"
+            android:textColor="@color/white_70"
+            android:textSize="@dimen/font_label" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </TextView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vs_12"
+        android:background="@drawable/bg_cloud_storage_button"
+        android:focusable="true"
+        android:minHeight="@dimen/vs_44"
+        android:text="@string/webdav_connector_edit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </Button>
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vs_8"
+        android:background="@drawable/bg_cloud_storage_button"
+        android:focusable="true"
+        android:minHeight="@dimen/vs_44"
+        android:text="@string/webdav_connector_delete"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_label">
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </Button>
+
+</LinearLayout>

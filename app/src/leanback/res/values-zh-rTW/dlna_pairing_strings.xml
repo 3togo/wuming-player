@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dlna_pairing_title">DLNA 掃碼配對</string>
+    <string name="dlna_pairing_instructions">手機與電視連接同一 Wi-Fi，用手機相機掃碼並在瀏覽器中點擊配對，然後回到投放應用選擇此電視。一次僅允許一部手機，授權有效期為 2 小時，電視應用重新啟動後失效。</string>
+    <string name="dlna_pairing_refresh">重新產生 QR 碼</string>
+    <string name="dlna_pairing_revoke">中斷手機連線</string>
+    <string name="dlna_pairing_locked">尚未配對手機，已阻擋未配對裝置投放。</string>
+    <string name="dlna_pairing_paired">已配對：%1$s</string>
+    <string name="dlna_pairing_expired">QR 碼已失效或已使用，請重新產生 QR 碼。</string>
+    <string name="dlna_pairing_qr">配對 QR 碼 · 5 分鐘內有效</string>
+    <string name="dlna_name_edit">編輯 DLNA 裝置顯示名稱</string>
+    <string name="dlna_name_title">DLNA 裝置顯示名稱</string>
+    <string name="dlna_name_hint">此名稱顯示在手機投放清單中，下次啟動電視應用時生效。名稱本身不能阻止投放。</string>
+    <string name="dlna_name_save">儲存</string>
+    <string name="dlna_name_default">還原預設名稱</string>
+    <string name="dlna_name_saved">名稱已儲存，重新啟動電視應用後生效。</string>
+</resources>

@@ -1,0 +1,214 @@
+<resources>
+
+    <style name="Theme.Base" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialog</item>
+        <item name="materialAlertDialogTheme">@style/AppDialogStyle</item>
+        <item name="alertDialogTheme">@style/AppDialogStyle</item>
+
+        <!-- Dialog semantic tokens -->
+        <item name="dialogSurface">@color/dialog_surface</item>
+        <item name="dialogSurfaceVariant">@color/dialog_surface_variant</item>
+        <item name="dialogOnSurface">@color/dialog_on_surface</item>
+        <item name="dialogOnSurfaceVariant">@color/dialog_on_surface_variant</item>
+        <item name="dialogOutline">@color/dialog_outline</item>
+        <item name="dialogRowFocused">@color/dialog_row_focused</item>
+        <item name="dialogRowSelected">@color/dialog_row_selected</item>
+        <item name="dialogSelectionOutline">@color/dialog_selection_outline</item>
+
+        <!-- Theme colors -->
+        <item name="color_theme">@color/color_theme</item>
+        <item name="color_theme_80">@color/color_theme_80</item>
+        <item name="color_theme_70">@color/color_theme_70</item>
+        <item name="color_theme_60">@color/color_theme_60</item>
+        <item name="color_theme_50">@color/color_theme_50</item>
+        <item name="color_theme_40">@color/color_theme_40</item>
+        <item name="color_theme_dark_70">@color/color_theme_dark_70</item>
+
+        <!-- Wall overlay -->
+        <item name="wallOverlayStart">@color/transparent</item>
+        <item name="wallOverlayCenter">@color/transparent</item>
+        <item name="wallOverlayEnd">@color/transparent</item>
+        <item name="appOnBackground">@color/white</item>
+
+        <!-- Selection state tokens -->
+        <item name="selectionSurface">@color/selection_surface</item>
+        <item name="selectionSurfaceVariant">@color/selection_surface_variant</item>
+        <item name="selectionOnSurface">@color/selection_on_surface</item>
+        <item name="selectionOnSurfaceVariant">@color/selection_on_surface_variant</item>
+        <item name="selectionOutline">@color/selection_outline</item>
+        <item name="selectionIndicator">@color/selection_indicator</item>
+        <item name="selectionRipple">@color/selection_ripple</item>
+        <item name="selectionElevation">@color/selection_elevation</item>
+        <item name="selectionCorner">@dimen/vs_4</item>
+
+        <!-- Focus state tokens -->
+        <item name="focusOutline">@color/focus_outline</item>
+        <item name="focusOutlineWidth">@dimen/vs_2</item>
+        <item name="focusSurface">@color/focus_surface</item>
+        <item name="focusIndicator">@color/focus_indicator</item>
+
+        <!-- Item state tokens -->
+        <item name="itemSurface">@color/item_surface</item>
+        <item name="itemSurfaceFocused">@color/item_surface_focused</item>
+        <item name="itemSurfaceSelected">@color/item_surface_selected</item>
+        <item name="itemSurfacePressed">@color/item_surface_pressed</item>
+        <item name="itemOnSurface">@color/item_on_surface</item>
+        <item name="itemOnSurfaceVariant">@color/item_on_surface_variant</item>
+
+        <!-- Navigation tokens -->
+        <item name="navigationSurface">@color/navigation_surface</item>
+        <item name="navigationAccent">@color/navigation_accent</item>
+        <item name="navigationActiveIcon">@color/navigation_active_icon</item>
+        <item name="navigationIndicator">@color/indicator</item>
+        <item name="itemCorner">@dimen/vs_4</item>
+    </style>
+
+    <style name="Theme.Splash" parent="Theme.SplashScreen">
+        <item name="postSplashScreenTheme">@style/Theme.App</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+    </style>
+
+    <style name="Theme.App" parent="Theme.Base" />
+
+    <style name="Theme.App.Aurora" parent="Theme.App">
+        <item name="colorAccent">@color/aurora_secondary</item>
+        <item name="colorPrimary">@color/aurora_primary</item>
+        <item name="colorPrimaryDark">@color/aurora_primary_dark_70</item>
+        <item name="colorSecondary">@color/aurora_secondary</item>
+        <item name="colorOnPrimary">@color/ds_on_accent</item>
+        <item name="colorOnSecondary">@color/aurora_navigation_active</item>
+        <item name="colorSurface">@color/aurora_surface</item>
+        <item name="colorOnSurface">@color/aurora_on_surface</item>
+        <item name="colorOnSurfaceVariant">@color/aurora_on_surface_variant</item>
+        <item name="dialogSurface">@color/aurora_surface</item>
+        <item name="dialogSurfaceVariant">@color/aurora_surface_variant</item>
+        <item name="dialogOnSurface">@color/aurora_on_surface</item>
+        <item name="dialogOnSurfaceVariant">@color/aurora_on_surface_variant</item>
+        <item name="dialogOutline">@color/aurora_outline</item>
+        <item name="dialogRowFocused">@color/dialog_row_focused</item>
+        <item name="dialogRowSelected">@color/dialog_row_selected</item>
+        <item name="dialogSelectionOutline">@color/dialog_selection_outline</item>
+        <item name="color_theme">@color/aurora_primary</item>
+        <item name="color_theme_80">@color/aurora_primary_80</item>
+        <item name="color_theme_70">@color/aurora_primary_70</item>
+        <item name="color_theme_60">@color/aurora_primary_60</item>
+        <item name="color_theme_50">@color/aurora_primary_50</item>
+        <item name="color_theme_40">@color/aurora_primary_40</item>
+        <item name="color_theme_dark_70">@color/aurora_primary_dark_70</item>
+        <item name="wallOverlayStart">@color/aurora_overlay_start</item>
+        <item name="wallOverlayCenter">@color/aurora_overlay_center</item>
+        <item name="wallOverlayEnd">@color/aurora_overlay_end</item>
+        <item name="appOnBackground">@color/aurora_on_surface</item>
+        <item name="itemSurface">@color/aurora_surface_variant</item>
+        <item name="itemSurfaceFocused">@color/aurora_primary_40</item>
+        <item name="focusOutline">@color/aurora_secondary</item>
+        <item name="navigationSurface">@color/aurora_surface</item>
+        <item name="navigationAccent">@color/aurora_secondary</item>
+        <item name="navigationActiveIcon">@color/aurora_navigation_active</item>
+        <item name="navigationIndicator">@color/aurora_on_surface</item>
+        <item name="itemCorner">@dimen/ds_corner_large</item>
+
+        <!-- Aurora selection state tokens (using Aurora purple tones) -->
+        <item name="selectionSurface">@color/aurora_surface_variant</item>
+        <item name="selectionSurfaceVariant">@color/aurora_primary_40</item>
+        <item name="selectionOnSurface">@color/aurora_on_surface</item>
+        <item name="selectionOnSurfaceVariant">@color/aurora_on_surface_variant</item>
+        <item name="selectionOutline">@color/aurora_outline</item>
+        <item name="selectionIndicator">@color/aurora_secondary</item>
+        <item name="selectionRipple">@color/aurora_primary_40</item>
+        <item name="selectionElevation">@color/aurora_primary_40</item>
+        <item name="selectionCorner">@dimen/ds_corner_large</item>
+
+        <!-- Aurora focus state tokens -->
+        <item name="focusSurface">@color/aurora_primary_40</item>
+        <item name="focusIndicator">@color/aurora_secondary</item>
+
+        <!-- Aurora item state tokens -->
+        <item name="itemSurfaceSelected">@color/aurora_primary_40</item>
+        <item name="itemSurfacePressed">@color/aurora_primary_60</item>
+        <item name="itemOnSurface">@color/aurora_on_surface</item>
+        <item name="itemOnSurfaceVariant">@color/aurora_on_surface_variant</item>
+    </style>
+
+    <style name="Theme.Crash" parent="Theme.Base">
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@color/grey_700</item>
+    </style>
+
+    <style name="Control">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/font_label</item>
+    </style>
+
+    <style name="BottomSheetDialog" parent="Theme.Material3.DayNight.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
+        <item name="android:textColorPrimary">?attr/dialogOnSurface</item>
+        <item name="android:textColorSecondary">?attr/dialogOnSurfaceVariant</item>
+        <item name="android:textColorHint">?attr/dialogOnSurfaceVariant</item>
+        <item name="colorSurface">?attr/dialogSurface</item>
+        <item name="colorOnSurface">?attr/dialogOnSurface</item>
+        <item name="colorOnSurfaceVariant">?attr/dialogOnSurfaceVariant</item>
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
+    </style>
+
+    <style name="ModalBottomSheetDialog" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="shapeAppearance">@style/ShapeAppearance.App.LargeComponent</item>
+        <item name="backgroundTint">?attr/dialogSurface</item>
+    </style>
+
+    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">?attr/navigationIndicator</item>
+    </style>
+
+    <style name="NavigationRailLabel" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textSize">@dimen/font_headline</item>
+    </style>
+
+    <style name="ToolbarTextAppearance" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">@dimen/font_headline</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="titleTextColor">@color/white</item>
+    </style>
+
+    <style name="Shadow">
+        <item name="android:shadowColor">#B0000000</item>
+        <item name="android:shadowDx">1.5</item>
+        <item name="android:shadowDy">1.5</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+
+<style name="ControlChip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/shape_accent</item>
+        <item name="android:textColor">@color/control</item>
+        <item name="android:textSize">@dimen/font_label</item>
+        <item name="android:layout_marginEnd">@dimen/vs_8</item>
+    </style>
+
+    <style name="SettingRow">
+        <item name="android:tag">settings-row</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">@dimen/ds_control_min_height</item>
+    </style>
+
+</resources>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; form-action 'none'">
+    <title>無名 · DLNA pairing</title>
+    <style>
+        body { margin: 0; background: #111827; color: #f9fafb; font: 18px/1.6 system-ui,sans-serif; }
+        main { max-width: 32rem; margin: 10vh auto; padding: 1.5rem; }
+        button { width: 100%; padding: 1rem; font: inherit; color: #111827; background: #93c5fd; border: 0; border-radius: .6rem; cursor: pointer; }
+        button:focus-visible { outline: 3px solid white; outline-offset: 4px; }
+        button:disabled { opacity: .55; cursor: default; }
+    </style>
+</head>
+<body><main>
+    <h1 id="title">DLNA pairing</h1>
+    <p id="instructions">Pair this phone, then return to your casting app and select this TV. Keep both devices on the same Wi-Fi.</p>
+    <button id="pair" disabled>Pair this phone</button>
+    <p id="status" role="status" aria-live="polite"></p>
+    <p id="duration">One phone at a time. Access lasts 2 hours or until the TV app restarts. Disconnect from the TV pairing screen to revoke access.</p>
+</main><script src="/js/dlna-pair.js"></script></body>
+</html>

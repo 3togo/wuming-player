@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/vs_8"
+    android:focusable="true"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/name"
+            android:layout_width="@dimen/vs_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="?attr/dialogOnSurface"
+            android:textSize="@dimen/font_label"
+            android:textStyle="bold" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/vs_8"
+            android:textColor="?attr/dialogOnSurfaceVariant"
+            android:textSize="@dimen/font_micro" >
+            <tag android:id="@id/tag_typography_role" android:value="micro" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/use"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/vs_8"
+            android:text="@string/setting_depot_use"
+            android:textSize="@dimen/font_micro"
+            style="?attr/borderlessButtonStyle" >
+            <tag android:id="@id/tag_typography_role" android:value="micro" />
+        </com.google.android.material.button.MaterialButton>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vs_4"
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:textColor="?attr/dialogOnSurfaceVariant"
+        android:textSize="@dimen/font_micro" >
+        <tag android:id="@id/tag_typography_role" android:value="micro" />
+    </com.google.android.material.textview.MaterialTextView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vs_4"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/pingLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/depot_ping"
+            android:textColor="?attr/dialogOnSurfaceVariant"
+            android:textSize="@dimen/font_caption" >
+            <tag android:id="@id/tag_typography_role" android:value="caption" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/ping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vs_8"
+            android:textColor="?attr/dialogOnSurface"
+            android:textSize="@dimen/font_caption" >
+            <tag android:id="@id/tag_typography_role" android:value="caption" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/countLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/depot_count"
+            android:textColor="?attr/dialogOnSurfaceVariant"
+            android:textSize="@dimen/font_caption" >
+            <tag android:id="@id/tag_typography_role" android:value="caption" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vs_8"
+            android:textColor="?attr/dialogOnSurface"
+            android:textSize="@dimen/font_caption" >
+            <tag android:id="@id/tag_typography_role" android:value="caption" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/lastLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/depot_last"
+            android:textColor="?attr/dialogOnSurfaceVariant"
+            android:textSize="@dimen/font_caption" >
+            <tag android:id="@id/tag_typography_role" android:value="caption" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/lastVisit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="?attr/dialogOnSurface"
+            android:textSize="@dimen/font_caption" >
+            <tag android:id="@id/tag_typography_role" android:value="caption" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

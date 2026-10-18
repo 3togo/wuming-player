@@ -1,0 +1,49 @@
+[
+  {
+    "component": "NewPipeExtractor v0.26.1",
+    "license": "GPL-3.0-only",
+    "path": "third_party/corresponding-source/NewPipeExtractor-v0.26.1-production-source.tar.gz",
+    "sha256": "da35bbd1b5eeb0616b9570fd59fbe9c00569905b0837014795cb7cd8628e3014",
+    "upstreamUrl": "https://codeload.github.com/TeamNewPipe/NewPipeExtractor/tar.gz/refs/tags/v0.26.1",
+    "upstreamArchiveSha256": "5beef1e9c0df98fd627915cca2959e5e509fb9aee620ec46956473638a8004d5",
+    "selection": "Production sources, parser-generator inputs (short relative-time phrases), complete build metadata including the Gradle version catalog, license, README and checkstyle configuration. Excludes scraped test responses/media and Gradle wrapper binary; build with the declared Gradle version."
+  },
+  {
+    "component": "rhino-1.8.1",
+    "license": "MPL-2.0",
+    "path": "third_party/corresponding-source/rhino-1.8.1-sources.jar",
+    "sha256": "2303a0e5aa222faae0b95865c25442da89ec14c0fc81ac1608f2a6095e3d2459",
+    "upstreamUrl": "https://repo.maven.apache.org/maven2/org/mozilla/rhino/1.8.1/rhino-1.8.1-sources.jar"
+  },
+  {
+    "component": "rhino-engine-1.8.1",
+    "license": "MPL-2.0",
+    "path": "third_party/corresponding-source/rhino-engine-1.8.1-sources.jar",
+    "sha256": "c3316bdfd713c92d2688ea921b5cc7568a5a879ecd395847559407862fce5089",
+    "upstreamUrl": "https://repo.maven.apache.org/maven2/org/mozilla/rhino-engine/1.8.1/rhino-engine-1.8.1-sources.jar"
+  },
+  {
+    "component": "juniversalchardet 2.5.0",
+    "license": "LGPL-2.1-or-later",
+    "path": "third_party/corresponding-source/juniversalchardet-2.5.0-sources.jar",
+    "sha256": "d7a88c2b8b420b5d3e4b90f6896196a6767db5ede18bd6f500a0b44357669857",
+    "upstreamUrl": "https://repo.maven.apache.org/maven2/com/github/albfernandez/juniversalchardet/2.5.0/juniversalchardet-2.5.0-sources.jar"
+  },
+  {
+    "component": "certifi 2025.8.3",
+    "license": "MPL-2.0",
+    "path": "third_party/corresponding-source/certifi-2025.8.3.tar.gz",
+    "sha256": "e564105f78ded564e3ae7c923924435e1daa7463faeab5bb932bc53ffae63407",
+    "upstreamUrl": "https://files.pythonhosted.org/packages/dc/67/960ebe6bf230a96cda2e0abcf73af550ec4f090005363542f0765df162e0/certifi-2025.8.3.tar.gz"
+  },
+  {
+    "component": "Ant Media RTMP client 3.2.0 / librtmp",
+    "license": "Apache-2.0 AND LGPL-2.1-or-later",
+    "path": "third_party/corresponding-source/librtmp-client-3.2.0-production-source.tar.gz",
+    "sha256": "1628bfc78a46198e73e18cb33200354eaf90e8e1efe9333e8c1d68455d104014",
+    "upstreamUrl": "https://codeload.github.com/ant-media/LibRtmp-Client-for-Android/tar.gz/3af67842f517f9c6bbd22b961878624d0c44b713",
+    "upstreamArchiveSha256": "289984e261625043721d156186639aded8f7320b0db3d6823c4a78572c6b72d8",
+    "sourceCommit": "3af67842f517f9c6bbd22b961878624d0c44b713",
+    "selection": "Production JNI/Java/librtmp source and build/license files; excludes app demos and compiled libraries. Upstream build.gradle declares libraryVersion 3.2.0."
+  }
+]

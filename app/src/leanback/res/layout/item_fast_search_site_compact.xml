@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fast Search Site Item - Compact Style for Horizontal Layout -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvSearchSite"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/vs_40"
+    android:minWidth="@dimen/vs_40"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginEnd="@dimen/vs_4"
+    android:paddingStart="@dimen/vs_6"
+    android:paddingEnd="@dimen/vs_6"
+    android:background="@drawable/selector_item_round"
+    android:ellipsize="marquee"
+    android:focusable="true"
+    android:gravity="center"
+    android:marqueeRepeatLimit="marquee_forever"
+    android:singleLine="true"
+    android:textAlignment="center"
+    android:textColor="@color/white"
+    android:textSize="@dimen/font_caption" >
+    <tag android:id="@id/tag_typography_role" android:value="caption" />
+</TextView>

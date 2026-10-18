@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    Shared by Simplified (zh-rCN) and Traditional (zh-rTW): both fall back to `values-zh` when
+    their region-specific directory does not define the resource, so one file covers both.
+    -->
+    <bool name="mobile_navigation_english_labels">false</bool>
+</resources>

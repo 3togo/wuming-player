@@ -1,0 +1,674 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- App -->
+    <string name="app_name">無名</string>
+
+    <!-- Live -->
+    <string name="live_pass">密碼</string>
+    <string name="live_line">來源 <xliff:g name="name">%s</xliff:g></string>
+
+    <!-- Detail -->
+    <string name="detail_title_total"><xliff:g name="name">%1$s</xliff:g>：<xliff:g name="name">%2$s</xliff:g>（共<xliff:g name="count">%3$d</xliff:g>集）</string>
+    <string name="detail_title"><xliff:g name="name">%1$s</xliff:g>：<xliff:g name="name">%2$s</xliff:g></string>
+    <string name="detail_site">站源：<xliff:g name="name">%s</xliff:g></string>
+    <string name="detail_year">年份：<xliff:g name="name">%s</xliff:g></string>
+    <string name="detail_area">地區：<xliff:g name="name">%s</xliff:g></string>
+    <string name="detail_type">類型：<xliff:g name="name">%s</xliff:g></string>
+    <string name="detail_director">導演：<xliff:g name="name">%s</xliff:g></string>
+    <string name="detail_actor">演員：<xliff:g name="name">%s</xliff:g></string>
+    <string name="detail_desc">簡介</string>
+
+    <!-- Keep -->
+    <string name="keep">收藏</string>
+    <string name="keep_add">已加入收藏</string>
+    <string name="keep_del">已取消收藏</string>
+
+    <!-- Play -->
+    <string name="play">播放</string>
+    <string name="pause">暫停</string>
+    <string name="play_op">片頭</string>
+    <string name="play_ed">片尾</string>
+    <string name="play_exo">EXO</string>
+    <string name="play_next">下集</string>
+    <string name="play_prev">上集</string>
+    <string name="play_loop">循環</string>
+    <string name="cast">投屏</string>
+    <string name="cast_no_video">沒有可投屏的影片</string>
+    <string name="cast_failed">投屏失敗</string>
+    <string name="cast_notification_channel">投屏</string>
+    <string name="cast_notification_title">正在投屏到 %1$s</string>
+    <string name="cast_notification_connecting">正在連線：%1$s</string>
+    <string name="cast_notification_resolving">正在準備：%1$s</string>
+    <string name="cast_notification_playing">正在播放：%1$s</string>
+    <string name="cast_notification_error">投屏失敗：%1$s</string>
+    <string name="cast_compat_mode">裝置不支援HLS投屏，已切換相容模式：無時長資訊、不支援拖動進度</string>
+    <string name="cast_compatible_quality">電視相容播放：%1$s</string>
+    <string name="cast_compat_badge">相容模式</string>
+    <string name="cast_compat_no_seek">相容模式投屏不支援拖動進度</string>
+    <string name="device_select">選擇設備</string>
+    <string name="device_offline">設備離線</string>
+    <string name="dlna_next_episode_failed">無法解析下一集URL</string>
+    <string name="device_disconnect">斷開連線</string>
+    <string name="remote_pairing_required">請先掃描電視顯示的 QR Code 完成配對</string>
+    <string name="remote_pairing_qr_description">遠端存取配對 QR Code。按確認鍵重新產生，長按可撤銷已配對裝置</string>
+    <string name="remote_pairing_reset">遠端存取配對已重設</string>
+    <string name="device_connected">已連接到 %s</string>
+    <string name="device_scan">掃描設備</string>
+    <string name="device_refresh">重新整理設備</string>
+    <string name="device_sync_mode">同步模式</string>
+    <string name="device_type">設備類型</string>
+    <string name="site_ranking">站點排名</string>
+    <string name="video_rankings">已儲存的影片畫質評分</string>
+    <string name="video_rank_title">影片畫質評分：%1$s</string>
+    <string name="video_rank_hint">拖動滑桿為影片畫質評分。</string>
+    <string name="video_rank_manage">管理已儲存的畫質評分</string>
+    <string name="video_rank_item">%1$d — %2$s</string>
+    <string name="video_rank_clear_all">全部清除</string>
+    <string name="video_rankings_empty">尚未儲存影片畫質評分。</string>
+    <string name="video_quality_rank_scope">設定影片畫質評分</string>
+    <string name="video_quality_this_episode">本集：%1$s  •  目前評分：%2$d</string>
+    <string name="video_quality_whole_series">此片源的全部劇集：%1$s  •  目前評分：%2$d</string>
+    <string name="video_quality_source_title">%1$s — %2$s</string>
+    <string name="video_score_value">評分：%1$d</string>
+    <string name="video_score_scale">−1 隱藏   •   0 未評分   •   10 最佳</string>
+    <string name="video_score_slider_description">影片畫質評分，從負一到十分</string>
+    <string name="video_score_action">評分</string>
+    <string name="sort_performance">綜合</string>
+    <string name="sort_reliability">可靠</string>
+    <string name="sort_speed">速度</string>
+    <string name="clear_ranking">全部清除</string>
+    <string name="select_sites">選擇</string>
+    <string name="select_done">完成</string>
+    <string name="clear_selected">清除選中 (%d)</string>
+    <string name="play_info">資訊</string>
+    <string name="play_forward">→</string>
+    <string name="play_backward">←</string>
+    <string name="play_speed">1.00</string>
+    <string name="play_reset">刷新</string>
+    <string name="play_decode">硬解</string>
+    <string name="play_timer">定時</string>
+    <string name="play_title">章節</string>
+    <string name="play_scale">原始</string>
+    <string name="play_config">配置</string>
+    <string name="play_change">換源</string>
+    <string name="play_invert">反轉</string>
+    <string name="play_across">跨類</string>
+    <string name="play_reverse">倒序</string>
+    <string name="play_normal_order">正序</string>
+    <string name="play_track_text">字幕</string>
+    <string name="play_track_audio">音軌</string>
+    <string name="play_track_video">視軌</string>
+    <string name="play_forward_hint">已切換正序播放</string>
+    <string name="play_backward_hint">已切換倒序播放</string>
+    <string name="play_ready">準備播放：<xliff:g name="name">%s</xliff:g></string>
+    <string name="play_switch_flag">正在切換線路至「<xliff:g name="name">%s</xliff:g>」</string>
+    <string name="play_switch_site">正在切換站源至「<xliff:g name="name">%s</xliff:g>」</string>
+    <string name="play_switch_parse">正在切換解析至「<xliff:g name="name">%s</xliff:g>」</string>
+
+    <!-- Danmaku -->
+    <!-- Danmaku Setting -->
+    <string name="danmaku_setting">彈幕設定</string>
+    <string name="danmaku_text_size">字型縮放</string>
+    <string name="danmaku_transparency">透明度</string>
+    <string name="danmaku_text_bold">粗體</string>
+    <string name="danmaku_style_mode">字型效果</string>
+    <string name="danmaku_style_none">無</string>
+    <string name="danmaku_style_shadow">陰影</string>
+    <string name="danmaku_style_stroke">描邊</string>
+    <string name="danmaku_style_projection">投影</string>
+    <string name="danmaku_shadow_transparency">陰影透明度</string>
+    <string name="danmaku_stroke_width">描邊寬度</string>
+    <string name="danmaku_projection_offset_x">投影水平偏移</string>
+    <string name="danmaku_projection_offset_y">投影垂直偏移</string>
+    <string name="danmaku_projection_transparency">投影透明度</string>
+    <string name="danmaku_color_mode">色彩模式</string>
+    <string name="danmaku_color_default">原色</string>
+    <string name="danmaku_color_colorful">彩色</string>
+    <string name="danmaku_color_gradient">漸變</string>
+    <string name="danmaku_color_override_hint">彈幕原始色彩將被忽略</string>
+    <string name="danmaku_auto">自動</string>
+    <string name="danmaku_duration">滾動時間</string>
+    <string name="danmaku_fixed_duration">固定顯示時間</string>
+    <string name="danmaku_time_offset">時間偏移</string>
+    <string name="danmaku_max_on_screen">最多同時顯示</string>
+    <string name="danmaku_scroll_area_ratio">滾動區域</string>
+    <string name="danmaku_max_scroll_lines">最大滾動行數</string>
+    <string name="danmaku_max_top_lines">最大頂部行數</string>
+    <string name="danmaku_max_bottom_lines">最大底部行數</string>
+    <string name="danmaku_line_spacing">垂直間距</string>
+    <string name="danmaku_scroll_gap_ratio">水平間距</string>
+    <string name="danmaku_show_scroll">滾動彈幕</string>
+    <string name="danmaku_show_top">頂部固定</string>
+    <string name="danmaku_show_bottom">底部固定</string>
+    <string name="danmaku_show_reverse">反向滾動</string>
+    <string name="danmaku_show_positioned">定位彈幕</string>
+    <string name="danmaku_show_subtitle">字幕型</string>
+    <string name="danmaku_show_special">特效型</string>
+    <string name="danmaku_section_appearance">外觀</string>
+    <string name="danmaku_section_display">顯示</string>
+    <string name="danmaku_section_timing">時間</string>
+    <string name="danmaku_section_density">密度</string>
+    <string name="danmaku_reset">重設</string>
+    <string name="offset_setting">偏移設定</string>
+    <string name="offset_audio">音訊偏移</string>
+    <string name="offset_text">字幕偏移</string>
+    <string name="danmaku">彈幕</string>
+    <string name="danmaku_select">選擇彈幕</string>
+
+    <!-- Parse -->
+    <string name="parse">解析</string>
+    <string name="parse_god">超級解析</string>
+    <string name="parse_from">解析來自：<xliff:g name="name">%s</xliff:g></string>
+
+    <!-- Push -->
+    <string name="push">推送</string>
+
+    <!-- Setting -->
+    <string name="setting_vod">點播</string>
+    <string name="setting_live">直播</string>
+    <string name="setting_wall">壁紙</string>
+    <string name="setting_player">播放設定</string>
+    <string name="setting_incognito">無痕模式</string>
+    <string name="setting_mobile_video">使用行動數據播放/下載影片</string>
+    <string name="setting_roaming_video">漫遊時播放/下載影片</string>
+    <string name="video_mobile_data_blocked">設定中已停用行動數據影片</string>
+    <string name="video_roaming_data_blocked">設定中已停用漫遊數據影片</string>
+    <string name="video_using_mobile_data">警告：正在使用行動數據</string>
+    <string name="video_using_roaming_data">警告：正在使用漫遊數據</string>
+    <string name="setting_multi_site_search">多站搜索</string>
+    <string name="search_strict_on">嚴格：開</string>
+    <string name="search_strict_off">嚴格：關</string>
+    <string name="setting_site_list_layout">站點列表佈局</string>
+    <string name="setting_result_layout">結果佈局</string>
+    <string name="setting_theme">外觀模式</string>
+    <string name="setting_color_theme">配色風格</string>
+    <string name="setting_live_scale">直播縮放</string>
+    <string name="setting_update">自動更新</string>
+    <string name="setting_size">圖片尺寸</string>
+    <string name="setting_doh">DoH</string>
+    <string name="setting_legacy_tls">舊版 HTTPS 相容</string>
+    <string name="setting_legacy_tls_warning">此模式會接受無效憑證或主機名稱不符的憑證。僅在可信任的舊版站源無法通過正常 HTTPS 驗證時啟用。</string>
+    <string name="setting_github_proxy">GitHub代理</string>
+    <string name="setting_github_proxy_speed">速度測試</string>
+    <string name="setting_github_proxy_fastest">最快: %1$s (%2$dms)</string>
+    <string name="setting_home_btn">首頁</string>
+    <string name="setting_history_btn">歷史</string>
+    <string name="setting_default_btn">預設</string>
+    <string name="setting_ranking_btn">排名</string>
+    <string name="setting_refresh_btn">重新整理</string>
+    <string name="setting_speed_btn">速度測試</string>
+    <string name="setting_depot">資源倉庫</string>
+    <string name="setting_depot_update">從GitHub更新</string>
+    <string name="setting_depot_validate">驗證資源</string>
+    <string name="setting_depot_updated">倉庫已更新: %1$d 點播, %2$d 直播</string>
+    <string name="setting_depot_validated">資源已驗證: %1$d 有效, %2$d 無效</string>
+    <string name="setting_depot_progress">正在驗證: %1$d / %2$d</string>
+    <string name="setting_depot_copied">已複製: %1$s</string>
+    <string name="setting_depot_use">使用</string>
+    <string name="setting_depot_warehouse_loading">正在載入多倉線路…</string>
+    <string name="setting_depot_warehouse_empty">此多倉沒有可用的設定。</string>
+    <string name="setting_depot_offline_links">瀏覽離線連結目錄</string>
+    <string name="setting_depot_offline_links_empty">內建連結目錄為空。</string>
+    <string name="setting_depot_offline_links_unverified">%1$s（未驗證播放）</string>
+    <string name="setting_depot_search_hint">搜尋名稱或網址</string>
+    <string name="setting_depot_filter_title">篩選線路</string>
+    <string name="setting_depot_filter_all">全部線路</string>
+    <string name="setting_depot_filter_vod">點播</string>
+    <string name="setting_depot_filter_live">直播</string>
+    <string name="setting_depot_filter_curated">精選</string>
+    <string name="setting_depot_filter_screened">已篩查</string>
+    <string name="setting_depot_source_screened">已篩查</string>
+    <string name="setting_depot_source_curated">精選</string>
+    <string name="setting_depot_bundled_source">內建來源 · 選擇此列並輸入密碼可編輯</string>
+    <string name="setting_depot_protected_source">受保護來源 · 位址已隱藏 · 選擇此列可編輯</string>
+    <string name="setting_depot_admin_password">管理員密碼</string>
+    <string name="setting_depot_edit">編輯來源位址</string>
+    <string name="setting_depot_wrong_password">密碼錯誤</string>
+    <string name="setting_cache">暫存</string>
+
+    <string name="cache_clear_failed">無法清除暫存，請重試。</string>
+    <string name="cache_size_unavailable">無法取得暫存大小</string>
+    <string name="p2p_low_storage_stopped">儲存空間不足，P2P 播放已停止。請釋放空間後再試。</string>
+    <string name="setting_cloud_storage">帳號與雲端硬碟</string>
+    <string name="setting_link_route">分享連結處理方式</string>
+    <string name="cloud_qr_auto">自動</string>
+    <string name="cloud_qr_searching">正在尋找網盤登入 QR Code…</string>
+    <string name="cloud_qr_not_ready">網盤登入頁面尚未就緒，請稍後再次選擇「自動」。</string>
+    <string name="cloud_qr_not_found">找不到支援的 QR Code。請先在頁面選擇掃碼登入，然後再次選擇「自動」。</string>
+    <string name="cloud_storage_login_confirmed">%1$s 登入成功，播放線路已重新整理</string>
+    <string name="opendrive_mdrive_uc_fallback">內建 OpenDrive 處理失敗，已回退到 MDrive。請從 MDrive 發起 UC 登入。</string>
+    <string name="cloud_storage_title">帳號與雲端硬碟</string>
+    <string name="cloud_storage_cache_title">TVBox 雲端硬碟暫存</string>
+    <string name="open_drive_share_title">雲端硬碟分享</string>
+    <string name="open_drive_login_description">管理雲端硬碟與嗶哩嗶哩登入。選擇未登入的服務可取得官方 QR Code；已登入的雲端硬碟可開啟檔案管理。</string>
+    <string name="open_drive_status_logged_in">已登入</string>
+    <string name="open_drive_status_not_logged_in">未登入</string>
+    <string name="open_drive_status_unavailable">不可用</string>
+    <string name="open_drive_status_checking">正在驗證憑據…</string>
+    <string name="open_drive_status_invalid">登入已失效</string>
+    <string name="open_drive_status_verify_failed">已儲存登入資料 — 暫時無法驗證</string>
+    <string name="open_drive_provider_status">%1$s — %2$s</string>
+    <string name="open_drive_provider_alipan">阿里雲盤</string>
+    <string name="open_drive_provider_quark">夸克網盤</string>
+    <string name="open_drive_provider_uc">UC 網盤</string>
+    <string name="open_drive_provider_baidu">百度網盤</string>
+    <string name="open_drive_provider_123">123 雲盤</string>
+    <string name="open_drive_provider_tianyi">天翼雲盤</string>
+    <string name="open_drive_provider_115">115 網盤</string>
+    <string name="open_drive_inactive">未啟用</string>
+    <string name="open_drive_logout">登出</string>
+    <string name="open_drive_logout_title">登出 %1$s？</string>
+    <string name="open_drive_logout_message">清除 TVBox 儲存的帳號工作階段？此操作不會刪除雲端硬碟檔案。</string>
+    <string name="open_drive_logout_complete">已清除 %1$s 工作階段。</string>
+    <string name="open_drive_logout_failed">無法清除 %1$s 工作階段。</string>
+    <string name="open_drive_manage_cache">管理暫存</string>
+    <string name="cloud_storage_description">每個服務會開啟其官方檔案管理頁面，您可以查看帳號中的全部內容。直接清理僅接受由 TVBox 內建並簽名的審核適配器所記錄的檔案；清理功能不會把刪除操作交給下載的第三方 JAR。</string>
+    <string name="cloud_storage_back">返回</string>
+    <string name="cloud_storage_reset_login">重設</string>
+    <string name="cloud_storage_login_reset">%1$s 登入已重設，正在載入全新的登入頁面</string>
+    <string name="cloud_provider_qr_connecting">正在建立安全的 %1$s QR Code 登入工作階段…</string>
+    <string name="cloud_provider_qr_title">%1$s QR Code 登入</string>
+    <string name="cloud_provider_qr_new">更新 QR Code</string>
+    <string name="cloud_provider_qr_instruction">請使用 %1$s 掃描此 QR Code，或選擇「自動」儲存 QR Code 並開啟官方應用程式。</string>
+    <string name="cloud_provider_qr_failed">無法確認 %1$s QR Code 登入。請選擇「自動」建立新的 QR Code。</string>
+    <string name="cloud_provider_qr_expired">%1$s 登入 QR Code 已過期。請選擇「自動」建立新的 QR Code。</string>
+    <string name="webdav_connector_title">OpenList / WebDAV</string>
+    <string name="webdav_connector_description">新增 WebDAV 位址，例如 https://your-openlist.example/dav/。其中的資料夾和影片會顯示在 OpenDrive，並統一使用目錄、快取、歷史和播放流程。憑證只會加密儲存在本裝置。在可信任區域網路之外請使用 HTTPS，因為 HTTP 會以明文傳輸 Basic 驗證。</string>
+    <string name="webdav_connector_manage">管理 OpenList / WebDAV 連線</string>
+    <string name="webdav_connector_pending">OpenList / WebDAV 連線 — 待定</string>
+    <string name="webdav_connector_pending_detail">待定：程式碼已保留，但在重新評估 115 整合方案期間不會啟用。</string>
+    <string name="webdav_connector_add">新增連線</string>
+    <string name="webdav_connector_edit">編輯</string>
+    <string name="webdav_connector_delete">刪除</string>
+    <string name="webdav_connector_delete_title">刪除連線？</string>
+    <string name="webdav_connector_delete_message">從本裝置刪除「%1$s」及其加密憑證？</string>
+    <string name="webdav_connector_empty">尚未設定連線。</string>
+    <string name="webdav_connector_root">根目錄</string>
+    <string name="webdav_connector_name">連線名稱</string>
+    <string name="webdav_connector_url_hint">WebDAV 位址，例如 https://host.example/dav/</string>
+    <string name="webdav_connector_path_hint">初始資料夾（選填）</string>
+    <string name="webdav_connector_username">使用者名稱（選填）</string>
+    <string name="webdav_connector_password">密碼（選填）</string>
+    <string name="webdav_connector_password_unchanged">留空以保留已儲存的密碼</string>
+    <string name="webdav_connector_saved">WebDAV 連線已儲存</string>
+    <string name="webdav_connector_save_failed">無法儲存 WebDAV 連線</string>
+    <string name="cloud_storage_manage">管理檔案</string>
+    <string name="cloud_storage_open_external">開啟官方 App</string>
+    <string name="link_route_direct">CatVod 直連</string>
+    <string name="link_route_builtin">OpenDrive 內建</string>
+    <string name="link_route_downloaded_missing">目前線路沒有已下載的 CatVod 雲端硬碟提供者</string>
+    <string name="cloud_storage_app_missing">請先安裝官方 %1$s App</string>
+    <string name="cloud_storage_tracked_empty">尚無可信快取檔案記錄</string>
+    <string name="cloud_storage_tracked">%1$d 個可信快取檔案 · %2$s</string>
+    <string name="cloud_storage_clear">清理 TVBox 暫存</string>
+    <string name="cloud_storage_clearing">正在清理…</string>
+    <string name="cloud_storage_clear_title">清理雲端暫存？</string>
+    <string name="cloud_storage_clear_confirm">刪除 %1$s 專用 %2$s 資料夾中由應用程式建立的檔案？該資料夾以外的個人檔案不會被刪除。</string>
+    <string name="cloud_storage_clear_result">已移除 %1$d 個快取檔案（%2$s）。</string>
+    <string name="cloud_storage_provider_unsupported_title">需要可信適配器</string>
+    <string name="cloud_storage_provider_unsupported">此服務尚無經過審核的內建適配器。清理功能不會呼叫下載的第三方 JAR 刪除雲端檔案。請開啟官方檔案管理器手動查看並刪除檔案。</string>
+    <string name="cloud_storage_browser_missing">沒有可用來開啟雲端服務的瀏覽器。</string>
+    <string name="cloud_qr_opening">正在開啟 %1$s 授權…</string>
+    <string name="cloud_qr_saved_opening">QR Code 已儲存到 Pictures/TVBox。正在開啟 %1$s，請從應用程式相簿選擇最新圖片。</string>
+    <string name="cloud_qr_save_failed">無法儲存 QR Code 圖片，未開啟授權頁面，請重試。</string>
+    <string name="cloud_qr_open_failed">無法安全開啟此 QR Code 授權。</string>
+    <string name="setting_backup">備份</string>
+    <string name="setting_restore">還原</string>
+    <string name="setting_version">版本</string>
+    <string name="setting_choose">選擇</string>
+    <string name="setting_default">預設</string>
+    <string name="setting_off">關</string>
+    <string name="setting_on">開</string>
+    <string name="setting_reload_quit">重載並退出</string>
+
+    <!-- Backup & Restore -->
+    <string name="restore_select">選擇備份</string>
+    <string name="restore_success">還原成功</string>
+    <string name="restore_fail">還原失敗</string>
+    <string name="backup_success">備份成功</string>
+    <string name="backup_fail">備份失敗</string>
+
+    <!-- Player -->
+    <string name="player_render">渲染方式</string>
+    <string name="player_scale">縮放比例</string>
+    <string name="player_caption">字幕樣式</string>
+    <string name="player_background">背景播放</string>
+    <string name="player_audio_decode">音訊軟解</string>
+    <string name="player_video_decode">視訊軟解</string>
+    <string name="player_aac_track">AAC優先</string>
+    <string name="player_danmaku_load">彈幕載入</string>
+    <string name="player_adblock">智慧去廣</string>
+    <string name="player_tunnel">隧道模式</string>
+    <string name="player_buffer">緩衝時間</string>
+    <string name="player_speed">長按倍速</string>
+    <string name="buffer_status_eta">緩衝剩餘約 %1$d秒</string>
+    <string name="player_ua">User-Agent</string>
+
+    <!-- Search -->
+    <string name="search_keyword">關鍵字…</string>
+    <string name="search_record">歷史</string>
+    <string name="search_suggest">建議</string>
+    <string name="search_hot">熱搜</string>
+
+    <!-- Dialog -->
+    <string name="dialog_edit">修改</string>
+    <string name="dialog_positive">確定</string>
+    <string name="dialog_negative">取消</string>
+    <string name="dialog_config_hint">請輸入配置…</string>
+    <string name="dialog_config_name">請輸入名稱…</string>
+    <string name="dialog_config_url">請輸入網址…</string>
+    <string name="dialog_config_choose_vod_hint">選擇檔案：JSON 格式的點播配置</string>
+    <string name="dialog_config_choose_live_hint">選擇檔案：JSON、TXT、M3U 或 M3U8 格式的直播配置</string>
+    <string name="dialog_config_choose_wall_hint">選擇檔案：JPG、PNG、GIF 或影片桌布</string>
+    <string name="dialog_config_help">說明</string>
+    <string name="dialog_config_help_title">配置檔案說明</string>
+    <string name="dialog_config_help_vod">將目前使用的點播配置備份至 Download/TV，然後透過「選擇」載入該本機 JSON 檔案。</string>
+    <string name="dialog_config_help_live">若目前的直播配置為 JSON，可將其備份至 Download/TV，再透過「選擇」載入；也支援選擇 TXT、M3U 和 M3U8 頻道清單。</string>
+    <string name="dialog_config_help_wall">請選擇本機 JPG、PNG、GIF 或影片檔案；桌布選擇不使用 JSON。</string>
+    <string name="dialog_config_backup_current">備份目前的 JSON</string>
+    <string name="dialog_config_backup_success">JSON 已儲存至 Download/TV</string>
+    <string name="dialog_config_backup_fail">無法儲存 JSON</string>
+    <string name="dialog_config_loading_json">正在載入目前的 JSON…</string>
+    <string name="dialog_config_preview_fail">無法載入目前的 JSON 預覽。</string>
+
+    <!-- Error -->
+    <string name="error_config_get">配置取得失敗</string>
+    <string name="error_play_next">已經是最後一集了！</string>
+    <string name="error_play_prev">已經是第一集了！</string>
+    <string name="error_play_parse">播放網址解析失敗</string>
+    <string name="error_play_drm">本設備不支援所需的 DRM scheme</string>
+    <string name="error_play_url">播放網址載入失敗</string>
+    <string name="error_play_access_denied">伺服器拒絕了本次請求，可能是地區限制、連結過期或需要驗證。請稍後重試或選擇其他線路。</string>
+    <string name="error_play_connection">目前無法連線至播放伺服器，可能是暫時故障或地區限制。請稍後重試或選擇其他線路。</string>
+    <string name="error_play_timeout">連線逾時</string>
+
+    <string name="error_detail">暫無播放資料</string>
+    <string name="error_empty">這裡什麼都沒有 👀</string>
+    <string name="error_no_playable_episodes">此來源沒有可播放的劇集，請從搜尋結果中選擇其他來源。</string>
+
+    <!-- Update -->
+    <string name="update_version">發現新版本 <xliff:g name="name">%s</xliff:g></string>
+    <string name="update_check">正在檢查更新…</string>
+    <string name="update_confirm">更新</string>
+
+    <!-- Crash -->
+    <string name="crash_info">發生意外錯誤\n抱歉給您帶來不便</string>
+    <string name="crash_restart">重新啟動</string>
+    <string name="crash_details">錯誤訊息</string>
+    <string name="crash_details_title">錯誤訊息</string>
+    <string name="crash_details_close">關閉</string>
+    <string name="dialog_close">關閉</string>
+
+    <!-- Hint -->
+    <string name="copied">已複製</string>
+
+    <!-- UNIT -->
+    <string name="grid_search_results">搜尋結果：%d</string>
+    <string name="fs_show_all">全部</string>
+    <string name="all">全部</string>
+    <string name="none">無</string>
+    <string name="times">倍</string>
+
+    <string-array name="select_decode">
+        <item>軟解</item>
+        <item>硬解</item>
+    </string-array>
+
+    <string-array name="select_size">
+        <item>小</item>
+        <item>中</item>
+        <item>大</item>
+        <item>特大</item>
+    </string-array>
+
+    <string-array name="select_scale">
+        <item>原始</item>
+        <item>16:9</item>
+        <item>4:3</item>
+        <item>填充</item>
+        <item>裁剪</item>
+    </string-array>
+
+    <string-array name="select_reset">
+        <item>刷新</item>
+        <item>重播</item>
+    </string-array>
+
+    <string-array name="select_caption">
+        <item>跟隨系統</item>
+        <item>系統</item>
+    </string-array>
+
+    <string-array name="select_track">
+        <item>選擇音軌</item>
+        <item>選擇視軌</item>
+        <item>選擇字幕</item>
+    </string-array>
+
+    <string-array name="select_render">
+        <item>表面視圖</item>
+        <item>紋理視圖</item>
+    </string-array>
+
+    <string-array name="select_site_list_layout">
+        <item>左側垂直</item>
+        <item>頂部水平</item>
+        <item>緊湊</item>
+    </string-array>
+
+    <string-array name="select_result_layout">
+        <item>列表</item>
+        <item>橫向</item>
+        <item>網格</item>
+    </string-array>
+
+    <string-array name="select_theme">
+        <item>預設</item>
+        <item>淺色</item>
+        <item>深色</item>
+    </string-array>
+
+    <string-array name="select_color_theme">
+        <item>經典</item>
+        <item>極光</item>
+    </string-array>
+
+    <string-array name="github_proxy_name">
+        <item>無</item>
+        <item>ghproxy.net</item>
+        <item>gh-proxy.com</item>
+        <item>v6.gh-proxy.org</item>
+        <item>gh.idayer.com</item>
+        <item>gh-proxy.org</item>
+        <item>v4.gh-proxy.org</item>
+        <item>cdn.gh-proxy.org</item>
+        <item>axisnow.gh-proxy.org</item>
+    </string-array>
+
+    <!-- Cloud drive login dialog -->
+    <string name="dialog_scan_qr_title">掃描二維碼</string>
+    <string name="dialog_scan_qr_provider_hint">請使用對應的 UC 或夸克 App 掃碼並確認登入，然後選擇「重試」。</string>
+    <string name="dialog_scan_qr_baidu_hint">請使用百度 App 掃碼並確認登入。請保持此頁面開啟；授權後將繼續播放，也可在確認後選擇「重試」。</string>
+    <string name="dialog_scan_qr_retry">重試</string>
+    <string name="dialog_scan_qr_skip">跳過</string>
+    <string name="bilibili_login_action">嗶哩嗶哩登入</string>
+    <string name="bilibili_provider_name">嗶哩嗶哩</string>
+    <string name="bilibili_logout_message">清除此裝置上儲存的嗶哩嗶哩帳號工作階段？</string>
+    <string name="bilibili_login_title">嗶哩嗶哩登入</string>
+    <string name="bilibili_login_starting">正在產生登入二維碼…</string>
+    <string name="bilibili_login_waiting">請使用嗶哩嗶哩 App 掃碼，並在手機上確認登入。</string>
+    <string name="bilibili_login_confirm">已掃碼，請在手機上確認登入。</string>
+    <string name="bilibili_login_success">登入成功，正在重試播放…</string>
+    <string name="bilibili_login_expired">二維碼已過期，請選擇「重新整理」再次產生。</string>
+    <string name="bilibili_login_failed">無法完成嗶哩嗶哩登入，請選擇「重新整理」重試。</string>
+    <string name="bilibili_login_refresh">重新整理</string>
+    <string name="bilibili_login_auto">自動</string>
+    <string name="cloud_login_reopen_hint">登入或切換為「啟用中」後，請關閉此視窗並重新打開。只有已啟用的帳號才會顯示為雲盤標籤。</string>
+
+    <!-- Release-complete settings and search translations -->
+    <string name="setting_depot_header">共 %1$d 個來源（%2$d 個點播，%3$d 個直播）| %4$d 個有延遲資料</string>
+    <string name="depot_ping">延遲：</string>
+    <string name="depot_count">數量：</string>
+    <string name="depot_last">最近：</string>
+    <string name="player_danmaku_show">顯示彈幕</string>
+    <string name="player_across">跨集連播</string>
+    <string name="player_change">自動換源</string>
+    <string name="player_invert">倒序播放</string>
+    <string name="player_video_info">影片資訊</string>
+    <string name="video_info_mode_0">資訊 + 時鐘</string>
+    <string name="video_info_mode_1">資訊</string>
+    <string name="video_info_mode_2">時鐘</string>
+    <string name="video_info_mode_3">無</string>
+    <string name="player_boot_live">啟動後進入直播</string>
+    <string name="player_zhuyin">注音輸入</string>
+    <string name="player_network_ipv6">IPv6</string>
+    <string name="ipv6_test_ready">點擊測試</string>
+    <string name="ipv6_test_checking">正在測試…</string>
+    <string name="ipv6_test_available">可用</string>
+    <string name="ipv6_test_unavailable">不可用</string>
+    <string name="ipv6_test_available_title">IPv6 可用</string>
+    <string name="ipv6_test_unavailable_title">IPv6 不可用</string>
+    <string name="ipv6_test_available_message">目前網路可以連線 IPv6 網際網路。\n\n裝置位址：%1$s</string>
+    <string name="ipv6_test_no_route_message">裝置已取得 IPv6 位址，但無法連線外部 IPv6 測試節點。\n\n裝置位址：%1$s</string>
+    <string name="ipv6_test_no_address_message">目前網路沒有可用的 IPv6 位址。</string>
+    <string name="player_restart_mode">下次啟動</string>
+    <string name="restart_mode_0">保留資料</string>
+    <string name="restart_mode_1">單次清除工作階段</string>
+    <string name="restart_mode_2">單次清除全部</string>
+    <string name="restart_mode_3">始終清除工作階段</string>
+    <string name="restart_mode_4">始終清除全部</string>
+    <string name="grid_search_title">網格搜尋（%d）</string>
+    <string name="select_audio_track">音軌</string>
+    <string name="audio_track_default">預設</string>
+
+    <string name="search_check_source">選擇來源</string>
+    <string name="collect_sort">排序</string>
+    <string name="collect_sort_relevance">相關度</string>
+    <string name="collect_sort_name">名稱</string>
+    <string name="collect_sort_year">年份</string>
+    <string name="collect_filter">篩選</string>
+    <string name="collect_filter_movie">電影</string>
+    <string name="collect_filter_tv">電視劇</string>
+    <string name="offline_download_channel">離線影片下載</string>
+    <string name="offline_download_channel_description">可繼續影片下載的進度與網路狀態</string>
+    <string name="setting_ui_scale_cap">文字縮放上限</string>
+    <string name="setting_ui_scale_baseline">文字縮放基準</string>
+    <string name="setting_ui_scale_applied">文字大小已更新，其他頁面將在重新進入時套用。</string>
+    <string name="cloud_credentials_export">匯出帳號</string>
+    <string name="cloud_credentials_import">匯入帳號</string>
+    <string name="cloud_credentials_export_title">匯出帳號</string>
+    <string name="cloud_credentials_import_title">匯入帳號</string>
+    <string name="cloud_credentials_passphrase">密碼片語（至少 8 個字元）</string>
+    <string name="cloud_credentials_confirm_passphrase">確認密碼片語</string>
+    <string name="cloud_credentials_export_warning">儲存加密副本，以便重新安裝 TVBox 後還原。還原時需要此密碼片語。</string>
+    <string name="cloud_credentials_import_warning">匯入將取代此裝置上目前儲存的所有雲端硬碟、Bilibili 與連接器憑證。</string>
+    <string name="cloud_credentials_passphrase_short">請至少輸入 8 個字元。</string>
+    <string name="cloud_credentials_passphrase_mismatch">兩次輸入的密碼片語不相符。</string>
+    <string name="cloud_credentials_none">沒有可匯出的帳號憑證。</string>
+    <string name="cloud_credentials_exported">已匯出 %1$d 筆受保護的憑證。</string>
+    <string name="cloud_credentials_imported">已匯入 %1$d 筆受保護的憑證。</string>
+    <string name="cloud_credentials_export_failed">無法匯出帳號。</string>
+    <string name="cloud_credentials_import_failed">無法匯入帳號，請檢查檔案與密碼片語。</string>
+    <string name="error_play_hdr_display">此螢幕不支援該 HDR 影片，請選擇 SDR 畫質或其他線路。</string>
+    <string name="error_play_no_compatible_quality">沒有適合此裝置的影片畫質，請選擇其他線路。</string>
+    <string name="error_play_video_unsupported">此影片超出裝置的解碼能力，請選擇較低畫質或相容的影片版本。</string>
+    <string name="setting_video_capabilities">偵測並儲存硬體能力</string>
+    <string name="video_capabilities_checking">正在偵測硬體能力…</string>
+    <string name="video_capabilities_updated">已儲存硬體能力（%1$d 個解碼器），僅在您再次選擇此選項時重新偵測。</string>
+    <string name="video_capabilities_not_detected">尚未偵測，選擇此項開始偵測。</string>
+    <string name="video_capabilities_saved">儲存於 %1$s（%2$d 個解碼器），選擇此項重新偵測。</string>
+    <string name="video_capabilities_failed">無法更新影片解碼能力資料，請重試。</string>
+    <string name="video_info_unknown">未知</string>
+    <string name="video_info_format">編碼：%1$s\n解析度：%2$s · %3$s</string>
+    <string name="video_info_exceeds">解碼器回報：超出能力範圍</string>
+    <string name="video_info_unsupported">解碼器回報：不支援此格式</string>
+    <string name="cloud_credentials_path">備份檔案路徑</string>
+    <string name="cloud_credentials_path_hint">輸入完整檔案路徑。相對路徑會自動加入 /sdcard/。匯出時，請在現有資料夾中使用新的檔案名稱。</string>
+    <string name="cloud_credentials_path_invalid">匯出請使用現有資料夾中的新檔案名稱；匯入請選擇現有檔案。</string>
+    <string name="file_import_failed">無法匯入檔案，請確認檔案可存取後再試一次。</string>
+    <string name="tv_web_remote_hint">方向鍵：移動指標 · 確定：點擊 · 邊緣長按方向鍵：捲動 · 選單 / 返回：工具列</string>
+    <string name="error_quark_smart_quality_unavailable">夸克未提供此影片可用的 1080p 或更低轉碼畫質。請手動選擇原畫線路或其他片源。</string>
+    <string name="quark_smart_using_original">夸克無法轉碼此偽裝影片，正在播放已正規化的原畫。</string>
+    <string name="cloud_storage_clear_incomplete">%1$d 個失敗；%2$d 個略過。失敗檔案保留紀錄，可稍後重試。</string>
+    <string name="error_cloud_auth_required">網盤身分驗證失敗，請在設定中的網盤管理檢查帳號。</string>
+    <string name="error_cloud_quota">網盤空間不足，無法儲存此檔案。</string>
+    <string name="error_cloud_transcode">網盤未提供可播放的智慧轉碼版本。</string>
+    <string name="error_cloud_resource">請求的網盤資源無法使用。</string>
+    <string name="error_cloud_access">網盤拒絕了此請求，請檢查分享或檔案權限。</string>
+    <string name="error_cloud_network">無法連線至網盤，請檢查網路後重試。</string>
+    <string name="error_cloud_provider">網盤未能完成此次播放請求。</string>
+    <string name="cloud_using_original_quota">網盤空間不足，正在直接播放分享原畫，無需轉存。</string>
+    <string name="cloud_using_saved_original">正在透過網盤暫存副本播放原畫。</string>
+    <string name="cloud_using_original_preview">網盤預覽遭拒，正在播放原畫。</string>
+    <string name="cloud_stream_tools">串流檢查</string>
+    <string name="cloud_check_stream">檢查串流</string>
+    <string name="cloud_check_running">正在檢查媒體是否可存取…</string>
+    <string name="cloud_check_bytes">可讀取媒體資料。此檢查不驗證解碼或播放流暢度。</string>
+    <string name="cloud_check_segment">可讀取 HLS 媒體分片。此檢查不驗證解碼或播放流暢度。</string>
+    <string name="cloud_check_http">媒體請求傳回 HTTP %1$d。</string>
+    <string name="cloud_check_invalid">回應未提供可用媒體或支援的播放清單。</string>
+    <string name="cloud_check_limit">檢查已達到時間、大小或請求次數限制。</string>
+    <string name="cloud_check_cancelled">已取消串流檢查。</string>
+    <string name="cloud_check_unsupported">此串流位址不支援檢查。</string>
+    <string name="cloud_credentials_clear_password">清空密碼</string>
+    <string name="update_latest">已是最新版本</string>
+    <string name="update_failed">更新失敗，請稍後重試。</string>
+    <string name="database_recovery_schema">資料庫需要相容的應用程式版本。觀看記錄、收藏與雲端副本記錄已保留。請先匯出復原副本，再安裝相容版本後重試。副本包含私人資料，請勿公開分享。</string>
+    <string name="database_recovery_storage">無法讀取資料庫，可能是儲存或檔案損毀問題。原始檔案已保留，請在修復前匯出復原副本。</string>
+    <string name="database_recovery_export">匯出復原副本</string>
+    <string name="database_recovery_retry">重試</string>
+    <string name="database_recovery_exported">復原副本已匯出，原始資料未變更。</string>
+    <string name="database_recovery_failed">匯出失敗，請選擇其他位置或檢查可用空間。</string>
+    <string name="renderer_pairing_required">請將手機與電視上的無名配對</string>
+    <string name="renderer_pairing_instructions">在電視上開啟「無名 → 設定 → DLNA 掃碼配對」。\n手機連接同一 Wi-Fi，用相機掃碼，然後在瀏覽器中點選「配對」。\n返回此頁，點選「重新讀取電視能力」。</string>
+    <string name="renderer_query_retry">重新讀取電視能力</string>
+    <string name="renderer_capabilities">能力</string>
+    <string name="renderer_profile_unavailable">電視設定檔不可用，請重新發現裝置或檢查設定檔。</string>
+    <string name="renderer_manual_override">手動覆蓋</string>
+    <string name="renderer_profile_export">複製報告</string>
+    <string name="renderer_profile_reset">重設設定檔</string>
+    <string name="renderer_profile_reset_confirm">移除此電視的所有觀察和覆蓋設定？</string>
+    <string name="renderer_profile_copied">能力報告已複製</string>
+    <string-array name="renderer_capability_labels">
+        <item>MP4</item><item>HLS</item><item>DASH</item><item>H.264</item><item>HEVC</item><item>AAC</item>
+        <item>Seeking</item><item>HTTP byte ranges</item><item>Chunked transfer</item><item>Stop</item><item>Recast</item>
+    </string-array>
+    <string-array name="renderer_capability_choices">
+        <item>Unknown</item><item>Supported</item><item>Unsupported</item><item>Use learned result</item>
+    </string-array>
+    <string name="renderer_profiles_saved">已儲存的電視設定檔</string>
+    <string name="renderer_profiles_empty">暫無已儲存的 DLNA 設定檔，請先發現電視。</string>
+    <string name="renderer_querying">正在讀取電視能力…</string>
+    <string name="renderer_advertised">電視宣告</string>
+    <string name="renderer_query_complete">已讀取電視宣告，播放仍需驗證。</string>
+    <string name="renderer_query_offline">電視離線，顯示已儲存的證據。</string>
+    <string name="renderer_query_empty">電視未提供格式清單，需要播放測試。</string>
+    <string name="renderer_query_failed">電視查詢失敗，請重新開啟重試，已儲存證據。</string>
+    <string name="renderer_query_denied">電視拒絕查詢（HTTP %1$d），請檢查電視投屏權限。</string>
+    <string name="renderer_query_http_error">電視能力查詢失敗（HTTP %1$d），已儲存證據。</string>
+    <string name="renderer_query_upnp_error">電視能力查詢失敗（UPnP %1$d），已儲存證據。</string>
+    <string name="renderer_query_timeout">電視能力查詢逾時，已儲存證據，請在可達時重試。</string>
+    <string name="renderer_not_verified">未驗證 — 無證據</string>
+    <string name="renderer_evidence_insufficient">未驗證 — 需要更多播放證據</string>
+    <string name="renderer_evidence_conflicting">未驗證 — 播放結果衝突</string>
+    <string name="renderer_run_test">測試樣本播放…</string>
+    <string name="renderer_test_start">在電視上播放 15 秒移動圖案和聲音？這將取代目前播放。</string>
+    <string name="renderer_test_observe">觀看電視，僅在圖案移動和聲音可聽見時才確認。僅命令確認不代表測試成功。測試連線在 45 秒後關閉。</string>
+    <string name="renderer_test_success">畫面和聲音正常</string>
+    <string name="renderer_test_inconclusive">失敗 / 不確定</string>
+    <string name="renderer_test_not_fetched">電視未請求樣本媒體，結果仍未知。</string>
+    <string name="renderer_test_saved">已儲存確認樣本結果。</string>
+    <string name="source_package_import">匯入來源包 ZIP</string>
+    <string name="source_package_select">選擇啟用的來源</string>
+    <string name="source_package_name">來源包名稱</string>
+    <string name="source_package_name_hint">使用已有名稱會更新該包。匯入的來源尚未驗證播放。</string>
+    <string name="source_package_install">安裝</string>
+    <string name="source_package_installed">來源包已安裝，請在資源倉庫選用。</string>
+    <string name="source_package_rollback">回復來源包</string>
+    <string name="source_package_restored">已回復上一版，請重新載入配置。</string>
+    <string name="source_package_no_previous">沒有可回復的上一版。</string>
+    <string name="source_package_not_found">找不到來源配置。</string>
+    <string name="popup_sites">選擇站點</string>
+    <string name="popup_config_history">配置歷史</string>
+    <string name="error_play_protocol_unsupported">此版本不支援此播放協定，請選擇其他播放來源。</string>
+</resources>

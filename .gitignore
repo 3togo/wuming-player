@@ -1,0 +1,64 @@
+.idea
+.vscode
+.gradle
+.kotlin/
+# Compiler/IDE output. `bin/main` and `bin/test` sit beside `src/` in every
+# library and in `desktop`, so this must match at any depth (not `/bin/` only).
+bin/
+*.class
+.env
+.github/*
+!.github/dependabot.yml
+.settings
+*build
+# Gradle output only: `scripts/build/` holds checked-in build scripts, not a build dir.
+!scripts/build/
+*.jks
+release.jks
+*.properties
+lib-*.aar
+/Release
+*.apk
+test-fixtures/cloud-drive/*.mp4
+/debug/
+/release/
+/artifacts/
+/Release.marscode/
+__pycache__/
+.cache/
+res_backup*/
+*.png
+*.log
+app/src/main/assets/depot.json.*.bak
+.trae-bridge-config.json
+
+# Private signing material, including optional in-checkout config overrides.
+*.p12
+*.pfx
+/wuming-config.json
+
+.forge-permissions.json
+
+# Rust build artifacts
+native/target/
+
+# Public-source local build and verification material
+.cargo/config.toml
+.private-build/
+public-audit-private/
+*.tvbox-credentials.json
+accounts.passphrase
+shares.json
+
+# Private keys and local credentials never belong in the public source tree.
+*.p12
+*.pfx
+*.keystore
+*.key
+.env.*
+!.env.example
+wuming-config.json
+credentials.json
+
+# Local JavaScript bundle build dependencies
+node_modules/

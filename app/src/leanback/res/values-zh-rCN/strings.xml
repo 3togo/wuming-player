@@ -1,0 +1,91 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Home -->
+    <string name="home_vod">点播</string>
+    <string name="home_open_drive">云盘</string>
+    <string name="home_live">直播</string>
+    <string name="home_search">搜索</string>
+    <string name="home_keep">收藏</string>
+    <string name="home_playlist">播放列表</string>
+    <string name="home_push">推送</string>
+    <string name="home_setting">设置</string>
+    <string name="network_information_title">网络信息</string>
+    <string name="network_information_refresh">刷新</string>
+    <string name="network_information_back">返回</string>
+    <string name="network_information_status">状态：%1$s</string>
+    <string name="network_information_transport">连接方式：%1$s</string>
+    <string name="network_information_ipv4">IPv4 地址：%1$s</string>
+    <string name="network_information_ipv6">IPv6 地址：%1$s</string>
+    <string name="network_information_gateway">网关：%1$s</string>
+    <string name="network_information_dns">DNS 服务器：%1$s</string>
+    <string name="network_information_interface">网络接口：%1$s</string>
+    <string name="network_information_unavailable">不可用</string>
+    <string name="network_information_disconnected">没有活动网络</string>
+    <string name="network_information_validated">可以连接互联网</string>
+    <string name="network_information_unverified">互联网连接未验证</string>
+    <string name="network_information_local">仅连接本地网络</string>
+    <string name="network_information_wifi">Wi-Fi</string>
+    <string name="network_information_ethernet">以太网</string>
+    <string name="network_information_cellular">移动数据</string>
+    <string name="network_information_vpn">VPN</string>
+    <string name="network_information_other">其他</string>
+    <string name="home_history">最近观看</string>
+    <string name="home_recommend">更新推荐</string>
+    <string name="playlist_empty">播放列表为空</string>
+    <string name="playlist_added">已添加到播放列表</string>
+    <string name="playlist_duplicate">已在播放列表中</string>
+    <string name="playlist_clear_confirm">确定清空整个播放列表吗？</string>
+    <string name="playlist_paused">播放列表已暂停</string>
+    <string name="playlist_loop_on">已开启播放列表循环</string>
+    <string name="playlist_loop_off">已关闭播放列表循环</string>
+    <string name="playlist_source_unavailable">播放列表来源不可用</string>
+    <string name="playlist_finished">播放列表已结束</string>
+    <string name="playlist_loading_episodes">正在加载剧集…</string>
+    <string name="playlist_no_episodes">没有可用剧集</string>
+    <string name="playlist_choose_line">选择播放线路</string>
+    <string name="playlist_all_clear">全选 / 清空</string>
+    <string name="playlist_select_one_episode">请至少选择一集</string>
+    <string name="playlist_episode_selection_saved">播放列表剧集选择已保存</string>
+    <string name="playlist_episode_selected">已选择 %1$d / %2$d 集</string>
+    <string name="playlist_episode_count">已选择 %1$d 集</string>
+    <string name="playlist_selected">已选择</string>
+    <string name="playlist_not_selected">未选择</string>
+    <string-array name="playlist_episode_modes">
+        <item>全部剧集（默认）</item><item>从当前剧集开始</item><item>自选剧集…</item>
+    </string-array>
+    <string-array name="history_actions">
+        <item>添加到播放列表</item>
+        <item>选择要删除的历史记录</item>
+    </string-array>
+    <string-array name="playlist_actions_loop_off">
+        <item>从这里开始播放</item><item>选择剧集</item><item>暂停播放列表</item><item>开启播放列表循环</item>
+        <item>向前移动</item>
+        <item>向后移动</item>
+        <item>移除</item>
+        <item>清空播放列表</item>
+    </string-array>
+    <string-array name="playlist_actions_loop_on">
+        <item>从这里开始播放</item><item>选择剧集</item><item>暂停播放列表</item><item>关闭播放列表循环</item>
+        <item>向前移动</item><item>向后移动</item><item>移除</item><item>清空播放列表</item>
+    </string-array>
+    <string name="site_search">搜索站点</string>
+    <string name="site_change">切换站点</string>
+    <string name="timer_5">5 分钟</string>
+    <string name="timer_15">15 分钟</string>
+    <string name="timer_30">30 分钟</string>
+    <string name="timer_60">60 分钟</string>
+    <string name="timer_delay">延时 5 分钟</string>
+    <string name="timer_cancel">取消定时</string>
+    <string name="detail_episode">选集</string>
+
+    <!-- Vod -->
+    <string name="vod_home">推荐</string>
+
+    <!-- Collect -->
+    <string name="collect_result">“<xliff:g name="name">%s</xliff:g>”的搜索结果</string>
+
+    <!-- Push -->
+    <string name="push_clip">推送剪贴板内容</string>
+    <string name="push_info">使用手机扫描二维码，或于浏览器访问地址\n<xliff:g name="name">%s</xliff:g></string>
+
+</resources>

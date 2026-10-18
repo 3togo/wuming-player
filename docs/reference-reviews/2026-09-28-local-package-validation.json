@@ -1,0 +1,265 @@
+[
+  {
+    "name": "嗷呜",
+    "entry": "index.json",
+    "sites": 85,
+    "version": "7fce82067e22876939fc2008e0ff20b6217c31acc62c49c6030c7f8dd8ad33fe",
+    "errors": [],
+    "warnings": [
+      "Android DEX: img/E6C166A7F2222B95D16551FD2EACFC4E.png — desktop provider compatibility unverified",
+      "Unsupported desktop guard/payload: jar/4022779a787e68082599baafab8e0537.png",
+      "Local files do not imply offline playback. Provider services and nested script dependencies remain unverified."
+    ],
+    "artifacts": {
+      "img/E6C166A7F2222B95D16551FD2EACFC4E.png": "282b7decfb80b18ab878b3d5f3afd7088617b3008fed8c6b1ce7901ac6e8231b",
+      "jar/4022779a787e68082599baafab8e0537.png": "d3a43bb4ae313702ddacccfca395fb546d5274571cf6307438de09bc4710e622"
+    }
+  },
+  {
+    "name": "小米",
+    "entry": "index.json",
+    "sites": 38,
+    "version": "fdd151fe76a8d59548628581001bd707364ee70a92ee30f0f15fb003154f0238",
+    "errors": [],
+    "warnings": [
+      "Android DEX: jar/7fd101e440d84afa8608480893e72180aFnuu1Uq.jpg — desktop provider compatibility unverified",
+      "Local files do not imply offline playback. Provider services and nested script dependencies remain unverified."
+    ],
+    "artifacts": {
+      "jar/7fd101e440d84afa8608480893e72180aFnuu1Uq.jpg": "a2bbb6ba29ba83fc0cc7a6ebfeb1a0d8663b534ae815d61f7b51cd8b4b8c44d9"
+    }
+  },
+  {
+    "name": "摸鱼",
+    "entry": "index.json",
+    "sites": 85,
+    "version": "1321952d1e89c9ab32d7719f12a62ad30143ffd33a01f5abcc621b5bb10c3af6",
+    "errors": [],
+    "warnings": [
+      "Unsupported desktop guard/payload: jar/download.php",
+      "Local files do not imply offline playback. Provider services and nested script dependencies remain unverified."
+    ],
+    "artifacts": {
+      "jar/download.php": "e360ecbb21d75b5bd50be91b91a332011e1b19405f2ea543d1c32770c95c5161"
+    }
+  },
+  {
+    "name": "无意云",
+    "entry": "index.json",
+    "sites": 126,
+    "version": "bd51044a3837253c27fc5b6e8f6a4a21660021e7182faada328da8f476fadba3",
+    "errors": [],
+    "warnings": [
+      "Android DEX: jar/wyxs.php — desktop provider compatibility unverified",
+      "Python source: py_jieyingshi — unavailable on desktop and Android builds without Chaquopy",
+      "Python source: 星芽短剧 — unavailable on desktop and Android builds without Chaquopy",
+      "Python source: 爱听音乐 — unavailable on desktop and Android builds without Chaquopy",
+      "Python source: 网络直播 — unavailable on desktop and Android builds without Chaquopy",
+      "Python source: 哔哩直播 — unavailable on desktop and Android builds without Chaquopy",
+      "Local files do not imply offline playback. Provider services and nested script dependencies remain unverified."
+    ],
+    "artifacts": {
+      "jar/wyxs.php": "55392e14020201b80f546d38c74c298a844e76edcae1b3c2171d6c1988a01863"
+    }
+  },
+  {
+    "name": "王二小",
+    "entry": "index.json",
+    "sites": 87,
+    "version": "d55e7fee71c614b41d761284cd86073710b2aa14dfd636e8db3864ad9f82d5a5",
+    "errors": [],
+    "warnings": [
+      "Unsupported desktop guard/payload: jar/0fb7a341-b261-4664-b1d1-1b6a7ef21a4c.png",
+      "Local files do not imply offline playback. Provider services and nested script dependencies remain unverified."
+    ],
+    "artifacts": {
+      "jar/0fb7a341-b261-4664-b1d1-1b6a7ef21a4c.png": "608c3166fa1eebb8ecb40e5842eea38213c3cf920e6608fcc771a660b5df59a6"
+    }
+  },
+  {
+    "name": "肥猫",
+    "entry": "index.json",
+    "sites": 39,
+    "version": "7a4d56141d79f1f66280fa999b04bb62381ea58cc577deab92da3ba95144ee71",
+    "errors": [],
+    "warnings": [
+      "Android DEX: jar/f7c90-40d96eab-56f3-4c13-a248-8d80bcb9b83a.png — desktop provider compatibility unverified",
+      "Local files do not imply offline playback. Provider services and nested script dependencies remain unverified."
+    ],
+    "artifacts": {
+      "jar/f7c90-40d96eab-56f3-4c13-a248-8d80bcb9b83a.png": "04f73a0bb4c79fd2547e6c7b488b82afcc20b42572f5ff3030b0c430cd0419ab"
+    }
+  },
+  {
+    "name": "虎斑",
+    "entry": "index.json",
+    "sites": 66,
+    "version": "115f1ef6f210ef4c5693ed2ae36d6aa730c391d888da47bd839cb8117bdc0eaf",
+    "errors": [],
+    "warnings": [
+      "Android DEX: jar/custom_spider.jar — desktop provider compatibility unverified",
+      "Local files do not imply offline playback. Provider services and nested script dependencies remain unverified."
+    ],
+    "artifacts": {
+      "jar/custom_spider.jar": "3b55cb66d60a26aa6ef01f78cda708b2c437dcd561f28e43e2143783a77f38dd"
+    }
+  },
+  {
+    "name": "雷蒙/raw",
+    "entry": "source.txt",
+    "sites": 130,
+    "version": "6f1a60bf896b0b4adda9ae95289b9c66ed694793e7b3047d2c677d18cfee24dd",
+    "errors": [
+      "Missing or escaping local resource: ./N3RD/J/pg.jar",
+      "Missing or escaping local resource: ./N3RD/W/ICONSGIF.gif",
+      "Missing or escaping local resource: ./N3RD/J/notice.jar",
+      "Missing or escaping local resource: ./N3RD/J/market.jar",
+      "Missing or escaping local resource: ./N3RD/T/market.json",
+      "Missing or escaping local resource: ./N3RD/T/douban.json",
+      "Missing or escaping local resource: ./EXT/JS/lf_search3_min.js",
+      "Missing or escaping local resource: ./dr_py/libs/drpy2.min.js",
+      "Missing or escaping local resource: ./dr_py/js/豆瓣[官].js",
+      "Missing or escaping local resource: ./EXT/JS/荐片.js",
+      "Missing or escaping local resource: ./N3RD/T/pg.json",
+      "Missing or escaping local resource: ./N3RD/T/ytc.json",
+      "Missing or escaping local resource: ./dr_py/js/雷蒙资源.js",
+      "Missing or escaping local resource: ./dr_py/js/雷蒙直播.js",
+      "Missing or escaping local resource: ./dr_py/js/lf_live10_min-output.js",
+      "Missing or escaping local resource: ./dr_py/json/lf_live.json",
+      "Missing or escaping local resource: ./PY/html/pansou.py",
+      "Missing or escaping local resource: ./PY/html/盘搜-海报.py",
+      "Missing or escaping local resource: ./N3RD/T/wogg.json",
+      "Missing or escaping local resource: ./N3RD/T/huamucang.txt",
+      "Missing or escaping local resource: ./N3RD/T/hema4k.txt",
+      "Missing or escaping local resource: ./N3RD/T/guanying.txt",
+      "Missing or escaping local resource: ./N3RD/T/4kzn.txt",
+      "Missing or escaping local resource: ./N3RD/T/pushshare.txt",
+      "Missing or escaping local resource: ./N3RD/T/4kfox.txt",
+      "Missing or escaping local resource: ./N3RD/T/4kfm.txt",
+      "Missing or escaping local resource: ./N3RD/T/hdhive.txt",
+      "Missing or escaping local resource: ./N3RD/T/yiso.txt",
+      "Missing or escaping local resource: ./N3RD/T/panta.txt",
+      "Missing or escaping local resource: ./N3RD/T/qf.txt",
+      "Missing or escaping local resource: ./N3RD/T/moli.json",
+      "Missing or escaping local resource: ./N3RD/T/123share.txt",
+      "Missing or escaping local resource: ./N3RD/T/189share.txt",
+      "Missing or escaping local resource: ./N3RD/T/alishare.txt",
+      "Missing or escaping local resource: ./N3RD/T/thundershare.txt",
+      "Missing or escaping local resource: ./N3RD/T/quarkshare.txt",
+      "Missing or escaping local resource: ./N3RD/T/115share.txt",
+      "Missing or escaping local resource: ./N3RD/T/115share2.txt",
+      "Missing or escaping local resource: ./N3RD/T/ucshare.txt",
+      "Missing or escaping local resource: ./N3RD/T/p.json",
+      "Missing or escaping local resource: ./N3RD/T/p.json.txt.gz",
+      "Missing or escaping local resource: ./N3RD/T/pa.json",
+      "Missing or escaping local resource: ./N3RD/T/pa.json.txt.gz",
+      "Missing or escaping local resource: ./N3RD/T/pa1.json",
+      "Missing or escaping local resource: ./N3RD/T/pa1.json.txt.gz",
+      "Missing or escaping local resource: ./N3RD/T/alishare.ebook.txt",
+      "Missing or escaping local resource: ./N3RD/T/alistjar.json",
+      "Missing or escaping local resource: ./N3RD/T/webdav.json",
+      "Missing or escaping local resource: ./PY/html/飞快TV[推].py",
+      "Missing or escaping local resource: ./EXT/JS/funletu.js",
+      "Missing or escaping local resource: ./EXT/JS/xzys.js",
+      "Missing or escaping local resource: ./EXT/JS/dydhhy.js",
+      "Missing or escaping local resource: ./EXT/JS/tzfile.js",
+      "Missing or escaping local resource: ./EXT/JS/meow.js",
+      "Missing or escaping local resource: ./EXT/JS/qimiao.js",
+      "Missing or escaping local resource: ./EXT/JS/rrdyw.js",
+      "Missing or escaping local resource: ./EXT/JS/97tvs.js",
+      "Missing or escaping local resource: ./EXT/JS/meijumi.js",
+      "Missing or escaping local resource: ./EXT/JS/ddyspg.js",
+      "Missing or escaping local resource: ./EXT/JS/libvio.js",
+      "Missing or escaping local resource: ./EXT/JS/kkpans.js",
+      "Missing or escaping local resource: ./EXT/JS/lf_p2p2_min.js",
+      "Missing or escaping local resource: ./N3RD/J/xbpg.jar",
+      "Missing or escaping local resource: ./EXT/JS/xb6v.js",
+      "Missing or escaping local resource: ./EXT/JS/jiyingw.js",
+      "Missing or escaping local resource: ./EXT/JS/dygang.js",
+      "Missing or escaping local resource: ./EXT/JS/4khdr.js",
+      "Missing or escaping local resource: ./EXT/JS/kuba.js",
+      "Missing or escaping local resource: ./EXT/JS/cilixiongp.js"
+    ],
+    "warnings": [
+      "Python source: py_pansou — unavailable on desktop and Android builds without Chaquopy",
+      "Python source: py_盘搜 — unavailable on desktop and Android builds without Chaquopy",
+      "Python source: py_飞快TV[推] — unavailable on desktop and Android builds without Chaquopy",
+      "Local files do not imply offline playback. Provider services and nested script dependencies remain unverified."
+    ],
+    "artifacts": {}
+  },
+  {
+    "name": "雷蒙影视WP",
+    "entry": "雷蒙影视WP.json",
+    "sites": 130,
+    "version": "279b8fe3ff5d461380e74c444292da9d94a4b986b7a85612f52f63a8e9f58567",
+    "errors": [
+      "Missing or escaping local resource: ./N3RD/W/ICONSGIF.gif",
+      "Missing or escaping local resource: ./lib/雷蒙资源.js",
+      "Missing or escaping local resource: ./N3RD/T/pg.json",
+      "Missing or escaping local resource: ./N3RD/T/wogg.json",
+      "Missing or escaping local resource: ./N3RD/T/huamucang.txt",
+      "Missing or escaping local resource: ./N3RD/T/hema4k.txt",
+      "Missing or escaping local resource: ./N3RD/T/guanying.txt",
+      "Missing or escaping local resource: ./N3RD/T/4kzn.txt",
+      "Missing or escaping local resource: ./N3RD/T/pushshare.txt",
+      "Missing or escaping local resource: ./N3RD/T/4kfox.txt",
+      "Missing or escaping local resource: ./N3RD/T/4kfm.txt",
+      "Missing or escaping local resource: ./lib/hdhive.txt",
+      "Missing or escaping local resource: ./lib/yiso.txt",
+      "Missing or escaping local resource: ./lib/wogg.json",
+      "Missing or escaping local resource: ./N3RD/T/panta.txt",
+      "Missing or escaping local resource: ./lib/qf.txt",
+      "Missing or escaping local resource: ./lib/moli.json",
+      "Missing or escaping local resource: ./N3RD/T/123share.txt",
+      "Missing or escaping local resource: ./N3RD/T/189share.txt",
+      "Missing or escaping local resource: ./lib/alishare.txt",
+      "Missing or escaping local resource: ./lib/thundershare.txt",
+      "Missing or escaping local resource: ./lib/quarkshare.txt",
+      "Missing or escaping local resource: ./N3RD/T/115share.txt",
+      "Missing or escaping local resource: ./N3RD/T/115share2.txt",
+      "Missing or escaping local resource: ./N3RD/T/ucshare.txt",
+      "Missing or escaping local resource: ./N3RD/T/p.json",
+      "Missing or escaping local resource: ./N3RD/T/p.json.txt.gz",
+      "Missing or escaping local resource: ./N3RD/T/pa.json",
+      "Missing or escaping local resource: ./N3RD/T/pa.json.txt.gz",
+      "Missing or escaping local resource: ./N3RD/T/pa1.json",
+      "Missing or escaping local resource: ./N3RD/T/pa1.json.txt.gz",
+      "Missing or escaping local resource: ./lib/alishare.ebook.txt",
+      "Missing or escaping local resource: ./lib/webdav.json",
+      "Missing or escaping local resource: ./lib/bililive.m3u",
+      "Missing or escaping local resource: ./lib/huyayqk.m3u",
+      "Missing or escaping local resource: ./lib/douyuyqk.m3u"
+    ],
+    "warnings": [
+      "Android DEX: lib/notice.jar — desktop provider compatibility unverified",
+      "Android DEX: lib/xbpg.jar — desktop provider compatibility unverified",
+      "Android DEX: lib/market.jar — desktop provider compatibility unverified",
+      "Android DEX: pg.jar — desktop provider compatibility unverified",
+      "Python source: py_pansou — unavailable on desktop and Android builds without Chaquopy",
+      "Python source: py_盘搜 — unavailable on desktop and Android builds without Chaquopy",
+      "Python source: py_飞快TV[推] — unavailable on desktop and Android builds without Chaquopy",
+      "Local files do not imply offline playback. Provider services and nested script dependencies remain unverified."
+    ],
+    "artifacts": {
+      "lib/notice.jar": "1dd6f444471fee17290e955a330c4b6e8f94af75ebbbd252fb4f247c9dd2464d",
+      "lib/xbpg.jar": "64637af0a0dc780cbe58d72904c16b9ff95d16917fed715c2aa6390512d6c49d",
+      "lib/market.jar": "a14fcaa2fb67ba77c3131528221caa86d8333dcf6647b761ff9c128ed08bf28f",
+      "pg.jar": "729e5b4459aba5f3b4239d5367b12cb9c5267e4c101a4781c0bd342390fe9781"
+    }
+  },
+  {
+    "name": "饭太硬",
+    "entry": "index.json",
+    "sites": 49,
+    "version": "e46911287f77790e0a4e1e9fa9139a8104810d2738b4ed0b0ab3c02984fd7d19",
+    "errors": [],
+    "warnings": [
+      "Guarded DEX: jar/a3ef9fdc-e70b-4ede-8a98-bd56cd7ec65a.jpg — desktop requires exact artifact/ABI verification",
+      "Local files do not imply offline playback. Provider services and nested script dependencies remain unverified."
+    ],
+    "artifacts": {
+      "jar/a3ef9fdc-e70b-4ede-8a98-bd56cd7ec65a.jpg": "53092b423a2a93e96c64304f26325de49d5c152b36ce509e83025c07a71ae9d5"
+    }
+  }
+]

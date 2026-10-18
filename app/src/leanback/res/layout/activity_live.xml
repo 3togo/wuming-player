@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true">
+
+    <FrameLayout
+        android:id="@+id/video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:clickable="true"
+        android:focusable="true">
+
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/exo"
+            style="@style/Player.Live"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:surface_type="surface_view" />
+
+        <include
+            android:id="@+id/widget"
+            layout="@layout/view_widget_live"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <include
+            android:id="@+id/control"
+            layout="@layout/view_control_live"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/progress"
+            layout="@layout/view_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/videoInfo"
+            style="@style/VideoOverlay.Info"
+            android:layout_gravity="top|start"
+            android:layout_marginStart="@dimen/vs_12"
+            android:layout_marginTop="@dimen/vs_8"
+            tools:text="1920x1080 | H264 | Hard | 1.2 MB/s"
+            tools:visibility="visible" >
+            <tag android:id="@id/tag_typography_role" android:value="caption" />
+        </com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/videoClock"
+            style="@style/VideoOverlay.Clock"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="@dimen/vs_8"
+            android:layout_marginEnd="@dimen/vs_12"
+            tools:text="09:20"
+            tools:visibility="visible" >
+            <tag android:id="@id/tag_typography_role" android:value="caption" />
+        </com.google.android.material.textview.MaterialTextView>
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_live_list"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <com.wuming.android.tv.ui.custom.CustomLiveListView
+            android:id="@+id/group"
+            android:layout_width="@dimen/vs_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:padding="@dimen/vs_12"
+            tools:itemCount="5"
+            tools:listitem="@layout/adapter_group" />
+
+        <com.wuming.android.tv.ui.custom.CustomLiveListView
+            android:id="@+id/channel"
+            android:layout_width="@dimen/vs_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clipChildren="false"
+        android:translationX="@dimen/vs_neg12"
+            android:clipToPadding="false"
+            android:padding="@dimen/vs_12"
+            tools:itemCount="5"
+            tools:listitem="@layout/adapter_channel" />
+
+        <com.wuming.android.tv.ui.custom.CustomLiveListView
+            android:id="@+id/epgData"
+            android:layout_width="@dimen/vs_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:padding="@dimen/vs_12"
+            tools:itemCount="5"
+            tools:listitem="@layout/adapter_epg_data" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</FrameLayout>

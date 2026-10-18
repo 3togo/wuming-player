@@ -1,0 +1,63 @@
+{
+  "scope": "All four Maven runtime AAR families containing native .so files, including embedded-library notices beyond wrapper POM metadata. Separately source-built CPython dependencies are covered by scripts/python-runtime/sources.json and licenses/.",
+  "components": [
+    {
+      "coordinate": "wang.harlon.quickjs:wrapper-android:3.2.3",
+      "wrapperLicense": "Apache-2.0",
+      "nestedComponents": [
+        {
+          "name": "QuickJS",
+          "license": "MIT",
+          "commit": "f209a8556bc6e4e87cd0fb8c0932b47c5f3eeae5",
+          "licenseUrl": "https://raw.githubusercontent.com/HarlonWang/quickjs/f209a8556bc6e4e87cd0fb8c0932b47c5f3eeae5/LICENSE",
+          "notice": "third_party/package-assets/third-party/QuickJS-LICENSE.txt"
+        }
+      ],
+      "wrapperCommit": "cfdc05fa11ac866558297e888fbac5580905e194"
+    },
+    {
+      "coordinate": "pl.droidsonroids.gif:android-gif-drawable:1.2.32",
+      "sourceCommit": "4684ce7067e7b741fef43574dc165d730a6cb4f2",
+      "nestedComponents": [
+        {
+          "name": "GIFLib and SKIA",
+          "license": "MIT AND BSD-3-Clause",
+          "licenseUrl": "https://github.com/koral--/android-gif-drawable/blob/v1.2.32/LICENSE",
+          "notice": "third_party/package-assets/third-party/android-gif-drawable-LICENSE.txt"
+        }
+      ]
+    },
+    {
+      "coordinate": "io.antmedia:rtmp-client:3.2.0",
+      "wrapperLicense": "Apache-2.0",
+      "sourceCommit": "3af67842f517f9c6bbd22b961878624d0c44b713",
+      "nestedComponents": [
+        {
+          "name": "librtmp",
+          "license": "LGPL-2.1-or-later",
+          "notice": "third_party/package-assets/third-party/librtmp-COPYING.txt",
+          "sourceArchive": "third_party/corresponding-source/librtmp-client-3.2.0-production-source.tar.gz"
+        }
+      ],
+      "buildFlags": "Pinned CMakeLists.txt sets NO_CRYPTO; no OpenSSL/PolarSSL/GnuTLS is linked by this recipe."
+    },
+    {
+      "coordinate": "org.aomedia.avif.android:avif:0.11.1.3c786d2",
+      "nestedComponents": [
+        {
+          "name": "LibAVIF and bundled decoder/image components",
+          "license": "BSD/MIT/Apache/IJG texts preserved in upstream combined LICENSE",
+          "sourceCommit": "3c786d2",
+          "notice": "third_party/package-assets/third-party/maven/org.aomedia.avif.android__avif__0.11.1.3c786d2/UPSTREAM-LICENSE.txt"
+        }
+      ]
+    }
+  ],
+  "unresolved": [],
+  "standardRuntimeNotice": {
+    "name": "Android NDK libc++",
+    "license": "Apache-2.0 WITH LLVM-exception (legacy notices preserved)",
+    "notice": "third_party/package-assets/third-party/NDK-libcxx-LICENSE.txt",
+    "origin": "https://github.com/llvm/llvm-project/blob/llvmorg-17.0.6/libcxx/LICENSE.TXT"
+  }
+}

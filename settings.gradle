@@ -1,0 +1,118 @@
+pluginManagement {
+    // Plain gradlew and IDE builds must also avoid Google in mainland China.
+    // Timezone/locale are hints, not geolocation; an explicit Gradle property
+    // always wins (including build.sh's network-based decision). No network
+    // probe is needed before configuring repositories.
+    // A reused daemon can retain another invocation's Java default timezone.
+    // Read the host configuration instead; provider inputs also invalidate the
+    // configuration cache when the host timezone or TZ environment changes.
+    def hostTimezone = settings.providers.fileContents(
+            settings.layout.settingsDirectory.file('/etc/timezone')).asText
+            .map { it.trim() }
+    if (!settings.providers.systemProperty('os.name').get().startsWith('Windows')) {
+        hostTimezone = hostTimezone.orElse(settings.providers.exec {
+            commandLine 'sh', '-c', 'readlink /etc/localtime 2>/dev/null || true'
+        }.standardOutput.asText.map { it.trim().replaceFirst(/^.*zoneinfo\//, '') })
+    }
+    def timezone = settings.providers.environmentVariable('TZ')
+            .orElse(hostTimezone).getOrElse('')
+    def locale = settings.providers.environmentVariable('LC_ALL')
+            .orElse(settings.providers.environmentVariable('LC_MESSAGES'))
+            .orElse(settings.providers.environmentVariable('LANG'))
+            .getOrElse(Locale.default.toString())
+    def chinaHint = timezone in ['Asia/Shanghai', 'Asia/Chongqing', 'Asia/Chungking',
+                                'Asia/Harbin', 'Asia/Urumqi', 'PRC'] ||
+            locale ==~ /(?i)zh_CN([.@_\-].*)?/
+    def useChinaMirrors = settings.providers.gradleProperty('useChinaMirrors')
+            .map { it.toBoolean() }
+            .getOrElse(chinaHint)
+    settings.ext.useChinaMirrorsResolved = useChinaMirrors
+    if (useChinaMirrors) {
+        // SDK packages are not Maven artifacts and cannot use Aliyun mirrors.
+        // Fail promptly on missing local SDK packages instead of contacting Google.
+        def projectProperties = new LinkedHashMap(settings.gradle.startParameter.projectProperties)
+        projectProperties.putIfAbsent('android.builder.sdkDownload', 'false')
+        settings.gradle.startParameter.projectProperties = projectProperties
+        println 'China repositories: Aliyun only (SDK auto-download disabled by default).'
+    }
+    repositories {
+        if (useChinaMirrors) {
+            maven { url = 'https://maven.aliyun.com/repository/google' }
+            maven { url = 'https://maven.aliyun.com/repository/gradle-plugin' }
+            maven { url = 'https://maven.aliyun.com/repository/public' }
+        } else {
+            maven {
+                url = 'https://maven.aliyun.com/repository/gradle-plugin'
+                content { includeGroupByRegex 'org\\.jetbrains\\.kotlin.*' }
+            }
+            gradlePluginPortal()
+            mavenCentral()
+            google()
+        }
+    }
+}
+
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    def useChinaMirrors = settings.ext.useChinaMirrorsResolved
+    repositories {
+        if (useChinaMirrors) {
+            maven { url = 'https://maven.aliyun.com/repository/google' }
+            maven { url = 'https://maven.aliyun.com/repository/public' }
+            maven { url = 'https://maven.aliyun.com/repository/gradle-plugin' }
+        } else {
+            maven {
+                url = 'https://maven.aliyun.com/repository/central'
+                content {
+                    includeGroupByRegex 'org\\.jetbrains\\.kotlin.*'
+                    includeGroupByRegex 'org\\.graalvm.*'
+                }
+            }
+            mavenCentral()
+            google()
+        }
+        flatDir { dirs "$rootDir/app/libs" }
+        maven {
+            url = "https://jitpack.io"
+            // GitHub-hosted libraries only; missing Google/Central artifacts
+            // must not trigger another unrelated remote lookup.
+            content { includeGroupByRegex 'com\\.github\\..*' }
+        }
+    }
+}
+
+include ':app'
+include ':desktop'
+include ':libraries:cache-core'
+include ':libraries:base-core'
+include ':libraries:text-core'
+include ':libraries:design-core'
+include ':libraries:catalog-core'
+include ':libraries:media-core'
+include ':libraries:epg-core'
+include ':libraries:live-core'
+include ':libraries:upnp-core'
+include ':libraries:cloud-core'
+include ':libraries:js-runtime'
+include ':libraries:python-runtime'
+include ':libraries:jvm-spider-runtime'
+include ':libraries:guarded-runtime'
+include ':libraries:cloud-login-runtime'
+include ':libraries:playback-core'
+include ':libraries:search-core'
+include ':libraries:source-core'
+include ':libraries:user-library-core'
+include ':libraries:maccms-core'
+include ':guarded-catvod-host'
+include ':guarded-webview-helper'
+include ':guarded-spider-helper'
+include ':catvod'
+include ':quickjs'
+rootProject.name = "wuming-player"
+
+include ':vendor:cling'
+include ':vendor:cling-android'

@@ -1,0 +1,34 @@
+{
+  "arm64_v8a": {
+    "jniLibraries": 6,
+    "nativeExtensions": 116,
+    "runtimeZipBytes": 10150549,
+    "jniLibraryBytes": 10657936,
+    "sha256": "d7b2823752c015915b9f647868b6250f739f2942c07ea6aa421bc0f76fe342c0",
+    "elfArchitectureDependenciesAnd16KiBAlignment": "passed",
+    "deviceExecution": "not tested",
+    "apk": {
+      "path": "app/build/outputs/apk/mobileArm64_v8a/debug/mobile-arm64_v8a-20260928e166.apk",
+      "bytes": 78986116,
+      "sha256": "aeba5b05eb00311655c7ec242496fc819b3352f1b4afafe2603abf845252e85f",
+      "bundledRuntimeChecksum": "passed",
+      "chaquopyAssetsOrLibraries": false
+    }
+  },
+  "armeabi_v7a": {
+    "jniLibraries": 6,
+    "nativeExtensions": 116,
+    "runtimeZipBytes": 9893104,
+    "jniLibraryBytes": 6808564,
+    "sha256": "c4fb89170f8d1597dd80f19427401bf7670b97046677aa29eb8d35e621f834e0",
+    "elfArchitectureDependenciesAnd16KiBAlignment": "passed",
+    "deviceExecution": "not tested",
+    "apk": {
+      "path": "app/build/outputs/apk/mobileArmeabi_v7a/debug/mobile-armeabi_v7a-20260928e166.apk",
+      "bytes": 71413138,
+      "sha256": "365b59610b7921c0e0054bea6468785d96b657b328cd962c97dba9322670ea9a",
+      "bundledRuntimeChecksum": "passed",
+      "chaquopyAssetsOrLibraries": false
+    }
+  }
+}
