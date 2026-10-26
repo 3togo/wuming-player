@@ -26,7 +26,40 @@ three utility activities. This was found when checking the private protocol
 manifest merge; keeping the incomplete Lite manifest would omit the launcher.
 Verification-only activities remain in the original verification manifest.
 
-No device was accessed. Live SDK playback, actual TV navigation, casting
+No device was accessed during the offline phase. Live SDK playback, actual TV navigation, casting
 picture/sound, and native-engine behavior still require authorized device checks.
 The offline result demonstrates build/integration and regression-test parity,
 not a new claim of hardware playback validation.
+
+## Silent Android device follow-up
+
+On 2026-10-26, public source `84f888d39764e4ac7c57b0ad058162affb940616`
+passed all 35 selected tests on an authorized Kuwan Pad Pro (Android 14, ARM64).
+The selection included the 32-method deep mobile suite, two database preservation
+checks, and the audio-free loopback playback/decoder-reset fixture. Initial,
+cold-start, background-return and restart launches also passed. The separate
+testing app and instrumentation runner were installed with data-preserving updates.
+
+Device testing exposed a shared startup defect: Room's main database header could
+still contain version 0 while the committed WAL held version 46. The read-only
+preflight now checks the last committed, checksum-validated WAL page one. Newer
+versions still enter recovery, and originals and sidecars remain unchanged. All
+32 user-library-core tests and shared-library/desktop/lifecycle boundary checks
+passed; real Android WAL and recovery-export checks passed on the device.
+
+The mobile checks now account for optional Live navigation and native-density
+touch targets. This tablet overrides activity orientation requests; the final
+layout run used the explicit `smoke_rotate_display=true` test option, which rotates
+the actual display and restores the saved rotation mode without relaxing layout
+assertions. Earlier failed attempts were retained. The final public selection
+passed in full after a separate startup attempt lost focus to another application.
+
+Media/system/ring/notification volumes were zero, total-silence mode was enabled,
+and touch/lock sounds were disabled. The synthetic video files contain no audio
+streams. Monitoring found no media-volume or silence-mode changes. Original audio,
+rotation and wake settings were verified restored, testing processes stopped,
+and the device returned to its launcher. A second authorized Android 7.1 device
+was inspected only: API 25 is below the app's API 26 minimum.
+
+These results cover the selected tablet flows, not physical TV navigation,
+live private-provider playback or casting to another device.
