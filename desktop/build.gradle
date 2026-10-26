@@ -135,3 +135,18 @@ tasks.named('test') {
     dependsOn ':libraries:python-runtime:prepareLinuxPython'
     systemProperty 'wuming.python.runtime', nativePythonRuntime.get().asFile.absolutePath
 }
+
+// The same Linux distribution is packaged under the consuming edition's identity.
+def desktopEditionMetadata = tasks.register('writeDesktopEdition') {
+    def packageName = rootProject.wumingEdition.desktopPackage.toString()
+    def target = layout.buildDirectory.file('packaging/desktop-edition.json')
+    inputs.property('desktopPackage', packageName)
+    outputs.file(target)
+    doLast {
+        target.get().asFile.parentFile.mkdirs()
+        target.get().asFile.setText(groovy.json.JsonOutput.toJson([desktopPackage: packageName]) + '\n', 'UTF-8')
+    }
+}
+distributions.main.contents {
+    from(desktopEditionMetadata) { into 'share' }
+}

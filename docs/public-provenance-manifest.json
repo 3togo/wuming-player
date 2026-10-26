@@ -1161,7 +1161,7 @@
     },
     {
       "path": "desktop/build.gradle",
-      "sha256": "9fda7d529db1b3ef75f477009d97942baae7b25c759ab0cd575e5f3504bfea91"
+      "sha256": "0460f704e677d0fc63f6733a0630fcd8cb50242f556e34ac33ab165db4e56fc8"
     },
     {
       "path": "docs/public-maven-inventory.json",
@@ -2917,11 +2917,11 @@
     },
     {
       "path": "gradle/edition.gradle",
-      "sha256": "ed2d6da066c195a3e09424bd81adad6d312d99fd3ce290ea884c47063b0923ca"
+      "sha256": "c9457f42645cfd9594fa6c4286b09cd55fb06eef9be540e75e969a46a3e78c15"
     },
     {
       "path": "gradle/edition-defaults.json",
-      "sha256": "c7ab494ff830526a5d4fbf66b928de70277a71e0fdcd8b9d23f18326bc83dfde"
+      "sha256": "cb34c2bbac1f4018aba6e9dddaa0b01ae2b1297fbd219c24f81a3b101a1da87f"
     }
   ]
 }

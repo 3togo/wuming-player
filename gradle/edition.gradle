@@ -5,7 +5,8 @@ def edition = editionText == null ? [:] : new groovy.json.JsonSlurper().parseTex
 if (!(edition instanceof Map)) throw new GradleException('edition.json must be an object')
 ext.wumingEdition = new groovy.json.JsonSlurper().parseText(
         providers.fileContents(layout.projectDirectory.file('gradle/edition-defaults.json')).asText.get()) + edition
-if (!(wumingEdition.applicationId ==~ /[a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)+/) ||
+if (!(wumingEdition.desktopPackage ==~ /[a-z0-9][a-z0-9+.-]+/) ||
+        !(wumingEdition.applicationId ==~ /[a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)+/) ||
         !(wumingEdition.helperSuffix ==~ /[a-zA-Z][a-zA-Z0-9_]*/) ||
         !(wumingEdition.nativeProtocols instanceof Boolean) ||
         !(wumingEdition.pushSchemes instanceof List) ||

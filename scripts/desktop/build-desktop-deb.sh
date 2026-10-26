@@ -16,7 +16,7 @@ usage() {
     cat <<'HELP'
 Usage: ./build-desktop-deb.sh [options]
 
-Builds tvbox-desktop for this Linux host (amd64 or arm64). No sudo is needed.
+Builds the selected desktop edition for this Linux host (amd64 or arm64). No sudo is needed.
 Requires the project's Java/Gradle build environment and dpkg-deb (dpkg >= 1.19).
 
   --version VERSION       Override Debian version (default: desktop Gradle version;
@@ -51,7 +51,7 @@ while (( $# )); do
 done
 
 [[ "$(uname -s)" == Linux ]] || fail 'Build this package on Linux.'
-for tool in dpkg dpkg-deb install cp find chmod du md5sum sha256sum mktemp; do
+for tool in python3 dpkg dpkg-deb install cp find chmod du md5sum sha256sum mktemp; do
     command -v "$tool" >/dev/null 2>&1 || fail "Required build tool is missing: $tool"
 done
 architecture="$(dpkg --print-architecture)"
@@ -84,6 +84,16 @@ if [[ -z "$package_version" ]]; then
     validate_version
 fi
 
+# Read identity from the built distribution, so --skip-build cannot relabel stale output.
+package_id="$(python3 - "${distribution}/share/desktop-edition.json" <<'PYTHON'
+import json, re, sys
+value = json.load(open(sys.argv[1], encoding='utf-8'))['desktopPackage']
+if not isinstance(value, str) or not re.fullmatch(r'[a-z0-9][a-z0-9+.-]+', value):
+    raise SystemExit('Invalid desktop package identity; rebuild installDist')
+print(value)
+PYTHON
+)"
+
 mkdir -p -- "$output_directory"
 output_directory="$(cd -- "$output_directory" && pwd -P)"
 work_directory="$(mktemp -d "${output_directory}/.tvbox-deb.XXXXXX")"
@@ -92,10 +102,10 @@ trap cleanup EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM
 stage="${work_directory}/root"
-app_directory="${stage}/usr/lib/tvbox-desktop"
+app_directory="${stage}/usr/lib/${package_id}"
 install -d "$stage/DEBIAN" "$app_directory" "$stage/usr/bin" \
     "$stage/usr/share/applications" "$stage/usr/share/icons/hicolor/512x512/apps" \
-    "$stage/usr/share/doc/tvbox-desktop"
+    "$stage/usr/share/doc/${package_id}"
 cp -a -- "${distribution}/." "$app_directory/"
 rm -f -- "$app_directory/bin/tvbox-desktop.bat"
 # Normalize checkout/build permissions; dpkg-deb supplies root ownership in the archive.
@@ -103,35 +113,35 @@ find "$app_directory" -type d -exec chmod 0755 {} +
 find "$app_directory" -type f -exec chmod 0644 {} +
 chmod 0755 "$app_directory/bin/tvbox-desktop"
 
-cat > "$stage/usr/bin/tvbox-desktop" <<'LAUNCHER'
+cat > "$stage/usr/bin/${package_id}" <<LAUNCHER
 #!/bin/sh
 # All dependencies are installed by APT; launching never invokes Gradle or sudo.
-exec /usr/lib/tvbox-desktop/bin/tvbox-desktop "$@"
+exec /usr/lib/${package_id}/bin/tvbox-desktop "\$@"
 LAUNCHER
-chmod 0755 "$stage/usr/bin/tvbox-desktop"
+chmod 0755 "$stage/usr/bin/${package_id}"
 
-cat > "$stage/usr/share/applications/tvbox-desktop.desktop" <<'DESKTOP'
+cat > "$stage/usr/share/applications/${package_id}.desktop" <<DESKTOP
 [Desktop Entry]
 Type=Application
-Name=TVBox Desktop
+Name=無名
 Comment=Browse video catalogues and watch live TV
-Exec=tvbox-desktop
-TryExec=tvbox-desktop
-Icon=tvbox-desktop
+Exec=${package_id}
+TryExec=${package_id}
+Icon=${package_id}
 Terminal=false
 Categories=AudioVideo;Video;TV;
 StartupNotify=true
 DESKTOP
 install -m 0644 "${project_root}/app/src/main/ic_launcher-playstore.png" \
-    "$stage/usr/share/icons/hicolor/512x512/apps/tvbox-desktop.png"
-install -m 0644 "${project_root}/LICENSE.md" "$stage/usr/share/doc/tvbox-desktop/copyright"
-install -m 0644 "${project_root}/desktop/README.md" "$stage/usr/share/doc/tvbox-desktop/README.md"
+    "$stage/usr/share/icons/hicolor/512x512/apps/${package_id}.png"
+install -m 0644 "${project_root}/LICENSE.md" "$stage/usr/share/doc/${package_id}/copyright"
+install -m 0644 "${project_root}/desktop/README.md" "$stage/usr/share/doc/${package_id}/README.md"
 if command -v desktop-file-validate >/dev/null 2>&1; then
-    desktop-file-validate "$stage/usr/share/applications/tvbox-desktop.desktop"
+    desktop-file-validate "$stage/usr/share/applications/${package_id}.desktop"
 fi
 installed_size="$(du -sk "$stage/usr" | cut -f1)"
 cat > "$stage/DEBIAN/control" <<CONTROL
-Package: tvbox-desktop
+Package: ${package_id}
 Version: ${package_version}
 Section: video
 Priority: optional
@@ -150,7 +160,7 @@ CONTROL
     find usr -type f -print0 | LC_ALL=C sort -z | xargs -0 md5sum > DEBIAN/md5sums
 )
 # An epoch belongs in control metadata, not the conventional archive filename.
-package_name="tvbox-desktop_${package_version#*:}_${architecture}.deb"
+package_name="${package_id}_${package_version#*:}_${architecture}.deb"
 dpkg-deb --root-owner-group -Zxz -z6 --build "$stage" "$work_directory/$package_name"
 mv -f -- "$work_directory/$package_name" "$output_directory/$package_name"
 (

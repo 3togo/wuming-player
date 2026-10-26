@@ -1,4 +1,4 @@
-# TVBox Linux desktop
+# 無名 Linux desktop
 
 This is a physically separate Kotlin/JVM application. It consumes only the generic TVBox
 libraries and must never depend on `app`, Android modules, Android AARs, CatVod, Media3 or Room.
@@ -331,3 +331,24 @@ license notices, and the project license is installed under `/usr/share/doc/tvbo
 
 Initial release targets are Linux x86-64 and arm64 with Java 17 or newer. An embedded player
 remains deferred; Debian packages use the system's external mpv player.
+
+## Public and private editions on Linux
+
+The public repository owns the entire desktop application and the Linux launch
+and Debian packaging scripts. Private builds export an exact public commit and
+add their catalogs and Android SDK adapters; they do not maintain another desktop
+source tree. Android-only SDKs do not become Linux playback engines.
+
+Run `scripts/desktop/run-tvbox-desktop.sh` or
+`scripts/desktop/build-desktop-deb.sh` from either repository. In the private
+repository these commands compose the pinned public source and delegate to those
+same scripts. Private outputs live under `.build/workspace/desktop/build`.
+
+`desktopPackage` in the edition configuration selects the Debian package and
+installed command: `tvbox-desktop` for public, `tvbox-desktop-private` for private.
+The Gradle distribution records that identity in `share/desktop-edition.json`.
+Packaging reads this built metadata, including with `--skip-build`, rather than
+relabelling an existing distribution using the current checkout configuration.
+Older distributions must be rebuilt once to supply the metadata. Both packages
+keep the application name 無名. Package files are separate; existing application
+preferences and user data retain their current locations.
