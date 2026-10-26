@@ -2,17 +2,18 @@ package com.wuming.tv.core.runtime.guardspider
 
 import java.nio.file.Path
 
-/** Retains the host ABI while rejecting native emulation removed from the public build. */
-@Suppress("UNUSED_PARAMETER")
+/** Stable native-call facade; an edition may supply the execution port through ServiceLoader. */
 class GuardedNativeCryptoRuntime(
     abi: GuardedSpiderAbi, library: Path, guard: Path, dataDirectory: Path
-) : AutoCloseable {
-    init { throw UnsupportedOperationException(REASON) }
-    fun callString(signature: String, vararg arguments: Any?): String = throw UnsupportedOperationException(REASON)
-    fun callIntArray(signature: String, value: IntArray): IntArray = throw UnsupportedOperationException(REASON)
-    override fun close() = Unit
+) : GuardedNativeSession {
+    private val session = (GuardedNativeProviders.load() ?: throw UnsupportedOperationException(REASON))
+        .open(abi, library, guard, dataDirectory)
+
+    override fun callString(signature: String, vararg arguments: Any?): String = session.callString(signature, *arguments)
+    override fun callIntArray(signature: String, value: IntArray): IntArray = session.callIntArray(signature, value)
+    override fun close() = session.close()
 
     companion object {
-        const val REASON = "Native guarded-provider emulation is unavailable in the public build. Choose another source."
+        const val REASON = "Native guarded-provider execution is not included in this distribution. Choose another source."
     }
 }

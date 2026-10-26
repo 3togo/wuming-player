@@ -835,8 +835,11 @@ class ConfigurationPanel(
         prefix: String,
         expected: Int,
     ) {
-        val executors = result.getOrElse {
-            setBusy(false, rootMessage(it))
+        val executors = result.getOrElse { failure ->
+            val message = "Provider startup failed: ${rootMessage(failure)}"
+            logger.log(Level.WARNING, "provider activation failed expected=$expected error=${rootMessage(failure)}", failure)
+            setBusy(false, message)
+            onStartupStatus(message)
             return
         }
         runCatching { onGuardedEnabled(executors) }

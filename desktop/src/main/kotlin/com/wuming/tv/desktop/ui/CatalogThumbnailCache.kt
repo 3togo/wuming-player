@@ -101,7 +101,7 @@ internal class CatalogThumbnailCache(
             }
         }
         result.onSuccess {
-            logger.fine("thumbnail ready target=${safeTarget(request.location)} cache=${if (diskHit) "disk" else "network"}")
+            logger.info("thumbnail ready target=${safeTarget(request.location)} cache=${if (diskHit) "disk" else "network"}")
         }.onFailure { failure ->
             logger.log(Level.WARNING, "thumbnail failed target=${safeTarget(request.location)} error=${rootMessage(failure)}")
         }
@@ -116,6 +116,8 @@ internal class CatalogThumbnailCache(
     }
 
     fun prefetch(items: List<CatalogItem>, ready: () -> Unit = {}) {
+        logger.info("thumbnail catalog items=${items.size} withPicture=${items.count { it.picture.isNotBlank() }} " +
+            "loadable=${items.count { request(it.picture) != null }}")
         items.asSequence().filter { it.picture.isNotBlank() }.take(minOf(MAX_PREFETCH, maximumEntries))
             .forEach { iconFor(it.name, it.picture, ready) }
     }

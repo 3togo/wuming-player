@@ -41,6 +41,7 @@ object DesktopLogging {
         Thread.setDefaultUncaughtExceptionHandler { thread, failure ->
             Logger.getLogger("tvbox.uncaught").log(Level.SEVERE, "uncaught thread=${thread.name}", failure)
         }
+        Logger.getLogger("tvbox.session").info("log directory=${directory.toAbsolutePath()}")
         Logger.getLogger("tvbox.session").info(
             "start time=${Instant.now()} java=${System.getProperty("java.version")} os=${System.getProperty("os.name")} " +
                 "arch=${System.getProperty("os.arch")} headless=${java.awt.GraphicsEnvironment.isHeadless()}",

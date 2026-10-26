@@ -17,6 +17,7 @@ import com.wuming.tv.core.runtime.guardspider.GuardedSpiderRuntime
 import com.wuming.tv.core.runtime.guardspider.GuardedRuntimeAssetsProducer
 import com.wuming.tv.core.runtime.jvmspider.JvmSpiderSiteSpec
 import java.util.logging.Logger
+import java.util.logging.Level
 import java.util.jar.JarFile
 import java.util.concurrent.Executors
 
@@ -71,59 +72,70 @@ class GuardedSourceActivator {
         logger.info(
             "activate batch start sources=${sites.size} abi=${abi.configName} trustedSha256=$trustedSha256",
         )
-        return TrustedJvmSpiderArtifact.resolve(artifactLocation).use { artifact ->
-            val prepared = prepare(artifact.path, trustedSha256, abi)
-            val workerCount = minOf(MAX_PARALLEL_PROVIDER_STARTS, sites.size)
-            val workers = Executors.newFixedThreadPool(workerCount) { task ->
-                Thread(task, "tvbox-guarded-activation").apply { isDaemon = true }
-            }
-            val emulatorBridge = resolveEmulatorBridge()
-            if (emulatorBridge is AdbAndroidEmulatorWebViewBridge) {
-                val wiredSerial = System.getProperty("tvbox.guarded.emulator.serial") ?: System.getenv("ANDROID_SERIAL")
-                val ready = emulatorBridge.prepare()
-                logger.info("emulator tunnel prepare serial=$wiredSerial ready=$ready")
-            }
-            val gmsBridge = resolveGmsBridge(prepared)
-            if (gmsBridge is AdbAndroidGmsProviderBridge) {
-                val wiredSerial = System.getProperty("tvbox.guarded.gms.serial") ?: System.getenv("TVBOX_GUARDED_GMS_SERIAL")
-                val ready = gmsBridge.prepare()
-                logger.info("gms tunnel prepare serial=$wiredSerial ready=$ready")
-            }
-            val futures = sites.map { site ->
-                site to workers.submit<GuardedCatVodCatalogSourceExecutor> {
-                    val guardedSite = GuardedCatVodSiteSpec(
-                        site.key,
-                        site.name,
-                        site.api,
-                        site.extension,
-                        site.categories,
-                        site.providerKey,
-                    )
-                    requireProviderClass(prepared.path, guardedSite.className)
-                    GuardedCatVodCatalogSourceExecutor(guardedSite, prepared, emulatorBridge, gmsBridge).also {
-                        logger.info("activate success key=${site.key} abi=${abi.configName} cacheReused=${prepared.reused} emulatorBridge=${emulatorBridge::class.simpleName}")
+        var phase = "resolve"
+        try {
+            return TrustedJvmSpiderArtifact.resolve(artifactLocation).use { artifact ->
+                phase = "prepare"
+                logger.info("activate prepare start sources=${sites.size} abi=${abi.configName}")
+                val prepared = prepare(artifact.path, trustedSha256, abi)
+                logger.info("activate prepare success abi=${abi.configName} cacheReused=${prepared.reused}")
+                phase = "start-providers"
+                val workerCount = minOf(MAX_PARALLEL_PROVIDER_STARTS, sites.size)
+                val workers = Executors.newFixedThreadPool(workerCount) { task ->
+                    Thread(task, "tvbox-guarded-activation").apply { isDaemon = true }
+                }
+                val emulatorBridge = resolveEmulatorBridge()
+                if (emulatorBridge is AdbAndroidEmulatorWebViewBridge) {
+                    val wiredSerial = System.getProperty("tvbox.guarded.emulator.serial") ?: System.getenv("ANDROID_SERIAL")
+                    val ready = emulatorBridge.prepare()
+                    logger.info("emulator tunnel prepare serial=$wiredSerial ready=$ready")
+                }
+                val gmsBridge = resolveGmsBridge(prepared)
+                if (gmsBridge is AdbAndroidGmsProviderBridge) {
+                    val wiredSerial = System.getProperty("tvbox.guarded.gms.serial") ?: System.getenv("TVBOX_GUARDED_GMS_SERIAL")
+                    val ready = gmsBridge.prepare()
+                    logger.info("gms tunnel prepare serial=$wiredSerial ready=$ready")
+                }
+                val futures = sites.map { site ->
+                    site to workers.submit<GuardedCatVodCatalogSourceExecutor> {
+                        val guardedSite = GuardedCatVodSiteSpec(
+                            site.key,
+                            site.name,
+                            site.api,
+                            site.extension,
+                            site.categories,
+                            site.providerKey,
+                        )
+                        requireProviderClass(prepared.path, guardedSite.className)
+                        GuardedCatVodCatalogSourceExecutor(guardedSite, prepared, emulatorBridge, gmsBridge).also {
+                            logger.info("activate success key=${site.key} abi=${abi.configName} cacheReused=${prepared.reused} emulatorBridge=${emulatorBridge::class.simpleName}")
+                        }
                     }
                 }
+                workers.shutdown()
+                val activated = mutableListOf<GuardedCatVodCatalogSourceExecutor>()
+                val failed = mutableListOf<Pair<String, Throwable>>()
+                futures.forEach { (site, future) ->
+                    runCatching { future.get() }
+                        .onSuccess(activated::add)
+                        .onFailure { failure ->
+                            val cause = failure.cause ?: failure
+                            failed += site.key to cause
+                            logger.warning("activate failed key=${site.key} error=${cause.message}")
+                        }
+                }
+                if (activated.isEmpty() && failed.isNotEmpty()) {
+                    throw failed.first().second
+                }
+                if (failed.isNotEmpty()) {
+                    logger.warning("activate partial success ok=${activated.size} failed=${failed.size}")
+                }
+                logger.info("activate batch complete enabled=${activated.size} failed=${failed.size}")
+                activated
             }
-            workers.shutdown()
-            val activated = mutableListOf<GuardedCatVodCatalogSourceExecutor>()
-            val failed = mutableListOf<Pair<String, Throwable>>()
-            futures.forEach { (site, future) ->
-                runCatching { future.get() }
-                    .onSuccess(activated::add)
-                    .onFailure { failure ->
-                        val cause = failure.cause ?: failure
-                        failed += site.key to cause
-                        logger.warning("activate failed key=${site.key} error=${cause.message}")
-                    }
-            }
-            if (activated.isEmpty() && failed.isNotEmpty()) {
-                throw failed.first().second
-            }
-            if (failed.isNotEmpty()) {
-                logger.warning("activate partial success ok=${activated.size} failed=${failed.size}")
-            }
-            activated
+        } catch (failure: Throwable) {
+            logger.log(Level.WARNING, "activate batch failed phase=$phase sources=${sites.size} abi=${abi.configName}", failure)
+            throw failure
         }
     }
 

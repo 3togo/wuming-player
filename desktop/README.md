@@ -352,3 +352,16 @@ relabelling an existing distribution using the current checkout configuration.
 Older distributions must be rebuilt once to supply the metadata. Both packages
 keep the application name 無名. Package files are separate; existing application
 preferences and user data retain their current locations.
+
+## Startup and thumbnail diagnostics
+
+The launcher prints the log directory at startup. Logs are normally under
+`~/.cache/tvbox-desktop/logs/` (or `$XDG_CACHE_HOME/tvbox-desktop/logs/`). Provider
+activation records preparation, completion and failures with the original stack
+trace. Catalog image counts distinguish missing provider pictures from download
+failures; successful thumbnail requests record whether the pixels came from disk
+or the network.
+
+Guarded-provider native execution is an optional `GuardedNativeProvider` service.
+The public distribution contains no native implementation. A private edition may
+supply that port without replacing shared desktop, preparation or catalog code.
