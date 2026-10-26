@@ -6,6 +6,10 @@ import java.util.prefs.Preferences
 class DesktopApplicationSettings(
     private val preferences: Preferences = Preferences.userNodeForPackage(DesktopApplicationSettings::class.java).node("application"),
 ) {
+    var preventMultiplePlayerWindows: Boolean
+        get() = preferences.getBoolean("preventMultiplePlayerWindows", true)
+        set(value) { preferences.putBoolean("preventMultiplePlayerWindows", value); preferences.flush() }
+
     var preventMultipleInstances: Boolean
         get() = preferences.getBoolean("preventMultipleInstances", true)
         set(value) { preferences.putBoolean("preventMultipleInstances", value); preferences.flush() }

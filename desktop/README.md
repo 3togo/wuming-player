@@ -401,3 +401,9 @@ just as they share the current user's desktop settings.
 
 The tray popup menu uses bold text at 18 logical pixels, scaled with the desktop
 UI. Native tooltip styling remains controlled by the Linux desktop.
+
+**Use one video playback window**, also enabled by default under Appearance,
+reuses the current mpv window for catalog/live playback when its request headers
+are compatible. Otherwise the app closes its previous player before starting the
+replacement. Clear the option to permit independent player windows. This setting
+applies to future playback requests without restarting the app.

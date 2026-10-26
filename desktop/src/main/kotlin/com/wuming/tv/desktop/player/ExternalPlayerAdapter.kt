@@ -31,6 +31,7 @@ class ExternalPlayerAdapter internal constructor(
     val executable: Path,
     private val processStarter: ProcessStarter,
     private val targetPreparer: PlaybackTargetPreparer = HlsCompatibilityPreparer(),
+    private val singleWindow: () -> Boolean = { com.wuming.tv.desktop.config.DesktopApplicationSettings().preventMultiplePlayerWindows },
 ) {
     constructor(
         executable: Path,
@@ -41,6 +42,7 @@ class ExternalPlayerAdapter internal constructor(
 
     private val logger = Logger.getLogger("tvbox.player")
     private val mpvSessionLock = Any()
+    private val windowLaunchLock = Any()
     private var mpvSession: MpvSession? = null
     private val launchedLock = Any()
     private val launched = LinkedHashSet<Process>()
@@ -105,51 +107,64 @@ class ExternalPlayerAdapter internal constructor(
                 prepared.resource?.close()
                 return PlayerLaunchResult(false, "Playback cancelled.")
             }
-            if (reuseRunningPlayer && name.equals("mpv", true) &&
-                enqueueInMpvSession(prepared, safeHeaders, onEnded, onClosed, displayName, onPlaybackStarted = onPlaybackStarted, onPlaybackFailed = onPlaybackFailed)
-            ) {
-                if (initialSpeed.isFinite() && initialSpeed in 0.25..4.0) setSpeed(initialSpeed)
-                mpvSetProperty("fullscreen", if (fullscreen) "yes" else "no")
-                logger.info("reuse player=$name target=${tag(target)} compatibilityRelay=${prepared.resource != null}")
-                return PlayerLaunchResult(true, "Playing next in $name")
-            }
-            val ipcPath = if (name.equals("mpv", true)) newMpvSocketPath() else null
-            val process = processStarter.start(command(prepared.location, safeHeaders, ipcPath, displayName, initialSpeed, fullscreen))
-            logger.info(
-                "launch player=$name target=${tag(target)} headers=${safeHeaders.keys.sorted()} " +
-                    "compatibilityRelay=${prepared.resource != null} pid=${process?.pid() ?: "test"}",
-            )
-            process?.let { running ->
-                track(running)
-                val session = ipcPath?.let { path ->
-                    MpvSession(running, path, transportHeaders(safeHeaders), prepared, onEnded, onClosed, onPlaybackStarted = onPlaybackStarted, onPlaybackFailed = onPlaybackFailed).also {
-                        synchronized(mpvSessionLock) { mpvSession = it }
-                        connectMpvSession(it)
-                    }
+            val ready = prepared
+            synchronized(windowLaunchLock) {
+                if (isCancelled()) {
+                    ready.resource?.close()
+                    return PlayerLaunchResult(false, "Playback cancelled.")
                 }
-                val output = monitorOutput(running)
-                running.onExit().thenCombine(output) { finished, naturalEnd ->
-                    logger.info(
-                        "exit player=$name pid=${finished.pid()} code=${finished.exitValue()} " +
-                            "naturalEnd=$naturalEnd target=${tag(target)}",
-                    )
-                    if (session != null) closeMpvSession(session) else prepared.resource?.close()
-                    if (session == null && naturalEnd && finished.exitValue() == 0) {
-                        runCatching { onEnded?.invoke() }.onFailure { error ->
-                            logger.log(Level.WARNING, "end callback failed player=$name", error)
+                val keepOneWindow = singleWindow()
+                if ((reuseRunningPlayer || keepOneWindow) && name.equals("mpv", true) &&
+                    enqueueInMpvSession(ready, safeHeaders, onEnded, onClosed, displayName, onPlaybackStarted = onPlaybackStarted, onPlaybackFailed = onPlaybackFailed)
+                ) {
+                    if (initialSpeed.isFinite() && initialSpeed in 0.25..4.0) setSpeed(initialSpeed)
+                    mpvSetProperty("fullscreen", if (fullscreen) "yes" else "no")
+                    logger.info("reuse player=$name target=${tag(target)} compatibilityRelay=${ready.resource != null}")
+                    return PlayerLaunchResult(true, "Playing in $name")
+                }
+                if (keepOneWindow) stopBeforeReplacement()
+                if (isCancelled()) {
+                    ready.resource?.close()
+                    return PlayerLaunchResult(false, "Playback cancelled.")
+                }
+                val ipcPath = if (name.equals("mpv", true)) newMpvSocketPath() else null
+                val process = processStarter.start(command(ready.location, safeHeaders, ipcPath, displayName, initialSpeed, fullscreen))
+                logger.info(
+                    "launch player=$name target=${tag(target)} headers=${safeHeaders.keys.sorted()} " +
+                        "compatibilityRelay=${ready.resource != null} pid=${process?.pid() ?: "test"}",
+                )
+                process?.let { running ->
+                    track(running)
+                    val session = ipcPath?.let { path ->
+                        MpvSession(running, path, transportHeaders(safeHeaders), ready, onEnded, onClosed, onPlaybackStarted = onPlaybackStarted, onPlaybackFailed = onPlaybackFailed).also {
+                            synchronized(mpvSessionLock) { mpvSession = it }
+                            connectMpvSession(it)
                         }
                     }
-                    val closed = session?.onClosed ?: onClosed
-                    runCatching { closed?.invoke() }.onFailure { error ->
-                        logger.log(Level.WARNING, "close callback failed player=$name", error)
+                    val output = monitorOutput(running)
+                    running.onExit().thenCombine(output) { finished, naturalEnd ->
+                        logger.info(
+                            "exit player=$name pid=${finished.pid()} code=${finished.exitValue()} " +
+                                "naturalEnd=$naturalEnd target=${tag(target)}",
+                        )
+                        if (session != null) closeMpvSession(session) else ready.resource?.close()
+                        if (session == null && naturalEnd && finished.exitValue() == 0) {
+                            runCatching { onEnded?.invoke() }.onFailure { error ->
+                                logger.log(Level.WARNING, "end callback failed player=$name", error)
+                            }
+                        }
+                        val closed = session?.onClosed ?: onClosed
+                        runCatching { closed?.invoke() }.onFailure { error ->
+                            logger.log(Level.WARNING, "close callback failed player=$name", error)
+                        }
                     }
                 }
+                if (process == null) {
+                    ready.resource?.close()
+                    ipcPath?.let { Files.deleteIfExists(it) }
+                }
+                PlayerLaunchResult(true, "Opened in $name")
             }
-            if (process == null) {
-                prepared.resource?.close()
-                ipcPath?.let { Files.deleteIfExists(it) }
-            }
-            PlayerLaunchResult(true, "Opened in $name")
         } catch (error: PlaybackPreparationException) {
             prepared?.resource?.close()
             logger.warning("playback unavailable player=$name target=${tag(target)} error=${error.message}")
@@ -381,6 +396,17 @@ class ExternalPlayerAdapter internal constructor(
         // windowClosing covers the normal path; this also covers System.exit from anywhere else.
         if (first) runCatching {
             Runtime.getRuntime().addShutdownHook(Thread({ runCatching { terminateAll() } }, "tvbox-player-shutdown"))
+        }
+    }
+
+    private fun stopBeforeReplacement() {
+        val previous = synchronized(launchedLock) { launched.toList() }
+        terminateAll()
+        previous.forEach { process ->
+            if (process.isAlive && !process.waitFor(GRACE_PERIOD_SECONDS, TimeUnit.SECONDS)) {
+                synchronized(launchedLock) { launched.addAll(previous.filter { it.isAlive }) }
+                throw IllegalStateException("Previous video player is still closing; retry playback.")
+            }
         }
     }
 

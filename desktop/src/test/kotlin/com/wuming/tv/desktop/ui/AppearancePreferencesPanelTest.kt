@@ -33,6 +33,12 @@ class AppearancePreferencesPanelTest {
                 assertFalse(com.wuming.tv.desktop.config.DesktopApplicationSettings(prefs.node("application")).preventMultipleInstances)
                 singleInstance.doClick()
                 assertTrue(application.preventMultipleInstances)
+                val onePlayer = checkboxes(panel).single { it.text == "Use one video playback window" }
+                assertTrue(onePlayer.isSelected)
+                onePlayer.doClick()
+                assertFalse(com.wuming.tv.desktop.config.DesktopApplicationSettings(prefs.node("application")).preventMultiplePlayerWindows)
+                onePlayer.doClick()
+                assertTrue(application.preventMultiplePlayerWindows)
                 fun combos(parent: Container): List<JComboBox<*>> = parent.components.flatMap {
                     if (it is JComboBox<*>) listOf(it) else if (it is Container) combos(it) else emptyList()
                 }

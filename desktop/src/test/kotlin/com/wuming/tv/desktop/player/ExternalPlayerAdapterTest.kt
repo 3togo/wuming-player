@@ -376,6 +376,48 @@ class ExternalPlayerAdapterTest {
     }
 
     @Test
+    fun oneWindowStopsThePreviousPlayerBeforeOpeningAnother() {
+        val first = AliveProcess()
+        val second = AliveProcess()
+        var launches = 0
+        val adapter = ExternalPlayerAdapter(Path.of("/usr/bin/vlc"), {
+            if (launches++ == 0) first else {
+                assertFalse("Previous player must exit before replacement", first.isAlive)
+                second
+            }
+        }, PlaybackTargetPreparer { target, _ -> PreparedPlaybackTarget(target) }, singleWindow = { true })
+        try {
+            assertTrue(adapter.play("https://media.example/first.mp4").started)
+            assertTrue(adapter.play("https://media.example/second.mp4").started)
+            assertEquals(1, first.destroyCount)
+            assertTrue(second.isAlive)
+        } finally { adapter.terminateAll() }
+    }
+
+    @Test
+    fun concurrentPlaybackRequestsStillOpenOnlyOnePlayerAtATime() {
+        val ready = java.util.concurrent.CountDownLatch(2)
+        val players = java.util.concurrent.CopyOnWriteArrayList<AliveProcess>()
+        val adapter = ExternalPlayerAdapter(Path.of("/usr/bin/vlc"), {
+            assertTrue("Player launches must be serialized", players.none { it.isAlive })
+            AliveProcess().also { players += it }
+        }, PlaybackTargetPreparer { target, _ ->
+            ready.countDown()
+            check(ready.await(5, TimeUnit.SECONDS))
+            PreparedPlaybackTarget(target)
+        }, singleWindow = { true })
+        val workers = java.util.concurrent.Executors.newFixedThreadPool(2)
+        try {
+            val requests = (1..2).map { index -> workers.submit<PlayerLaunchResult> {
+                adapter.play("https://media.example/$index.mp4")
+            } }
+            assertTrue(requests.all { it.get(5, TimeUnit.SECONDS).started })
+            assertEquals(2, players.size)
+            assertEquals(1, players.count { it.isAlive })
+        } finally { adapter.terminateAll(); workers.shutdownNow() }
+    }
+
+    @Test
     fun terminateAllKillsEveryPlayerItStarted() {
         val first = AliveProcess()
         val second = AliveProcess()
@@ -384,6 +426,7 @@ class ExternalPlayerAdapterTest {
             Path.of("/usr/bin/vlc"),
             { if (launches++ == 0) first else second },
             PlaybackTargetPreparer { target, _ -> PreparedPlaybackTarget(target) },
+            singleWindow = { false },
         )
 
         adapter.play("https://media.example/one.m3u8")

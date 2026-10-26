@@ -49,6 +49,15 @@ class AppearancePreferencesPanel(
             gridx = 0; gridy = 2; gridwidth = 2; anchor = GridBagConstraints.LINE_START
             insets = Insets(DesignTokens.SPACE_MEDIUM, 0, DesignTokens.SPACE_SMALL, 0)
         })
+        val onePlayer = JCheckBox("Use one video playback window", application.preventMultiplePlayerWindows).apply {
+            isOpaque = false
+            toolTipText = "New playback reuses or replaces the current video player."
+            addActionListener { application.preventMultiplePlayerWindows = isSelected }
+        }
+        form.add(onePlayer, GridBagConstraints().apply {
+            gridx = 0; gridy = 3; gridwidth = 2; anchor = GridBagConstraints.LINE_START
+            insets = Insets(DesignTokens.SPACE_SMALL, 0, DesignTokens.SPACE_SMALL, 0)
+        })
         val content = JPanel(BorderLayout(0, DesignTokens.SPACE_MEDIUM)).apply {
             isOpaque = false
             border = BorderFactory.createEmptyBorder(DesignTokens.SPACE_LARGE, DesignTokens.SPACE_LARGE,
