@@ -737,7 +737,7 @@ class CatalogPanel(
     }
 
     fun showConfigurationStatus(message: String) {
-        if (configuredSiteCount == 0) status.text = message
+        if (configuredSiteCount == 0 || catalog?.sources().isNullOrEmpty()) status.text = message
     }
 
     fun useLocalConfiguration(configuration: DesktopTvBoxConfiguration) {

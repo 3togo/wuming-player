@@ -34,11 +34,13 @@ class ConfigurationStartupTest {
         trustStore.remember(spec, oldDigest, com.wuming.tv.core.runtime.guardspider.GuardedSpiderAbi.ARMEABI_V7A)
         DesktopConfigurationUrlStore(preferences).rememberWorking("https://custom.test/tv")
         val activated = AtomicInteger()
+        val visibleStatus = java.util.concurrent.atomic.AtomicReference("")
         lateinit var panel: ConfigurationPanel
         try {
             SwingUtilities.invokeAndWait {
                 panel = ConfigurationPanel(loader = loader, preferences = preferences,
-                    onGuardedEnabled = { activated.incrementAndGet() })
+                    onGuardedEnabled = { activated.incrementAndGet() },
+                    onStartupStatus = { visibleStatus.set(it) })
                 panel.loadSavedConfiguration()
             }
             val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(5)
@@ -54,6 +56,8 @@ class ConfigurationStartupTest {
             assertTrue("A stale approval needs an accessible review action", visible)
             assertEquals(0, activated.get())
             assertEquals(oldDigest, trustStore.find(spec)?.sha256)
+            assertTrue("The catalog must explain why the provider is waiting: ${visibleStatus.get()}",
+                visibleStatus.get().contains("Review updated bundle"))
             SwingUtilities.invokeAndWait {
                 val list = panel.javaClass.getDeclaredField("sites").apply { isAccessible = true }.get(panel) as javax.swing.JList<*>
                 assertTrue(list.model.getElementAt(0).toString().contains("bundle updated"))

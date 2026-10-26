@@ -437,6 +437,7 @@ class ConfigurationPanel(
             status.text = verifiedProviders.firstOrNull()?.value?.let {
                 "${cacheNotice}${verifiedProviders.size} guarded sources are verified; inspect and approve their exact artifact once."
             } ?: "Configuration loaded, but it contains no verified guarded desktop source."
+            if (startup) onStartupStatus(status.text)
             if (startup && verifiedProviders.isNotEmpty()) {
                 if (DesktopStartupConfiguration.automaticallyApprove(depot, configuration.location)) {
                     logger.info("startup automatically enabling built-in default providers")
@@ -790,6 +791,7 @@ class ConfigurationPanel(
                 result.onSuccess { restored ->
                     setBusy(false, "${prefix}Restored ${restored.size} of ${trusted.size} desktop sources.$failureNotice")
                 }.onFailure { setBusy(false, rootMessage(it)) }
+                if (updatedKeys.isNotEmpty() || failures.isNotEmpty() || result.isFailure) onStartupStatus(status.text)
             }
         }.execute()
     }
