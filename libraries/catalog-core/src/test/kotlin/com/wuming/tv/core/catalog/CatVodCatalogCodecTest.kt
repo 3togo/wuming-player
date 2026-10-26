@@ -5,6 +5,22 @@ import org.junit.Test
 
 class CatVodCatalogCodecTest {
 
+    @Test
+    fun `line padding is removed from labels without changing playback keys`() {
+        val flag = "VIP线路" + "\u0620".repeat(37)
+        val detail = codec.detail(
+            """{"list":[{"vod_name":"Title","vod_play_from":"$flag","vod_play_url":"HD${'$'}stream"}]}""",
+            "id",
+        )
+        assertEquals("VIP线路", detail.lines.single().name)
+        assertEquals(flag, detail.lines.single().flag)
+        // Existing cached display names also pass through the same presentation policy.
+        assertEquals("VIP线路", CatalogLineNames.display(flag))
+        for (name in listOf("蓝光国粤双语中字", "العربية", "🎬 HD", "single\u0620")) {
+            assertEquals(name, CatalogLineNames.display(name))
+        }
+    }
+
     private val codec = CatVodCatalogCodec(CatalogSource("source", "Source"))
 
     @Test

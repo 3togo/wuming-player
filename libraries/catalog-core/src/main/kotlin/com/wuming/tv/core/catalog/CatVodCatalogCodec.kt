@@ -174,7 +174,7 @@ class CatVodCatalogCodec(private val source: CatalogSource) {
             }
             if (episodes.isEmpty()) null else CatalogLine(
                 flag = flags.getOrNull(index).orEmpty().ifBlank { "line-${index + 1}" },
-                name = flags.getOrNull(index).orEmpty().ifBlank { "Line ${index + 1}" },
+                name = CatalogLineNames.display(flags.getOrNull(index).orEmpty().ifBlank { "Line ${index + 1}" }),
                 episodes = episodes,
             )
         }

@@ -359,7 +359,7 @@ class CatalogPanel(
         }
         types.renderer = NamedRenderer<CatalogTypeChoice> { it?.name.orEmpty() }
         lines.renderer = NamedRenderer<CatalogLine> { item ->
-            item?.name.orEmpty().ifBlank { item?.flag.orEmpty() }
+            item?.let { com.wuming.tv.core.catalog.CatalogLineNames.display(it.name, it.flag) }.orEmpty()
         }
         results.cellRenderer = CatalogItemRenderer(thumbnails, { results.repaint() }) { key ->
             if ((sources.selectedItem as? CatalogSourceChoice)?.isShowAll == true) sourceName(key) else ""
