@@ -17,6 +17,8 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.SystemClock;
+import android.provider.Settings;
+import android.view.Surface;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,10 +47,49 @@ import com.wuming.android.tv.utils.LayoutConfig;
 import com.google.android.material.navigation.NavigationBarView;
 
 import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 public class MobileCriticalFlowInstrumentedTest {
+    private boolean rotateDisplay;
+    private int savedRotation;
+    private boolean savedAutoRotation;
+
+    @Before
+    public void saveExplicitDisplayRotationMode() {
+        rotateDisplay = "true".equals(InstrumentationRegistry.getArguments().getString("smoke_rotate_display"));
+        if (!rotateDisplay) return;
+        Context context = ApplicationProvider.getApplicationContext();
+        savedRotation = Settings.System.getInt(context.getContentResolver(), Settings.System.USER_ROTATION, 0);
+        savedAutoRotation = Settings.System.getInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0) != 0;
+    }
+
+    @After
+    public void restoreExplicitDisplayRotationMode() {
+        if (!rotateDisplay) return;
+        android.app.UiAutomation automation = InstrumentationRegistry.getInstrumentation().getUiAutomation();
+        assertTrue(automation.setRotation(savedRotation));
+        if (savedAutoRotation) assertTrue(automation.setRotation(android.app.UiAutomation.ROTATION_UNFREEZE));
+    }
+
+    private static <A extends Activity> void requestOrientation(ActivityScenario<A> scenario, int requested) {
+        boolean forceDisplay = "true".equals(InstrumentationRegistry.getArguments().getString("smoke_rotate_display"));
+        int[] rotation = {Surface.ROTATION_0};
+        scenario.onActivity(activity -> {
+            int current = activity.getWindowManager().getDefaultDisplay().getRotation();
+            boolean naturalPortrait = (activity.getResources().getConfiguration().orientation
+                    == Configuration.ORIENTATION_PORTRAIT)
+                    == (current == Surface.ROTATION_0 || current == Surface.ROTATION_180);
+            rotation[0] = (requested == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) == naturalPortrait
+                    ? Surface.ROTATION_0 : Surface.ROTATION_90;
+            activity.setRequestedOrientation(requested);
+        });
+        // Some tablets override app requests. The explicit device-test option models
+        // physically rotating the display; all real layout assertions still apply.
+        if (forceDisplay) assertTrue(InstrumentationRegistry.getInstrumentation().getUiAutomation().setRotation(rotation[0]));
+    }
 
     @Test
     public void frontPageVodNavigationSurvivesActivityRecreation() {
@@ -321,7 +362,7 @@ public class MobileCriticalFlowInstrumentedTest {
 
     private static void requestHomeOrientationAndAssertVod(ActivityScenario<HomeActivity> scenario,
                                                             int requested, int expected) {
-        scenario.onActivity(activity -> activity.setRequestedOrientation(requested));
+        requestOrientation(scenario, requested);
         waitForHomeOrientation(scenario, expected);
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
         scenario.onActivity(MobileCriticalFlowInstrumentedTest::assertHomeVodContent);
@@ -412,7 +453,7 @@ public class MobileCriticalFlowInstrumentedTest {
 
     private static void requestSearchOrientationAndAssertGrid(ActivityScenario<MobileFastSearchActivity> scenario,
                                                                int requested, int expected, int spanCount) {
-        scenario.onActivity(activity -> activity.setRequestedOrientation(requested));
+        requestOrientation(scenario, requested);
         waitForSearchOrientation(scenario, expected);
         scenario.onActivity(activity -> {
             TextView title = activity.findViewById(R.id.mSearchTitle);
@@ -428,7 +469,7 @@ public class MobileCriticalFlowInstrumentedTest {
 
     private static void requestCollectionOrientationAndAssertGrid(ActivityScenario<MobileSearchActivity> scenario,
                                                                    int requested, int expected, int spanCount) {
-        scenario.onActivity(activity -> activity.setRequestedOrientation(requested));
+        requestOrientation(scenario, requested);
         waitForSearchActivityOrientation(scenario, expected);
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
         scenario.onActivity(activity -> {
@@ -544,7 +585,7 @@ public class MobileCriticalFlowInstrumentedTest {
     private static LayoutSnapshot requestOrientationAndAssertContent(ActivityScenario<HistoryActivity> scenario,
                                                                      int requestedOrientation,
                                                                      int expectedOrientation) {
-        scenario.onActivity(activity -> activity.setRequestedOrientation(requestedOrientation));
+        requestOrientation(scenario, requestedOrientation);
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
         waitForOrientation(scenario, expectedOrientation);
         LayoutSnapshot[] snapshot = new LayoutSnapshot[1];
