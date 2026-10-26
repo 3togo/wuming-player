@@ -10,7 +10,7 @@ duration=${2:-60}
 output=$(mktemp -d "${TMPDIR:-/tmp}/tv-cast-trace.XXXXXX")
 adb -s "$serial" get-state > "$output/device.txt"
 adb -s "$serial" shell date >> "$output/device.txt"
-adb -s "$serial" shell dumpsys package "${WUMING_PACKAGE:-com.wuming.android.tv.publicedition.verification}" |
+adb -s "$serial" shell dumpsys package "${WUMING_PACKAGE:-$(python3 "$(dirname "${BASH_SOURCE[0]}")/../edition-config.py" --verification)}" |
     awk '/versionName=|lastUpdateTime=/' >> "$output/device.txt"
 printf 'Capturing %s seconds to %s\n' "$duration" "$output"
 status=0

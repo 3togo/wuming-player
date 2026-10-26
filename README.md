@@ -181,3 +181,10 @@ Live 配置可內嵌於 Vod 配置或獨立存放。欄位定義請參閱
 source set。
 
 完整主題列表與文件用途見 [docs/README.md](docs/README.md)。
+
+## Edition extensions
+
+The public application uses `com.wuming.android.tv.publicedition`. A private consumer
+can reuse this source with `com.wuming.android.tv.privateedition` and additive
+SDK adapters and catalogs. Both use `無名` normally and `無名(testing)` for isolated
+verification builds. See [shared edition architecture](docs/shared-editions.md).

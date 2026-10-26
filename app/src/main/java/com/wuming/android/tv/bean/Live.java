@@ -102,6 +102,10 @@ public class Live {
     private Catchup catchup;
 
     @Ignore
+    @SerializedName("core")
+    private com.google.gson.JsonObject coreConfig;
+
+    @Ignore
     @SerializedName("groups")
     private List<Group> groups;
 
@@ -261,6 +265,11 @@ public class Live {
 
     public Catchup getCatchup() {
         return catchup == null ? Catchup.empty() : catchup;
+    }
+
+    /** Opaque engine configuration interpreted only by an installed playback extension. */
+    public com.google.gson.JsonObject getCoreConfig() {
+        return coreConfig;
     }
 
     public List<Group> getGroups() {

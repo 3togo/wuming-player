@@ -533,7 +533,7 @@
   "supportingArtifacts": [
     {
       "path": "app/build.gradle",
-      "sha256": "08456d2726635173659e015e23dc55f2f36c201d2a8f5021046b5b04494798b7"
+      "sha256": "f4c1dbde73234a60158e61674e7bc408677b4a0712c95fbab98c8aa296503007"
     },
     {
       "path": "app/src/androidTest/assets/cast-remux/README.md",
@@ -1149,7 +1149,7 @@
     },
     {
       "path": "build.gradle",
-      "sha256": "ecc01d6aadc89099813a9e626e7fcf4a80c2230d1a75b398925f8f1eb9a1e9ff"
+      "sha256": "eaf2e6b40533d7db4256622fc252c8d33390aa5626f1bb57a5276d7ac06d1460"
     },
     {
       "path": "catvod/build.gradle",
@@ -1205,15 +1205,15 @@
     },
     {
       "path": "guarded-spider-helper/build.gradle",
-      "sha256": "414ee42b3317754ba29203903abf3c0be3eb84c5b0e550a3adbee2373bda4275"
+      "sha256": "a38c1246a26500de32a2bae19e4d6ca204f0755dacabcc1d2d1f989ad4eb1f77"
     },
     {
       "path": "guarded-webview-helper/build.gradle",
-      "sha256": "c21cf9652f23a3cdcb3ec61f38488570abaa6129032eaa7d4639f224015142e3"
+      "sha256": "57033047b69107303358af43004f73113cbb238bf2200fbd4849902d1f20d56a"
     },
     {
       "path": "libraries/base-core/build.gradle",
-      "sha256": "3c96c9259b2265bf44ff16fbed9a57d873723d921828ad9daa3515186f181772"
+      "sha256": "20570894894490e19c985f7c0c5a324d3247dedc941d7779b0bb5759f8752f54"
     },
     {
       "path": "libraries/cache-core/build.gradle",
@@ -1241,7 +1241,7 @@
     },
     {
       "path": "libraries/guarded-runtime/build.gradle",
-      "sha256": "a586a322a7ffa9ebfea47b7714662a896ef922caf93fccec2e111f6821113e08"
+      "sha256": "b3da010bc33221381a3034dc9eca3d5700a9bf251512cb0bb737d1cb41d818bb"
     },
     {
       "path": "libraries/js-runtime/build.gradle",
@@ -1357,7 +1357,7 @@
     },
     {
       "path": "settings.gradle",
-      "sha256": "eaba6989d8316ba983bfd654208300dc06a6c0d6d80a8178453fa098b095b25b"
+      "sha256": "61d2f2debe7df7e63fefaad947c2f4b9a46ebdb23a39287f2aace8ecc45ede70"
     },
     {
       "path": "test-fixtures/synthetic-media-provenance.json",
@@ -2914,6 +2914,14 @@
     {
       "path": "vendor/cling/build.gradle",
       "sha256": "9a7cd282456e0321eb296a50ae2ad353e09a21c30e4e7d933d1d74a013fded69"
+    },
+    {
+      "path": "gradle/edition.gradle",
+      "sha256": "ed2d6da066c195a3e09424bd81adad6d312d99fd3ce290ea884c47063b0923ca"
+    },
+    {
+      "path": "gradle/edition-defaults.json",
+      "sha256": "c7ab494ff830526a5d4fbf66b928de70277a71e0fdcd8b9d23f18326bc83dfde"
     }
   ]
 }

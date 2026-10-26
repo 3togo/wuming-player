@@ -1,10 +1,14 @@
-# Removed SDK cache policy
+# Optional SDK cache policy
 
-The public distribution no longer includes JianPian or Thunder engines, native
-sessions, downloads, or engine-specific cache ownership. Their former cache-policy
-code and tests were removed with the engines. Settings now clears app-internal
-cache children through the existing symlink-safe CacheTree utility; no active
-removed engine can own those directories. Cache-size reporting is unchanged.
-No external user files or account data are removed by this change.
+The public distribution does not package JianPian or Thunder engines. Its default
+cache port clears app-internal cache children through the symlink-safe CacheTree
+utility; no native SDK owns those directories in a public build.
 
-See [vendor-sdk-removal.md](vendor-sdk-removal.md).
+The public core libraries own the portable P2P cache budget, link parsing, session
+ownership and native runtime lease policies used by optional private Android
+adapters. The private cache port retains active-owner protection, low-space stops,
+deferred clearing and restart cleanup. Neither edition removes external user
+files or account data through this operation. Cache-size reporting is unchanged.
+
+See [shared editions](shared-editions.md) and the historical
+[SDK removal record](vendor-sdk-removal.md).

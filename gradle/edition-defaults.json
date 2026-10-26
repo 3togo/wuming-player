@@ -1,0 +1,11 @@
+{
+  "applicationId": "com.wuming.android.tv.publicedition",
+  "helperSuffix": "publicedition",
+  "androidExtension": "",
+  "nativeProtocols": false,
+  "pushSchemes": [
+    "http",
+    "https",
+    "video"
+  ]
+}

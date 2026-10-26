@@ -228,6 +228,13 @@ public class App extends Application implements Application.ActivityLifecycleCal
         // private credential-file access. UI/database/server startup belongs to
         // the main process and would otherwise duplicate work or contend for ports.
         if (providerProcess) return;
+        Task.execute(() -> {
+            try {
+                com.wuming.android.tv.edition.AppExtensions.getCurrent().initialize();
+            } catch (Exception error) {
+                AppLog.e(TAG, "Edition initialization failed", error);
+            }
+        });
         UiTheme.applySavedAppearance();
         Notify.createChannel();
         NetworkEnvironmentMonitor.start(this);

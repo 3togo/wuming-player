@@ -20,7 +20,7 @@ object Sniffer {
     val CLICKER: Pattern = Pattern.compile("\\[a=cr:(\\{.*?\\})\\/](.*?)\\[\\/a]")
 
     @JvmField
-    val AI_PUSH: Pattern = Pattern.compile("(https?|video):\\S+")
+    val AI_PUSH: Pattern = Pattern.compile("(" + com.wuming.tv.core.base.EditionSettings.current.pushSchemes.joinToString("|") { Pattern.quote(it) } + "):\\S+")
 
     @JvmField
     val SNIFFER: Pattern = Pattern.compile("https?://[^\\s]{12,}\\.(?:m3u8|mp4|mkv|flv|mp3|m4a|aac|mpd)(?:\\?.*)?|https?://.*?video/tos[^\\s]*|rtmp:[^\\s]+")

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Check the reviewed public snapshot's bundled files and source-built vendor patches."""
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -8,12 +9,33 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 
-def check(root):
+def check(root, private=False):
+    marker = root / 'gradle/private-distribution.json'
+    if marker.exists():
+        if not private:
+            raise ValueError('Private SDK extensions cannot pass the public distribution gate; use --private for private-only validation')
+        import runpy
+        runpy.run_path(str(root / 'scripts/check-private-distribution.py'))['check'](root)
+    elif private:
+        raise ValueError('Private validation requires the private distribution marker')
     report = json.loads((root / 'docs/public-third-party-inventory.json').read_text())
     if not report.get('stableReleaseReviewComplete') or report.get('releaseBlockers'):
         raise ValueError('Public provenance review has unresolved entries')
     manifest = json.loads((root / 'docs/public-provenance-manifest.json').read_text())
-    tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=root).decode().split('\0')[:-1]
+    composition = root / '.private-composition.json'
+    if private and composition.is_file():
+        # The private launcher records the exact public+extension inputs, including
+        # ignored notices. Verify their bytes rather than inspecting the parent repo.
+        records = json.loads(composition.read_text())['files']
+        for name, expected in records.items():
+            path = (root / name).resolve()
+            if not path.is_relative_to(root.resolve()) or not path.is_file():
+                raise ValueError('Missing composed input: ' + name)
+            if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+                raise ValueError('Composed input changed: ' + name)
+        tracked = list(records)
+    else:
+        tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=root).decode().split('\0')[:-1]
     binary = {p for p in tracked if Path(p).suffix.lower() in
               {'.jar', '.aar', '.so', '.dex', '.mp4', '.png', '.webp', '.jpg', '.jpeg', '.ico', '.ttf', '.woff', '.woff2', '.ts', '.m4s'}}
     reviewed = {entry['path'] for entry in manifest['artifacts']}
@@ -56,7 +78,10 @@ def check(root):
     print(f'PASS: {len(binary)} reviewed bundled artifacts and {len(vendor["files"])} pinned vendor source files')
 
 if __name__ == '__main__':
-    try: check(ROOT)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--private', action='store_true')
+    args = parser.parse_args()
+    try: check(ROOT, args.private)
     except (ValueError, KeyError, OSError) as error:
         print('FAIL: ' + str(error), file=sys.stderr)
         raise SystemExit(1)

@@ -211,7 +211,7 @@ class UpdatePublishingTest(unittest.TestCase):
                 publisher.inspect(apk, Path('/sdk'), 'expected')
         with patch.object(publisher, 'run', side_effect=[
             'Signer #1 certificate SHA-256 digest: aaaa',
-            "package: name='com.wuming.android.tv.publicedition.verification' versionCode='642' versionName='testing'",
+            f"package: name='{publisher.PACKAGE}.verification' versionCode='642' versionName='testing'",
         ]):
             with self.assertRaises(ValueError):
                 publisher.inspect(apk, Path('/sdk'), 'aaaa')
@@ -228,14 +228,14 @@ class UpdatePublishingTest(unittest.TestCase):
     def test_detects_debuggable_channel(self):
         with patch.object(publisher, 'run', side_effect=[
             'Signer #1 certificate SHA-256 digest: aaaa',
-            "package: name='com.wuming.android.tv.publicedition' versionCode='642' versionName='testing'\napplication-debuggable",
+            f"package: name='{publisher.PACKAGE}' versionCode='642' versionName='testing'\napplication-debuggable",
         ]):
             self.assertEqual((642, 'testing', True), publisher.inspect(Path('mobile.apk'), Path('/sdk'), 'aaaa'))
 
     def test_accepts_scheme_labels_from_new_android_build_tools(self):
         with patch.object(publisher, 'run', side_effect=[
             'V2 Signer: certificate SHA-256 digest: aaaa\nV3 Signer: certificate SHA-256 digest: aaaa',
-            "package: name='com.wuming.android.tv.publicedition' versionCode='642' versionName='testing'",
+            f"package: name='{publisher.PACKAGE}' versionCode='642' versionName='testing'",
         ]):
             self.assertEqual((642, 'testing', False), publisher.inspect(Path('mobile.apk'), Path('/sdk'), 'aaaa'))
 

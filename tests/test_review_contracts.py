@@ -2,6 +2,7 @@
 import importlib.util
 from pathlib import Path
 import re
+import json
 import unittest
 import tempfile
 
@@ -25,7 +26,10 @@ class ReviewContractsTest(unittest.TestCase):
 
     def test_active_documentation_links_and_identifiers(self):
         build = (ROOT / 'app/build.gradle').read_text()
-        package = re.search(r'applicationId "([^"]+)"', build)[1]
+        defaults = json.loads((ROOT / 'gradle/edition-defaults.json').read_text())
+        edition = json.loads((ROOT / 'edition.json').read_text()) if (ROOT / 'edition.json').is_file() else {}
+        package = {**defaults, **edition}['applicationId']
+        self.assertIn('applicationId rootProject.ext.wumingEdition.applicationId', build)
         self.assertIn(f'`{package}`', (ROOT / 'README.md').read_text())
         for name in ['README.md', 'AGENTS.md', 'docs/README.md', 'docs/desktop-sync-architecture.md']:
             path = ROOT / name
@@ -41,7 +45,10 @@ class ReviewContractsTest(unittest.TestCase):
         smoke = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(smoke)
         build = (ROOT / 'app/build.gradle').read_text()
-        package = re.search(r'applicationId "([^"]+)"', build)[1]
+        defaults = json.loads((ROOT / 'gradle/edition-defaults.json').read_text())
+        edition = json.loads((ROOT / 'edition.json').read_text()) if (ROOT / 'edition.json').is_file() else {}
+        package = {**defaults, **edition}['applicationId']
+        self.assertIn('applicationId rootProject.ext.wumingEdition.applicationId', build)
         namespace = re.search(r"namespace = '([^']+)'", build)[1]
         self.assertEqual(package + '.verification', smoke.PACKAGE)
         self.assertEqual(smoke.PACKAGE + '/' + namespace + '.ui.activity.HomeActivity', smoke.COMPONENT)

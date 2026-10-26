@@ -588,6 +588,7 @@ public class CastActivity extends PlaybackActivity implements CustomKeyDownVod.L
         super.onDestroy();
         mBinding = null;
         mRenderer = null;
+        if (mKeyDown != null) mKeyDown.release();
         mKeyDown = null;
         mR1 = null;
         mR2 = null;

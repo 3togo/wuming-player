@@ -5,6 +5,7 @@ import base64
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import hashlib
 import json
+import runpy
 import os
 from pathlib import Path
 import re
@@ -17,7 +18,7 @@ import fcntl
 ROOT = Path(__file__).resolve().parent.parent
 MODES = ('mobile', 'leanback', 'leanback_lite')
 ABIS = ('arm64_v8a', 'armeabi_v7a')
-PACKAGE = 'com.wuming.android.tv.publicedition'
+PACKAGE = runpy.run_path(str(ROOT / 'scripts/edition-config.py'))['application_id'](ROOT)
 
 
 def run(*args, **kwargs):

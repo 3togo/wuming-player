@@ -110,8 +110,8 @@ object FileUtil {
     fun clearCache(callback: Callback) {
         Task.execute {
             try {
-                CacheTree.children(Path.cache()).forEach { CacheTree.delete(it) }
-                App.post { callback.success() }
+                val message = com.wuming.android.tv.edition.AppExtensions.current.clearCache()
+                App.post { if (message == null) callback.success() else callback.success(message) }
             } catch (error: Exception) {
                 AppLog.e("FileUtil", "Cache clear failed", error)
                 App.post { callback.error(ResUtil.getString(R.string.cache_clear_failed)) }

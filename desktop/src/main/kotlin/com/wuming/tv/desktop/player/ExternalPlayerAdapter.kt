@@ -90,7 +90,7 @@ class ExternalPlayerAdapter internal constructor(
         initialSpeed: Double = 1.0,
         fullscreen: Boolean = false,
     ): PlayerLaunchResult {
-        if (com.wuming.tv.core.source.RemovedSdkProtocols.matches(value)) {
+        if (com.wuming.tv.core.source.PlaybackProtocolPolicy.unsupported(value)) {
             return PlayerLaunchResult(false, "This playback protocol is not supported in this build. Choose another source.")
         }
         val resolved = resolve(value, headers)
@@ -412,7 +412,7 @@ class ExternalPlayerAdapter internal constructor(
         headers: Map<String, String> = emptyMap(),
         displayName: String? = null,
     ): PlayerLaunchResult {
-        if (com.wuming.tv.core.source.RemovedSdkProtocols.matches(value)) {
+        if (com.wuming.tv.core.source.PlaybackProtocolPolicy.unsupported(value)) {
             return PlayerLaunchResult(false, "This playback protocol is not supported in this build. Choose another source.")
         }
         val resolved = resolve(value, headers)

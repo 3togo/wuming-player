@@ -185,8 +185,8 @@ class AdbAndroidGmsProviderBridge(
 
     private companion object {
         const val GMS_BRIDGE_PORT = 8766
-        const val HELPER_COMPONENT = "com.wuming.tv.guardspider.publicedition/com.wuming.tv.guardspider.MainActivity"
-        const val HELPER_PACKAGE = "com.wuming.tv.guardspider.publicedition"
+        val HELPER_COMPONENT = com.wuming.tv.core.base.EditionSettings.current.helperComponent("guardspider")
+        val HELPER_PACKAGE = com.wuming.tv.core.base.EditionSettings.current.helperPackage("guardspider")
         const val DEVICE_SPIDER_PATH = "/data/local/tmp/tvbox-guarded/spider.jar"
         const val DEVICE_NATIVE_PATH = "/data/local/tmp/tvbox-guarded/guard.so"
         const val DEVICE_GUARD_PATH = "/data/local/tmp/tvbox-guarded/guard.bin"

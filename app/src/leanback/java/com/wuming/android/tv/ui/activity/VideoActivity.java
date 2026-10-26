@@ -1087,6 +1087,7 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
         Timer.get().reset();
         App.removeCallbacks(mUpdateFocusRunnable, mSetTrafficRunnable);
         Traffic.reset();
+        if (mKeyDown != null) mKeyDown.release();
         mKeyDown = null;
         mArrayAdapter = null;
         mPartAdapter = null;

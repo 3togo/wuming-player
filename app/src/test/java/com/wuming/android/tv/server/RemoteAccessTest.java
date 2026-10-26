@@ -27,6 +27,7 @@ public class RemoteAccessTest {
         assertFalse(RemoteAccess.isProtected("/device"));
         assertFalse(RemoteAccess.isProtected("/proxy?do=media"));
         assertFalse(RemoteAccess.isProtected("/m3u8?key=session"));
+        assertFalse(RemoteAccess.isProtected("/tvbus"));
     }
 
     @Test
