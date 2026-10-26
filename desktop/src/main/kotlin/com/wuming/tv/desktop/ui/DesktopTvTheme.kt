@@ -144,7 +144,7 @@ object DesktopTvTheme {
             "Label.disabledForeground" to MUTED_TEXT,
         ).forEach { (key, color) -> UIManager.put(key, javax.swing.plaf.ColorUIResource(color)) }
         installWidgetDefaults()
-        val font = javax.swing.plaf.FontUIResource(preferredFontFamily(), java.awt.Font.PLAIN, textSize(TextRole.LABEL))
+        val font = javax.swing.plaf.FontUIResource(preferredFontFamily(), java.awt.Font.BOLD, textSize(TextRole.LABEL))
         listOf("Button", "ToggleButton", "Label", "TextField", "FormattedTextField", "TextArea", "List",
             "ComboBox", "CheckBox", "RadioButton", "Spinner", "PasswordField", "TextPane", "EditorPane",
             "Table", "TableHeader", "Tree", "MenuBar", "PopupMenu", "MenuItem", "RadioButtonMenuItem",
