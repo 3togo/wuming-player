@@ -151,4 +151,12 @@ cleanup_runtime() {
 }
 trap cleanup_runtime EXIT
 cp -a --reflink=auto "${desktop_distribution}/." "${runtime_directory}/"
+# Private composition protects build inputs only until this standalone copy is ready.
+# The inherited descriptor shares the parent's flock; explicit unlock releases it
+# even while the wrapper remains alive to wait for the GUI.
+if [[ -n "${WUMING_WORKSPACE_LOCK_FD:-}" ]]; then
+    python3 -c 'import fcntl, os; fcntl.flock(int(os.environ["WUMING_WORKSPACE_LOCK_FD"]), fcntl.LOCK_UN)'
+    unset WUMING_WORKSPACE_LOCK_FD
+fi
+printf 'Desktop runtime ready; launching. Logs: %s/tvbox-desktop/logs\n' "${XDG_CACHE_HOME:-${HOME}/.cache}" >&2
 "${runtime_directory}/bin/tvbox-desktop" "$@"

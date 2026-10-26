@@ -365,3 +365,9 @@ or the network.
 Guarded-provider native execution is an optional `GuardedNativeProvider` service.
 The public distribution contains no native implementation. A private edition may
 supply that port without replacing shared desktop, preparation or catalog code.
+
+The private launcher locks its generated workspace during composition and build,
+then releases that lock after the shared launcher copies the standalone runtime.
+An open desktop window therefore does not block later builds. A busy private
+workspace reports an error immediately; a suspended older launcher must be
+resumed or closed to release the lock it already owns.
