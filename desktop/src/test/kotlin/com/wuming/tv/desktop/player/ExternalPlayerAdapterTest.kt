@@ -16,6 +16,7 @@ import org.junit.Test
 class ExternalPlayerAdapterTest {
     @Test
     fun removedSdkProtocolsNeverLaunchAnExternalProcess() {
+        org.junit.Assume.assumeFalse(com.wuming.tv.core.base.EditionSettings.current.nativeProtocols)
         val player = ExternalPlayerAdapter(Path.of("/nonexistent/wuming-test-player"))
         for (url in listOf("tvbus://channel", "jianpian://item", "magnet:?xt=example", "p2p://channel", "https://example.test/file.torrent")) {
             val result = player.play(url)

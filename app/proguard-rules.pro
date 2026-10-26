@@ -167,3 +167,6 @@
 -keep class com.wuming.tv.core.playback.SavedVideoDecoder { *; }
 -keep class com.wuming.tv.core.playback.SavedCodecProfile { *; }
 -keep class com.wuming.tv.core.playback.SavedVideoMode { *; }
+
+# Edition entry point is selected through BuildConfig, not a direct reference.
+-keep class * implements com.wuming.android.tv.edition.AppExtension { public <init>(); }

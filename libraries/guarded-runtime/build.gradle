@@ -32,6 +32,7 @@ kotlin {
 }
 
 dependencies {
+    implementation project(':libraries:base-core')
     api project(':libraries:catalog-core')
     api project(':libraries:cloud-core')
     implementation libs.gson

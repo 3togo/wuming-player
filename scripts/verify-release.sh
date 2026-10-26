@@ -30,8 +30,13 @@ if [[ -n "$(git status --porcelain)" ]]; then
     exit 1
 fi
 
-python3 scripts/check-removed-sdks.py
-python3 scripts/check-public-provenance.py
+if [[ -f gradle/private-distribution.json ]]; then
+    python3 scripts/check-private-distribution.py
+    python3 scripts/check-public-provenance.py --private
+else
+    python3 scripts/check-removed-sdks.py
+    python3 scripts/check-public-provenance.py
+fi
 
 mkdir -p "$report_dir"
 rm -f "$receipt" "$checksums" "$metadata" "$evidence_index"
@@ -78,7 +83,11 @@ for variant in mobileArm64_v8a leanbackArm64_v8a leanbackArmeabi_v7a; do
     release_apks+=("${variant_apks[0]}")
 done
 for apk in "${release_apks[@]}"; do
-    python3 scripts/check-removed-sdks.py --apk "$apk"
+    if [[ -f gradle/private-distribution.json ]]; then
+        python3 scripts/check-private-distribution.py --apk "$apk"
+    else
+        python3 scripts/check-removed-sdks.py --apk "$apk"
+    fi
 done
 sha256sum "${release_apks[@]}" > "$checksums"
 

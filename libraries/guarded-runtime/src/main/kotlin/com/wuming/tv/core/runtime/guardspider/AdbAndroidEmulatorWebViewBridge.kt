@@ -57,7 +57,7 @@ class AdbAndroidEmulatorWebViewBridge(
 
     private companion object {
         const val WEBVIEW_BRIDGE_PORT = 8765
-        const val HELPER_COMPONENT = "com.wuming.tv.guardwebview.publicedition/com.wuming.tv.guardwebview.MainActivity"
+        val HELPER_COMPONENT = com.wuming.tv.core.base.EditionSettings.current.helperComponent("guardwebview")
         const val SOCKET_POLL_ATTEMPTS = 20
         const val SOCKET_POLL_INTERVAL_MS = 250L
     }

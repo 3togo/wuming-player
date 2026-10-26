@@ -5,6 +5,7 @@ import datetime
 import hashlib
 import importlib.util
 import json
+import runpy
 import os
 from pathlib import Path
 import re
@@ -74,7 +75,7 @@ def initialize(report, tools=None):
             raise ValueError('Missing signing certificate')
         badging = subprocess.check_output([str(tools / 'aapt2'), 'dump', 'badging', str(apk)], text=True)
         package = re.search(r"package: name='([^']+)'", badging)
-        expected_package = re.search(r'applicationId "([^"]+)"', (ROOT / 'app/build.gradle').read_text())[1]
+        expected_package = runpy.run_path(str(ROOT / 'scripts/edition-config.py'))['application_id'](ROOT)
         if not package or package[1] != expected_package or 'application-debuggable' in badging:
             raise ValueError('Expected a non-debuggable normal release APK')
         abi = re.search(r"native-code: (.+)", badging)

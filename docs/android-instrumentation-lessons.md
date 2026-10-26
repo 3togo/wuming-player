@@ -140,3 +140,24 @@ thread, then wait for idle; ViewRootImpl performs the normal focus search. Keep
 assertions for every button and Back dismissal. After this correction, all 26
 selected TV tests passed in one run. See
 [TV stabilization](migration/tv-stabilization-20260916.md) for both attempts.
+
+## Tablet orientation and silent testing (2026-10-26)
+
+On the Kuwan Pad Pro running Android 14, app-requested portrait orientation stayed
+landscape. The device repeatedly re-enabled `ignoreOrientationRequest`; even
+maintaining that flag as false did not make the activity request take effect.
+Do not change normal app rotation behavior based on that test-environment result.
+`MobileCriticalFlowInstrumentedTest` accepts the explicit instrumentation argument
+`smoke_rotate_display=true` to use `UiAutomation.setRotation` and exercise the real
+portrait/landscape layouts. It derives rotation from the display's natural
+orientation and saves/restores auto-rotation and user rotation after each method.
+The host should independently save and verify those settings in failure cleanup.
+
+For a user-requested silent run, save sound-effect, lock-sound, haptic, DND,
+ringer and stream-volume settings first. Disable touch/lock feedback, use zero
+media/system/ring/notification volume and total-silence mode, and monitor media
+volume and DND throughout. Use the synthetic audio-free diagnostics fixture;
+do not infer silence from muted ringtone alone. Stop testing processes before
+restoring audio. AudioService persists ringer mode asynchronously: allow it to
+settle, then verify every saved value rather than declaring restoration from an
+immediate setting read. Preserve failed-attempt evidence and exact test selections.

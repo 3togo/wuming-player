@@ -16,6 +16,7 @@ open class CustomKeyDownVod private constructor(
     private var changeSpeed = false
     private var full = false
     private var holdTime = 0L
+    private var seekEndRunnable: Runnable? = null
 
     companion object {
         @JvmStatic fun create(activity: Activity): CustomKeyDownVod = CustomKeyDownVod(activity)
@@ -44,7 +45,14 @@ open class CustomKeyDownVod private constructor(
         } else if (KeyUtil.isActionUp(event) &&
             (KeyUtil.isLeftKey(event) || KeyUtil.isRightKey(event))
         ) {
-            App.post({ listener.onSeekEnd(holdTime) }, 250)
+            val snapshot = holdTime
+            seekEndRunnable?.let { App.removeCallbacks(it) }
+            val callback = Runnable {
+                seekEndRunnable = null
+                listener.onSeekEnd(snapshot)
+            }
+            seekEndRunnable = callback
+            App.post(callback, 250)
         } else if (KeyUtil.isActionUp(event) && KeyUtil.isUpKey(event)) {
             if (changeSpeed) listener.onSpeedEnd() else listener.onKeyUp()
             changeSpeed = false
@@ -80,6 +88,12 @@ open class CustomKeyDownVod private constructor(
 
     open fun reset() {
         holdTime = 0
+    }
+
+    /** Release the delayed key-up commit before the owning TV screen is destroyed. */
+    open fun release() {
+        seekEndRunnable?.let { App.removeCallbacks(it) }
+        seekEndRunnable = null
     }
 
     interface Listener {

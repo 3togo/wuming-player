@@ -12,7 +12,7 @@ import com.wuming.android.tv.player.extractor.Youtube
 import com.wuming.android.tv.exception.ExtractException
 import com.wuming.android.tv.R
 import com.wuming.android.tv.utils.ResUtil
-import com.wuming.tv.core.source.RemovedSdkProtocols
+import com.wuming.tv.core.source.PlaybackProtocolPolicy
 import com.wuming.android.tv.utils.AppLog
 import com.wuming.android.tv.utils.Task
 import java.util.ArrayList
@@ -27,8 +27,10 @@ class Source {
     private val extractors: MutableList<Extractor> = ArrayList()
 
     init {
+        extractors.addAll(com.wuming.android.tv.edition.AppExtensions.current.beforeLocalExtractors())
         extractors.add(Push())
         extractors.add(Strm())
+        extractors.addAll(com.wuming.android.tv.edition.AppExtensions.current.afterLocalExtractors())
         extractors.add(Video())
         extractors.add(Youtube())
     }
@@ -41,7 +43,11 @@ class Source {
     private fun addCallable(iterator: MutableIterator<Episode?>, items: MutableList<Callable<List<Episode>>>) {
         val episode = iterator.next() ?: return
         val url = episode.getUrl()
-        if (Youtube.Parser.match(url)) {
+        val extensionParser = com.wuming.android.tv.edition.AppExtensions.current.episodeParser(url)
+        if (extensionParser != null) {
+            items.add(extensionParser)
+            iterator.remove()
+        } else if (Youtube.Parser.match(url)) {
             items.add(Callable { Youtube.Parser.get(url).call() })
             iterator.remove()
         }
@@ -68,7 +74,7 @@ class Source {
     fun fetch(result: Result): String? {
         val uri: Uri = result.url.uri()
         val url: String = result.url.v()
-        if (RemovedSdkProtocols.matches(url)) {
+        if (PlaybackProtocolPolicy.unsupported(url)) {
             throw ExtractException(ResUtil.getString(R.string.error_play_protocol_unsupported))
         }
         if (url.contains("[") && url.contains("]")) {

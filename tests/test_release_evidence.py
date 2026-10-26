@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import runpy
 from pathlib import Path
 import tempfile
 import unittest
@@ -19,7 +20,8 @@ class ReleaseEvidenceTest(unittest.TestCase):
             signer.write_text('#!/bin/sh\necho "Signer #1 certificate SHA-256 digest: ' + 'a' * 64 + '"\n')
             signer.chmod(0o755)
             aapt = tools / 'aapt2'
-            aapt.write_text("#!/bin/sh\necho \"package: name='com.wuming.android.tv.publicedition' versionCode='1' versionName='fixture'\"\necho \"native-code: 'arm64-v8a'\"\n")
+            package = runpy.run_path(str(ROOT / 'scripts/edition-config.py'))['application_id'](ROOT)
+            aapt.write_text(f"#!/bin/sh\necho \"package: name='{package}' versionCode='1' versionName='fixture'\"\necho \"native-code: 'arm64-v8a'\"\n")
             aapt.chmod(0o755)
             apk = root / 'mobileArm64_v8a/release/app.apk'
             apk.parent.mkdir(parents=True)

@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm) apply false
 }
 
+apply from: rootProject.file('gradle/edition.gradle')
 apply from: rootProject.file('gradle/user-config.gradle')
 apply from: rootProject.file('gradle/rust-native.gradle')
 
@@ -351,3 +352,7 @@ tasks.register('verifyDesignTokens', Exec) {
 }
 
 apply from: rootProject.file('gradle/public-provenance.gradle')
+
+// Optional build wiring supplied only by the consuming edition.
+def editionBuild = rootProject.file('gradle/edition-extension.gradle')
+if (editionBuild.isFile()) apply from: editionBuild

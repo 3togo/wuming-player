@@ -5,6 +5,7 @@ import collections
 import datetime
 import hashlib
 import json
+import runpy
 import os
 import pathlib
 import re
@@ -15,7 +16,7 @@ import threading
 import time
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-PACKAGE = "com.wuming.android.tv.publicedition.verification"
+PACKAGE = runpy.run_path(str(ROOT / 'scripts/edition-config.py'))['application_id'](ROOT) + '.verification'
 COMPONENT = PACKAGE + "/com.wuming.android.tv.ui.activity.HomeActivity"
 RUNNER = PACKAGE + ".test/androidx.test.runner.AndroidJUnitRunner"
 METHOD = re.compile(r"com\.wuming\.android\.tv\.[A-Za-z0-9_.$]+#[A-Za-z0-9_]+$")

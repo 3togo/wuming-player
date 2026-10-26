@@ -70,6 +70,7 @@ public class Nano extends NanoHTTPD {
 
     private void addProcess() {
         process = new ArrayList<>();
+        process.addAll(com.wuming.android.tv.edition.AppExtensions.getCurrent().serverProcesses());
         process.add(new Action());
         process.add(new Cache());
         process.add(new Local());

@@ -20,8 +20,9 @@ public class VerificationIsolationInstrumentedTest {
         String runnerPackage = InstrumentationRegistry.getInstrumentation()
                 .getContext().getPackageName();
 
-        assertEquals("com.wuming.android.tv.verification", targetPackage);
-        assertNotEquals("com.wuming.android.tv", targetPackage);
-        assertEquals("com.wuming.android.tv.verification.test", runnerPackage);
+        String normalPackage = com.wuming.tv.core.base.EditionSettings.current.getApplicationId();
+        assertEquals(normalPackage + ".verification", targetPackage);
+        assertNotEquals(normalPackage, targetPackage);
+        assertEquals(normalPackage + ".verification.test", runnerPackage);
     }
 }

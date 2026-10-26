@@ -26,3 +26,20 @@ dependencies {
 tasks.named('check') {
     dependsOn rootProject.tasks.named('verifyGenericLibraryBoundaries')
 }
+
+// One resource owns identity for every consumer; no edition-specific source replacement.
+def editionValues = new TreeMap(rootProject.ext.wumingEdition.findAll { key, value ->
+    key in ['applicationId', 'helperSuffix', 'nativeProtocols', 'pushSchemes']
+}.collectEntries { key, value -> [(key): value instanceof List ? value.join(',') : value.toString()] })
+def editionResources = layout.buildDirectory.dir('generated/edition-resources')
+def generateEditionResources = tasks.register('generateEditionResources') {
+    inputs.properties(editionValues)
+    outputs.dir(editionResources)
+    doLast {
+        def target = editionResources.get().file('wuming-edition.properties').asFile
+        target.parentFile.mkdirs()
+        target.text = editionValues.collect { key, value -> "${key}=${value}\n" }.join('')
+    }
+}
+sourceSets.main.resources.srcDir(editionResources)
+tasks.named('processResources') { dependsOn generateEditionResources }

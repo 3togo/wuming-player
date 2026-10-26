@@ -1,0 +1,14 @@
+// Edition configuration is data. The public checkout builds without an extension.
+def editionFile = layout.projectDirectory.file('edition.json')
+def editionText = providers.fileContents(editionFile).asText.orNull
+def edition = editionText == null ? [:] : new groovy.json.JsonSlurper().parseText(editionText)
+if (!(edition instanceof Map)) throw new GradleException('edition.json must be an object')
+ext.wumingEdition = new groovy.json.JsonSlurper().parseText(
+        providers.fileContents(layout.projectDirectory.file('gradle/edition-defaults.json')).asText.get()) + edition
+if (!(wumingEdition.applicationId ==~ /[a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)+/) ||
+        !(wumingEdition.helperSuffix ==~ /[a-zA-Z][a-zA-Z0-9_]*/) ||
+        !(wumingEdition.nativeProtocols instanceof Boolean) ||
+        !(wumingEdition.pushSchemes instanceof List) ||
+        !wumingEdition.pushSchemes.every { it ==~ /[a-z][a-z0-9+.-]*/ }) {
+    throw new GradleException('Invalid edition identity or protocol configuration')
+}
