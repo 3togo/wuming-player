@@ -86,6 +86,7 @@ class DesktopResourceLoader(
     private fun download(uri: URI, headers: Map<String, String>): DesktopResourceResponse {
         require(!uri.host.isNullOrBlank()) { "Resource URL has no host." }
         require(uri.userInfo == null) { "Resource URL must not contain credentials." }
+        if (Thread.currentThread().isInterrupted) throw InterruptedException("Resource request cancelled")
         val request = Request.Builder().url(uri.toURL())
         val acceptedHeaders = safeHeaders(headers)
         acceptedHeaders.forEach { (name, value) -> request.header(name, value) }
@@ -121,7 +122,9 @@ class DesktopResourceLoader(
                 DesktopResourceResponse(bytes, response.code, response.request.url.toString(), responseHeaders)
             }
         } catch (failure: Throwable) {
-            if (logRequests) {
+            val cancelled = failure is InterruptedException || Thread.currentThread().isInterrupted
+            if (failure is InterruptedException) Thread.currentThread().interrupt()
+            if (logRequests && !cancelled) {
                 val message =
                     "GET failed target=${safe(uri)} elapsedMs=${(System.nanoTime() - started) / 1_000_000} error=${failure.message}"
                 if (failure is DesktopHttpStatusException) logger.warning(message)

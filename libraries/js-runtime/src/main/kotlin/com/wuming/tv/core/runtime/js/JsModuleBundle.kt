@@ -29,6 +29,7 @@ internal class JsModuleBundle private constructor(val directory: Path, val entry
             var total = 0
 
             fun load(location: String): String {
+                if (Thread.currentThread().isInterrupted) throw InterruptedException("JavaScript module loading cancelled")
                 sources[location]?.let { return it }
                 require(sources.size < MAX_MODULES) { "JavaScript module graph is too large" }
                 val bytes = when {
@@ -127,6 +128,7 @@ internal class JsModuleBundle private constructor(val directory: Path, val entry
             val candidates = if (direct == location) listOf(location) else listOf(direct, location)
             var failure: Throwable? = null
             candidates.forEach { candidate ->
+                if (Thread.currentThread().isInterrupted) throw InterruptedException("JavaScript module loading cancelled")
                 try {
                     val uri = URI(validated(candidate).toASCIIString())
                     val connection = uri.toURL().openConnection(environmentProxy.proxyFor(uri)) as HttpURLConnection
@@ -137,7 +139,11 @@ internal class JsModuleBundle private constructor(val directory: Path, val entry
                     val code = connection.responseCode
                     if (code !in 200..299) throw java.io.IOException("JavaScript module returned HTTP $code")
                     return connection.inputStream.use { it.readNBytes(MAX_MODULE_BYTES + 1) }
-                } catch (error: Throwable) {
+                } catch (error: Exception) {
+                    if (error is InterruptedException || Thread.currentThread().isInterrupted) {
+                        Thread.currentThread().interrupt()
+                        throw error
+                    }
                     failure = error
                 }
             }

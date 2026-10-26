@@ -10,6 +10,19 @@ import org.junit.Test
 class DesktopResourceLoaderTest {
 
     @Test
+    fun cancelledRequestsStopBeforeNetworkAccessAndKeepTheInterrupt() {
+        try {
+            Thread.currentThread().interrupt()
+            assertThrows(InterruptedException::class.java) {
+                DesktopResourceLoader().load("http://127.0.0.1:1/cancelled")
+            }
+            assertTrue(Thread.currentThread().isInterrupted)
+        } finally {
+            Thread.interrupted()
+        }
+    }
+
+    @Test
     fun loadsBundledLeanbackAsset() {
         val content = DesktopResourceLoader().load("assets://live/public_samples.m3u8").toString(Charsets.UTF_8)
 

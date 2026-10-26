@@ -17,6 +17,19 @@ import org.junit.Test;
 public class ViewLinkageTest {
 
     @Test
+    public void exposesDrawableConstantStateToPrecompiledProviderSignatures() throws Exception {
+        assertTrue(Class.forName("android.graphics.drawable.Drawable$ConstantState") == Drawable.ConstantState.class);
+        Drawable drawable = new GradientDrawable();
+        org.junit.Assert.assertNull(drawable.getConstantState());
+        Drawable.ConstantState state = new Drawable.ConstantState() {
+            @Override public Drawable newDrawable() { return drawable; }
+            @Override public int getChangingConfigurations() { return 0; }
+        };
+        assertTrue(state.newDrawable(new android.content.res.Resources()) == drawable);
+        assertEquals(0, state.getChangingConfigurations());
+    }
+
+    @Test
     public void suppliesOnlyTheStructuralTypesNeededForNonUiProviderLinkage() {
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(320, 180);
 

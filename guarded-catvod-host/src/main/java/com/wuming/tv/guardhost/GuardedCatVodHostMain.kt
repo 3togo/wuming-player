@@ -18,7 +18,7 @@ import java.lang.reflect.Field
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
 import java.net.URL
-import java.net.URLClassLoader
+import com.wuming.tv.core.runtime.guardspider.GuardedProviderClassLoader
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
@@ -57,7 +57,7 @@ object GuardedCatVodHostMain {
         ) {
             HideUtils.configure(args[4]!!, args[5], args[6], dataDirectory.toString())
         }
-        URLClassLoader(
+        GuardedProviderClassLoader(
             arrayOf<URL?>(artifact.toUri().toURL()),
             GuardedCatVodHostMain::class.java.getClassLoader()
         ).use { loader ->
