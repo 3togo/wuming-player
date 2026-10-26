@@ -1702,8 +1702,8 @@ class CatalogPanel(
                 appendLine(sourceName(value.item.sourceKey))
                 value.item.year.takeIf(String::isNotBlank)?.let { appendLine("Year: $it") }
                 value.area.takeIf(String::isNotBlank)?.let { appendLine("Area: $it") }
-                value.actor.takeIf(String::isNotBlank)?.let { appendLine("Cast: $it") }
-                value.director.takeIf(String::isNotBlank)?.let { appendLine("Director: $it") }
+                com.wuming.tv.core.catalog.CatalogProviderText.plain(value.actor).takeIf(String::isNotBlank)?.let { appendLine("Cast: $it") }
+                com.wuming.tv.core.catalog.CatalogProviderText.plain(value.director).takeIf(String::isNotBlank)?.let { appendLine("Director: $it") }
                 if (value.content.isNotBlank()) append("\n${value.content}")
             }
             lines.model = DefaultComboBoxModel(value.lines.toTypedArray())
