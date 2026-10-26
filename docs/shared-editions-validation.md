@@ -63,3 +63,17 @@ was inspected only: API 25 is below the app's API 26 minimum.
 
 These results cover the selected tablet flows, not physical TV navigation,
 live private-provider playback or casting to another device.
+
+## GitHub integration
+
+The published public repository starts from a fresh snapshot, with subsequent
+release-feed configuration. The six refactor/follow-up commits were replayed onto
+published `main` at `440d835f42150ed98b2d970835f494ba69880517`; the earlier local
+preparation history was not included. The device-tested local source
+`84f888d39764e4ac7c57b0ad058162affb940616` corresponds to published-history commit
+`b63b155` for application, library and test code. The published `updates.json` and
+both channel feeds remain byte-identical to the existing GitHub `main`.
+
+The integration passed `unitAcceptanceBaseline` with the verification-only signing
+flag, public provenance and TV remote/label checks. It changes source history and
+retains the existing published release configuration; no new APK release was made.
