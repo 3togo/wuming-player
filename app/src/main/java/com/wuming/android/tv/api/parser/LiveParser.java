@@ -14,6 +14,7 @@ import com.github.catvod.net.OkHttp;
 import com.github.catvod.utils.Json;
 import com.wuming.tv.core.live.LiveChannelNumbering;
 import com.wuming.tv.core.live.LivePlaylistEncoding;
+import com.wuming.tv.core.live.LivePlaylistJsonCodec;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -85,7 +86,7 @@ public class LiveParser {
 
     public static void start(Live live) throws Exception {
         if (!live.getGroups().isEmpty()) return;
-        String text = getText(live);
+        String text = LivePlaylistEncoding.stripMark(getText(live));
         if (Json.isArray(text)) json(live, text);
         else text(live, text);
     }
@@ -98,13 +99,17 @@ public class LiveParser {
     public static void text(Live live, String text) {
         if (!live.getGroups().isEmpty()) return;
         text = LivePlaylistEncoding.stripMark(text);
+        if (Json.isArray(text)) {
+            json(live, text);
+            return;
+        }
         if (M3U.matcher(text).find()) m3u(live, text);
         else txt(live, text);
         apply(live);
     }
 
     private static void json(Live live, String text) {
-        live.getGroups().addAll(Group.arrayFrom(text));
+        live.getGroups().addAll(Group.arrayFrom(LivePlaylistJsonCodec.normalize(text)));
         apply(live);
     }
 

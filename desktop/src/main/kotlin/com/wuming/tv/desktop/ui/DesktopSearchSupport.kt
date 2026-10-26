@@ -1,6 +1,7 @@
 package com.wuming.tv.desktop.ui
 
 import com.wuming.tv.desktop.net.DesktopResourceLoader
+import com.wuming.tv.core.search.SearchSuggestions
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import java.net.URLEncoder
@@ -61,7 +62,8 @@ internal class DesktopSearchHistoryStore(
 }
 
 internal class DesktopSearchWordClient(
-    private val loader: DesktopResourceLoader = DesktopResourceLoader(maximumBytes = 512 * 1024, logRequests = false),
+    loader: DesktopResourceLoader = DesktopResourceLoader(maximumBytes = 512 * 1024, logRequests = false),
+    private val loadSuggestions: (String) -> String = { loader.load(it).toString(Charsets.UTF_8) },
 ) : AutoCloseable {
     private val generation = AtomicInteger()
     private val executor = Executors.newSingleThreadExecutor { task ->
@@ -72,19 +74,17 @@ internal class DesktopSearchWordClient(
     fun requestSuggestions(keyword: String, callback: (List<String>) -> Unit) {
         val query = keyword.trim()
         val request = generation.incrementAndGet()
-        if (query.isEmpty()) {
-            callback(emptyList())
-            return
-        }
         if (closed) return
+        callback(SearchSuggestions.local(query))
+        if (query.isEmpty()) return
         try {
             executor.execute {
                 val words = runCatching {
                     val encoded = URLEncoder.encode(query, StandardCharsets.UTF_8)
-                    parseWords(loader.load(SUGGEST_URL + encoded).toString(Charsets.UTF_8))
+                    parseWords(loadSuggestions(SUGGEST_URL + encoded))
                 }.getOrDefault(emptyList())
                 SwingUtilities.invokeLater {
-                    if (!closed && request == generation.get()) callback(words)
+                    if (!closed && request == generation.get()) callback(SearchSuggestions.merge(query, words))
                 }
             }
         } catch (rejected: RejectedExecutionException) {
@@ -101,16 +101,6 @@ internal class DesktopSearchWordClient(
     companion object {
         private const val SUGGEST_URL = "https://suggest.video.iqiyi.com/?if=mobile&key="
 
-        internal fun parseWords(json: String): List<String> = runCatching {
-            JsonParser.parseString(json).asJsonObject.getAsJsonArray("data").orEmpty()
-                .mapNotNull { item ->
-                    val value = item.asJsonObject
-                    (value.get("title") ?: value.get("name"))?.asString?.trim()?.takeIf(String::isNotEmpty)
-                }
-                .distinct()
-                .take(20)
-        }.getOrDefault(emptyList())
-
-        private fun <T> Iterable<T>?.orEmpty(): Iterable<T> = this ?: emptyList()
+        internal fun parseWords(json: String): List<String> = SearchSuggestions.parseResponse(json)
     }
 }

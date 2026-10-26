@@ -32,6 +32,7 @@ kotlin {
 dependencies {
     implementation project(':libraries:search-core')
     implementation project(':libraries:base-core')
+    implementation project(':libraries:playback-core')
     implementation libs.gson
     testImplementation libs.junit
 }

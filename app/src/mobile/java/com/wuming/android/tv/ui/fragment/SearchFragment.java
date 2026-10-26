@@ -195,7 +195,12 @@ public class SearchFragment extends BaseFragment implements MenuProvider, WordAd
 
     private void getSuggest(String text) {
         mBinding.word.setText(R.string.search_suggest);
-        wordClient.requestSuggestion(text, result -> setWordAdapter(result, false));
+        wordClient.requestSuggestionWords(text, words -> {
+            if (mBinding == null) return;
+            List<Word.Data> items = new ArrayList<>();
+            for (String word : words) items.add(new Word.Data(word).trans());
+            mWordAdapter.setItems(items);
+        });
     }
 
     private void setWordAdapter(String result, boolean save) {
