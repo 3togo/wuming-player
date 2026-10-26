@@ -64,6 +64,10 @@ class DesktopWindow {
         player,
         cloudPlaybackResolver = cloudPlayback,
         onBackRequested = ::navigateBack,
+        onCastRequested = { playback, title, onSent ->
+            openMedia.prepareVideo(playback, title, onSent)
+            showAction(TvHomeAction.PUSH)
+        },
     )
     private val cloudAccounts = CloudAccountsPanel(cloudAccountState, cloudPlayback)
     private val liveTv = LiveTvPanel(player)

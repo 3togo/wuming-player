@@ -84,4 +84,70 @@ class CastHttpRelayTest {
         }
     }
 
+    @Test fun relaysRedirectedHlsPlaylistsSegmentsAndKeysWithScopedHeaders() {
+        val upstream = HttpServer.create(InetSocketAddress("127.0.0.1", 0), 0)
+        val foreign = HttpServer.create(InetSocketAddress("127.0.0.1", 0), 0)
+        val served = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
+        fun headers(exchange: com.sun.net.httpserver.HttpExchange, credentials: Boolean) {
+            assertEquals("Browser", exchange.requestHeaders.getFirst("User-Agent"))
+            assertEquals("https://provider.example/", exchange.requestHeaders.getFirst("Referer"))
+            assertEquals(if (credentials) "session=private" else null, exchange.requestHeaders.getFirst("Cookie"))
+            assertEquals(if (credentials) "Bearer secret" else null, exchange.requestHeaders.getFirst("Authorization"))
+        }
+        foreign.createContext("/key") { exchange ->
+            try {
+                headers(exchange, false)
+                served.add("key")
+                exchange.sendResponseHeaders(200, 16)
+                exchange.responseBody.write(ByteArray(16) { 7 })
+            } finally { exchange.close() }
+        }
+        upstream.createContext("/") { exchange ->
+            try {
+                headers(exchange, true)
+                val path = exchange.requestURI.path
+                served.add(path)
+                if (path == "/redirect" || path == "/foreign-key") {
+                    exchange.responseHeaders.set("Location", if (path == "/redirect") "/hls/master.m3u8" else "http://127.0.0.1:${foreign.address.port}/key")
+                    exchange.sendResponseHeaders(302, -1)
+                } else {
+                    val content = when (path) {
+                        "/hls/master.m3u8" -> "#EXTM3U\n#EXT-X-STREAM-INF:BANDWIDTH=800000\nvideo.m3u8"
+                        "/hls/video.m3u8" -> "#EXTM3U\n#EXT-X-KEY:METHOD=AES-128,URI=\"/foreign-key\"\n#EXTINF:8,\nsegment.ts?signature=private\n#EXT-X-ENDLIST"
+                        else -> "segment-bytes"
+                    }.toByteArray()
+                    exchange.responseHeaders.set("Content-Type", if (path.endsWith("m3u8")) "application/vnd.apple.mpegurl" else "video/mp2t")
+                    exchange.sendResponseHeaders(200, content.size.toLong())
+                    exchange.responseBody.write(content)
+                }
+            } finally { exchange.close() }
+        }
+        upstream.start(); foreign.start()
+        val client = OkHttpClient.Builder().proxy(Proxy.NO_PROXY).build()
+        try {
+            CastHttpRelay("http://127.0.0.1:${upstream.address.port}/redirect",
+                mapOf("User-Agent" to "Browser", "Referer" to "https://provider.example/",
+                    "Cookie" to "session=private", "Authorization" to "Bearer secret"),
+                "127.0.0.1", client, "hls").use { relay ->
+                fun get(url: String): String = client.newCall(Request.Builder().url(url).build()).execute().use {
+                    assertEquals(200, it.code)
+                    assertNull(it.header("Set-Cookie"))
+                    it.body.string()
+                }
+                assertEquals("application/vnd.apple.mpegurl", relay.contentType)
+                val master = get(relay.url)
+                val media = get(master.lineSequence().first { it.startsWith("http") })
+                assertFalse(media.contains("signature=private"))
+                assertFalse(media.contains("session=private"))
+                val key = Regex("URI=\"([^\"]+)\"").find(media)!!.groupValues[1]
+                assertEquals(16, get(key).length)
+                assertEquals("segment-bytes", get(media.lineSequence().first { it.startsWith("http") }))
+                assertEquals(setOf("/redirect", "/hls/master.m3u8", "/hls/video.m3u8", "/hls/segment.ts", "/foreign-key", "key"), served)
+            }
+        } finally {
+            upstream.stop(0); foreign.stop(0)
+            client.connectionPool.evictAll(); client.dispatcher.executorService.shutdown()
+        }
+    }
+
 }

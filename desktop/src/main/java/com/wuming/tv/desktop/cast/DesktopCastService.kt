@@ -216,7 +216,8 @@ class DesktopCastService(devicesChanged: Consumer<List<Target>>) : AutoCloseable
 
     @Synchronized
     @Throws(Exception::class)
-    fun send(target: Target?, location: String?) {
+    fun send(target: Target?, location: String?, headers: Map<String, String> = emptyMap(),
+             title: String = "TVBox video", relayMedia: Boolean = false, mediaFormat: String = "") {
         start()
         require(!(target == null || !targets.containsKey(target.id))) {
             "Choose an available receiver"
@@ -236,6 +237,11 @@ class DesktopCastService(devicesChanged: Consumer<List<Target>>) : AutoCloseable
                     receiverHost, com.wuming.tv.desktop.player.DesktopPlaybackHttpClient.client)
                 uri = relay.url
                 compatibilityQualityLabel = progressive.label
+            } else if (relayMedia || headers.isNotEmpty()) {
+                requireNotNull(receiverHost) { "Receiver has no reachable network address" }
+                relay = CastHttpRelay(CastUris.requireHttp(currentLocation.trim()), headers,
+                    receiverHost, com.wuming.tv.desktop.player.DesktopPlaybackHttpClient.client, mediaFormat)
+                uri = relay.url
             } else uri = CastUris.requireHttp(currentLocation.trim { it <= ' ' })
         } else {
             val path: Path =
@@ -264,8 +270,8 @@ class DesktopCastService(devicesChanged: Consumer<List<Target>>) : AutoCloseable
             }
             sharedFile = relay ?: file
             val content: DIDLContent = DIDLContent()
-            val resource: Res = Res(ProtocolInfo(if (relay != null) "http-get:*:video/mp4:*" else "http-get:*:video/*:*"), null, currentUri)
-            content.addItem(VideoItem("0", "-1", "TVBox video", "", resource))
+            val resource: Res = Res(ProtocolInfo("http-get:*:${relay?.contentType ?: "video/*"}:*"), null, currentUri)
+            content.addItem(VideoItem("0", "-1", title, "", resource))
             val metadata: String? = DIDLParser().generate(content)
             invoke(
                 target,

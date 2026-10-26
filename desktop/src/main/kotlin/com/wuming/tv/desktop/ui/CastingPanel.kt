@@ -18,6 +18,9 @@ class CastingPanel(private val player: ExternalPlayerAdapter?) : JPanel(BorderLa
     private val receiveStatus = JLabel("Receiving is off")
     private val receive = JButton("Enable receiving")
     private val buttons = mutableListOf<JButton>()
+    private var preparedVideo: com.wuming.tv.core.catalog.CatalogPlayback? = null
+    private var preparedTitle = "TVBox video"
+    private var onPreparedSent: (() -> Unit)? = null
     private var receiving = false
     private var closed = false
     private val service = DesktopCastService { found ->
@@ -50,6 +53,18 @@ class CastingPanel(private val player: ExternalPlayerAdapter?) : JPanel(BorderLa
                 if (chooser.showOpenDialog(this@CastingPanel) == JFileChooser.APPROVE_OPTION) mediaLocation.text = chooser.selectedFile.absolutePath
             }
         }
+        mediaLocation.document.addDocumentListener(object : javax.swing.event.DocumentListener {
+            override fun insertUpdate(event: javax.swing.event.DocumentEvent) = changed()
+            override fun removeUpdate(event: javax.swing.event.DocumentEvent) = changed()
+            override fun changedUpdate(event: javax.swing.event.DocumentEvent) = changed()
+            private fun changed() {
+                if (mediaLocation.text.trim() != preparedVideo?.url) {
+                    preparedVideo = null
+                    preparedTitle = "TVBox video"
+                    onPreparedSent = null
+                }
+            }
+        })
         content.add(row(mediaLocation, browse))
         devices.prototypeDisplayValue = DesktopCastService.Target("", "Choose a nearby DLNA receiver                 ", null)
         content.add(row(devices, button("Find receivers") {
@@ -59,8 +74,12 @@ class CastingPanel(private val player: ExternalPlayerAdapter?) : JPanel(BorderLa
         content.add(row(preparedButton("Send video", prepare = {
             val target = devices.selectedItem as? DesktopCastService.Target
             val value = mediaLocation.text.trim()
+            val video = preparedVideo?.takeIf { it.url == value }
+            val title = preparedTitle
+            val sent = onPreparedSent
             val work: () -> String = {
-                service.send(target, value)
+                service.send(target, value, video?.headers.orEmpty(), title, video != null, video?.format.orEmpty())
+                if (sent != null) SwingUtilities.invokeLater { if (!closed) sent() }
                 "Video sent to ${target?.name}." + (service.compatibilityQualityLabel?.let { " TV compatibility playback: $it." } ?: "")
             }
             work
@@ -95,6 +114,17 @@ class CastingPanel(private val player: ExternalPlayerAdapter?) : JPanel(BorderLa
         add(JScrollPane(content).apply { border = null }, BorderLayout.CENTER)
         add(status, BorderLayout.SOUTH)
         updateButtons(true)
+    }
+
+    fun prepareVideo(playback: com.wuming.tv.core.catalog.CatalogPlayback, title: String, onSent: () -> Unit) {
+        check(SwingUtilities.isEventDispatchThread())
+        if (closed) return
+        mediaLocation.text = playback.url
+        preparedVideo = playback.copy(headers = playback.headers.toMap())
+        preparedTitle = title
+        onPreparedSent = onSent
+        status.text = "Ready to cast $title. Choose a receiver and select Send video."
+        runWork { service.discover(); "Choose a receiver and select Send video: $title" }
     }
 
     private fun button(label: String, action: () -> String): JButton = preparedButton(label, prepare = { action })

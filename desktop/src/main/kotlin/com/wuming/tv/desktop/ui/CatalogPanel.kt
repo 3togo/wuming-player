@@ -107,6 +107,7 @@ class CatalogPanel(
     private val cloudPlaybackResolver: DesktopCloudPlaybackResolver? = null,
     private val userLibrary: DesktopUserLibrary = DesktopUserLibrary.openDefault(),
     private val onBackRequested: (() -> Unit)? = null,
+    private val onCastRequested: ((CatalogPlayback, String, () -> Unit) -> Unit)? = null,
 ) : JPanel(BorderLayout(8, 10)), AutoCloseable {
     private val logger = Logger.getLogger("tvbox.ui.catalog")
     private val selectionStore = DesktopCatalogSelectionStore(preferences)
@@ -201,6 +202,7 @@ class CatalogPanel(
     private val loadDetails = JButton("Details")
     private val previous = JButton("Previous")
     private val play = JButton("Play episode")
+    private val cast = JButton("Cast to TV")
     private val next = JButton("Next")
     private val replay = JButton("↻ Replay")
     private val playerPrevious = JButton("⏮")
@@ -345,7 +347,7 @@ class CatalogPanel(
         sources.font = sources.font.deriveFont(14f)
         listOf(
             search, home, history, favorites, categoryBack,
-            audit, stopAudit, loadDetails, detailBack, keep, previous, play, replay, next,
+            audit, stopAudit, loadDetails, detailBack, keep, previous, play, cast, replay, next,
             playerPrevious, playerNext, playerStop, playerPause, speedButton, subtitleButton,
         ).forEach { button ->
             button.font = button.font.deriveFont(Font.BOLD, 13f)
@@ -485,6 +487,8 @@ class CatalogPanel(
             }
         })
         play.addActionListener { requestEpisodePlayback() }
+        cast.addActionListener { castEpisode() }
+        cast.toolTipText = "Send the selected episode to a TV on the same network"
         previous.addActionListener { moveEpisode(-1) }
         next.addActionListener { moveEpisode(1) }
         replay.addActionListener { replayEpisode() }
@@ -720,7 +724,7 @@ class CatalogPanel(
                     addActionListener { auditActions.isVisible = !auditActions.isVisible; revalidate() }
                 }, BorderLayout.EAST)
             })
-            episodeActions.apply { add(previous); add(play); add(next); add(replay); add(autoNext) }
+            episodeActions.apply { add(previous); add(play); add(cast); add(next); add(replay); add(autoNext) }
             playerActions.apply {
                 add(playerPrevious); add(playerPause); add(playerNext); add(playerStop)
                 add(speedButton); add(subtitleButton)
@@ -1727,6 +1731,42 @@ class CatalogPanel(
         updateActions()
     }
 
+    private fun castEpisode() {
+        val companion = catalog ?: return
+        val handoff = onCastRequested ?: return
+        val item = detail?.item ?: return
+        val line = lines.selectedItem as? CatalogLine ?: return
+        val episode = line.episodes.getOrNull(episodes.selectedIndex) ?: return
+        val generation = catalogGeneration
+        val playback = playbackGeneration
+        resolving = true
+        updateActions()
+        run("Resolving ${episode.name} for TV…", {
+            companion.play(item.sourceKey, line.flag, episode.id)
+        }, generation, expectedPlayback = playback, completion = {
+            if (playback == playbackGeneration) {
+                resolving = false
+                updateActions()
+            }
+        }) { resolved ->
+            if (!resolved.supported) {
+                status.text = resolved.message.ifBlank { "This episode cannot be cast." }
+            } else {
+                handoff(resolved, listOf(item.name, episode.name).filter(String::isNotBlank).joinToString(" — ")) {
+                    // Stop local playback only after the chosen receiver has accepted the video.
+                    if (!closed && playback == playbackGeneration && generation == catalogGeneration) {
+                        playbackGeneration++
+                        finishActiveViewing(completed = false)
+                        player?.stop()
+                        finishPlaybackStartup("Video sent to TV")
+                        updateActions()
+                    }
+                }
+                status.text = "Choose a receiver and select Send video."
+            }
+        }
+    }
+
     private fun playEpisode(reuseRunningPlayer: Boolean = false) {
         val companion = catalog ?: return
         val generation = catalogGeneration
@@ -2347,6 +2387,7 @@ class CatalogPanel(
             else -> "Details"
         }
         play.isEnabled = player != null && detail != null && episodes.selectedIndex >= 0 && !resolving
+        cast.isEnabled = onCastRequested != null && catalog != null && detail != null && episodes.selectedIndex >= 0 && !resolving
         replay.isEnabled = player != null && detail != null && episodes.selectedIndex >= 0 && !resolving
         keep.isEnabled = selectedItem?.kind == CatalogItemKind.MEDIA &&
             selectedItem.sourceKey.let(::source)?.indexProvider != true

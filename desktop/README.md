@@ -179,6 +179,19 @@ being falsely emulated by the Swing shell.
 
 Open **Push** for two-way DLNA video casting. Connect the desktop and phone to the same LAN.
 
+To send a catalog episode, open its details, select the episode, and choose
+**Cast to TV** beside **Play episode**. The app resolves the video and opens Push
+with the title, URL and required request headers already prepared. Choose a DLNA
+receiver and select **Send video**. Local playback continues until the receiver
+accepts the request, then stops. The TV starts the selected episode from the
+beginning; automatic position transfer and cast episode queues are not included.
+Use Push's Play, Pause and Stop controls for the outgoing session.
+
+Catalog casting uses a receiver-scoped LAN relay for HTTP media and HLS playlists,
+segments and encryption keys. Provider credentials stay on the desktop and are
+scoped to their original host, including across redirects. The TV must support
+the stream's codec and format; this does not transcode unsupported video.
+
 - **Phone → desktop:** select **Enable receiving** (requires `mpv`), then choose **TVBox Desktop**
   in the Android video's DLNA cast menu. The phone can play, pause, stop, seek, mute, and change
   volume. **Stop receiving** removes the renderer and closes its dedicated mpv session. Receiving
