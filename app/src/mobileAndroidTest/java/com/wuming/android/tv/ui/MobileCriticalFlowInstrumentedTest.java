@@ -251,7 +251,8 @@ public class MobileCriticalFlowInstrumentedTest {
         try (ActivityScenario<HomeActivity> scenario = TestActivityLauncher.launch(HomeActivity.class)) {
             showPlayerSettings(scenario);
             scenario.onActivity(activity -> {
-                int minimum = Math.round(44 * activity.getResources().getDisplayMetrics().density);
+                // Touch targets use physical dp; AutoSize only scales layout geometry.
+                int minimum = Math.round(44 * activity.getResources().getConfiguration().densityDpi / 160f);
                 int[] controls = {R.id.render, R.id.scale, R.id.caption, R.id.buffer, R.id.speed,
                         R.id.tunnel, R.id.audioDecode, R.id.videoDecode, R.id.aac,
                         R.id.danmakuLoad, R.id.adblock, R.id.background, R.id.ua};
@@ -259,7 +260,9 @@ public class MobileCriticalFlowInstrumentedTest {
                     View control = activity.findViewById(id);
                     assertNotNull(control);
                     assertTrue("inactive control: " + activity.getResources().getResourceEntryName(id), control.isClickable());
-                    assertTrue("undersized touch target: " + id, control.getHeight() >= minimum);
+                    assertTrue("undersized touch target: " + activity.getResources().getResourceEntryName(id)
+                            + " height=" + control.getHeight() + " minimum=" + minimum,
+                            control.getHeight() >= minimum);
                     assertTrue("missing visible label: " + id, hasVisibleText(control));
                 }
             });
@@ -353,8 +356,10 @@ public class MobileCriticalFlowInstrumentedTest {
             assertNotNull(vod);
             assertNotNull(live);
             assertNotNull(setting);
-            assertEquals(vod.getHeight(), live.getHeight());
-            assertEquals(live.getHeight(), setting.getHeight());
+            assertEquals(vod.getHeight(), setting.getHeight());
+            boolean liveVisible = ((NavigationBarView) navigation).getMenu().findItem(R.id.live).isVisible();
+            assertEquals(liveVisible ? View.VISIBLE : View.GONE, live.getVisibility());
+            if (liveVisible) assertEquals(vod.getHeight(), live.getHeight());
             int navigationTextSize = LayoutConfig.getMobileNavigationTextSizePixels(activity);
             assertDescendantTextSize(vod, navigationTextSize);
             assertDescendantTextSize(live, navigationTextSize);
@@ -443,6 +448,7 @@ public class MobileCriticalFlowInstrumentedTest {
         });
         // Fragment OPEN transitions can defer RESUMED/initEvent beyond waitForIdleSync.
         // Wait for the real lifecycle/layout boundary before inspecting or using controls.
+        String[] lastState = {"unobserved"};
         for (int attempt = 0; attempt < 100; attempt++) {
             boolean[] ready = {false};
             scenario.onActivity(activity -> {
@@ -450,11 +456,16 @@ public class MobileCriticalFlowInstrumentedTest {
                         .getPrimaryNavigationFragment();
                 ready[0] = fragment instanceof SettingPlayerFragment && fragment.isResumed()
                         && fragment.getView() != null && fragment.getView().isLaidOut();
+                lastState[0] = "activity=" + activity.getLifecycle().getCurrentState()
+                        + " fragment=" + (fragment == null ? "null" : fragment.getClass().getSimpleName()
+                        + "/" + fragment.getLifecycle().getCurrentState())
+                        + " laidOut=" + (fragment != null && fragment.getView() != null
+                        && fragment.getView().isLaidOut());
             });
             if (ready[0]) return;
             SystemClock.sleep(50);
         }
-        org.junit.Assert.fail("Player settings did not resume and lay out within 5 seconds");
+        org.junit.Assert.fail("Player settings did not resume and lay out within 5 seconds: " + lastState[0]);
     }
 
     private static void showPlayerSettingsAndAssertValues(ActivityScenario<HomeActivity> scenario) {
