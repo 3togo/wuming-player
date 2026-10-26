@@ -26,6 +26,31 @@ import org.junit.Test
 class ProgressivePlaybackRelayTest {
 
     @Test
+    fun audioBooksAreProbedAndRelayedWithoutStartingAPlayer() {
+        val bytes = byteArrayOf(1, 2, 3, 4)
+        val upstream = HttpServer.create(InetSocketAddress("127.0.0.1", 0), 0).apply {
+            createContext("/book.m4b") { exchange ->
+                exchange.responseHeaders.set("Content-Type", "audio/mp4")
+                exchange.responseHeaders.set("Content-Range", "bytes 0-3/4")
+                exchange.sendResponseHeaders(206, bytes.size.toLong())
+                exchange.responseBody.use { it.write(bytes) }
+            }
+            start()
+        }
+        try {
+            val location = "http://127.0.0.1:${upstream.address.port}/book.m4b"
+            val target = ProgressivePlaybackPreparer().prepare(location, emptyMap())
+            try {
+                assertNotEquals(location, target.location)
+                val response = HttpClient.newHttpClient().send(
+                    HttpRequest.newBuilder(URI(target.location)).build(), HttpResponse.BodyHandlers.ofByteArray(),
+                )
+                assertArrayEquals(bytes, response.body())
+            } finally { target.resource?.close() }
+        } finally { upstream.stop(0) }
+    }
+
+    @Test
     fun continuousPlaybackOutlivesTheProbeRequestDeadline() {
         val media = ByteArray(128 * 1024) { 7 }
         val upstream = HttpServer.create(InetSocketAddress("127.0.0.1", 0), 0).apply {

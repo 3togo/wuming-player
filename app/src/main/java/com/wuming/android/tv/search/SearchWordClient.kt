@@ -4,12 +4,14 @@ import com.wuming.android.tv.App
 import com.wuming.android.tv.impl.Callback
 import com.github.catvod.net.OkHttp
 import com.google.common.net.HttpHeaders
+import com.wuming.tv.core.search.SearchSuggestions
 import okhttp3.Call
 import okhttp3.Response
 import java.io.IOException
 import java.lang.ref.WeakReference
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
+import java.util.function.Consumer
 
 class SearchWordClient {
     private val calls: MutableMap<Call, ResultCallback> = LinkedHashMap()
@@ -37,6 +39,16 @@ class SearchWordClient {
     fun requestSuggestion(keyword: String, callback: ResultCallback) {
         val requestGeneration = beginRequest()
         enqueue(suggestUrl + URLEncoder.encode(keyword, StandardCharsets.UTF_8), emptyMap(), requestGeneration, callback)
+    }
+
+    @Synchronized
+    fun requestSuggestionWords(keyword: String, callback: Consumer<List<String>>) {
+        val requestGeneration = beginRequest()
+        callback.accept(SearchSuggestions.local(keyword))
+        if (keyword.isBlank() || generation != requestGeneration) return
+        enqueue(suggestUrl + URLEncoder.encode(keyword, StandardCharsets.UTF_8), emptyMap(), requestGeneration) { result ->
+            callback.accept(SearchSuggestions.merge(keyword, SearchSuggestions.parseResponse(result)))
+        }
     }
 
     @Synchronized

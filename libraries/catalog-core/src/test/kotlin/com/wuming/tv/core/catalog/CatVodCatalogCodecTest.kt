@@ -8,6 +8,25 @@ class CatVodCatalogCodecTest {
     private val codec = CatVodCatalogCodec(CatalogSource("source", "Source"))
 
     @Test
+    fun `playback admission stays consistent when the legacy native runtime is available`() {
+        val previous = com.wuming.tv.core.base.native.NativeLoader.available
+        try {
+            com.wuming.tv.core.base.native.NativeLoader.available = true
+            assertEquals(true, codec.playback("""{"parse":1,"url":"https://media.example/book.m4b"}""").supported)
+            assertEquals(false, codec.playback("""{"parse":1,"url":"https://media.example/watch.html"}""").supported)
+        } finally { com.wuming.tv.core.base.native.NativeLoader.available = previous }
+    }
+
+    @Test
+    fun `audio and dash resources bypass browser parsing while pages remain interactive`() {
+        for (extension in listOf("flac", "m4a", "m4b", "ogg", "opus", "wav", "mpd")) {
+            val result = codec.playback("""{"parse":1,"url":"https://media.example/book.$extension?token=one#part"}""")
+            assertEquals(extension, true, result.supported)
+        }
+        assertEquals(false, codec.playback("""{"parse":1,"url":"https://media.example/watch?url=book.m4b"}""").supported)
+    }
+
+    @Test
     fun `detail retains requested id when provider omits vod id`() {
         val detail = codec.detail(
             """{"list":[{"vod_name":"Title","vod_play_from":"direct","vod_play_url":"Episode${'$'}https://media.example/video.m3u8"}]}""",

@@ -1,5 +1,7 @@
 package com.wuming.tv.core.catalog
 
+import com.wuming.tv.core.playback.MediaUrlClassifier
+
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -88,17 +90,12 @@ class CatVodCatalogCodec(private val source: CatalogSource) {
     }
 
     fun playback(json: String): CatalogPlayback {
-        if (nativeAvailable) {
-            val resultJson = nativePlayback(json)
-            if (resultJson.isNotEmpty()) {
-                val playback = gson.fromJson(resultJson, CatalogPlaybackNativeJson::class.java)
-                if (playback != null) return playback.toCatalogPlayback()
-            }
-        }
+        // Playback admission uses the same policy as Android's sniffer, including audio.
+        // The legacy native codec has a separate extension list and must not bypass it.
         val value = root(json)
         val location = playbackUrl(value)
         val validHttp = isHttp(location)
-        val interactive = integer(value, "parse", integer(value, "jx", 0)) != 0 && !looksLikeMedia(location)
+        val interactive = integer(value, "parse", integer(value, "jx", 0)) != 0 && !MediaUrlClassifier.isMediaUrl(location)
         return CatalogPlayback(
             supported = validHttp && !interactive,
             url = if (validHttp && !interactive) location else "",
@@ -243,10 +240,6 @@ class CatVodCatalogCodec(private val source: CatalogSource) {
         val uri = URI(value)
         (uri.scheme.equals("http", true) || uri.scheme.equals("https", true)) && !uri.host.isNullOrBlank()
     }.getOrDefault(false)
-
-    private fun looksLikeMedia(value: String): Boolean = value.substringBefore('?').lowercase().let { path ->
-        listOf(".m3u8", ".mp4", ".mkv", ".webm", ".flv", ".mp3", ".aac").any(path::endsWith)
-    }
 
     private external fun nativeSearch(json: String, sourceKey: String): String
 

@@ -151,8 +151,7 @@ internal class ProgressivePlaybackPreparer(
     }
 
     private fun isProgressiveMedia(uri: URI): Boolean {
-        val path = uri.path.orEmpty().lowercase()
-        return PROGRESSIVE_EXTENSIONS.any(path::endsWith)
+        return com.wuming.tv.core.playback.MediaUrlClassifier.isProgressiveUrl(uri.toString())
     }
 
     private fun requiresHeaderRelay(headers: Map<String, String>): Boolean =
@@ -167,10 +166,6 @@ internal class ProgressivePlaybackPreparer(
         const val DEFAULT_PROBE_BYTES = 64 * 1024
         const val ERROR_PREVIEW_BYTES = 1_024
         val FORBIDDEN_HEADERS = setOf("connection", "content-length", "host", "range", "transfer-encoding")
-        val PROGRESSIVE_EXTENSIONS = setOf(
-            ".mp4", ".m4v", ".mkv", ".webm", ".mov", ".avi", ".flv", ".ts",
-            ".mp3", ".m4a", ".aac", ".ogg", ".opus", ".wav",
-        )
     }
 }
 

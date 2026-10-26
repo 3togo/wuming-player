@@ -10,6 +10,16 @@ import org.junit.Test
 class DesktopLivePlaylistLoaderTest {
 
     @Test
+    fun loadsJsonPlaylistThroughTheSharedGrammar() {
+        val loader = DesktopLivePlaylistLoader {
+            """[{"group":"Radio","channels":[{"name":"One","url":"https://media.example/radio.flac","ua":"Radio"}]}]""".toByteArray()
+        }
+        val playlist = loader.load("https://playlist.example/radio.json")
+        assertEquals("Radio", playlist.groups.single().name)
+        assertEquals("Radio", playlist.groups.single().channels.single().streams.single().headers["User-Agent"])
+    }
+
+    @Test
     fun loadsUtf16PlaylistFromLocalFile() {
         val file = Files.createTempFile("tvbox-live-utf16-", ".m3u")
         val content = "#EXTM3U\n#EXTINF:-1,中文台\nhttps://media.example/live.m3u8\n"

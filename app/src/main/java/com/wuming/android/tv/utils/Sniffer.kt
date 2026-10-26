@@ -9,6 +9,7 @@ import com.wuming.android.tv.api.config.RuleConfig
 import com.wuming.android.tv.bean.Result
 import com.wuming.android.tv.bean.Rule
 import com.wuming.tv.core.text.RegexUtils
+import com.wuming.tv.core.playback.MediaUrlClassifier
 import com.github.catvod.utils.Json
 import com.github.catvod.utils.Trans
 import com.github.catvod.utils.Util
@@ -22,6 +23,8 @@ object Sniffer {
     @JvmField
     val AI_PUSH: Pattern = Pattern.compile("(" + com.wuming.tv.core.base.EditionSettings.current.pushSchemes.joinToString("|") { Pattern.quote(it) } + "):\\S+")
 
+    // Retain the exposed field for existing callers; runtime recognition uses the shared policy.
+    @Deprecated("Use isVideoFormat for configured rules or MediaUrlClassifier for direct URLs")
     @JvmField
     val SNIFFER: Pattern = Pattern.compile("https?://[^\\s]{12,}\\.(?:m3u8|mp4|mkv|flv|mp3|m4a|aac|mpd)(?:\\?.*)?|https?://.*?video/tos[^\\s]*|rtmp:[^\\s]+")
 
@@ -51,7 +54,7 @@ object Sniffer {
             }
         }
         if (url.contains("url=http") || url.contains("v=http") || url.contains(".html")) return false
-        return SNIFFER.matcher(url).find()
+        return MediaUrlClassifier.isMediaUrl(url)
     }
 
     @JvmStatic

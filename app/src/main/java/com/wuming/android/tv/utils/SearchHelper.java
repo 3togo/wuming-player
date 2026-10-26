@@ -4,9 +4,9 @@ import com.wuming.android.tv.api.config.VodConfig;
 import com.wuming.android.tv.bean.Site;
 import com.wuming.android.tv.search.SearchSourceStore;
 import com.wuming.tv.core.search.SearchTextMatcher;
+import com.wuming.tv.core.search.SearchSuggestions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -63,13 +63,7 @@ public final class SearchHelper {
     }
 
     public static List<String> splitWords(String text) {
-        List<String> result = new ArrayList<>();
-        result.add(text);
-        String[] parts = text.split("\\W+");
-        if (parts.length > 1) {
-            result.addAll(Arrays.asList(parts));
-        }
-        return result;
+        return SearchSuggestions.local(text);
     }
 
     public static List<String> search(List<String> items, String query) {

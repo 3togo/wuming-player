@@ -16,6 +16,7 @@ object LivePlaylistParser {
 
     fun parse(content: String): LivePlaylist {
         val playlistText = LivePlaylistEncoding.stripMark(content)
+        if (playlistText.trimStart().startsWith('[')) return parseJson(playlistText)
         if (nativeAvailable) {
             val json = nativeParse(playlistText)
             if (json.isNotEmpty()) {
@@ -32,6 +33,32 @@ object LivePlaylistParser {
         } else {
             parseTxt(lines)
         }
+    }
+
+    private fun parseJson(content: String): LivePlaylist {
+        val groups = linkedMapOf<String, LinkedHashMap<String, MutableChannel>>()
+        for (entry in LivePlaylistJsonCodec.groups(content)) {
+            val group = entry.asJsonObject
+            val groupName = LivePlaylistJsonCodec.text(group, "name").ifBlank { DEFAULT_GROUP }
+            for (item in group.getAsJsonArray("channel")) {
+                val channel = item.asJsonObject
+                val name = LivePlaylistJsonCodec.text(channel, "name")
+                if (name.isBlank()) continue
+                val metadata = PendingChannel(
+                    group = groupName,
+                    name = name,
+                    tvgId = LivePlaylistJsonCodec.text(channel, "tvgId"),
+                    tvgName = LivePlaylistJsonCodec.text(channel, "tvgName"),
+                    logo = LivePlaylistJsonCodec.text(channel, "logo"),
+                    number = LivePlaylistJsonCodec.text(channel, "number"),
+                    headers = LivePlaylistJsonCodec.headers(channel),
+                )
+                for (url in channel.getAsJsonArray("urls")) {
+                    if ("://" in url.asString) add(groups, metadata, stream(url.asString, metadata.headers))
+                }
+            }
+        }
+        return playlist(groups, emptyList())
     }
 
     private fun parseM3u(lines: List<String>): LivePlaylist {

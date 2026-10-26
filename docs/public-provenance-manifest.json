@@ -1221,7 +1221,7 @@
     },
     {
       "path": "libraries/catalog-core/build.gradle",
-      "sha256": "272ba0681b556bbf4fdfc0373981337b4bf5abc400edbc68c7ad4326210885c9"
+      "sha256": "1cf64621115580b0593022d008b62831272a6d63d5d2162de80d94efa8a475e8"
     },
     {
       "path": "libraries/cloud-core/build.gradle",

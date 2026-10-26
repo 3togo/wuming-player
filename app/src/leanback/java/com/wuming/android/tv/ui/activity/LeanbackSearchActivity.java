@@ -136,7 +136,12 @@ public class LeanbackSearchActivity extends BaseActivity implements WordAdapter.
 
     private void getSuggest(String text) {
         mBinding.word.setText(R.string.search_suggest);
-        wordClient.requestSuggestion(ZhuToPin.get(text), result -> setAdapter(result, false));
+        wordClient.requestSuggestionWords(ZhuToPin.get(text), words -> {
+            if (isFinishing() || isDestroyed()) return;
+            java.util.List<Word.Data> items = new java.util.ArrayList<>();
+            for (String word : words) items.add(new Word.Data(word).trans());
+            mWordAdapter.setItems(items);
+        });
     }
 
     private void setAdapter(String result, boolean save) {
