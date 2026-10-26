@@ -15,6 +15,7 @@ import javax.swing.*
 /** Changes are applied by the desktop appearance monitor without restarting playback. */
 class AppearancePreferencesPanel(
     private val settings: DesktopAppearanceSettings = DesktopAppearanceSettings(),
+    private val application: com.wuming.tv.desktop.config.DesktopApplicationSettings = com.wuming.tv.desktop.config.DesktopApplicationSettings(),
 ) : JPanel(BorderLayout()) {
     init {
         isOpaque = false
@@ -39,6 +40,15 @@ class AppearancePreferencesPanel(
                 insets = Insets(DesignTokens.SPACE_SMALL, 0, DesignTokens.SPACE_SMALL, 0)
             })
         }
+        val singleInstance = JCheckBox("Prevent multiple app instances", application.preventMultipleInstances).apply {
+            isOpaque = false
+            toolTipText = "Applies to future launches. Close existing app instances after changing this option."
+            addActionListener { application.preventMultipleInstances = isSelected }
+        }
+        form.add(singleInstance, GridBagConstraints().apply {
+            gridx = 0; gridy = 2; gridwidth = 2; anchor = GridBagConstraints.LINE_START
+            insets = Insets(DesignTokens.SPACE_MEDIUM, 0, DesignTokens.SPACE_SMALL, 0)
+        })
         val content = JPanel(BorderLayout(0, DesignTokens.SPACE_MEDIUM)).apply {
             isOpaque = false
             border = BorderFactory.createEmptyBorder(DesignTokens.SPACE_LARGE, DesignTokens.SPACE_LARGE,

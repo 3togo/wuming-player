@@ -21,7 +21,18 @@ class AppearancePreferencesPanelTest {
             SwingUtilities.invokeAndWait {
                 val settings = DesktopAppearanceSettings(prefs)
                 assertEquals(Appearance.SYSTEM, settings.appearance)
-                val panel = AppearancePreferencesPanel(settings)
+                val application = com.wuming.tv.desktop.config.DesktopApplicationSettings(prefs.node("application"))
+                assertTrue(application.preventMultipleInstances)
+                val panel = AppearancePreferencesPanel(settings, application)
+                fun checkboxes(parent: Container): List<JCheckBox> = parent.components.flatMap {
+                    if (it is JCheckBox) listOf(it) else if (it is Container) checkboxes(it) else emptyList()
+                }
+                val singleInstance = checkboxes(panel).single { it.text == "Prevent multiple app instances" }
+                assertTrue(singleInstance.isSelected)
+                singleInstance.doClick()
+                assertFalse(com.wuming.tv.desktop.config.DesktopApplicationSettings(prefs.node("application")).preventMultipleInstances)
+                singleInstance.doClick()
+                assertTrue(application.preventMultipleInstances)
                 fun combos(parent: Container): List<JComboBox<*>> = parent.components.flatMap {
                     if (it is JComboBox<*>) listOf(it) else if (it is Container) combos(it) else emptyList()
                 }

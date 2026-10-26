@@ -384,3 +384,20 @@ then releases that lock after the shared launcher copies the standalone runtime.
 An open desktop window therefore does not block later builds. A busy private
 workspace reports an error immediately; a suspended older launcher must be
 resumed or closed to release the lock it already owns.
+
+### One GUI instance and tray readability
+
+Only one GUI instance per Linux user is allowed by default. A second launch reports
+that 無名 is already running; use its tray icon to reopen the window. The lock
+remains held while the app is hidden and is released by the OS when the process
+exits, so a leftover lock file does not block future launches. Diagnostic commands
+such as `--smoke` do not take the GUI lock.
+
+Under **Settings → Appearance**, **Prevent multiple app instances** is checked by
+default. Clear it to allow additional GUIs. The setting applies to future launches;
+close existing instances after changing it. `--allow-multiple-instances` overrides
+the setting for one launch. Public and private desktop editions share this guard,
+just as they share the current user's desktop settings.
+
+The tray popup menu uses bold text at 18 logical pixels, scaled with the desktop
+UI. Native tooltip styling remains controlled by the Linux desktop.

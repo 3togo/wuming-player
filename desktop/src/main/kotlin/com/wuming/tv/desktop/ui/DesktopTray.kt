@@ -1,5 +1,6 @@
 package com.wuming.tv.desktop.ui
 
+import java.awt.Font
 import java.awt.MenuItem
 import java.awt.PopupMenu
 import java.awt.SystemTray
@@ -40,10 +41,15 @@ internal class DesktopTray(
     private object AwtPort : Port {
         override fun install(show: () -> Unit, monitor: () -> Unit, exit: () -> Unit): AutoCloseable? {
             if (!SystemTray.isSupported()) return null
+            val menuFont = javax.swing.UIManager.getFont("MenuItem.font")
+                ?.deriveFont(Font.BOLD, DesktopTvTheme.px(18).toFloat())
+                ?: Font("SansSerif", Font.BOLD, 18)
             fun item(label: String, action: () -> Unit) = MenuItem(label).apply {
+                font = menuFont
                 addActionListener { SwingUtilities.invokeLater { action() } }
             }
             val menu = PopupMenu().apply {
+                font = menuFont
                 add(item("Show 無名", show))
                 add(item("Playback assistance monitor", monitor))
                 addSeparator()

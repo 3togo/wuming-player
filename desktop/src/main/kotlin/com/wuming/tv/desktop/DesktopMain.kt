@@ -63,6 +63,7 @@ fun main(args: Array<String>) {
     when {
         "--help" in args -> {
             println("TVBox Desktop")
+            println("  --allow-multiple-instances  allow an additional GUI for this launch")
             println("  --lan-relay [--pair]  run the private LAN relay without a desktop window")
             println("  --smoke  verify generic-core integration without opening a window")
             println("  --log-directory  print the persistent diagnostic-log directory")
@@ -491,6 +492,19 @@ fun main(args: Array<String>) {
         }
 
         else -> {
+            val allowMultiple = "--allow-multiple-instances" in args ||
+                !com.wuming.tv.desktop.config.DesktopApplicationSettings().preventMultipleInstances
+            val instance = DesktopInstanceGuard.acquire(allowMultiple)
+            if (instance == null) {
+                System.err.println("無名 is already running. Open it using the tray icon.")
+                SwingUtilities.invokeLater {
+                    javax.swing.JOptionPane.showMessageDialog(null,
+                        "無名 is already running. Open it using the tray icon.", "無名",
+                        javax.swing.JOptionPane.INFORMATION_MESSAGE)
+                }
+                return
+            }
+            Runtime.getRuntime().addShutdownHook(Thread({ instance.close() }, "tvbox-instance-lock"))
             val systemDark = com.wuming.tv.desktop.ui.LinuxSystemAppearance().isDark()
             SwingUtilities.invokeLater {
                 com.wuming.tv.desktop.config.DesktopAppearanceSettings().let {
