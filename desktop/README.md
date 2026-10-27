@@ -129,6 +129,11 @@ extra probes. Evidence survives restart, is scoped to provider configuration, ar
 SHA-256, ABI and runtime revision, and expires separately per capability after 30 days.
 Playback evidence means a URL was resolved, not that a player rendered the media.
 
+The guarded class loader repairs the narrowly identified dex2jar 2.4 short-array initialization
+pattern that reverses `System.arraycopy` arguments. Without this repair, Libvio loses its
+encoded JSON keys and returns no details (`No value for froms`), even after parsing the page.
+The repair applies to existing prepared JARs without modifying the approved provider artifact.
+
 Libvio's UC and Quark lines are
 recognized as account-dependent and fail immediately with an explicit account-required result.
 The **Accounts** home action provides desktop-native QR login, verification and logout for Aliyun

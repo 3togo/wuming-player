@@ -20,7 +20,7 @@ class GuardedProviderClassLoader(urls: Array<URL?>, parent: ClassLoader) : URLCl
         require(bytes.size <= MAX_CLASS_BYTES) { "Provider class exceeds size limit" }
         val node = ClassNode()
         ClassReader(bytes).accept(node, 0)
-        var changed = false
+        var changed = Dex2JarShortArrayRepair.apply(node)
         node.methods.forEach { method ->
             method.instructions.toArray().filterIsInstance<MethodInsnNode>().forEach { call ->
                 val pair = call.owner in BUILDERS && call.name in HEADER_SETTERS &&
