@@ -10,6 +10,11 @@ import org.junit.Test;
 public class BaseLoaderBuiltinTest {
 
     @Test
+    public void builtinLibvioDoesNotDependOnAnExternalJar() {
+        assertTrue(BaseLoader.createBuiltinSpider("libvio") instanceof com.wuming.android.tv.catalog.LibvioSpider);
+    }
+
+    @Test
     public void builtinOpenDriveDoesNotDependOnAnExternalJar() {
         Spider spider = BaseLoader.createBuiltinSpider("opendrive");
 

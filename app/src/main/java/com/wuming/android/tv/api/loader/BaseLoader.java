@@ -91,6 +91,7 @@ public class BaseLoader {
 
     static Spider createBuiltinSpider(String name) {
         return switch (name) {
+            case "libvio" -> new com.wuming.android.tv.catalog.LibvioSpider();
             case "youtube" -> new YoutubeSpider();
             case "opendrive" -> new OpenDriveSpider();
             default -> new SpiderNull();
@@ -108,6 +109,7 @@ public class BaseLoader {
     }
 
     public Spider getSpider(String key, String api, String ext, String jar) {
+        if (com.wuming.tv.core.libvio.LibvioSiteSpec.matches(api)) return getBuiltinSpider(key, "builtin_libvio", ext);
         if (isPy(api)) return pyLoader.getSpider(key, api, ext);
         else if (isJs(api)) return jsLoader.getSpider(key, api, ext, jar);
         else if (isCsp(api)) {
@@ -136,7 +138,7 @@ public class BaseLoader {
      * the UI during routine navigation.
      */
     public Spider getInteractiveSpider(String key, String api, String ext, String jar) {
-        if (!isCsp(api)) return getSpider(key, api, ext, jar);
+        if (com.wuming.tv.core.libvio.LibvioSiteSpec.matches(api) || !isCsp(api)) return getSpider(key, api, ext, jar);
         interactiveCspKeys.add(key);
         jarLoader.setRecent(com.github.catvod.utils.Util.md5(jar));
         return jarLoader.getSpider(key, api, ext, jar);

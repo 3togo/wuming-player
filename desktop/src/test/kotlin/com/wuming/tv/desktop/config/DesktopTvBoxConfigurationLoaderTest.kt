@@ -17,6 +17,40 @@ import java.util.Base64
 
 class DesktopTvBoxConfigurationLoaderTest {
 
+    @Test
+    fun libvioUsesBuiltinAdapterWithoutJarOrApprovalAndPreservesIdentity() {
+        val json = """{"spider":"https://unused.example/spider.jar","sites":[
+            {"key":"custom-key","name":"My Libvio","type":3,"api":"csp_LibvioGuard","ext":{"siteUrl":"https://www.libvio.pw/"}},
+            {"key":"other","name":"Other","type":3,"api":"csp_Other"}]}"""
+        val config = DesktopTvBoxConfigurationLoader(null) { json.toByteArray() }.load("https://fixture.example/config")
+        val site = config.sites.first()
+        assertEquals("custom-key", site.libvioExecution?.key)
+        assertEquals("My Libvio", site.libvioExecution?.name)
+        assertEquals(null, site.jvmExecution)
+        assertEquals(listOf("other"), config.jvmSpiderSites.map { it.key })
+    }
+
+    @Test
+    fun allLibvioApiAliasesWorkWithoutAnyDownloadedArtifact() {
+        for (api in listOf("csp_Libvio", "csp_LibvioGuard", "builtin_libvio")) {
+            var loads = 0
+            val payload = """{"sites":[{"key":"libvio","name":"Libvio","type":3,"api":"$api","searchable":0,"categories":["剧集"]}]}"""
+            val config = DesktopTvBoxConfigurationLoader(null) { loads++; payload.toByteArray() }.load("https://fixture.example/config")
+            assertTrue(config.jvmSpiderSites.isEmpty())
+            assertEquals(listOf("剧集"), config.sites.single().libvioExecution?.categories)
+            assertEquals(false, config.sites.single().searchable)
+            assertEquals(1, loads)
+        }
+    }
+
+    @Test
+    fun similarlyNamedProviderKeepsItsConfiguredRuntime() {
+        val payload = """{"spider":"https://fixture.example/provider.jar","sites":[{"key":"other","type":3,"api":"csp_LibvioOther"}]}"""
+        val config = DesktopTvBoxConfigurationLoader(null) { payload.toByteArray() }.load("https://fixture.example/config")
+        assertEquals(null, config.sites.single().libvioExecution)
+        assertEquals("csp_LibvioOther", config.jvmSpiderSites.single().jvmExecution?.api)
+    }
+
     @get:Rule
     val temporary = TemporaryFolder()
 

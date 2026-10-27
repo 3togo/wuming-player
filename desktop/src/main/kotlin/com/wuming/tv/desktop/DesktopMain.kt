@@ -47,6 +47,33 @@ fun main(args: Array<String>) {
     DesktopProxySettings.persistedProxy()?.let { persisted ->
         if (System.getProperty("tvbox.ghproxy") == null) System.setProperty("tvbox.ghproxy", persisted)
     }
+    if ("--test-libvio" in args) {
+        val index = args.indexOf("--test-libvio")
+        val executor = com.wuming.tv.desktop.catalog.DesktopLibvio.executor(
+            com.wuming.tv.core.libvio.LibvioSiteSpec("builtin_libvio", "Libvio"))
+        try {
+            val home = executor.browseHome()
+            require(home.items.isNotEmpty() && home.types.isNotEmpty()) { "Libvio Home returned no items or categories" }
+            val category = executor.category(home.types.first().id, 1)
+            require(category.items.isNotEmpty()) { "Libvio category returned no items" }
+            val secondPage = executor.category(home.types.first().id, 2)
+            require(secondPage.items.isNotEmpty() && secondPage.items.first().id != category.items.first().id) { "Libvio category pagination did not advance" }
+            require(home.items.any { it.picture.isNotBlank() }) { "Libvio Home returned no posters" }
+            require(executor.search("wuming_no_such_title_9f8b").isEmpty()) { "Libvio missing-title search returned unfiltered cards" }
+            val results = executor.search(args.getOrNull(index + 1) ?: "死神")
+            require(results.isNotEmpty()) { "Libvio search returned no items" }
+            val detail = executor.detail(results.first().id)
+            val line = detail.lines.first()
+            val playback = executor.play(line.flag, line.episodes.first().id)
+            require(playback.supported) { playback.message }
+            println(com.google.gson.Gson().toJson(mapOf(
+                "adapter" to "builtin_libvio", "home" to home.items.size, "types" to home.types.size,
+                "category" to category.items.size, "categoryPage2" to secondPage.items.size, "emptySearchVerified" to true,
+                "posters" to home.items.count { it.picture.isNotBlank() }, "search" to results.size, "episodes" to line.episodes.size,
+                "title" to detail.item.name, "playback" to playback)))
+        } finally { executor.cancel() }
+        return
+    }
     val inspectPackagesIndex = args.indexOf("--inspect-packages")
     val inspectIndex = args.indexOf("--inspect-config")
     val testSourceIndex = args.indexOf("--test-js-source")
@@ -69,6 +96,7 @@ fun main(args: Array<String>) {
             println("  --log-directory  print the persistent diagnostic-log directory")
             println("  --inspect-packages PATH  inspect local package files without executing providers")
             println("  --inspect-config URL  locally decode and summarize a TVBox configuration")
+            println("  --test-libvio [QUERY]  verify the built-in shared Libvio direct-play adapter")
             println("  --test-js-source URL QUERY [SOURCE_KEY]  test local search/detail/playback")
             println("  --test-live-source URL [PLAYLIST_NAME]  load and parse a configured Live TV playlist")
             println("  --test-jvm-spider URL QUERY SOURCE_KEY SHA256  explicitly trust and test a portable JVM spider")

@@ -1,0 +1,17 @@
+plugins {
+    id 'java-library'
+    alias(libs.plugins.kotlin.jvm)
+}
+group = 'com.wuming.tv'
+version = '0.1.0-SNAPSHOT'
+base { archivesName = 'tvbox-libvio-core' }
+java { withSourcesJar() }
+kotlin { jvmToolchain(17) }
+dependencies {
+    api project(':libraries:catalog-core')
+    implementation libs.gson
+    api libs.okhttp
+    implementation 'org.jsoup:jsoup:1.22.1'
+    testImplementation libs.junit
+}
+tasks.named('check') { dependsOn rootProject.tasks.named('verifyGenericLibraryBoundaries') }

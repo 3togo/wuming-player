@@ -39,6 +39,7 @@ data class DesktopTvBoxSite(
     val browseEnabled: Boolean = true,
     val inputOnly: Boolean = false,
     val pythonExecution: com.wuming.tv.core.runtime.python.PythonSourceSpec? = null,
+    val libvioExecution: com.wuming.tv.core.libvio.LibvioSiteSpec? = null,
 )
 
 typealias DesktopTvBoxLive = LivePlaylistReference
@@ -196,6 +197,7 @@ class DesktopTvBoxConfigurationLoader(
         val key = if (packageId.matches(Regex("[a-f0-9]{32}"))) com.wuming.tv.core.source.packages.PackageSourceIdentity.scoped(packageId, rawKey) else rawKey
         if (rawKey.isEmpty() || rawKey.any(Character::isISOControl)) return null
         val name = config.name.trim().ifBlank { key }
+        val ownLibvio = config.type == 3 && com.wuming.tv.core.libvio.LibvioSiteSpec.matches(config.api)
         val artifact = resolveResource(baseLocation, SpiderLocation.locationOf(config.jar.trim().ifBlank { rootSpider }))
         val api = resolveResource(baseLocation, config.api)
         val extension = if (isRelativeLocation(config.ext)) resolveResource(baseLocation, config.ext) else config.ext
@@ -212,7 +214,7 @@ class DesktopTvBoxConfigurationLoader(
                     JsSourceSpec(key, name, api, extension, config.categories, rawKey, if (key != rawKey) "package://$packageId/$rawKey" else api)
                 }.getOrNull()
             } else null,
-            if (config.runtime == TvBoxSourceRuntime.SPIDER_RUNTIME_REQUIRED && config.api.startsWith("csp_") && artifact.isNotBlank()) {
+            if (!ownLibvio && config.runtime == TvBoxSourceRuntime.SPIDER_RUNTIME_REQUIRED && config.api.startsWith("csp_") && artifact.isNotBlank()) {
                 runCatching {
                     JvmSpiderSiteSpec(key, name, config.api, extension, artifact, config.categories, rawKey)
                 }.getOrNull()
@@ -234,6 +236,7 @@ class DesktopTvBoxConfigurationLoader(
             config.categories,
             browseEnabled = config.browsable,
             inputOnly = config.inputOnly,
+            libvioExecution = if (ownLibvio) com.wuming.tv.core.libvio.LibvioSiteSpec.from(key, name, extension).copy(categories = config.categories) else null,
             pythonExecution = if (config.type == 3 && api.substringBefore('?').endsWith(".py", true)) {
                 com.wuming.tv.core.runtime.python.PythonSourceSpec(key, name, api, extension, rawKey, config.categories,
                     if (key != rawKey) "package://$packageId/$rawKey" else "$key/$api")

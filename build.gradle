@@ -35,6 +35,7 @@ def genericLibraryPackages = [
         'source-core'  : 'com.wuming.tv.core.source',
         'user-library-core': 'com.wuming.tv.core.library',
         'maccms-core': 'com.wuming.tv.core.maccms',
+        'libvio-core': 'com.wuming.tv.core.libvio',
 ]
 
 // Capture only plain values for task actions; inspect Gradle models after every

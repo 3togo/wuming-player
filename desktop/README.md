@@ -134,8 +134,10 @@ pattern that reverses `System.arraycopy` arguments. Without this repair, Libvio 
 encoded JSON keys and returns no details (`No value for froms`), even after parsing the page.
 The repair applies to existing prepared JARs without modifying the approved provider artifact.
 
-Libvio's UC and Quark lines are
-recognized as account-dependent and fail immediately with an explicit account-required result.
+Libvio now uses the [built-in shared Kotlin adapter](../docs/libvio-adapter.md) by default,
+including existing `csp_Libvio` and `csp_LibvioGuard` configuration entries. Home, search, details
+and direct playback need no downloaded provider or ARM runtime. This adapter excludes cloud-drive
+and download lines; cloud-only titles report that no direct playback is available.
 The **Accounts** home action provides desktop-native QR login, verification and logout for Aliyun
 Drive, Baidu Netdisk, Quark and UC without an Android companion. Credentials are durably stored in
 the current user's Linux Secret Service and are restored on later launches; they are never written

@@ -497,6 +497,7 @@ class ConfigurationPanel(
         val runtime = when {
             site.key in activeSpiderKeys -> "desktop spider runtime active"
             site.key in updatedSpiderKeys -> "bundle updated · review approval required"
+            site.libvioExecution != null -> "built-in Libvio · direct playback"
             hasSpiderRuntime(site) -> "desktop spider adapter available"
             site.runtime == TvBoxSourceRuntime.SPIDER_RUNTIME_REQUIRED -> "no supported desktop spider adapter"
             else -> site.runtime.label()
@@ -517,7 +518,9 @@ class ConfigurationPanel(
             ?.getOrNull(sites.selectedIndex)?.let(::hasSpiderRuntime) == true
         val selected = configuration?.sites?.getOrNull(sites.selectedIndex) ?: return
         if (!hasSpiderRuntime(selected)) {
-            status.text = if (selected.runtime == TvBoxSourceRuntime.SPIDER_RUNTIME_REQUIRED) {
+            status.text = if (selected.libvioExecution != null) {
+                "${selected.name} uses the built-in shared Libvio adapter for direct playback."
+            } else if (selected.runtime == TvBoxSourceRuntime.SPIDER_RUNTIME_REQUIRED) {
                 "${selected.name} has no supported JVM spider specification. Check its artifact and API format."
             } else "${selected.name}: ${selected.runtime.label()}."
             return

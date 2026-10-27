@@ -120,3 +120,5 @@ include ':vendor:cling-android'
 // A consuming edition may add modules; the public build has no external dependency.
 def editionSettings = file('gradle/edition-settings.gradle')
 if (editionSettings.isFile()) apply from: editionSettings
+
+include ':libraries:libvio-core'

@@ -793,6 +793,8 @@ class CatalogPanel(
                 }
                 executor
             }
+        } + configuration.browsableSites.mapNotNull { site ->
+            site.libvioExecution?.let(com.wuming.tv.desktop.catalog.DesktopLibvio::executor)
         } + configuration.macCmsSites.mapNotNull { site ->
             site.apiExecution?.let { MacCmsCatalogSourceExecutor(it, macCmsTransport) }
         } + configuration.remoteSpiderSites.mapNotNull { site ->

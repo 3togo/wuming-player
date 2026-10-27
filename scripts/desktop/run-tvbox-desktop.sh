@@ -91,7 +91,7 @@ needs_display=true
 for argument in "$@"; do
     case "${argument}" in
         --help|--smoke|--lan-relay|--log-directory|--inspect-config|--test-js-source|--test-live-source|\
-        --test-jvm-spider|--fingerprint-spider-artifact|--probe-guarded-spider|\
+        --test-libvio|--test-jvm-spider|--fingerprint-spider-artifact|--probe-guarded-spider|\
         --prepare-guarded-spider|--test-guarded-spider|--diagnose-guarded-spider|\
         --test-cloud-login)
             needs_display=false
