@@ -30,6 +30,7 @@ class GuardedCatVodCatalogSourceExecutor(
     private val codec = CatVodCatalogCodec(source)
     private val host = GuardedCatVodHostProcess(artifact, spec)
     private val cloudEpisodes = ConcurrentHashMap<Pair<String, String>, CloudDriveProviderKind>()
+    private val reportedEmptyDetails = ConcurrentHashMap.newKeySet<String>()
 
     override fun search(query: String): List<CatalogItem> {
         require(query.isNotBlank()) { "Search query is required" }
@@ -59,9 +60,7 @@ class GuardedCatVodCatalogSourceExecutor(
         val result = if (response.isNotBlank()) {
             codec.detail(response, id)
         } else {
-            GuardedCloudShareDetail.decode(source.key, id) ?: throw IllegalArgumentException(
-                "Guarded CatVod provider returned an empty detail response${diagnosticSuffix()}",
-            )
+            GuardedCloudShareDetail.decode(source.key, id) ?: throw emptyDetailFailure(id)
         }
         return result.also { detail ->
             cloudEpisodes.clear()
@@ -214,6 +213,31 @@ class GuardedCatVodCatalogSourceExecutor(
             page = page.toString(),
             filters = filters,
         )), page)
+
+    /**
+     * An empty `detail` body means the spider could not parse its own site: anti-bot pages and
+     * markup changes reach the host as an obfuscated stack trace. Log the full diagnostics once per
+     * source and cause, then hand the UI a single actionable line instead of the raw trace.
+     */
+    private fun emptyDetailFailure(id: String): IllegalArgumentException {
+        val diagnostics = host.recentDiagnostics().takeLast(12).filter(String::isNotBlank)
+        val reason = SiteFailureMarker.classify(diagnostics)
+        val summary = "detail key=${source.key} id=${tag(id)} results=0 providerResponse=empty " +
+            "reason=${reason ?: "unknown"}"
+        if (reportedEmptyDetails.add("${source.key}:${reason ?: "unknown"}")) {
+            logger.warning(
+                diagnostics.takeIf { it.isNotEmpty() }
+                    ?.let { "$summary diagnostics=${it.joinToString(" | ")}" } ?: summary,
+            )
+        } else {
+            logger.warning("$summary diagnostics=already-reported")
+        }
+        return IllegalArgumentException(
+            "Guarded CatVod provider returned no detail data" +
+                (reason?.let { " because $it" } ?: "") +
+                ". This source needs an upstream site-adapter update; try another source.",
+        )
+    }
 
     private fun diagnosticSuffix(): String = host.recentDiagnostics().takeLast(12)
         .filter(String::isNotBlank).joinToString(" | ").takeIf(String::isNotBlank)?.let { ": $it" }.orEmpty()
