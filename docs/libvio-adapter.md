@@ -37,8 +37,8 @@ Run offline fixtures and platform routing checks:
 ```sh
 ./gradlew-safe :libraries:libvio-core:test
 ./gradlew-safe :desktop:test --tests '*DesktopTvBoxConfigurationLoaderTest'
-./gradlew-safe -PwumingEphemeralSigning=true :app:testMobileArm64_v8aVerificationUnitTest --tests '*BaseLoaderBuiltinTest'
-./gradlew-safe -PwumingEphemeralSigning=true :app:testLeanbackArm64_v8aVerificationUnitTest --tests '*BaseLoaderBuiltinTest'
+./gradlew-safe -PwumingEphemeralSigning=true :app:testMobileArm64_v8aVerificationUnitTest --tests '*BaseLoaderBuiltinTest' --tests '*LibvioSpiderTest'
+./gradlew-safe -PwumingEphemeralSigning=true :app:testLeanbackArm64_v8aVerificationUnitTest --tests '*BaseLoaderBuiltinTest' --tests '*LibvioSpiderTest'
 ```
 
 The core tests exercise parser variants, empty/error searches, poster sources,
@@ -46,7 +46,8 @@ category order and pagination, legacy saved links, URL encodings and signed quer
 JSON strings with braces, cloud-only titles, Android JSON compatibility, bounded
 challenge handling, real loopback HTTP redirects, cookies, body limits and socket
 cancellation. Desktop tests cover all three API aliases without a provider artifact
-and confirm unrelated providers keep their configured runtime.
+and confirm unrelated providers keep their configured runtime. Android port tests exercise
+home/category/detail/player JSON, media headers, cancellation, and empty later search pages.
 
 For an explicitly requested live check:
 
