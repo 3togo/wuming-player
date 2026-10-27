@@ -22,11 +22,11 @@ public abstract class Spider {
             .build();
 
     public static OkHttpClient client() {
-        return CLIENT;
+        return com.wuming.tv.guardhost.GuardedProviderHttpClients.client(CLIENT);
     }
 
     public static OkHttpClient.Builder newClientBuilder() {
-        return CLIENT.newBuilder();
+        return client().newBuilder();
     }
 
     public static Dns safeDns() {

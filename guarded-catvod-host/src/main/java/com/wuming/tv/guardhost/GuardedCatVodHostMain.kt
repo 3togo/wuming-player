@@ -57,6 +57,7 @@ object GuardedCatVodHostMain {
         ) {
             HideUtils.configure(args[4]!!, args[5], args[6], dataDirectory.toString())
         }
+        GuardedProviderHttpClients.configure(args[1]!!)
         GuardedProviderClassLoader(
             arrayOf<URL?>(artifact.toUri().toURL()),
             GuardedCatVodHostMain::class.java.getClassLoader()
@@ -90,6 +91,7 @@ object GuardedCatVodHostMain {
                             var response: Response?
                             try {
                                 val result: String? = invoke(spider, context, request!!)
+                                if (request.operation == "init") GuardedProviderHttpClients.initialized()
                                 response = Response.Companion.ok(
                                     if ("play".equals(request.operation)) {
                                         proxy.rewritePlaybackJson(
