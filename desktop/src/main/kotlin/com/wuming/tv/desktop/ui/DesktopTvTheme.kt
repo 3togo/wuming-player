@@ -332,8 +332,15 @@ object DesktopTvTheme {
         val available = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment()
             .availableFontFamilyNames
             .toSet()
-        return listOf("Noto Sans CJK SC", "Noto Sans", "SansSerif").firstOrNull(available::contains)
-            ?: "SansSerif"
+        // Physical families do not take part in fontconfig fallback, so pictographs that
+        // providers embed in names and remarks render as missing-glyph boxes. Require the
+        // chosen family to cover CJK and a pictograph before preferring it; otherwise the
+        // logical font keeps the fallback chain that reaches the symbol and emoji fonts.
+        val sample = "\u4e2d\u6587\uD83C\uDFAE"
+        return listOf("Noto Sans CJK SC", "Noto Sans", "SansSerif").firstOrNull { family ->
+            family in available &&
+                java.awt.Font(family, java.awt.Font.PLAIN, textSize(TextRole.LABEL)).canDisplayUpTo(sample) < 0
+        } ?: "SansSerif"
     }
 }
 
