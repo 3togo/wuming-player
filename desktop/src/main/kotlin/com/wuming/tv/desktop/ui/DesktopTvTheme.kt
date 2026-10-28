@@ -327,14 +327,9 @@ object DesktopTvTheme {
         }, 0, 3, java.util.concurrent.TimeUnit.SECONDS)
     }
 
-    private fun preferredFontFamily(): String {
-        if (java.awt.GraphicsEnvironment.isHeadless()) return "SansSerif"
-        val available = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment()
-            .availableFontFamilyNames
-            .toSet()
-        return listOf("Noto Sans CJK SC", "Noto Sans", "SansSerif").firstOrNull(available::contains)
-            ?: "SansSerif"
-    }
+    // Logical fonts retain the JDK's per-glyph fallback. A physical CJK font
+    // renders Chinese but turns emoji and playback symbols into missing-glyph boxes.
+    private fun preferredFontFamily(): String = java.awt.Font.SANS_SERIF
 }
 
 class DesktopDarkScrollBarUI : BasicScrollBarUI() {
