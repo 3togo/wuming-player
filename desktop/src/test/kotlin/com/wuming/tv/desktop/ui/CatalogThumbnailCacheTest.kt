@@ -24,6 +24,25 @@ import org.junit.Test
 class CatalogThumbnailCacheTest {
 
     @Test
+    fun `unreachable JPJ poster mirror falls back and decodes the image`() {
+        val requested = mutableListOf<String>()
+        val bytes = Base64.getDecoder().decode(imageUri(Color.GREEN).substringAfter(','))
+        val client = okhttp3.OkHttpClient.Builder().addInterceptor { chain ->
+            val request = chain.request()
+            requested.add(request.url.host)
+            if (request.url.host == "img.ypfbj.com") throw java.net.UnknownHostException("fixture")
+            okhttp3.Response.Builder().request(request).protocol(okhttp3.Protocol.HTTP_1_1)
+                .code(200).message("OK").body(okhttp3.ResponseBody.create(null, bytes)).build()
+        }.build()
+        val loader = com.wuming.tv.desktop.net.DesktopResourceLoader(client = client)
+        CatalogThumbnailCache(loader = loader, diskCache = null).use { cache ->
+            val image = load(cache, "https://img.ypfbj.com/upload/poster.png")
+            assertEquals(Color.GREEN.rgb, requireNotNull(PosterImages.pixels(image)).getRGB(20, 20))
+            assertEquals(listOf("img.ypfbj.com", "img.cqkgy.com"), requested)
+        }
+    }
+
+    @Test
     fun `evicts the least recently used poster instead of refusing new posters`() {
         CatalogThumbnailCache(diskCache = null, maximumEntries = 2).use { cache ->
             val first = imageUri(Color.RED)

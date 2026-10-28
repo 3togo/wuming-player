@@ -172,9 +172,23 @@ internal class CatalogThumbnailCache(
             it.location.startsWith("data:image/", true)
     }
 
-    private fun load(request: CatalogImageRequest): ByteArray = if (request.location.startsWith("data:", true)) {
-        decodeDataUri(request.location)
-    } else loader.load(request.location, request.headers)
+    private fun load(request: CatalogImageRequest): ByteArray {
+        if (request.location.startsWith("data:", true)) return decodeDataUri(request.location)
+        var failure: Exception? = null
+        val candidates = com.wuming.tv.core.catalog.CatalogPosterMirrors.candidates(request.location)
+        for ((index, candidate) in candidates.withIndex()) {
+            val headers = if (index == 0) request.headers else request.headers.filterKeys {
+                !it.equals("Cookie", true) && !it.equals("Authorization", true) && !it.equals("Proxy-Authorization", true)
+            }
+            try {
+                return loader.load(candidate, headers)
+            } catch (error: Exception) {
+                if (Thread.currentThread().isInterrupted) throw error
+                failure = error
+            }
+        }
+        throw failure ?: IllegalArgumentException("Poster is unavailable")
+    }
 
     private fun decodeDataUri(value: String): ByteArray {
         val separator = value.indexOf(',')

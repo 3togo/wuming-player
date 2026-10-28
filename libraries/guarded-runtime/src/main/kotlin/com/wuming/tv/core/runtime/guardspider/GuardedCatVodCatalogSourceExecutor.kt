@@ -21,14 +21,24 @@ import java.util.logging.Logger
 
 class GuardedCatVodCatalogSourceExecutor(
     private val spec: GuardedCatVodSiteSpec,
-    artifact: PreparedGuardedSpiderArtifact,
+    private val artifact: PreparedGuardedSpiderArtifact,
     private val emulatorBridge: AndroidEmulatorWebViewBridge = DisabledEmulatorWebViewBridge,
     private val runtimeBridge: AndroidRuntimeProviderBridge = DisabledAndroidRuntimeProviderBridge,
 ) : CatalogSourceExecutor, AutoCloseable {
     private val logger = Logger.getLogger("tvbox.guarded.catalog")
     override val source = CatalogSource(spec.key, spec.name)
     private val codec = CatVodCatalogCodec(source)
-    private val host = GuardedCatVodHostProcess(artifact, spec)
+    private var hostInstance = GuardedCatVodHostProcess(artifact, spec)
+    private var closed = false
+    private val host: GuardedCatVodHostProcess
+        @Synchronized get() {
+            check(!closed) { "Guarded source is closed" }
+            if (!hostInstance.isAlive()) {
+                hostInstance.close()
+                hostInstance = GuardedCatVodHostProcess(artifact, spec)
+            }
+            return hostInstance
+        }
     private val cloudEpisodes = ConcurrentHashMap<Pair<String, String>, CloudDriveProviderKind>()
     private val reportedEmptyDetails = ConcurrentHashMap.newKeySet<String>()
 
@@ -220,7 +230,7 @@ class GuardedCatVodCatalogSourceExecutor(
      * source and cause, then hand the UI a single actionable line instead of the raw trace.
      */
     private fun emptyDetailFailure(id: String): IllegalArgumentException {
-        val diagnostics = host.recentDiagnostics().takeLast(12).filter(String::isNotBlank)
+        val diagnostics = hostInstance.recentDiagnostics().takeLast(12).filter(String::isNotBlank)
         val reason = SiteFailureMarker.classify(diagnostics)
         val summary = "detail key=${source.key} id=${tag(id)} results=0 providerResponse=empty " +
             "reason=${reason ?: "unknown"}"
@@ -239,7 +249,7 @@ class GuardedCatVodCatalogSourceExecutor(
         )
     }
 
-    private fun diagnosticSuffix(): String = host.recentDiagnostics().takeLast(12)
+    private fun diagnosticSuffix(): String = hostInstance.recentDiagnostics().takeLast(12)
         .filter(String::isNotBlank).joinToString(" | ").takeIf(String::isNotBlank)?.let { ": $it" }.orEmpty()
 
     private fun isDirectMediaUrl(value: String): Boolean = runCatching {
@@ -262,5 +272,9 @@ class GuardedCatVodCatalogSourceExecutor(
         return "len=${value.length},sha=$digest"
     }
 
-    override fun close() = host.close()
+    @Synchronized
+    override fun close() {
+        closed = true
+        hostInstance.close()
+    }
 }

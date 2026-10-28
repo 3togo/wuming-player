@@ -91,6 +91,8 @@ internal class GuardedCatVodHostProcess(
         }
     }
 
+    fun isAlive(): Boolean = process.isAlive
+
     @Synchronized
     fun request(request: GuardedCatVodHostRequest): String {
         val started = System.nanoTime()
