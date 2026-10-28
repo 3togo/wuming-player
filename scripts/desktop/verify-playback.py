@@ -40,6 +40,7 @@ import java.nio.file.*;
 import java.util.*;
 import com.google.gson.*;
 import com.wuming.tv.desktop.player.ExternalPlayerAdapter;
+import com.wuming.tv.desktop.player.PlayerProcessBuilderKt;
 class PlaybackCommand {
     public static void main(String[] args) throws Exception {
         var input = JsonParser.parseString(Files.readString(Path.of(args[0]))).getAsJsonObject();
@@ -49,8 +50,10 @@ class PlaybackCommand {
         var method = Arrays.stream(ExternalPlayerAdapter.class.getMethods())
             .filter(m -> m.getName().startsWith("command$") && m.getParameterCount() == 6)
             .findFirst().orElseThrow();
-        System.out.println(new Gson().toJson(method.invoke(adapter,
-            input.get("url").getAsString(), headers, null, null, 1.0, false)));
+        var command = (List<String>) method.invoke(adapter,
+            input.get("url").getAsString(), headers, null, null, 1.0, false);
+        var builder = PlayerProcessBuilderKt.playerProcessBuilder(command);
+        System.out.println(new Gson().toJson(Map.of("command", command, "environment", builder.environment())));
     }
 }
 '''
@@ -65,7 +68,9 @@ class PlaybackCommand {
              str(source), str(payload)], check=True, capture_output=True, text=True,
             timeout=30, env=env,
         )
-        command = json.loads(built.stdout)
+        launch = json.loads(built.stdout)
+        command = launch["command"]
+        env = launch["environment"]
     command[1:1] = ['--no-config', '--ytdl=no', f'--length={args.seconds}',
                     '--network-timeout=20', '--log-file=' + str(args.output.resolve() / 'mpv.log')]
     with (args.output / 'console.log').open('w') as log:

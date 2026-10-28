@@ -36,7 +36,7 @@ class ExternalPlayerAdapter internal constructor(
     constructor(
         executable: Path,
         processStarter: ProcessStarter = ProcessStarter { command ->
-            ProcessBuilder(command).redirectErrorStream(true).start()
+            playerProcessBuilder(command).redirectErrorStream(true).start()
         },
     ) : this(executable, processStarter, HlsCompatibilityPreparer())
 
