@@ -41,21 +41,22 @@ internal class DesktopTray(
     private object AwtPort : Port {
         override fun install(show: () -> Unit, monitor: () -> Unit, exit: () -> Unit): AutoCloseable? {
             if (!SystemTray.isSupported()) return null
-            val menuFont = javax.swing.UIManager.getFont("MenuItem.font")
-                ?.deriveFont(Font.BOLD, DesktopTvTheme.px(18).toFloat())
-                ?: Font("SansSerif", Font.BOLD, 18)
+            // AWT already scales its native popup. Applying the app's enlarged, bold
+            // Swing font here made tray rows oversized and disproportionately wide.
+            val nativeMenu = PopupMenu()
+            val menuFont = Font(Font.DIALOG, Font.PLAIN, nativeMenu.font?.size ?: 13)
             fun item(label: String, action: () -> Unit) = MenuItem(label).apply {
                 font = menuFont
                 addActionListener { SwingUtilities.invokeLater { action() } }
             }
-            val menu = PopupMenu().apply {
+            val menu = nativeMenu.apply {
                 font = menuFont
-                add(item("Show 無名", show))
-                add(item("Playback assistance monitor", monitor))
+                add(item("Open 無名", show))
+                add(item("Playback monitor", monitor))
                 addSeparator()
-                add(item("Exit 無名 and stop assistance", exit))
+                add(item("Quit 無名", exit))
             }
-            val icon = TrayIcon(DesktopAppIcon.image(32), "無名 · Playback assistance", menu).apply {
+            val icon = TrayIcon(DesktopAppIcon.image(32), "無名", menu).apply {
                 isImageAutoSize = true
                 addActionListener { SwingUtilities.invokeLater { show() } }
             }
