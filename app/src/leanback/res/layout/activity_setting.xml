@@ -732,7 +732,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
                     android:gravity="end"
-                    android:singleLine="true"
+                    android:singleLine="true" android:ellipsize="end"
                     android:textColor="?attr/appOnBackground"
                     android:textSize="@dimen/font_title"
                     tools:text="gh-proxy.com" >
@@ -1039,7 +1039,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:singleLine="true"
+                android:singleLine="true" android:ellipsize="end"
                 android:textColor="?attr/appOnBackground"
                 android:textSize="@dimen/font_title"
                 tools:text="OpenDrive built-in" >

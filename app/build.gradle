@@ -640,6 +640,24 @@ def verifyTypographyGuardTests = tasks.register("verifyTypographyGuardTests", Ex
 }
 verifyTypography.configure { dependsOn verifyTypographyGuardTests }
 
+def verifyTextGlyphs = tasks.register("verifyTextGlyphs", Exec) {
+    group = "verification"
+    description = "Rejects user-visible text built from glyphs a stock Android/TV font may not contain."
+    workingDir rootProject.projectDir
+    commandLine 'python3', 'scripts/check-text-glyphs.py'
+    inputs.files(fileTree(rootProject.file("app/src")) {
+        include "**/*.xml", "**/*.java", "**/*.kt"
+        exclude "**/test/**", "**/*AndroidTest/**"
+    })
+    inputs.file(rootProject.file("scripts/check-text-glyphs.py"))
+}
+
+def verifyTextGlyphsGuardTests = tasks.register("verifyTextGlyphsGuardTests", Exec) {
+    workingDir rootProject.projectDir
+    commandLine 'python3', '-m', 'unittest', 'discover', '-s', 'scripts/tests', '-p', 'test_text_glyphs.py'
+}
+verifyTextGlyphs.configure { dependsOn verifyTextGlyphsGuardTests }
+
 def verifyUiThemeContract = tasks.register("verifyUiThemeContract", Exec) {
     group = "verification"
     description = "Rejects new direct colors across all Android UI resources and source code."
@@ -661,7 +679,7 @@ tasks.register("updateUiThemeContractBaseline", Exec) {
 }
 
 tasks.named("preBuild").configure {
-    dependsOn verifyNoHardcodedUiDimensions, verifyDialogThemeContract, verifyUiThemeContract, verifyTypography
+    dependsOn verifyNoHardcodedUiDimensions, verifyDialogThemeContract, verifyUiThemeContract, verifyTypography, verifyTextGlyphs
 }
 
 // Room and Glide process both Java and Kotlin declarations through KSP2.

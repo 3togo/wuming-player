@@ -38,14 +38,14 @@ object DesignTokens {
     const val UI_TITLE_TEXT = 18
     const val UI_BODY_TEXT = 16
     const val UI_LABEL_TEXT = 14
-    const val UI_CAPTION_TEXT = 12
+    const val UI_CAPTION_TEXT = 13
     const val UI_MICRO_TEXT = 12
     const val TV_DISPLAY_TEXT = 64
     const val TV_HEADLINE_TEXT = 24
     const val TV_TITLE_TEXT = 20
     const val TV_BODY_TEXT = 18
     const val TV_LABEL_TEXT = 16
-    const val TV_CAPTION_TEXT = 12
+    const val TV_CAPTION_TEXT = 14
     const val TV_MICRO_TEXT = 12
     const val CONTROL_PADDING_HORIZONTAL = 12
     const val CONTROL_PADDING_VERTICAL = 8

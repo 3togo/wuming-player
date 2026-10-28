@@ -62,7 +62,7 @@
         android:layout_below="@+id/name"
         android:layout_alignStart="@+id/name"
         android:layout_marginTop="@dimen/vs_4"
-        android:singleLine="true"
+        android:singleLine="true" android:ellipsize="end"
         android:textColor="?attr/dialogOnSurfaceVariant"
         android:textSize="@dimen/font_body"
         tools:text="Device Name" >

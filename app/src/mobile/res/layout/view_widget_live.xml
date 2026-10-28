@@ -155,7 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/vs_12"
             android:maxEms="48"
-            android:singleLine="true"
+            android:singleLine="true" android:ellipsize="end"
             android:textColor="@color/white"
             android:textSize="@dimen/font_body"
             tools:text="民視" >
@@ -168,7 +168,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/vs_12"
             android:layout_weight="1"
-            android:singleLine="true"
+            android:singleLine="true" android:ellipsize="end"
             android:textColor="@color/white"
             android:textSize="@dimen/font_body"
             tools:text="正在播放：食神" >
@@ -217,7 +217,7 @@
             android:id="@+id/name_pip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="true"
+            android:singleLine="true" android:ellipsize="end"
             android:textColor="@color/white"
             android:textSize="@dimen/font_micro"
             tools:text="民視" >

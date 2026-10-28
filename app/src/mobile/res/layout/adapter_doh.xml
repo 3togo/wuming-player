@@ -8,7 +8,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:gravity="center"
-    android:singleLine="true"
+    android:singleLine="true" android:ellipsize="end"
     android:textColor="?attr/dialogOnSurface"
     android:textSize="@dimen/font_title"
     tools:text="Google" >

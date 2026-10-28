@@ -3,7 +3,7 @@
     <string name="remote_help">Choose Test next button, then press and release a remote button. Back cancels testing. Only received buttons can be assigned. Mappings apply to playback on all remotes in this app; number actions select live channels. The reported input device may not identify the TV or HDMI-CEC connection.</string>
     <string name="remote_no_key">No button captured yet</string>
     <string name="remote_listening">Press and release a button now. Back cancels.</string>
-    <string name="remote_mapping">%1$s → %2$s</string>
+    <string name="remote_mapping">%1$s: %2$s</string>
     <string name="remote_reserved">%1$s — navigation or system key; cannot be reassigned</string>
     <string name="remote_default">Use original button action</string>
     <string name="remote_reset">Reset all mappings</string>

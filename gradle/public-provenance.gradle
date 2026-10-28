@@ -1,6 +1,9 @@
 // Compare each resolved runtime graph with the reviewed license inventory.
 // Root-component providers keep resolution in the owning project and remain cacheable.
 def publicInventory = rootProject.file('docs/public-maven-inventory.json')
+// An edition may add runtime dependencies this repository does not ship. Its reviewed
+// components live in a separate inventory so the public set is never widened for everyone.
+def editionInventory = rootProject.file('docs/edition-maven-inventory.json')
 def runtimeAuditTasks = []
 gradle.projectsEvaluated {
     [':app', ':desktop', ':guarded-catvod-host', ':guarded-spider-helper', ':guarded-webview-helper'].each { path ->
@@ -14,6 +17,7 @@ gradle.projectsEvaluated {
         }
         def audit = owner.tasks.register('verifyPublicRuntimeLicenses') {
             inputs.file(publicInventory)
+            if (editionInventory.isFile()) inputs.file(editionInventory)
             configurations.each { configuration ->
                 inputs.property('coordinates-' + configuration.name,
                     configuration.incoming.resolutionResult.rootComponent.map { component ->
@@ -38,9 +42,12 @@ gradle.projectsEvaluated {
                     })
             }
             doLast { task ->
-                def report = new groovy.json.JsonSlurper().parse(task.inputs.files.singleFile)
-                if (report.unresolved) throw new GradleException('Unresolved public dependency licenses')
-                def reviewed = report.components.collect { it.coordinate } as Set
+                def reviewed = [] as Set
+                [publicInventory, editionInventory].findAll { it.isFile() }.each { file ->
+                    def report = new groovy.json.JsonSlurper().parse(file)
+                    if (report.unresolved) throw new GradleException('Unresolved dependency licenses in ' + file.name)
+                    reviewed.addAll(report.components.collect { it.coordinate })
+                }
                 def actual = task.inputs.properties.values().flatten() as Set
                 def unknown = actual - reviewed
                 if (!unknown.isEmpty()) throw new GradleException('Runtime dependencies need provenance review: ' + unknown.sort())

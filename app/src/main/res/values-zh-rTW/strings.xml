@@ -70,7 +70,7 @@
     <string name="video_quality_whole_series">此片源的全部劇集：%1$s  •  目前評分：%2$d</string>
     <string name="video_quality_source_title">%1$s — %2$s</string>
     <string name="video_score_value">評分：%1$d</string>
-    <string name="video_score_scale">−1 隱藏   •   0 未評分   •   10 最佳</string>
+    <string name="video_score_scale">-1 隱藏   •   0 未評分   •   10 最佳</string>
     <string name="video_score_slider_description">影片畫質評分，從負一到十分</string>
     <string name="video_score_action">評分</string>
     <string name="sort_performance">綜合</string>
@@ -81,8 +81,8 @@
     <string name="select_done">完成</string>
     <string name="clear_selected">清除選中 (%d)</string>
     <string name="play_info">資訊</string>
-    <string name="play_forward">→</string>
-    <string name="play_backward">←</string>
+    <string name="play_forward">正序播放</string>
+    <string name="play_backward">倒序播放</string>
     <string name="play_speed">1.00</string>
     <string name="play_reset">刷新</string>
     <string name="play_decode">硬解</string>
@@ -383,7 +383,7 @@
     <string name="error_play_timeout">連線逾時</string>
 
     <string name="error_detail">暫無播放資料</string>
-    <string name="error_empty">這裡什麼都沒有 👀</string>
+    <string name="error_empty">這裡什麼都沒有</string>
     <string name="error_no_playable_episodes">此來源沒有可播放的劇集，請從搜尋結果中選擇其他來源。</string>
 
     <!-- Update -->
@@ -620,7 +620,7 @@
     <string name="database_recovery_exported">復原副本已匯出，原始資料未變更。</string>
     <string name="database_recovery_failed">匯出失敗，請選擇其他位置或檢查可用空間。</string>
     <string name="renderer_pairing_required">請將手機與電視上的無名配對</string>
-    <string name="renderer_pairing_instructions">在電視上開啟「無名 → 設定 → DLNA 掃碼配對」。\n手機連接同一 Wi-Fi，用相機掃碼，然後在瀏覽器中點選「配對」。\n返回此頁，點選「重新讀取電視能力」。</string>
+    <string name="renderer_pairing_instructions">在電視上開啟「無名」，然後開啟「設定」，再選擇「DLNA 掃碼配對」。\n手機連接同一 Wi-Fi，用相機掃碼，然後在瀏覽器中點選「配對」。\n返回此頁，點選「重新讀取電視能力」。</string>
     <string name="renderer_query_retry">重新讀取電視能力</string>
     <string name="renderer_capabilities">能力</string>
     <string name="renderer_profile_unavailable">電視設定檔不可用，請重新發現裝置或檢查設定檔。</string>

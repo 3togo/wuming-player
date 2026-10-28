@@ -113,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/vs_8"
-            android:singleLine="true"
+            android:singleLine="true" android:ellipsize="end"
             android:text="@string/timer_delay"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="@dimen/font_label">
@@ -126,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/vs_16"
-            android:singleLine="true"
+            android:singleLine="true" android:ellipsize="end"
             android:text="@string/timer_cancel"
             android:textColor="?attr/dialogOnSurface"
             android:textSize="@dimen/font_label">

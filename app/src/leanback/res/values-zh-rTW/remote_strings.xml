@@ -3,7 +3,7 @@
     <string name="remote_help">選擇「測試下一個按鍵」，然後按下並放開遙控器按鍵。返回鍵取消測試。只能設定應用程式收到的按鍵。對應設定用於本應用程式所有遙控器的播放介面；數字用於選擇直播頻道。顯示的輸入裝置不一定能識別電視或 HDMI-CEC 連線。</string>
     <string name="remote_no_key">尚未收到按鍵</string>
     <string name="remote_listening">請按下並放開一個按鍵，返回鍵取消。</string>
-    <string name="remote_mapping">%1$s → %2$s</string>
+    <string name="remote_mapping">%1$s: %2$s</string>
     <string name="remote_reserved">%1$s — 導覽或系統按鍵，不可重新設定</string>
     <string name="remote_default">使用原始按鍵功能</string>
     <string name="remote_reset">重設全部對應</string>

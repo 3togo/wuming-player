@@ -73,7 +73,7 @@
     <string name="video_quality_whole_series">此片源的全部剧集：%1$s  •  当前评分：%2$d</string>
     <string name="video_quality_source_title">%1$s — %2$s</string>
     <string name="video_score_value">评分：%1$d</string>
-    <string name="video_score_scale">−1 隐藏   •   0 未评分   •   10 最佳</string>
+    <string name="video_score_scale">-1 隐藏   •   0 未评分   •   10 最佳</string>
     <string name="video_score_slider_description">视频画质评分，从负一到十分</string>
     <string name="video_score_action">评分</string>
     <string name="sort_performance">综合</string>
@@ -84,8 +84,8 @@
     <string name="select_done">完成</string>
     <string name="clear_selected">清除选中 (%d)</string>
     <string name="play_info">信息</string>
-    <string name="play_forward">→</string>
-    <string name="play_backward">←</string>
+    <string name="play_forward">正序播放</string>
+    <string name="play_backward">倒序播放</string>
     <string name="play_speed">1.00</string>
     <string name="play_reset">刷新</string>
     <string name="play_decode">硬解</string>
@@ -410,7 +410,7 @@
     <string name="error_play_timeout">连接超时</string>
 
     <string name="error_detail">暂无播放数据</string>
-    <string name="error_empty">这里什麽都没有 👀</string>
+    <string name="error_empty">这里什麽都没有</string>
     <string name="error_no_playable_episodes">此来源没有可播放的剧集，请从搜索结果中选择其他来源。</string>
 
     <!-- Update -->
@@ -648,7 +648,7 @@
     <string name="database_recovery_exported">恢复副本已导出，原始数据未更改。</string>
     <string name="database_recovery_failed">导出失败，请选择其他位置或检查可用空间。</string>
     <string name="renderer_pairing_required">请将手机与电视上的無名配对</string>
-    <string name="renderer_pairing_instructions">在电视上打开「無名 → 设置 → DLNA 扫码配对」。\n手机连接同一 Wi-Fi，用相机扫码，然后在浏览器中点击「配对」。\n返回此页，点击「重新读取电视能力」。</string>
+    <string name="renderer_pairing_instructions">在电视上打开「無名」，然后打开「设置」，再选择「DLNA 扫码配对」。\n手机连接同一 Wi-Fi，用相机扫码，然后在浏览器中点击「配对」。\n返回此页，点击「重新读取电视能力」。</string>
     <string name="renderer_query_retry">重新读取电视能力</string>
     <string name="renderer_capabilities">能力</string>
     <string name="renderer_profile_unavailable">电视配置文件不可用，请重新发现设备或检查配置文件。</string>

@@ -155,7 +155,7 @@
                             android:layout_marginStart="@dimen/vs_16"
                             android:layout_marginTop="@dimen/vs_8"
                             android:layout_marginEnd="@dimen/vs_16"
-                            android:singleLine="true"
+                            android:singleLine="true" android:ellipsize="end"
                             android:textColor="@color/white_80"
                             android:textSize="@dimen/font_label"
                             tools:text="更新到第二季" >
@@ -169,7 +169,7 @@
                             android:layout_marginStart="@dimen/vs_16"
                             android:layout_marginTop="@dimen/vs_8"
                             android:layout_marginEnd="@dimen/vs_16"
-                            android:singleLine="true"
+                            android:singleLine="true" android:ellipsize="end"
                             android:textColor="@color/white_80"
                             android:textSize="@dimen/font_label"
                             tools:text="站源：泥巴" >
@@ -183,7 +183,7 @@
                             android:layout_marginStart="@dimen/vs_16"
                             android:layout_marginTop="@dimen/vs_8"
                             android:layout_marginEnd="@dimen/vs_16"
-                            android:singleLine="true"
+                            android:singleLine="true" android:ellipsize="end"
                             android:textColor="@color/white_80"
                             android:textSize="@dimen/font_label"
                             tools:text="年份：2022 地區：台灣 類型：科幻" >
@@ -197,7 +197,7 @@
                             android:layout_marginStart="@dimen/vs_16"
                             android:layout_marginTop="@dimen/vs_8"
                             android:layout_marginEnd="@dimen/vs_16"
-                            android:singleLine="true"
+                            android:singleLine="true" android:ellipsize="end"
                             android:textColor="@color/white_80"
                             android:textSize="@dimen/font_label"
                             tools:text="導演：FongMi" >

@@ -15,7 +15,7 @@
     }) : {
         title: 'DLNA pairing', instructions: 'Pair this phone, then return to your casting app and select this TV. Keep both devices on the same Wi-Fi.',
         pair: 'Pair this phone', duration: 'One phone at a time. Access lasts 2 hours or until the TV app restarts. Disconnect from the TV pairing screen to revoke access.',
-        invalid: 'Open TV Settings → DLNA pairing, refresh the QR code and scan it.',
+        invalid: 'Open TV Settings, then DLNA pairing, refresh the QR code and scan it.',
         success: 'Paired! Return to your casting app and select this TV.', pending: 'Pairing…', failed: 'Pairing failed or the QR code expired / was already used. Refresh it on the TV and scan again.'
     };
     for (const id of ['title', 'instructions', 'pair', 'duration']) document.getElementById(id).textContent = words[id];

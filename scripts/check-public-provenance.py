@@ -75,6 +75,15 @@ def check(root, private=False):
         for entry in record['notices']:
             if hashlib.sha256((root / entry['file']).read_bytes()).hexdigest() != entry['sha256']:
                 raise ValueError('Dependency notice changed: ' + entry['file'])
+    edition = root / 'docs/edition-maven-inventory.json'
+    if edition.is_file():
+        extra = json.loads(edition.read_text())
+        if extra['unresolved']: raise ValueError('Unresolved edition Maven license entries')
+        for record in extra['components']:
+            if not record.get('selectedLicense'): raise ValueError('Missing edition dependency license')
+            for entry in record['notices']:
+                if hashlib.sha256((root / entry['file']).read_bytes()).hexdigest() != entry['sha256']:
+                    raise ValueError('Edition dependency notice changed: ' + entry['file'])
     print(f'PASS: {len(binary)} reviewed bundled artifacts and {len(vendor["files"])} pinned vendor source files')
 
 if __name__ == '__main__':

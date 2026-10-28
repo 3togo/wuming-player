@@ -533,7 +533,7 @@
   "supportingArtifacts": [
     {
       "path": "app/build.gradle",
-      "sha256": "b83a8531b2357f7ff81336a7881c399c710d16bf00f231eb29342930cc97185f"
+      "sha256": "c81630b478c94197548eba49fde17aef74a2892bf261c73af1fc0de45d97e61f"
     },
     {
       "path": "app/src/androidTest/assets/cast-remux/README.md",
@@ -1149,7 +1149,7 @@
     },
     {
       "path": "build.gradle",
-      "sha256": "5affb36e84aa6c7f2e7e1d1e977f6dd0a55a4c83d054a62b2af34a27d95ae303"
+      "sha256": "0256acbf18060ef5877da9d6998abbada5342969cbc9ce7a470cd532b3f358f8"
     },
     {
       "path": "catvod/build.gradle",
@@ -1189,7 +1189,7 @@
     },
     {
       "path": "gradle/public-provenance.gradle",
-      "sha256": "95d086ff88cc12806991bfd91b8a98d365be1c71a5b1aacc00f6630809be31ae"
+      "sha256": "427c960b9233513ff90c7ad91b355dff5151992a6e66b8d77b197e5c19dd44ad"
     },
     {
       "path": "gradle/rust-native.gradle",

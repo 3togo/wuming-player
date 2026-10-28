@@ -49,7 +49,7 @@
         android:background="@drawable/shape_vod_remark"
         android:paddingHorizontal="@dimen/vs_8"
         android:paddingVertical="@dimen/vs_3"
-        android:singleLine="true"
+        android:singleLine="true" android:ellipsize="end"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/image"
         app:layout_constraintStart_toStartOf="@+id/image"

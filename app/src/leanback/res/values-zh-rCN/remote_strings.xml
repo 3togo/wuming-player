@@ -3,7 +3,7 @@
     <string name="remote_help">选择“测试下一个按键”，然后按下并松开遥控器按键。返回键取消测试。只能设置应用收到的按键。映射用于本应用所有遥控器的播放界面；数字用于选择直播频道。显示的输入设备不一定能识别电视或 HDMI-CEC 连接。</string>
     <string name="remote_no_key">尚未收到按键</string>
     <string name="remote_listening">请按下并松开一个按键，返回键取消。</string>
-    <string name="remote_mapping">%1$s → %2$s</string>
+    <string name="remote_mapping">%1$s: %2$s</string>
     <string name="remote_reserved">%1$s — 导航或系统按键，不可重新设置</string>
     <string name="remote_default">使用原始按键功能</string>
     <string name="remote_reset">重置全部映射</string>

@@ -249,6 +249,7 @@ tasks.register('unitAcceptanceBaseline') {
     dependsOn pythonUnitTests
     dependsOn 'verifyJavaRetention'
     dependsOn unitAcceptanceTasks
+    dependsOn ':app:verifyTextGlyphs'
     dependsOn verifyCodeLifecycleIsolation, verifyGenericLibraryBoundaries, verifyDesktopBoundaries
 }
 

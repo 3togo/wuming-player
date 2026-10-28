@@ -245,7 +245,9 @@ public class PlaylistActivity extends BaseActivity implements PlaylistAdapter.Li
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView text = (TextView) super.getView(position, convertView, parent);
                 boolean selected = checked[position];
-                text.setText((selected ? "✓  " : "○  ") + names[position]);
+                // The multi-choice row already draws a check indicator, so selection is carried by
+                // weight and opacity only. Decorative glyphs risk a missing-glyph box on TV fonts.
+                text.setText(names[position]);
                 text.setTypeface(null, selected ? Typeface.BOLD : Typeface.NORMAL);
                 text.setAlpha(selected ? 1f : 0.62f);
                 text.setContentDescription((selected ? getString(R.string.playlist_selected) :

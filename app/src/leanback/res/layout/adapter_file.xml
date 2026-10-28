@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/vs_16"
-            android:singleLine="true"
+            android:singleLine="true" android:ellipsize="end"
             android:textColor="@color/white"
             android:textSize="@dimen/font_body"
             tools:text="Download" >

@@ -7,4 +7,6 @@
     <dimen name="font_body">@dimen/ds_tv_body_text</dimen>
     <dimen name="font_label">@dimen/ds_tv_label_text</dimen>
     <dimen name="font_caption">@dimen/ds_tv_caption_text</dimen>
+    <!-- Micro must follow the TV scale too; without this override TV silently used the phone token. -->
+    <dimen name="font_micro">@dimen/ds_tv_micro_text</dimen>
 </resources>

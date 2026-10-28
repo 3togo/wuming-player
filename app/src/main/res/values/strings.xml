@@ -73,7 +73,7 @@
     <string name="video_quality_whole_series">All episodes from this source: %1$s  •  Current score: %2$d</string>
     <string name="video_quality_source_title">%1$s — %2$s</string>
     <string name="video_score_value">Score: %1$d</string>
-    <string name="video_score_scale">−1 Hide   •   0 Unrated   •   10 Best</string>
+    <string name="video_score_scale">-1 Hide   •   0 Unrated   •   10 Best</string>
     <string name="video_score_slider_description">Video quality score from minus one to ten</string>
     <string name="video_score_action">Score</string>
     <string name="sort_performance">Performance</string>
@@ -84,8 +84,8 @@
     <string name="select_done">Done</string>
     <string name="clear_selected">Clear Selected (%d)</string>
     <string name="play_info">Info</string>
-    <string name="play_forward">→</string>
-    <string name="play_backward">←</string>
+    <string name="play_forward">Forward order</string>
+    <string name="play_backward">Reverse order</string>
     <string name="play_speed">1.00</string>
     <string name="play_reset">Reset</string>
     <string name="play_decode">Hard</string>
@@ -464,7 +464,7 @@
     <string name="error_play_timeout">Timed out</string>
 
     <string name="error_detail">No play data</string>
-    <string name="error_empty">Nothing here 👀</string>
+    <string name="error_empty">Nothing here</string>
     <string name="error_no_playable_episodes">This source has no playable episodes. Choose another source from the search results.</string>
 
     <!-- Update -->
@@ -691,7 +691,7 @@
     <string name="renderer_query_retry">Read TV capabilities again</string>
     <string name="renderer_query_denied">TV denied query (HTTP %1$d). Check TV casting permissions.</string>
     <string name="renderer_pairing_required">Pair your phone with 無名 on the TV</string>
-    <string name="renderer_pairing_instructions">On the TV, open 無名 → Settings → DLNA pairing.\nConnect your phone to the same Wi-Fi, scan the QR code with its camera, and tap Pair in the browser.\nReturn here and tap Read TV capabilities again.</string>
+    <string name="renderer_pairing_instructions">On the TV, open 無名, then Settings, then DLNA pairing.\nConnect your phone to the same Wi-Fi, scan the QR code with its camera, and tap Pair in the browser.\nReturn here and tap Read TV capabilities again.</string>
     <string name="renderer_query_http_error">TV capability query failed (HTTP %1$d). Saved evidence retained.</string>
     <string name="renderer_query_upnp_error">TV capability query failed (UPnP %1$d). Saved evidence retained.</string>
     <string name="renderer_query_timeout">TV capability query timed out. Saved evidence retained; retry when reachable.</string>

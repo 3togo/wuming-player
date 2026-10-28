@@ -17,7 +17,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="true"
+            android:singleLine="true" android:ellipsize="end"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="@dimen/font_label" >
             <tag android:id="@id/tag_typography_role" android:value="label" />
@@ -27,7 +27,7 @@
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="true"
+            android:singleLine="true" android:ellipsize="end"
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="@dimen/font_micro" >
             <tag android:id="@id/tag_typography_role" android:value="micro" />
