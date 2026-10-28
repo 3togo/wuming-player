@@ -266,6 +266,8 @@ class CatalogPanel(
     private var browseGeneration = 0L
     private var homeLoadGeneration = 0L
     private var renderedHomeRequest: Long? = null
+    private var emptySearchQuery: String? = null
+    private var emptySearchSourceKeys = emptySet<String>()
     private var configuredSiteCount = 0
     private var configuredSearchableSiteCount = 0
     private var configuredSourceCapabilities = emptyMap<String, CatalogSource>()
@@ -741,6 +743,7 @@ class CatalogPanel(
     }
 
     fun useLocalConfiguration(configuration: DesktopTvBoxConfiguration) {
+        emptySearchQuery = null
         vodSnapshot = null
         searchSnapshot = null
         vodBrowseHistory.clear()
@@ -841,6 +844,7 @@ class CatalogPanel(
             logger.info("executor enabled key=${executor.source.key} name=${executor.source.name}")
         }
         refreshLocalGateway(selectedKey, preserveInFlight = preserveBrowse && additive)
+        if (resumeEmptySearch()) return
         if (preserveBrowse && selectedWasReady && additive) return
         status.text = "Enabled ${executors.size} guarded sources for this session."
         automaticHomeLoad.stop()
@@ -1104,6 +1108,7 @@ class CatalogPanel(
         }
         val text = query.text.trim()
         if (text.isEmpty()) { error("Enter a search title."); return }
+        emptySearchQuery = null
         rebuildRecentKeywords(searchHistoryStore.add(text))
         automaticHomeLoad.stop()
         showBrowsePane()
@@ -1118,6 +1123,10 @@ class CatalogPanel(
         }, generation) { outcome ->
             if (request != browseGeneration) return@run
             val found = outcome.items
+            if (showAll && found.isEmpty()) {
+                emptySearchQuery = text
+                emptySearchSourceKeys = targets.map { it.key }.toSet()
+            }
             showItems(found)
             status.text = buildString {
                 append("Found ${found.size} results")
@@ -1129,7 +1138,20 @@ class CatalogPanel(
                 logSourceFailure("search", source, failure)
             }
             updateActions()
+            SwingUtilities.invokeLater { if (!closed) resumeEmptySearch() }
         }
+    }
+
+    /** Provider activation is asynchronous; don't strand an empty startup search. */
+    private fun resumeEmptySearch(): Boolean {
+        val previous = emptySearchQuery ?: return false
+        if (pageMode != CatalogPageMode.SEARCH || query.text.trim() != previous ||
+            (sources.selectedItem as? CatalogSourceChoice)?.isShowAll != true ||
+            results.model.size != 0) return false
+        if (realSources().none { it.searchable && it.key !in emptySearchSourceKeys }) return false
+        emptySearchQuery = null
+        search(rememberCurrent = false)
+        return true
     }
 
     private fun selectedCatalogTargets(available: List<CatalogSource>): List<CatalogSource> {
