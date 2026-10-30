@@ -43,6 +43,7 @@ import com.wuming.android.tv.ui.dialog.BackupDialog;
 import com.wuming.android.tv.ui.dialog.RestoreDialog;
 import com.wuming.android.tv.ui.dialog.MobileSiteDialog;
 import com.wuming.android.tv.ui.dialog.DepotDialog;
+import com.wuming.android.tv.ui.dialog.SiteRankingDialog;
 import com.wuming.android.tv.utils.FileChooser;
 import com.wuming.android.tv.utils.FileUtil;
 import com.wuming.android.tv.utils.Notify;
@@ -156,6 +157,7 @@ public class SettingFragment extends BaseFragment implements ConfigCallback, Sit
         mBinding.incognito.setOnClickListener(this::setIncognito);
         mBinding.vodHistory.setOnClickListener(this::onVodHistory);
         mBinding.vodDefault.setOnClickListener(this::onVodDefault);
+        mBinding.vodRanking.setOnClickListener(this::onVodRanking);
         mBinding.liveHistory.setOnClickListener(this::onLiveHistory);
         mBinding.liveDefault.setOnClickListener(this::onLiveDefault);
         mBinding.wallDefault.setOnClickListener(this::setWallDefault);
@@ -280,6 +282,10 @@ public class SettingFragment extends BaseFragment implements ConfigCallback, Sit
     private void onVodDefault(View view) {
         Config.defaultsForce();
         Notify.show(R.string.setting_default);
+    }
+
+    private void onVodRanking(View view) {
+        SiteRankingDialog.create().show(requireActivity());
     }
 
     private void onLiveHistory(View view) {

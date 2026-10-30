@@ -191,12 +191,19 @@
                 android:id="@+id/liveDefault"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/vs_16"
                 android:background="@drawable/selector_item"
                 android:contentDescription="@string/setting_default_btn"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:padding="@dimen/vs_8"
                 android:src="@drawable/ic_setting_default" />
+
+            <View
+                android:tag="control-icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -248,18 +255,12 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <View
                 android:tag="control-icon"
-                android:id="@+id/wallDefault"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/vs_16"
-                android:background="@drawable/selector_item"
-                android:contentDescription="@string/setting_default_btn"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:padding="@dimen/vs_8"
-                android:src="@drawable/ic_setting_home" />
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:tag="control-icon"
@@ -273,6 +274,19 @@
                 android:focusableInTouchMode="true"
                 android:padding="@dimen/vs_8"
                 android:src="@drawable/ic_setting_history" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:tag="control-icon"
+                android:id="@+id/wallDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/vs_16"
+                android:background="@drawable/selector_item"
+                android:contentDescription="@string/setting_default_btn"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:padding="@dimen/vs_8"
+                android:src="@drawable/ic_setting_default" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:tag="control-icon"
@@ -897,7 +911,7 @@
                 android:focusableInTouchMode="true"
                 android:nextFocusDown="@id/videoCapabilities"
                 android:padding="@dimen/vs_8"
-                android:src="@drawable/ic_setting_default"
+                android:src="@drawable/ic_setting_update"
                 android:contentDescription="@string/setting_depot_update" />
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -910,7 +924,7 @@
                 android:focusableInTouchMode="true"
                 android:nextFocusDown="@id/videoCapabilities"
                 android:padding="@dimen/vs_8"
-                android:src="@drawable/ic_setting_history"
+                android:src="@drawable/ic_setting_validate"
                 android:contentDescription="@string/setting_depot_validate" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -2769,7 +2769,8 @@
     {
       "path": "vendor/cling/src/main/java/org/seamless/xml/SAXParser.java",
       "upstreamPath": "seamless/xml/src/main/java/org/seamless/xml/SAXParser.java",
-      "upstreamSha256": "78c05418cd9a54b3f6d7557e4debd27f991e6f03e5e19bf8b13d953c11d3e5f1"
+      "upstreamSha256": "78c05418cd9a54b3f6d7557e4debd27f991e6f03e5e19bf8b13d953c11d3e5f1",
+      "modifiedSha256": "c25531f20c4a96724f3722be3a4e95864c68a21705a56e95d8168801df74cdca"
     },
     {
       "path": "vendor/cling/src/main/java/org/seamless/xml/ParserException.java",
@@ -2784,7 +2785,8 @@
     {
       "path": "vendor/cling/src/main/java/org/seamless/xml/DOMParser.java",
       "upstreamPath": "seamless/xml/src/main/java/org/seamless/xml/DOMParser.java",
-      "upstreamSha256": "7d7ed67b438019c2adf0ae21407a6a15610299345524580ffd1efef9b1d444f2"
+      "upstreamSha256": "7d7ed67b438019c2adf0ae21407a6a15610299345524580ffd1efef9b1d444f2",
+      "modifiedSha256": "6716f2298a0445770e19472abbcee98e76d3b1210a247eae68e7969f385c40d5"
     },
     {
       "path": "vendor/cling/src/main/java/org/seamless/xml/DOMElement.java",
@@ -2873,7 +2875,8 @@
     "Android and default configuration require application HTTP transports",
     "Callback header bounds and source-address validation in ReceivingSubscribe",
     "Android adapters separated from neutral protocol source",
-    "Unused CDI annotations, mocks, servlet adapters and servlet RequestInfo overloads removed; retains identical string-based client detection"
+    "Unused CDI annotations, mocks, servlet adapters and servlet RequestInfo overloads removed; retains identical string-based client detection",
+    "Skip Xerces-only SAX/DOM features Android does not implement; keep the SAX-standard external-entity features as XXE protection"
   ],
   "addedFiles": [
     {

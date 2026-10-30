@@ -94,9 +94,21 @@
                     android:id="@+id/vodDefault"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_12"
                     android:background="@drawable/shape_item"
                     android:padding="@dimen/vs_7"
                     android:src="@drawable/ic_setting_default" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                android:tag="control-icon"
+                    android:id="@+id/vodRanking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_item"
+                    android:contentDescription="@string/setting_ranking_btn"
+                    android:focusable="true"
+                    android:padding="@dimen/vs_7"
+                    android:src="@drawable/ic_setting_ranking" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -168,9 +180,16 @@
                     android:id="@+id/liveDefault"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_12"
                     android:background="@drawable/shape_item"
                     android:padding="@dimen/vs_7"
                     android:src="@drawable/ic_setting_default" />
+
+                <View
+                    android:tag="control-icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -217,15 +236,12 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                android:tag="control-icon"
-                    android:id="@+id/wallDefault"
+                <View
+                    android:tag="control-icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/vs_12"
-                    android:background="@drawable/shape_item"
-                    android:padding="@dimen/vs_7"
-                    android:src="@drawable/ic_setting_home" />
+                    android:visibility="invisible" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                 android:tag="control-icon"
@@ -236,6 +252,16 @@
                     android:background="@drawable/shape_item"
                     android:padding="@dimen/vs_7"
                     android:src="@drawable/ic_setting_history" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                android:tag="control-icon"
+                    android:id="@+id/wallDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/vs_12"
+                    android:background="@drawable/shape_item"
+                    android:padding="@dimen/vs_7"
+                    android:src="@drawable/ic_setting_default" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                 android:tag="control-icon"

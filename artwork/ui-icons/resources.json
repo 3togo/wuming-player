@@ -207,27 +207,35 @@
   },
   {
     "path": "app/src/main/res/drawable/ic_setting_default.xml",
-    "motif": "settings"
+    "motif": "restore"
   },
   {
     "path": "app/src/main/res/drawable/ic_setting_history.xml",
-    "motif": "settings"
+    "motif": "clock"
   },
   {
     "path": "app/src/main/res/drawable/ic_setting_home.xml",
-    "motif": "settings"
+    "motif": "home"
   },
   {
     "path": "app/src/main/res/drawable/ic_setting_ranking.xml",
-    "motif": "settings"
+    "motif": "ranking"
   },
   {
     "path": "app/src/main/res/drawable/ic_setting_refresh.xml",
-    "motif": "settings"
+    "motif": "refresh"
   },
   {
     "path": "app/src/main/res/drawable/ic_setting_speed.xml",
-    "motif": "settings"
+    "motif": "speed"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_setting_update.xml",
+    "motif": "refresh"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_setting_validate.xml",
+    "motif": "boxcheck"
   },
   {
     "path": "app/src/main/res/drawable/ic_sync_two.xml",

@@ -90,14 +90,18 @@ public class LeanbackCriticalFlowInstrumentedTest {
                 assertNotNull(cloudStorage);
                 assertNotNull(cache);
                 assertNotNull(routeText);
-                // The DLNA pairing row sits between cloud storage and link route in the
-                // current settings layout; walk the chain through it. The Bilibili login
-                // entry now lives on the Settings > Cloud Storage page.
+                // The DLNA pairing and network information rows sit between cloud storage
+                // and link route in the current settings layout; walk the chain through
+                // both. A row skipped here would be unreachable with the D-pad. The
+                // Bilibili login entry now lives on Settings > Cloud Storage.
                 View dlnaPairing = activity.findViewById(R.id.dlnaPairing);
+                View networkInformation = activity.findViewById(R.id.networkInformation);
                 assertNotNull(dlnaPairing);
+                assertNotNull(networkInformation);
                 assertTrue(route.isFocusable());
                 assertEquals(dlnaPairing, cloudStorage.focusSearch(View.FOCUS_DOWN));
-                assertEquals(route, dlnaPairing.focusSearch(View.FOCUS_DOWN));
+                assertEquals(networkInformation, dlnaPairing.focusSearch(View.FOCUS_DOWN));
+                assertEquals(route, networkInformation.focusSearch(View.FOCUS_DOWN));
                 assertEquals(route, cache.focusSearch(View.FOCUS_UP));
                 assertTrue(route.requestFocus());
                 assertTrue(route.hasFocus());

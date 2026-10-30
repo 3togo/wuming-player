@@ -118,6 +118,31 @@ public abstract class DOMParser<D extends DOM> implements ErrorHandler, EntityRe
 
     protected abstract D createDOM(Document document);
 
+    /**
+     * Android's DocumentBuilderFactory implements the SAX-standard features but not the
+     * Xerces-specific ones, and rejects them with SAXNotRecognizedException. Skipping an
+     * unsupported feature keeps the entity features as the effective XXE protection instead
+     * of failing factory creation.
+     */
+    protected void setOptionalFeature(DocumentBuilderFactory factory, String name, boolean value) {
+        try {
+            factory.setFeature(name, value);
+        } catch (Exception ignored) {
+        }
+    }
+
+    /**
+     * Android's DocumentBuilderFactory rejects XInclude configuration outright when the parser
+     * has no XInclude support, and it throws even to disable it. Leaving XInclude at its default
+     * is safe because the external-entity features above already block XXE payloads.
+     */
+    protected void configureXInclude(DocumentBuilderFactory factory, boolean value) {
+        try {
+            factory.setXIncludeAware(value);
+        } catch (Exception ignored) {
+        }
+    }
+
     public DocumentBuilderFactory createFactory(boolean validating) throws ParserException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
@@ -130,18 +155,18 @@ public abstract class DOMParser<D extends DOM> implements ErrorHandler, EntityRe
 
                 // Well this in theory works without validation but requires namespaces. We don't want
                 // namespaces when we are not validating because we get funny xmlns="" in output.
-                factory.setXIncludeAware(true);
+                configureXInclude(factory, true);
 
                 // Whatever that does... we want it
-                factory.setFeature("http://apache.org/xml/features/xinclude/fixup-base-uris", false);
-                factory.setFeature("http://apache.org/xml/features/xinclude/fixup-language", false);
+                setOptionalFeature(factory, "http://apache.org/xml/features/xinclude/fixup-base-uris", false);
+                setOptionalFeature(factory, "http://apache.org/xml/features/xinclude/fixup-language", false);
 
                 // Configure parser to prevent XXE attacks
-                factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+                setOptionalFeature(factory, "http://apache.org/xml/features/disallow-doctype-decl", true);
                 factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
                 factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-                factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-                factory.setXIncludeAware(false);
+                setOptionalFeature(factory, "http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+                configureXInclude(factory, false);
                 factory.setExpandEntityReferences(false);
 
 
@@ -158,7 +183,7 @@ public abstract class DOMParser<D extends DOM> implements ErrorHandler, EntityRe
                 // validate without this switch. And I'm so proud having 'apache.org' in my
                 // source, a true sign of quality.
                 //
-                factory.setFeature("http://apache.org/xml/features/validation/dynamic", true);
+                setOptionalFeature(factory, "http://apache.org/xml/features/validation/dynamic", true);
             }
 
         } catch (ParserConfigurationException ex) {

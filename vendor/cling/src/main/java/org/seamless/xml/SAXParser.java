@@ -63,6 +63,30 @@ public class SAXParser {
         xr.setContentHandler(handler);
     }
 
+    /**
+     * Android's SAXParserFactory rejects XInclude configuration outright when the parser has no
+     * XInclude support, and it throws even to disable it. Leaving XInclude at its default is safe
+     * because the external-entity features above already block the XXE payloads it could pull in.
+     */
+    protected void configureXInclude(SAXParserFactory factory, boolean value) {
+        try {
+            factory.setXIncludeAware(value);
+        } catch (Exception ignored) {
+        }
+    }
+
+    /**
+     * Android's SAXParserFactory implements the SAX-standard features but not the Xerces-specific
+     * ones, and rejects them with SAXNotRecognizedException. Skipping an unsupported feature keeps
+     * the entity features set above as the effective XXE protection instead of aborting the parser.
+     */
+    protected void setOptionalFeature(SAXParserFactory factory, String name, boolean value) {
+        try {
+            factory.setFeature(name, value);
+        } catch (Exception ignored) {
+        }
+    }
+
     protected XMLReader create() {
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -70,8 +94,8 @@ public class SAXParser {
             // Configure factory to prevent XXE attacks
             factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
             factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-            factory.setXIncludeAware(false);
+            setOptionalFeature(factory, "http://apache.org/xml/features/disallow-doctype-decl", true);
+            configureXInclude(factory, false);
 
             factory.setNamespaceAware(true);
 

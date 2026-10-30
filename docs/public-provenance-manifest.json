@@ -773,27 +773,27 @@
     },
     {
       "path": "app/src/main/res/drawable/ic_setting_default.xml",
-      "sha256": "04dd01745457a48bd5e4324e45866add340c697cd4af4a38bb9e7e8319c9a595"
+      "sha256": "bd06048276ef5dfbb46dd5de9cb8cda1dba9761f7b03027fc5e07e1a6c770ac5"
     },
     {
       "path": "app/src/main/res/drawable/ic_setting_history.xml",
-      "sha256": "04dd01745457a48bd5e4324e45866add340c697cd4af4a38bb9e7e8319c9a595"
+      "sha256": "8253fea6d56202504e3679075cd0a467523c759e8b3da225ea996190518e6ea8"
     },
     {
       "path": "app/src/main/res/drawable/ic_setting_home.xml",
-      "sha256": "04dd01745457a48bd5e4324e45866add340c697cd4af4a38bb9e7e8319c9a595"
+      "sha256": "d862f060cad16365a3ef3182b8ca50a43f3feb5bedd07190a7d27de4d83d81c5"
     },
     {
       "path": "app/src/main/res/drawable/ic_setting_ranking.xml",
-      "sha256": "ffeb33ba99bdb0bccd4443a08e3a8d86f2d2bde20cbf4ce7a1cb677df4743b0d"
+      "sha256": "4150a9c16fb77d2021627f9f903e9a925f9e17d6f6ddd573626b29246e33b542"
     },
     {
       "path": "app/src/main/res/drawable/ic_setting_refresh.xml",
-      "sha256": "04dd01745457a48bd5e4324e45866add340c697cd4af4a38bb9e7e8319c9a595"
+      "sha256": "522cf112a3c0b3f001714a54cf3a76a5c0b876b7089eb66eee1446d4c749f685"
     },
     {
       "path": "app/src/main/res/drawable/ic_setting_speed.xml",
-      "sha256": "ffeb33ba99bdb0bccd4443a08e3a8d86f2d2bde20cbf4ce7a1cb677df4743b0d"
+      "sha256": "95b0d1d281d6ce53d610ec25cb82b8a56c1148fe6d09260377afce6ae64c67c9"
     },
     {
       "path": "app/src/main/res/drawable/ic_sync_two.xml",
@@ -1141,11 +1141,11 @@
     },
     {
       "path": "artwork/ui-icons/motifs.json",
-      "sha256": "70855f437c67389057080dab6ed1f7e3d07013479eb8b26c962b19bab95013f9"
+      "sha256": "93b08c985f0b58d1ce298ab31c320a5b612900f28fff62dee543a70f70b2abb5"
     },
     {
       "path": "artwork/ui-icons/resources.json",
-      "sha256": "d827a9fecf39e551c668b2eef88310d0830684fb9229c08dac7799d3d13f9cc4"
+      "sha256": "5338caa50750768f52ad4dc155f5f7207a1b5a886a22dd8cc8c34ffee5faf4a7"
     },
     {
       "path": "build.gradle",
@@ -2926,6 +2926,14 @@
     {
       "path": "libraries/libvio-core/build.gradle",
       "sha256": "04b5fa3469da9d96c7515377f6e0ced85b1a45dfc26891d4cdf876de13927d57"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_setting_update.xml",
+      "sha256": "522cf112a3c0b3f001714a54cf3a76a5c0b876b7089eb66eee1446d4c749f685"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_setting_validate.xml",
+      "sha256": "1a59069cfa0f58e7fce917d6be27e6e2b9e1753fdedd8fd3512db57b51ac9da3"
     }
   ]
 }
