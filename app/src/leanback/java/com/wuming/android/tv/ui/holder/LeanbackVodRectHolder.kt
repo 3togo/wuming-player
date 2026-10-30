@@ -1,15 +1,11 @@
 package com.wuming.android.tv.ui.holder
 
-import com.wuming.android.tv.utils.TextScale
-
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
-import com.wuming.android.tv.LeanbackProduct
 import com.wuming.android.tv.R
 import com.wuming.android.tv.bean.Vod
 import com.wuming.android.tv.databinding.AdapterVodRectBinding
@@ -17,14 +13,13 @@ import com.wuming.android.tv.ui.base.BaseVodHolder
 import com.wuming.android.tv.ui.base.VodClickListener
 import com.wuming.android.tv.utils.ImgUtil
 import com.wuming.android.tv.utils.SearchHelper
-import java.lang.ref.WeakReference
+import com.wuming.android.tv.utils.TextScale
 
 open class LeanbackVodRectHolder(
     private val binding: AdapterVodRectBinding,
     listener: VodClickListener?,
 ) : BaseVodHolder(binding.root) {
-    private val listenerRef = WeakReference(listener)
-    private var item: Vod? = null
+    private val clicks = VodCardClicks(binding.root, listener)
     private var keyword: String? = null
 
     open fun setKeyword(keyword: String?) {
@@ -36,26 +31,6 @@ open class LeanbackVodRectHolder(
         TextScale.bind(binding.year)
         TextScale.bind(binding.site)
         TextScale.bind(binding.remark)
-        binding.root.setOnClickListener {
-            val vod = item
-            val listener = listenerRef.get()
-            if (vod != null &&
-                listener != null
-            ) {
-                listener.onItemClick(vod)
-            }
-        }
-        binding.root.setOnLongClickListener {
-            val vod = item
-            val listener = listenerRef.get()
-            if (vod != null &&
-                listener != null
-            ) {
-                listener.onLongClick(vod)
-            } else {
-                false
-            }
-        }
     }
 
     open fun size(size: IntArray?): LeanbackVodRectHolder {
@@ -80,7 +55,7 @@ open class LeanbackVodRectHolder(
     }
 
     override fun initView(item: Vod) {
-        this.item = item
+        clicks.item = item
         val keyword = this.keyword
         if (!keyword.isNullOrEmpty()) {
             val highlighted = SearchHelper.highlightHtml(item.getSearchDisplayName(), keyword)
@@ -109,7 +84,7 @@ open class LeanbackVodRectHolder(
 
     override fun unbind() {
         ImgUtil.clearView(binding.image)
-        item = null
+        clicks.item = null
         keyword = null
     }
 

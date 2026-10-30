@@ -1,9 +1,6 @@
 package com.wuming.android.tv.ui.holder
 
-import com.wuming.android.tv.utils.TextScale
-
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.wuming.android.tv.R
 import com.wuming.android.tv.bean.Vod
 import com.wuming.android.tv.bean.VodShortName
@@ -11,42 +8,21 @@ import com.wuming.android.tv.databinding.AdapterVodListBinding
 import com.wuming.android.tv.ui.base.BaseVodHolder
 import com.wuming.android.tv.ui.base.VodClickListener
 import com.wuming.android.tv.utils.ImgUtil
-import java.lang.ref.WeakReference
+import com.wuming.android.tv.utils.TextScale
 
 open class VodListHolder(
     private val binding: AdapterVodListBinding,
     listener: VodClickListener?,
 ) : BaseVodHolder(binding.root) {
-    private val listenerRef = WeakReference(listener)
-    private var item: Vod? = null
+    private val clicks = VodCardClicks(binding.root, listener)
 
     init {
         TextScale.bind(binding.name)
         TextScale.bind(binding.remark)
-        binding.root.setOnClickListener {
-            val vod = item
-            val listener = listenerRef.get()
-            if (vod != null &&
-                listener != null
-            ) {
-                listener.onItemClick(vod)
-            }
-        }
-        binding.root.setOnLongClickListener {
-            val vod = item
-            val listener = listenerRef.get()
-            if (vod != null &&
-                listener != null
-            ) {
-                listener.onLongClick(vod)
-            } else {
-                false
-            }
-        }
     }
 
     override fun initView(item: Vod) {
-        this.item = item
+        clicks.item = item
         binding.name.text = VodShortName.lookup(item.name)
 
         binding.remark.text = item.remarks
@@ -63,7 +39,7 @@ open class VodListHolder(
 
     override fun unbind() {
         ImgUtil.clearView(binding.image)
-        item = null
+        clicks.item = null
     }
 
     companion object {

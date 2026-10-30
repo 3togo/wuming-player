@@ -15,9 +15,7 @@ import com.wuming.android.tv.utils.ImgUtil
 open class HistoryAdapter(
     @JvmField val listener: OnClickListener,
 ) : BaseDiffAdapter<History, HistoryAdapter.ViewHolder>() {
-    private var width = 0
-    private var height = 0
-    private var margin = 0
+    private val gridLayout = VodGridLayout()
     private var delete = false
     private var animate = true
 
@@ -30,10 +28,7 @@ open class HistoryAdapter(
     }
 
     open fun setSize(size: IntArray) {
-        width = size[0]
-        // adapter_vod uses the image-only height at index 3.
-        height = size[3]
-        margin = if (size.size > 2) size[2] else 0
+        gridLayout.setSize(size)
         notifyItemRangeChanged(0, itemCount)
     }
 
@@ -56,23 +51,15 @@ open class HistoryAdapter(
         viewType: Int,
     ): ViewHolder {
         val holder = ViewHolder(AdapterVodBinding.inflate(LayoutInflater.from(parent.context), parent, false), this)
-        applySize(holder)
+        gridLayout.apply(holder.binding)
         return holder
-    }
-
-    private fun applySize(holder: ViewHolder) {
-        val params = holder.binding.root.layoutParams as ViewGroup.MarginLayoutParams
-        params.width = width
-        params.setMargins(margin, margin, margin, margin)
-        holder.binding.root.layoutParams = params
-        holder.binding.image.layoutParams.height = height
     }
 
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int,
     ) {
-        applySize(holder)
+        gridLayout.apply(holder.binding)
         val item = getItem(position)
         holder.binding.name.text = VodShortName.lookup(item.getVodName())
         holder.binding.site.text = item.getSiteName()
