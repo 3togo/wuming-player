@@ -9,6 +9,18 @@ import javax.swing.UIManager
 
 class DesktopTvThemeTest {
     @Test
+    fun `compact toolbar buttons preserve text height and scale with larger fonts`() {
+        DesktopTvTheme.install()
+        val button = javax.swing.JButton("Pause").apply {
+            putClientProperty("JComponent.sizeVariant", "small")
+        }
+        assertTrue(button.preferredSize.height >= DesktopTvTheme.px(32))
+        assertTrue(button.preferredSize.height < DesktopTvTheme.px(48))
+        button.font = button.font.deriveFont(80f)
+        assertTrue(button.preferredSize.height >= button.getFontMetrics(button.font).height)
+    }
+
+    @Test
     fun `standard buttons keep a shared minimum without clipping larger text`() {
         DesktopTvTheme.install()
         val button = javax.swing.JButton("Apply").apply { updateUI() }

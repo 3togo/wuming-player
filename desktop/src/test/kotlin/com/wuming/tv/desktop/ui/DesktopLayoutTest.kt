@@ -6,21 +6,18 @@ import com.wuming.tv.desktop.config.DesktopPlaybackSettings
 import java.awt.BorderLayout
 import java.awt.Component
 import java.awt.Container
-import java.awt.GraphicsEnvironment
 import java.awt.image.BufferedImage
 import java.io.File
 import java.util.prefs.Preferences
 import javax.imageio.ImageIO
 import javax.swing.*
 import org.junit.Assert.*
-import org.junit.Assume.assumeTrue
 import org.junit.Test
 
 /** Exercises real Swing ports with an offline catalogue, without a window server or live providers. */
 class DesktopLayoutTest {
     @Test
     fun historyPrivacyControlsRemainReachableAfterSearchOrDetails() {
-        assumeTrue("Skip Swing UI test in headless environment", !GraphicsEnvironment.isHeadless())
         val prefs = Preferences.userRoot().node("tvbox-history-layout/${System.nanoTime()}")
         val directory = java.nio.file.Files.createTempDirectory("history-layout")
         val library = com.wuming.tv.desktop.library.DesktopUserLibrary.open(directory.resolve("library.json"))
@@ -46,7 +43,6 @@ class DesktopLayoutTest {
 
     @Test
     fun playbackPreferencesPersistAcrossPanelRecreation() {
-        assumeTrue("Skip Swing UI test in headless environment", !GraphicsEnvironment.isHeadless())
         val prefs = Preferences.userRoot().node("tvbox-layout-test/${System.nanoTime()}")
         try {
             SwingUtilities.invokeAndWait {
@@ -70,7 +66,6 @@ class DesktopLayoutTest {
 
     @Test
     fun catalogueGivesSpaceToCardsAndRevealsOnlyRelevantControls() {
-        assumeTrue("Skip Swing UI test in headless environment", !GraphicsEnvironment.isHeadless())
         val prefs = Preferences.userRoot().node("tvbox-layout-test/${System.nanoTime()}")
         DesktopPlaybackSettings(prefs).autoPlayFirstEpisode = false
         val executor = object : CatalogSourceExecutor {
@@ -107,6 +102,14 @@ class DesktopLayoutTest {
                     assertFalse(field<JPanel>(panel, "episodeActions").isVisible)
                     assertFalse(field<JPanel>(panel, "auditActions").isVisible)
                     assertTrue(field<JComboBox<*>>(panel, "sources").width >= 300)
+                    val sizeControls = field<JSlider>(panel, "thumbnailSize").parent
+                    val pagingControls = field<JButton>(panel, "thumbnailNext").parent
+                    val sizeBounds = SwingUtilities.convertRectangle(sizeControls.parent, sizeControls.bounds, panel)
+                    val pagingBounds = SwingUtilities.convertRectangle(pagingControls.parent, pagingControls.bounds, panel)
+                    assertTrue("Card-size and paging controls must not overlap at $width×$height",
+                        sizeBounds.x + sizeBounds.width <= pagingBounds.x)
+                    assertTrue("Paging controls must stay inside the catalogue", pagingBounds.x >= 0 &&
+                        pagingBounds.x + pagingBounds.width <= panel.width)
                 }
                 descendants(panel).filterIsInstance<JButton>().single { it.text == "Source tools" }.doClick()
                 assertTrue(field<JPanel>(panel, "auditActions").isVisible)
