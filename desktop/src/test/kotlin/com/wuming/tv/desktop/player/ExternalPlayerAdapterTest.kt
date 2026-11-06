@@ -153,6 +153,17 @@ class ExternalPlayerAdapterTest {
     }
 
     @Test
+    fun localPathsWithSpacesAndUnicodeAreEncodedForThePlayer() {
+        val directory = Files.createTempDirectory("player local ")
+        val file = Files.createFile(directory.resolve("第 1 集 #1.mkv"))
+        try {
+            val adapter = ExternalPlayerAdapter(Path.of("/opt/player"))
+            assertEquals(file.toUri().toString(), adapter.normalizeTarget(file.toString()))
+            assertNull(adapter.normalizeTarget(directory.resolve("missing file.mkv").toString()))
+        } finally { directory.toFile().deleteRecursively() }
+    }
+
+    @Test
     fun passesLiveHeadersAsSafePlayerArguments() {
         val mpv = ExternalPlayerAdapter(Path.of("/usr/bin/mpv"))
         val vlc = ExternalPlayerAdapter(Path.of("/usr/bin/vlc"))
