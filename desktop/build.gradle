@@ -21,6 +21,7 @@ dependencies {
     implementation project(':libraries:base-core')
     implementation project(':libraries:catalog-core')
     implementation project(':libraries:libvio-core')
+    implementation project(':libraries:hongguo-core')
     implementation project(':libraries:cloud-core')
     implementation project(':libraries:epg-core')
     implementation project(':libraries:live-core')
@@ -40,12 +41,14 @@ dependencies {
     implementation project(':libraries:guarded-runtime')
     implementation project(':libraries:cloud-login-runtime')
     runtimeOnly project(':guarded-catvod-host')
+    implementation 'net.java.dev.jna:jna:5.18.1'
     implementation libs.gson
     implementation libs.imageio.webp
     implementation libs.okhttp
     implementation libs.zxing.core
 
     testImplementation libs.junit
+    testImplementation testFixtures(project(':libraries:playback-core'))
 }
 
 sourceSets {
@@ -88,7 +91,7 @@ test {
     systemProperty 'java.awt.headless', 'true'
     ['tvbox.guarded.hardware.test.serial', 'tvbox.guarded.gms.serial',
      'tvbox.guarded.emulator.serial', 'TVBOX_GUARDED_GMS_SERIAL',
-     'tvbox.hongguo.vodId', 'tvbox.hongguo.jar'].each { key ->
+     'tvbox.hongguo.vodId', 'tvbox.hongguo.jar', 'tvbox.fm.jar'].each { key ->
         def value = System.getProperty(key)
         if (value != null) systemProperty(key, value)
     }
@@ -150,4 +153,66 @@ def desktopEditionMetadata = tasks.register('writeDesktopEdition') {
 }
 distributions.main.contents {
     from(desktopEditionMetadata) { into 'share' }
+}
+
+// Explicit opt-in native-window checks; normal JVM tests stay headless and offline.
+tasks.register('embeddedPlaybackTest', Test) {
+    dependsOn tasks.named('testClasses')
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    include '**/EmbeddedPlaybackIntegrationTest.class'
+    systemProperty 'java.awt.headless', 'false'
+    systemProperty 'wuming.embedded.integration', 'true'
+    def renderDirectory = providers.gradleProperty('embeddedRenderDirectory').orElse('/tmp/wuming-embedded-render')
+    systemProperty 'wuming.embedded.renderDirectory', renderDirectory.get()
+}
+
+// Real shell navigation and poster loading with an offline catalogue; run under Xvfb.
+tasks.register('desktopHomeTest', Test) {
+    dependsOn tasks.named('testClasses')
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    include '**/DesktopHomeIntegrationTest.class'
+    systemProperty 'java.awt.headless', 'false'
+}
+
+// One headless entry point covers the desktop and every shared JVM core/runtime it consumes.
+tasks.register('desktopUnitTest') {
+    group = 'verification'
+    description = 'Runs desktop checks and all shared JVM library and provider-host unit tests.'
+    dependsOn tasks.named('check')
+    dependsOn ':guarded-catvod-host:test'
+    dependsOn rootProject.subprojects.findAll { it.path.startsWith(':libraries:') }
+            .collect { "${it.path}:test" }
+}
+
+tasks.register('smokeTest', JavaExec) {
+    group = 'verification'
+    description = 'Runs the offline desktop architecture smoke check through its CLI entry point.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = application.mainClass
+    args '--smoke'
+    systemProperty 'java.awt.headless', 'true'
+    systemProperty 'file.encoding', 'UTF-8'
+}
+
+// Explicit runtime checks must execute, even if a previous run produced the same output files.
+tasks.register('desktopSmokeTest', Test) {
+    group = 'verification'
+    description = 'Checks Swing navigation/layout, real mpv playback and local UPnP; requires X11, mpv and FFmpeg.'
+    dependsOn tasks.named('testClasses')
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    include '**/DesktopLayoutTest.class', '**/DesktopHomeIntegrationTest.class',
+            '**/EmbeddedPlaybackIntegrationTest.class', '**/UpnpTransportIntegrationTest.class'
+    systemProperty 'java.awt.headless', 'false'
+    systemProperty 'wuming.embedded.integration', 'true'
+    systemProperty 'wuming.embedded.renderDirectory', layout.buildDirectory.dir('reports/desktop-smoke').get().asFile.absolutePath
+    outputs.upToDateWhen { false }
+    def x11Display = providers.environmentVariable('DISPLAY')
+    doFirst {
+        if (!x11Display.isPresent() || x11Display.get().isBlank()) {
+            throw new GradleException('Desktop smoke tests require X11. Run: xvfb-run -a ./gradlew-safe :desktop:desktopSmokeTest')
+        }
+    }
 }

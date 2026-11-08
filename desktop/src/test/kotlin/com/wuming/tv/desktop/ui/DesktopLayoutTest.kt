@@ -95,7 +95,9 @@ class DesktopLayoutTest {
                     add(TvHomeNavigationPanel(onSelected = {}).apply { showSelection(TvHomeAction.VOD) }, BorderLayout.WEST)
                     add(panel, BorderLayout.CENTER)
                 }
-                for ((width, height) in listOf(960 to 620, 1280 to 800)) {
+                // DesktopWindow enforces a 720-logical-pixel minimum height. Exercise the
+                // compact supported size rather than an unreachable, shorter window.
+                for ((width, height) in listOf(960 to DesktopTvTheme.px(720), 1280 to DesktopTvTheme.px(800))) {
                     render(shell, width, height, "catalogue-$width")
                     assertTrue("Catalogue keeps usable height: ${field<JList<*>>(panel, "results").parent.height} at $width×$height", field<JList<*>>(panel, "results").parent.height >= 240)
                     assertFalse(field<JPanel>(panel, "playerActions").isVisible)
@@ -106,8 +108,9 @@ class DesktopLayoutTest {
                     val pagingControls = field<JButton>(panel, "thumbnailNext").parent
                     val sizeBounds = SwingUtilities.convertRectangle(sizeControls.parent, sizeControls.bounds, panel)
                     val pagingBounds = SwingUtilities.convertRectangle(pagingControls.parent, pagingControls.bounds, panel)
-                    assertTrue("Card-size and paging controls must not overlap at $width×$height",
-                        sizeBounds.x + sizeBounds.width <= pagingBounds.x)
+                    // Compact windows stack these rows; reject overlap on either layout axis.
+                    assertFalse("Card-size and paging controls must not overlap at $width×$height",
+                        sizeBounds.intersects(pagingBounds))
                     assertTrue("Paging controls must stay inside the catalogue", pagingBounds.x >= 0 &&
                         pagingBounds.x + pagingBounds.width <= panel.width)
                 }

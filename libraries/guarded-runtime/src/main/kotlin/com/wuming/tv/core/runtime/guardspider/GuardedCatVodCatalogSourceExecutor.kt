@@ -24,6 +24,7 @@ class GuardedCatVodCatalogSourceExecutor(
     private val artifact: PreparedGuardedSpiderArtifact,
     private val emulatorBridge: AndroidEmulatorWebViewBridge = DisabledEmulatorWebViewBridge,
     private val runtimeBridge: AndroidRuntimeProviderBridge = DisabledAndroidRuntimeProviderBridge,
+    private val catalogAdapter: CatalogSourceExecutor? = null,
 ) : CatalogSourceExecutor, AutoCloseable {
     private val logger = Logger.getLogger("tvbox.guarded.catalog")
     override val source = CatalogSource(spec.key, spec.name)
@@ -42,7 +43,13 @@ class GuardedCatVodCatalogSourceExecutor(
     private val cloudEpisodes = ConcurrentHashMap<Pair<String, String>, CloudDriveProviderKind>()
     private val reportedEmptyDetails = ConcurrentHashMap.newKeySet<String>()
 
+    private fun adapter(): CatalogSourceExecutor? {
+        check(!closed) { "Guarded source is closed" }
+        return catalogAdapter
+    }
+
     override fun search(query: String): List<CatalogItem> {
+        adapter()?.let { return it.search(query) }
         require(query.isNotBlank()) { "Search query is required" }
         val response = host.request(GuardedCatVodHostRequest("search", query = query))
         if (response.isBlank()) {
@@ -55,6 +62,7 @@ class GuardedCatVodCatalogSourceExecutor(
     }
 
     override fun detail(id: String): CatalogDetail {
+        adapter()?.let { return it.detail(id) }
         require(id.isNotBlank()) { "Detail ID is required" }
         val request = GuardedCatVodHostRequest("detail", id = id)
         val response = runCatching { host.request(request) }
@@ -85,6 +93,7 @@ class GuardedCatVodCatalogSourceExecutor(
     }
 
     override fun play(flag: String, id: String): CatalogPlayback {
+        adapter()?.let { return it.play(flag, id) }
         require(id.isNotBlank()) { "Playback ID is required" }
         cloudEpisodes[flag to id]?.let { provider ->
             return CatalogPlayback(message = CloudDriveDetector.accountRequiredMessage(provider)).also {
@@ -197,6 +206,7 @@ class GuardedCatVodCatalogSourceExecutor(
     }
 
     override fun browseHome(): CatalogHome {
+        adapter()?.let { return it.browseHome() }
         // A provider may return an empty body, or let its own parser throw (e.g. org.json
         // "End of input at character 0 of ") when homeContent yields no data. Degrade to an empty
         // home rather than failing the whole source, matching search()/detail() graceful handling.
@@ -217,7 +227,7 @@ class GuardedCatVodCatalogSourceExecutor(
     }
 
     override fun category(typeId: String, page: Int, filters: Map<String, String>): CatalogPage =
-        codec.category(host.request(GuardedCatVodHostRequest(
+        adapter()?.category(typeId, page, filters) ?: codec.category(host.request(GuardedCatVodHostRequest(
             operation = "category",
             id = typeId,
             page = page.toString(),
@@ -275,6 +285,8 @@ class GuardedCatVodCatalogSourceExecutor(
     @Synchronized
     override fun close() {
         closed = true
-        hostInstance.close()
+        try { catalogAdapter?.cancel() } finally { hostInstance.close() }
     }
+
+    override fun cancel() { catalogAdapter?.cancel() }
 }

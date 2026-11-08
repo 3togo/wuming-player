@@ -13,7 +13,7 @@
     },
     {
       "path": "desktop/src/test/resources/guarded/WebViewProbe-dexed.jar",
-      "sha256": "33bf120bb56b470e92d88038e5681b778dd6af3fe687d88562a2a0f7809671c8"
+      "sha256": "fdd682ba0351bb13b25b4c5c3ad5bef946cb45bcccf77e9e7d53532055c654ff"
     }
   ]
 }

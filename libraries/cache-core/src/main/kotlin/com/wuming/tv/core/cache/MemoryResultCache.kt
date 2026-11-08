@@ -1,13 +1,12 @@
-package com.wuming.tv.desktop.cache
+package com.wuming.tv.core.cache
 
-import com.wuming.tv.core.cache.BoundedCachePolicy
 import java.time.Clock
 import java.time.Duration
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutionException
 
 /** Bounded LRU of successful results; in-flight work is shared, invalidation fences old writers. */
-internal class MemoryResultCache<K, V>(
+class MemoryResultCache<K, V>(
     private val maximumEntries: Int,
     private val lifetime: Duration,
     private val clock: Clock = Clock.systemUTC(),

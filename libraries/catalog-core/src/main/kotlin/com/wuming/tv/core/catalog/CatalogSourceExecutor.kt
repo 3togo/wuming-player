@@ -24,6 +24,15 @@ interface CatalogSourceExecutor {
 
     fun play(flag: String, id: String): CatalogPlayback
 
+    /** Reviewed implementations may opt in per episode. Unknown provider code must stay unknown. */
+    fun playbackPreparationSafety(flag: String, id: String): PlaybackPreparationSafety = PlaybackPreparationSafety.UNKNOWN
+
+    /** Never fall back to ordinary resolution for unknown or cloud episodes. */
+    fun prewarm(flag: String, id: String): CatalogPlayback? =
+        if (PlaybackPreparationPolicy.classify(false, flag, id) != PlaybackPreparationSafety.CLOUD &&
+            playbackPreparationSafety(flag, id) == PlaybackPreparationSafety.READ_ONLY_STREAM
+        ) play(flag, id) else null
+
     fun cancel() = Unit
 }
 
@@ -56,6 +65,9 @@ class ExecutorCatalogGateway(executors: Collection<CatalogSourceExecutor>) : Cat
 
     override fun play(source: String, flag: String, id: String): CatalogPlayback =
         executor(source).play(flag, id)
+
+    override fun prewarm(source: String, flag: String, id: String): CatalogPlayback? =
+        executor(source).prewarm(flag, id)
 
     fun cancel(source: String) = executor(source).cancel()
 

@@ -248,15 +248,7 @@ open class SpiderHelperService : Service() {
                     Class.forName(className, true, loader).getDeclaredConstructor().newInstance()
                 setSiteKey(spider, key)
                 initializeOrigin(loader, context)
-                if (!extension.isEmpty()) {
-                    val init: Method? =
-                        find(spider, "init", Context::class.java, String::class.java)
-                    if (init != null) {
-                        init.invoke(spider, context, extension)
-                    } else {
-                        required(spider, "init", Context::class.java).invoke(spider, context)
-                    }
-                }
+                SpiderInvocationSupport.initialize(spider, Context::class.java, context, extension)
                 val created: ProviderSession = ProviderSession(loader, spider, context)
                 sessions.put(className, created)
                 return created

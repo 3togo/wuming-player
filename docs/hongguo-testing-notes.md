@@ -1,4 +1,65 @@
-# 红果 (`csp_HongGuo`) on-device validation — blocked
+# HongGuo provider validation
+
+## Current result — 2026-11-08
+
+Both maintained tests pass together with zero skips on authorized device `7e34269d`
+(Android 14, Google Play Services installed):
+
+- `GuardedSourceActivatorHongGuoRealDeviceTest`: discovers a real programme, requires
+  playback lines and an episode, and resolves a supported, nonempty media URL.
+- `PlainDexFmJarVerificationTest`: verifies the current JAR pin, all 1,095 raw DEX
+  classes survive conversion, and every present configured provider instantiates.
+  The exact missing-provider assertion remains `csp_XBPQ` and `csp_Ypba`.
+
+The current JAR SHA-256 is
+`878f898d6a6fffc64583936100415dd99179be228765f3ea7987d16e5b37ffaf`.
+Prepare it with `python3 scripts/desktop/prepare-fm-fixture.py`; the reviewed manifest,
+sanitized configuration and independent raw DEX inventory are in
+`desktop/src/test/resources/guarded/fm-current/`. The external JAR stays ignored and
+its bytes are never patched. The pin replaces the unavailable older artifact.
+
+### Production fix and limits
+
+The external `csp_HongGuo` scrapes `www.hongguodj.cc`, not the official HongGuo app API.
+It still expects old numeric `/show/` routes and playlist selectors. The live site
+now publishes symbolic `/vod/type/id/`, `/vod/detail/id/`, `/vod/play/id/` paths and
+`.playurl` lists. Matching its expected headers returns HTTP 200; a default-client
+403 did not explain the empty catalogue and playback lines.
+
+`libraries/hongguo-core` now owns the current website grammar and bounded transport.
+Desktop, Android and Leanback route the exact `csp_HongGuo` / `builtin_hongguo` aliases
+to this first-party adapter. It discovers published pages and episodes and extracts
+the website's direct media URL without fabricating episodes or changing assertions.
+The guarded activator still validates, converts and loads the selected JAR, and logs
+which catalogue adapter it uses. This fixes application behavior; it does not repair
+the downloaded provider's old parser.
+
+The hardware test configures the Android bridge, but the shared adapter resolves
+catalogue/detail/play requests on the desktop. A pass does not establish Android
+execution of every operation or decoded video playback. Separate offline unit tests
+cover current HTML, signed URLs, invalid responses, pagination, transport limits and
+cancellation. Mobile and Leanback unit tests verify their production routing.
+
+Reproduce the two requested tests after preparing the pinned fixture:
+
+```bash
+./gradlew-safe --no-daemon \
+  -Dtvbox.guarded.hardware.test.serial=7e34269d \
+  -Dtvbox.hongguo.jar="$PWD/artifacts/desktop-provider-fixtures/fm.jar" \
+  :desktop:test --tests '*PlainDexFmJarVerificationTest' \
+  --tests '*GuardedSourceActivatorHongGuoRealDeviceTest'
+```
+
+Device access requires explicit authorization. Test-JVM properties are forwarded by
+`desktop/build.gradle`. Run XML and the artifact summary are retained locally in
+`desktop/build/reports/hongguo-current-jar-validation/`.
+
+## Historical investigation — 2026-09-08
+
+The notes below describe the older artifact and package names. Their claim that
+home/category/search do not use the device bridge does not describe today's
+`deviceHomeIds()` implementation.
+
 
 Status: **DEFERRED** (documented 2026-09-08, not yet fixed). Testing is blocked on obtaining a
 valid 红果 vod id from outside the app; the infra itself is validated.

@@ -33,6 +33,10 @@ The project-root launcher handles Java detection, installation, Gradle build, an
 
 This installs dependencies if missing, runs `:desktop:installDist`, copies the distribution to a private temp directory, and launches the GUI.
 
+## Embedded playback
+
+Catalogue and Live TV use embedded mpv by default on Linux X11/XWayland, with an external-player fallback. See [embedded playback](desktop-embedded-playback.md) for controls, settings, platform coverage and native-window tests.
+
 ## Build Commands
 
 ### Compile only
@@ -95,6 +99,12 @@ With arguments:
 
 ## Desktop appearance
 
+Movie details render provider synopsis HTML as paragraphs, line breaks, emphasis
+and lists using a theme-aware Swing HTML view. Formatting normalization lives in
+`catalog-core`; titles and metadata are escaped as text. Preview messages and
+source-audit output keep plain-text rendering, including whitespace and appended
+progress lines.
+
 Settings → Appearance offers **System**, **Light**, and **Dark**. New profiles use
 System; existing explicit Light/Dark choices are preserved. System reads the
 [XDG Settings portal](https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Settings.html)
@@ -115,6 +125,40 @@ Offline widget rendering and live-refresh regression checks:
 ```
 
 These tests render both palettes; they do not constitute a live Linux desktop test.
+
+## Home catalogue
+
+Home displays the configured source's video catalogue and uses Discover's poster
+loader and cache. Cards allocate a full-width poster above compact captions,
+with narrow gutters and a scale-aware minimum width. Column widths fill the
+viewport; narrow playback side panes use fewer columns instead of shrinking
+posters beneath fixed-size text. Category and filter rows measure the actual chip
+height and reserve scrollbar space, so captions remain visible at larger UI scales. The Thumbnail size control still adjusts density. Returning Home from Search or My library restores the source's
+home listing. Live TV, library, casting and settings remain available in the rail.
+
+Sources that need the private native guarded-provider port must be launched from
+the private edition; the public distribution deliberately omits that runtime.
+For coordinated local development, run from the sibling private checkout:
+
+```bash
+python3 scripts/build/private-build.py --working-public -- bash ./scripts/desktop/run-tvbox-desktop.sh
+```
+
+This composes the current public UI changes with private runtime additions. The
+normal private launcher uses its pinned public commit and does not include
+uncommitted public fixes.
+
+If the selected provider is inactive, Home shows its setup or updated-bundle
+approval message even when other sources are active. **Review sources in Settings…**
+opens Sources, where **Review updated bundle…** displays the old/new artifact
+fingerprints before activation. Existing approval is not transferred to changed
+provider code automatically.
+
+Offline shell navigation and poster rendering checks with a window server:
+
+```bash
+xvfb-run -a ./gradlew-safe :desktop:desktopHomeTest
+```
 
 ## CLI Diagnostic Commands
 
@@ -164,12 +208,50 @@ These commands run headless (no GUI required):
 ./gradlew :desktop:test --tests 'com.wuming.tv.desktop.catalog.DesktopCompanionClientTest'
 ```
 
-### Run all library tests (including clock-core)
+### Run the complete desktop JVM suite
 
 ```bash
-./gradlew :libraries:clock-core:test
-./gradlew :libraries:catalog-core:test
-./gradlew :libraries:live-core:test
+./gradlew-safe :desktop:desktopUnitTest
+```
+
+This runs desktop `check`, every shared library's unit tests and the JVM provider
+host tests. It includes architecture, design-token and Java-retention checks;
+it does not run Android instrumentation or opt in to hardware/provider tests.
+The ordinary desktop test task remains headless, so window-only tests are skipped
+there and must be exercised by the explicit smoke task below.
+
+### Run desktop smoke tests
+
+```bash
+./gradlew-safe :desktop:smokeTest
+xvfb-run -a -s '-screen 0 1920x1080x24' ./gradlew-safe :desktop:desktopSmokeTest
+```
+
+The first command runs the production `--smoke` CLI path. The second always reruns
+real Swing layout/navigation, offline Home/poster loading, embedded mpv playback,
+fullscreen/overlay restoration, external-player fallback and local UPnP/SOAP
+casting checks. It needs X11 (or Xvfb), `/usr/bin/mpv`, FFmpeg and an active LAN
+interface for SSDP discovery. A missing `DISPLAY` fails explicitly rather than
+reporting headless skips as a smoke pass. These checks use synthetic catalogue
+and media fixtures; they do not establish live-provider or private-edition
+activation. Screenshots and XML/HTML results are under `desktop/build/reports/`
+and `desktop/build/test-results/desktopSmokeTest/`.
+
+For local-network checks, native proxy injection such as `LD_PRELOAD` can still
+redirect traffic even when Java's `ProxySelector` explicitly returns `NO_PROXY`.
+If descriptor requests close before reaching the local server, inspect the test
+process environment. A direct diagnostic invocation can use
+`env -u LD_PRELOAD -u HTTP_PROXY -u HTTPS_PROXY -u ALL_PROXY -u http_proxy -u https_proxy -u all_proxy`
+before `xvfb-run`; use `--no-daemon` to start a fresh Gradle process. This does not
+change global proxy settings. Layout smoke fixtures use the desktop window's
+supported minimum height (720 logical pixels), rather than asserting usability
+at a height the actual window does not permit.
+
+To build the distribution and run all of these checks together:
+
+```bash
+xvfb-run -a -s '-screen 0 1920x1080x24' ./gradlew-safe \
+  :desktop:desktopUnitTest :desktop:smokeTest :desktop:desktopSmokeTest :desktop:installDist
 ```
 
 ### Run all tests
@@ -275,3 +357,34 @@ Reloading a playlist restores selection without autoplay. Channel identities use
 ambiguous and resolve to the first matching entry. Reordering is safe; renaming a
 channel without a stable ID may require selecting it again. Removed or changed route URLs fall
 back to the first route. The persistence port stores hashes, not signed media URLs.
+
+## Catalogue refactoring boundaries
+
+`cache-core` owns `MemoryResultCache`: bounded successful-result retention,
+expiry, sharing in-flight computations and generation fencing on clear.
+`catalog-core` owns `CachingCatalogSourceExecutor`: metadata keys, TTLs,
+account-generation invalidation and uncached playback. The desktop decorator
+supplies `DesktopCacheGeneration`; cloud routing remains outside the cache so it
+observes cached detail results as well as newly fetched results.
+
+`CatalogRenderers.kt` owns the Swing catalogue cards, chips, list renderers and
+grid sizing. `CatalogPanel` keeps navigation, lifecycle and UI orchestration.
+Shared cache tests cover failure propagation/recovery, independent keys,
+concurrent clear/replacement, null results, LRU/expiry and filter snapshots;
+desktop adapter and existing UI tests cover wiring and rendering.
+
+## Android helper regressions
+
+The WebView helper has JVM protocol tests for pass-through versus deliberately
+empty/custom interception responses:
+
+```bash
+./gradlew-safe :guarded-webview-helper:testDebugUnitTest
+```
+
+Physical bridge checks require an explicitly authorized device serial, the matching
+edition's helpers and the configured ADB tunnel. Gradle forwards the serial and
+optional `tvbox.guarded.webview.adbPort` into the host test JVM. See
+[HongGuo validation](hongguo-testing-notes.md) for the latest real-provider result
+and the distinction between configuring a device bridge and observing a routed
+operation. Headless skips do not substitute for these hardware checks.

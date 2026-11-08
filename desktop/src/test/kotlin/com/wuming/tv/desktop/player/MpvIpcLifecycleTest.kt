@@ -37,7 +37,7 @@ class MpvIpcLifecycleTest {
             fixture.start()
             val path = "/tmp/字幕 \"quoted\"\t\b\u000c\u0001.srt"
             assertTrue(fixture.request { fixture.player.addSubtitle(path) })
-            assertEquals(listOf("sub-add", path, "auto"), fixture.readCommand())
+            assertEquals(listOf("sub-add", path, "cached"), fixture.readCommand())
         }
     }
 

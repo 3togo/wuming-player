@@ -1,5 +1,8 @@
 package com.wuming.tv.desktop.ui
 
+import com.wuming.tv.core.catalog.EpisodePrewarmSession
+import com.wuming.tv.core.catalog.EpisodePlaybackKey
+import com.wuming.tv.core.catalog.CatalogEpisode
 import com.wuming.tv.core.catalog.CatalogDetail
 import com.wuming.tv.core.catalog.CatalogAuditCancellation
 import com.wuming.tv.core.catalog.CatalogAuditReport
@@ -47,15 +50,10 @@ import com.wuming.tv.desktop.player.ExternalPlayerAdapter
 import com.wuming.tv.desktop.player.PlaybackState
 import com.wuming.tv.desktop.player.PlaybackStateCallback
 import java.awt.BorderLayout
-import java.awt.Color
-import java.awt.Component
 import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.Font
-import java.awt.Graphics
-import java.awt.Graphics2D
 import java.awt.Insets
-import java.awt.RenderingHints
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.event.ComponentAdapter
@@ -71,7 +69,6 @@ import java.util.concurrent.TimeoutException
 import java.util.logging.Level
 import java.util.logging.Logger
 import java.util.prefs.Preferences
-import kotlin.math.roundToInt
 import javax.swing.BorderFactory
 import javax.swing.Box
 import javax.swing.BoxLayout
@@ -89,13 +86,10 @@ import javax.swing.JScrollPane
 import javax.swing.JSlider
 import javax.swing.JTextArea
 import javax.swing.JTextField
-import javax.swing.JToggleButton
 import javax.swing.ListSelectionModel
-import javax.swing.ListCellRenderer
 import javax.swing.SwingUtilities
 import javax.swing.SwingWorker
 import javax.swing.Timer
-import javax.swing.UIManager
 import javax.swing.event.DocumentEvent
 import javax.swing.event.DocumentListener
 import javax.swing.event.ListDataEvent
@@ -108,6 +102,7 @@ class CatalogPanel(
     private val userLibrary: DesktopUserLibrary = DesktopUserLibrary.openDefault(),
     private val onBackRequested: (() -> Unit)? = null,
     private val onCastRequested: ((CatalogPlayback, String, () -> Unit) -> Unit)? = null,
+    private val onSourcesRequested: (() -> Unit)? = null,
 ) : JPanel(BorderLayout(8, 10)), AutoCloseable {
     private val logger = Logger.getLogger("tvbox.ui.catalog")
     private val selectionStore = DesktopCatalogSelectionStore(preferences)
@@ -147,13 +142,14 @@ class CatalogPanel(
     /** Kept as the authoritative model; the visible control is the Leanback-style chip rail. */
     private val types = JComboBox<CatalogTypeChoice>()
     private val typeBar = JPanel(FlowLayout(FlowLayout.LEFT, 6, 1))
-    private val typeScroll = JScrollPane(
-        typeBar,
-        JScrollPane.VERTICAL_SCROLLBAR_NEVER,
-        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED,
-    )
+    private val typeScroll = DesktopChipScrollPane(typeBar)
     private val filterBar = JPanel().apply { layout = BoxLayout(this, BoxLayout.Y_AXIS) }
     private val categoryBack = JButton("← Back")
+    private var configurationStatus = ""
+    private val reviewSources = JButton("Review sources in Settings…").apply {
+        isVisible = false
+        addActionListener { onSourcesRequested?.invoke() }
+    }
     private val emptyState = JTextArea().apply {
         isEditable = false
         lineWrap = true
@@ -199,7 +195,7 @@ class CatalogPanel(
         verticalScrollBar.unitIncrement = 28
         horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
     }
-    private val details = JTextArea()
+    private val details = CatalogDetailsPane()
     private val detailPoster = JLabel()
     private val browserCards = java.awt.CardLayout()
     private val browserContent = JPanel(browserCards)
@@ -221,9 +217,9 @@ class CatalogPanel(
     private val speedButton = JButton("1.0x")
     private val subtitleButton = JButton("Sub")
     private val keep = JButton("Favorite")
-    private val episodeActions = JPanel(FlowLayout(FlowLayout.LEFT, 6, 0))
-    private val playerActions = JPanel(FlowLayout(FlowLayout.LEFT, 6, 0))
-    private val auditActions = JPanel(FlowLayout(FlowLayout.LEFT, 6, 0)).apply { isVisible = false }
+    private val episodeActions = JPanel(DesktopWrapLayout(FlowLayout.LEFT, 6, 0))
+    private val playerActions = JPanel(DesktopWrapLayout(FlowLayout.LEFT, 6, 0))
+    private val auditActions = JPanel(DesktopWrapLayout(FlowLayout.LEFT, 6, 0)).apply { isVisible = false }
     private val autoNext = JCheckBox("Play next automatically", playbackSettings.autoPlayNextEpisode)
     private val progressBar = JProgressBar(0, 3).apply {
         isIndeterminate = false
@@ -243,14 +239,14 @@ class CatalogPanel(
         }, BorderLayout.NORTH)
         add(keywordRails, BorderLayout.CENTER)
     }
-    private val historyActions = JPanel(FlowLayout(FlowLayout.LEFT, 6, 0)).apply {
+    private val historyActions = JPanel(DesktopWrapLayout(FlowLayout.LEFT, 6, 0)).apply {
         add(deleteHistory)
         add(clearHistory)
         isVisible = false
     }
     private val vodControls = JPanel().apply {
         layout = BoxLayout(this, BoxLayout.Y_AXIS)
-        add(JPanel(FlowLayout(FlowLayout.LEFT, 6, 0)).apply {
+        add(JPanel(DesktopWrapLayout(FlowLayout.LEFT, 6, 0)).apply {
             add(home)
             add(history)
             add(favorites)
@@ -260,7 +256,6 @@ class CatalogPanel(
         add(historyActions)
         add(typeScroll.apply {
             border = BorderFactory.createEmptyBorder(4, 0, 2, 0)
-            preferredSize = Dimension(100, TYPE_RAIL_HEIGHT)
             horizontalScrollBar.unitIncrement = 28
         })
     }
@@ -272,6 +267,7 @@ class CatalogPanel(
     private var detail: CatalogDetail? = null
     private var detailPosterGeneration = 0L
     @Volatile private var playbackGeneration = 0L
+    private var playbackSelectionGeneration = 0L
     private var browseGeneration = 0L
     private var homeLoadGeneration = 0L
     private var renderedHomeRequest: Long? = null
@@ -290,9 +286,7 @@ class CatalogPanel(
     }
     @Volatile private var closed = false
     @Volatile private var resolving = false
-    private var prewarmedUrl: String? = null
-    private var prewarmedHeaders: Map<String, String> = emptyMap()
-    private var prewarmedPlayback: Long = 0L
+    private val episodePrewarm = EpisodePrewarmSession()
     private val speedOptions = doubleArrayOf(0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0)
     private var speedIndex = 2
     private val playbackStartup = JLabel().apply { isVisible = false }
@@ -338,7 +332,6 @@ class CatalogPanel(
         results.layoutOrientation = JList.HORIZONTAL_WRAP
         results.visibleRowCount = -1
         results.fixedCellWidth = DesktopTvTheme.px(CatalogItemRenderer.BASE_CARD_WIDTH)
-        results.fixedCellHeight = DesktopTvTheme.px(CatalogItemRenderer.BASE_CARD_HEIGHT)
         results.font = results.font.deriveFont(14f)
         episodes.selectionMode = ListSelectionModel.SINGLE_SELECTION
         episodes.layoutOrientation = JList.HORIZONTAL_WRAP
@@ -349,11 +342,6 @@ class CatalogPanel(
         episodes.fixedCellHeight = EPISODE_CELL_HEIGHT
         episodes.font = episodes.font.deriveFont(14f)
         episodes.cellRenderer = EpisodeRenderer()
-        details.isEditable = false
-        details.lineWrap = true
-        details.wrapStyleWord = true
-        details.rows = 7
-        details.font = details.font.deriveFont(15f)
         query.font = query.font.deriveFont(15f)
         sources.font = sources.font.deriveFont(14f)
         listOf(
@@ -378,6 +366,7 @@ class CatalogPanel(
         results.cellRenderer = CatalogItemRenderer(thumbnails, { results.repaint() }) { key ->
             if ((sources.selectedItem as? CatalogSourceChoice)?.isShowAll == true) sourceName(key) else ""
         }
+        results.fixedCellHeight = (results.cellRenderer as CatalogItemRenderer).cellHeight(results.fixedCellWidth)
         resultsScroll.viewport.addComponentListener(object : ComponentAdapter() {
             override fun componentResized(event: ComponentEvent) = updateResponsiveCardSize()
         })
@@ -491,8 +480,10 @@ class CatalogPanel(
                 updateActions()
             }
         }
-        lines.addActionListener { refreshEpisodes() }
-        episodes.addListSelectionListener { if (!it.valueIsAdjusting) updateActions() }
+        lines.addActionListener { playbackSelectionGeneration++; refreshEpisodes() }
+        episodes.addListSelectionListener {
+            if (!it.valueIsAdjusting) { playbackSelectionGeneration++; updateActions() }
+        }
         episodes.addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(event: MouseEvent) {
                 if (event.clickCount == 2) requestEpisodePlayback()
@@ -538,9 +529,8 @@ class CatalogPanel(
         val width = resultsScroll.viewport.extentSize.width
         if (width <= 0) return
 
-        val aspect = CatalogItemRenderer.BASE_CARD_WIDTH.toDouble() / CatalogItemRenderer.BASE_CARD_HEIGHT
         val cellWidth = CatalogThumbnailSizing.cellWidth(width, thumbnailSize.value)
-        val cellHeight = (cellWidth / aspect).toInt()
+        val cellHeight = (results.cellRenderer as CatalogItemRenderer).cellHeight(cellWidth)
         if (results.fixedCellWidth == cellWidth && results.fixedCellHeight == cellHeight) return
 
         results.fixedCellWidth = cellWidth
@@ -582,20 +572,23 @@ class CatalogPanel(
         updateStatusPresentation()
         val resultPanel = JPanel(BorderLayout(6, 8)).apply {
             add(JPanel(BorderLayout()).apply {
-                add(emptyState, BorderLayout.CENTER)
-                add(JPanel(BorderLayout(12, 0)).apply {
-                    add(JPanel(FlowLayout(FlowLayout.LEFT, 6, 2)).apply {
-                        add(JLabel("Card size:"))
-                        add(thumbnailSize)
-                        add(thumbnailSizeLabel)
-                    }, BorderLayout.WEST)
-                    add(JPanel(FlowLayout(FlowLayout.RIGHT, 8, 2)).apply {
+                add(JPanel(BorderLayout()).apply {
+                    add(emptyState, BorderLayout.CENTER)
+                    add(reviewSources, BorderLayout.SOUTH)
+                }, BorderLayout.CENTER)
+                add(JPanel(BorderLayout(0, 4)).apply {
+                    add(JPanel(BorderLayout(6, 0)).apply {
+                        add(JLabel("Card size:"), BorderLayout.WEST)
+                        add(thumbnailSize, BorderLayout.CENTER)
+                        add(thumbnailSizeLabel, BorderLayout.EAST)
+                    }, BorderLayout.NORTH)
+                    add(JPanel(DesktopWrapLayout(FlowLayout.LEFT, 6, 2)).apply {
                         add(JLabel("Page size:"))
                         add(thumbnailsPerPage)
                         add(thumbnailPrevious)
                         add(thumbnailPageLabel)
                         add(thumbnailNext)
-                    }, BorderLayout.EAST)
+                    }, BorderLayout.SOUTH)
                 }, BorderLayout.SOUTH)
             }, BorderLayout.SOUTH)
             add(filterBar, BorderLayout.NORTH)
@@ -720,7 +713,7 @@ class CatalogPanel(
         )
         add(JPanel(BorderLayout(0, 4)).apply {
             add(status, BorderLayout.NORTH)
-            add(JPanel(FlowLayout(FlowLayout.LEFT, 6, 0)).apply {
+            add(JPanel(DesktopWrapLayout(FlowLayout.LEFT, 6, 0)).apply {
                 add(progressBar)
                 add(playbackStartup)
             }, BorderLayout.CENTER)
@@ -728,10 +721,10 @@ class CatalogPanel(
         add(JPanel().apply {
             layout = BoxLayout(this, BoxLayout.Y_AXIS)
             add(JPanel(BorderLayout()).apply {
-                add(JPanel(FlowLayout(FlowLayout.LEFT, 6, 0)).apply {
+                add(JPanel(DesktopWrapLayout(FlowLayout.LEFT, 6, 0)).apply {
                     add(loadDetails)
                     add(keep)
-                }, BorderLayout.WEST)
+                }, BorderLayout.CENTER)
                 add(JButton("Source tools").apply {
                     putClientProperty("JComponent.sizeVariant", "small")
                     toolTipText = "Show source audit controls"
@@ -751,10 +744,15 @@ class CatalogPanel(
     }
 
     fun showConfigurationStatus(message: String) {
-        if (configuredSiteCount == 0 || catalog?.sources().isNullOrEmpty()) status.text = message
+        configurationStatus = message
+        val selectedKey = (sources.selectedItem as? CatalogSourceChoice)?.source?.key
+        if (configuredSiteCount == 0 || catalog?.sources().isNullOrEmpty() ||
+            (selectedKey != null && unavailableReason(selectedKey) != null && items.isEmpty())
+        ) status.text = message
     }
 
     fun useLocalConfiguration(configuration: DesktopTvBoxConfiguration) {
+        configurationStatus = ""
         emptySearchQuery = null
         vodSnapshot = null
         searchSnapshot = null
@@ -810,6 +808,8 @@ class CatalogPanel(
             }
         } + configuration.browsableSites.mapNotNull { site ->
             site.libvioExecution?.let(com.wuming.tv.desktop.catalog.DesktopLibvio::executor)
+        } + configuration.browsableSites.mapNotNull { site ->
+            site.hongGuoExecution?.let(com.wuming.tv.desktop.catalog.DesktopHongGuo::executor)
         } + configuration.macCmsSites.mapNotNull { site ->
             site.apiExecution?.let { MacCmsCatalogSourceExecutor(it, macCmsTransport) }
         } + configuration.remoteSpiderSites.mapNotNull { site ->
@@ -901,6 +901,13 @@ class CatalogPanel(
         loadLibrary(favoritesOnly = true)
     }
 
+    /** The desktop landing page uses the same source catalogue and poster pipeline as Discover. */
+    fun showHome() {
+        focusBrowse()
+        showBrowsePane()
+        loadHome()
+    }
+
     fun focusBrowse() {
         autoNext.isSelected = playbackSettings.autoPlayNextEpisode
         if (pageMode != CatalogPageMode.VOD) {
@@ -924,9 +931,15 @@ class CatalogPanel(
         repaint()
     }
 
+    fun cancelPlayback() {
+        cancelAutoAdvance()
+        finishActiveViewing(completed = false)
+    }
+
     fun cancelAutoAdvance() {
         finishPlaybackStartup("Playback cancelled")
         playbackGeneration++
+        episodePrewarm.invalidate()
         autoPlayTimer.stop()
     }
 
@@ -1024,6 +1037,7 @@ class CatalogPanel(
         if (closed) return
         closed = true
         playbackGeneration++
+        episodePrewarm.invalidate()
         playbackStartupTimer.stop()
         finishActiveViewing(completed = false)
         automaticHomeLoad.stop()
@@ -1436,6 +1450,7 @@ class CatalogPanel(
             })
         }
         typeBar.revalidate()
+        typeScroll.revalidate()
         typeBar.repaint()
         if (currentCategoryType == null) {
             javax.swing.SwingUtilities.invokeLater {
@@ -1488,13 +1503,8 @@ class CatalogPanel(
                     }
                 }
                 filterBar.add(
-                    JScrollPane(
-                        values,
-                        JScrollPane.VERTICAL_SCROLLBAR_NEVER,
-                        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED,
-                    ).apply {
+                    DesktopChipScrollPane(values).apply {
                         border = BorderFactory.createEmptyBorder()
-                        preferredSize = Dimension(100, FILTER_ROW_HEIGHT)
                         horizontalScrollBar.unitIncrement = 24
                     },
                 )
@@ -1737,15 +1747,14 @@ class CatalogPanel(
             val value = response.withSummaryFallback(item)
             detail = value
             showDetailPoster(value.item.name, value.item.picture)
-            details.text = buildString {
-                appendLine(value.item.name)
-                appendLine(sourceName(value.item.sourceKey))
-                value.item.year.takeIf(String::isNotBlank)?.let { appendLine("Year: $it") }
-                value.area.takeIf(String::isNotBlank)?.let { appendLine("Area: $it") }
-                com.wuming.tv.core.catalog.CatalogProviderText.plain(value.actor).takeIf(String::isNotBlank)?.let { appendLine("Cast: $it") }
-                com.wuming.tv.core.catalog.CatalogProviderText.plain(value.director).takeIf(String::isNotBlank)?.let { appendLine("Director: $it") }
-                if (value.content.isNotBlank()) append("\n${value.content}")
+            val summary = buildList {
+                add(sourceName(value.item.sourceKey))
+                value.item.year.takeIf(String::isNotBlank)?.let { add("Year: $it") }
+                value.area.takeIf(String::isNotBlank)?.let { add("Area: $it") }
+                com.wuming.tv.core.catalog.CatalogProviderText.plain(value.actor).takeIf(String::isNotBlank)?.let { add("Cast: $it") }
+                com.wuming.tv.core.catalog.CatalogProviderText.plain(value.director).takeIf(String::isNotBlank)?.let { add("Director: $it") }
             }
+            details.showDescription(value.item.name, summary, value.content)
             lines.model = DefaultComboBoxModel(value.lines.toTypedArray())
             refreshEpisodes()
             restoreEpisodeSelection(value.item, savedEntry)
@@ -1792,6 +1801,7 @@ class CatalogPanel(
                     // Stop local playback only after the chosen receiver has accepted the video.
                     if (!closed && playback == playbackGeneration && generation == catalogGeneration) {
                         playbackGeneration++
+                        episodePrewarm.invalidate()
                         finishActiveViewing(completed = false)
                         player?.stop()
                         finishPlaybackStartup("Video sent to TV")
@@ -1804,43 +1814,76 @@ class CatalogPanel(
     }
 
     private fun playEpisode(reuseRunningPlayer: Boolean = false) {
+        val value = detail ?: return
+        val lineIndex = lines.selectedIndex
+        val line = value.lines.getOrNull(lineIndex) ?: return
+        val episode = line.episodes.getOrNull(episodes.selectedIndex) ?: return
+        val position = if (playbackSettings.restorePlaybackPosition) {
+            userLibrary.playbackPosition(value.item, line, episode) / 1000.0
+        } else 0.0
+        val fallback = com.wuming.tv.core.catalog.PlaybackLineFallback(value.lines, lineIndex, episodes.selectedIndex)
+        playEpisodeAttempt(reuseRunningPlayer, fallback, position)
+    }
+
+    private fun playEpisodeAttempt(
+        reuseRunningPlayer: Boolean,
+        fallback: com.wuming.tv.core.catalog.PlaybackLineFallback,
+        resumePositionSeconds: Double,
+    ) {
         val companion = catalog ?: return
         val generation = catalogGeneration
-        val playback = ++playbackGeneration
-        val item = detail?.item ?: return
+        val detailSnapshot = detail ?: return
+        val item = detailSnapshot.item
         val line = lines.selectedItem as? CatalogLine ?: return
         val episodeIndex = episodes.selectedIndex
         val episode = line.episodes.getOrNull(episodeIndex) ?: return
+        val playback = ++playbackGeneration
+        val selectionGeneration = playbackSelectionGeneration
+        autoPlayTimer.stop()
+        fun failed(message: String, viewing: ActiveViewing? = null) {
+            if (closed || playback != playbackGeneration || generation != catalogGeneration || detail !== detailSnapshot) return
+            val position = viewing?.lastState?.positionSeconds?.takeIf { it.isFinite() && it > 0 }
+                ?: resumePositionSeconds
+            if (viewing != null) finishViewing(viewing, completed = false)
+            episodePrewarm.invalidate()
+            finishPlaybackStartup("Playback failed")
+            // A manual selection takes priority over any queued failure from the previous selection.
+            val selectionUnchanged = selectionGeneration == playbackSelectionGeneration &&
+                lines.selectedItem === line && episodes.selectedIndex == episodeIndex
+            val next = if (player != null && selectionUnchanged) fallback.next() else null
+            if (next == null) {
+                status.text = if (player != null && selectionUnchanged) "No more matching playback lines. $message" else message
+                updateActions()
+                return
+            }
+            val nextLine = detailSnapshot.lines[next.lineIndex]
+            logger.info("playback line fallback source=${item.sourceKey} from=${line.flag} to=${nextLine.flag} reason=$message")
+            lines.selectedIndex = next.lineIndex
+            episodes.selectedIndex = next.episodeIndex
+            episodes.ensureIndexIsVisible(next.episodeIndex)
+            playEpisodeAttempt(false, fallback, position)
+        }
+        val prepared = episodePrewarm.begin(episodeKey(item, line, episode))
+            .takeIf { playbackSettings.prewarmNextEpisode }
         resolving = true
         playbackStartupNanos = System.nanoTime()
         playbackStartupStep = 1
-        playbackStartupStage = "Resolving video"
+        playbackStartupStage = "Resolving video on ${line.name}"
         playbackStartup.isVisible = true
         playbackStartupTimer.start()
         refreshPlaybackStartup()
         showProgress(true)
         updateActions()
-        run("Resolving ${episode.name}…", {
-            val prewarmed = prewarmedUrl
-            if (prewarmed != null && prewarmedPlayback == playback) {
-                prewarmedUrl = null
-                CatalogPlayback(supported = true, url = prewarmed, headers = prewarmedHeaders)
-            } else {
-                companion.play(item.sourceKey, line.flag, episode.id)
-            }
-        }, generation, expectedPlayback = playback) { resolved ->
+        run("Resolving ${episode.name} on ${line.name}…", {
+            prepared ?: companion.play(item.sourceKey, line.flag, episode.id)
+        }, generation, expectedPlayback = playback, failure = { failed(rootMessage(it)) }) { resolved ->
             if (!resolved.supported) {
                 logger.warning("playback resolution rejected source=${item.sourceKey} reason=${resolved.message}")
-                status.text = resolved.message.ifBlank { "This episode is not supported on desktop." }
-                finishPlaybackStartup("Playback unavailable")
-                updateActions()
+                failed(resolved.message.ifBlank { "This episode is not supported on desktop." })
             } else {
                 finishActiveViewing(completed = false)
                 val viewing = ActiveViewing(item, detail, userLibrary.privacy.beginSession())
                 activeViewing = viewing
-                val savedPosition = if (playbackSettings.restorePlaybackPosition) {
-                    userLibrary.playbackPosition(item, line, episode)
-                } else 0L
                 playbackStartupStep = 2
                 playbackStartupStage = "Preparing and opening ${player?.name ?: "player"}"
                 refreshPlaybackStartup()
@@ -1857,6 +1900,7 @@ class CatalogPanel(
                         onClosed = {
                             javax.swing.SwingUtilities.invokeLater {
                                 if (closed || playback != playbackGeneration) return@invokeLater
+                                episodePrewarm.invalidate()
                                 finishViewing(viewing, completed = false)
                                 finishPlaybackStartup("Player closed before playback started")
                                 updateActions()
@@ -1866,20 +1910,17 @@ class CatalogPanel(
                         initialSpeed = playbackSettings.defaultSpeed,
                         fullscreen = playbackSettings.fullscreenOnStart,
                         isCancelled = { closed || playback != playbackGeneration || generation != catalogGeneration },
-                        onPlaybackFailed = {
+                        onPlaybackFailed = { failureMessage ->
                             javax.swing.SwingUtilities.invokeLater {
                                 if (!closed && playback == playbackGeneration) {
-                                    finishPlaybackStartup("Playback failed")
-                                    status.text = "mpv could not open this video. Retry or choose another line."
-                                    finishViewing(viewing, completed = false)
-                                    updateActions()
+                                    failed(failureMessage, viewing)
                                 }
                             }
                         },
                         onPlaybackStarted = {
                             javax.swing.SwingUtilities.invokeLater {
                                 if (!closed && playback == playbackGeneration) {
-                                    if (savedPosition > 5000) player?.seekTo(savedPosition / 1000.0)
+                                    if (resumePositionSeconds > 5) player?.seekTo(resumePositionSeconds)
                                     finishPlaybackStartup("Playback started")
                                     updateActions()
                                 }
@@ -1889,7 +1930,7 @@ class CatalogPanel(
                             .filter(String::isNotBlank)
                             .joinToString(" — "),
                     )
-                }, generation, expectedPlayback = playback) { result ->
+                }, generation, expectedPlayback = playback, failure = { failed(rootMessage(it), viewing) }) { result ->
                     status.text = result?.message ?: "Install mpv or VLC and restart TVBox Desktop."
                     if (result?.started == true) {
                         if (player?.name?.equals("mpv", true) == true && player.isRunning()) {
@@ -1911,9 +1952,7 @@ class CatalogPanel(
                         })
                         updateActions()
                     } else {
-                        finishPlaybackStartup("Playback failed")
-                        if (activeViewing === viewing) activeViewing = null
-                        updateActions()
+                        failed(result?.message ?: "Install mpv or VLC and restart TVBox Desktop.", viewing)
                     }
                 }
             }
@@ -1946,6 +1985,7 @@ class CatalogPanel(
     }
 
     private fun updatePlaybackState(state: PlaybackState) {
+        prewarmNextEpisode(state)
         if (state.positionSeconds > 0 && !state.buffering && playbackStartupTimer.isRunning) {
             finishPlaybackStartup("Playback started")
             updateActions()
@@ -2018,27 +2058,35 @@ class CatalogPanel(
         }
     }
 
-    private fun prewarmNextEpisode() {
-        if (!playbackSettings.prewarmNextEpisode) return
+    private fun episodeKey(item: CatalogItem, line: CatalogLine, episode: CatalogEpisode) = EpisodePlaybackKey(
+        catalogGeneration, com.wuming.tv.desktop.cache.DesktopCacheGeneration.value.get(),
+        item.sourceKey, item.id, line.flag, episode.id,
+    )
+
+    private fun prewarmNextEpisode(state: PlaybackState) {
+        if (closed) return
         val companion = catalog ?: return
         val item = detail?.item ?: return
         val line = lines.selectedItem as? CatalogLine ?: return
         val episodeIndex = episodes.selectedIndex
+        val episode = line.episodes.getOrNull(episodeIndex) ?: return
         val nextIndex = EpisodeAdvancePolicy.nextIndex(episodeIndex, line.episodes.size) ?: return
-        val nextEpisode = line.episodes.getOrNull(nextIndex) ?: return
-        val playback = playbackGeneration
+        val next = line.episodes[nextIndex]
+        val request = episodePrewarm.observe(episodeKey(item, line, episode), episodeKey(item, line, next), state,
+            autoNext.isSelected && playbackSettings.prewarmNextEpisode, line.name) ?: return
         sourceOperations.execute {
+            if (closed || !episodePrewarm.isCurrent(request) ||
+                request.target.accountGeneration != com.wuming.tv.desktop.cache.DesktopCacheGeneration.value.get()
+            ) return@execute
             runCatching {
-                val resolved = companion.play(item.sourceKey, line.flag, nextEpisode.id)
-                if (resolved.supported && playback == playbackGeneration) {
-                    prewarmedUrl = resolved.url
-                    prewarmedHeaders = resolved.headers
-                    prewarmedPlayback = playback
-                    logger.info("prewarmed next episode source=${item.sourceKey} episode=${nextEpisode.id}")
+                // The optional gateway operation refuses unknown/cloud resolvers before calling play.
+                val resolved = companion.prewarm(item.sourceKey, line.flag, next.id)
+                javax.swing.SwingUtilities.invokeLater {
+                    if (!closed && autoNext.isSelected && playbackSettings.prewarmNextEpisode &&
+                        request.target == episodeKey(item, line, next)
+                    ) episodePrewarm.complete(request, resolved)
                 }
-            }.onFailure { error ->
-                logger.fine("prewarm failed: ${error.message}")
-            }
+            }.onFailure { error -> logger.fine("prewarm failed: ${error.javaClass.simpleName}") }
         }
     }
 
@@ -2141,6 +2189,7 @@ class CatalogPanel(
     private fun stopExternalPlayer() {
         val starting = playbackStartupTimer.isRunning
         playbackGeneration++
+        episodePrewarm.invalidate()
         autoPlayTimer.stop()
         finishPlaybackStartup("Playback cancelled")
         finishActiveViewing(completed = false)
@@ -2191,7 +2240,7 @@ class CatalogPanel(
         val probe = query.text.trim()
         if (probe.isEmpty()) { error("Enter a search title to use as the audit probe."); return }
         auditWorker?.cancel(true)
-        details.text = "Source audit: ${source.name}\nProbe: $probe\n\n"
+        details.showPlainText("Source audit: ${source.name}\nProbe: $probe\n\n")
         showDetailPoster(source.name, "")
         showDetailPane()
         val worker = object : SwingWorker<CatalogAuditReport, CatalogAuditStep>() {
@@ -2203,7 +2252,7 @@ class CatalogPanel(
             ) { publish(it) }
 
             override fun process(chunks: MutableList<CatalogAuditStep>) {
-                chunks.forEach { step -> details.append(format(step) + "\n") }
+                chunks.forEach { step -> details.appendPlainText(format(step) + "\n") }
                 chunks.lastOrNull()?.let { status.text = "Audit ${it.stage.displayName()}: ${it.status.displayName()}" }
             }
 
@@ -2239,7 +2288,7 @@ class CatalogPanel(
         showBrowsePane()
         showDetailPoster("", "")
         detailPoster.toolTipText = "Double-click a media poster to load details"
-        details.text = "Select a poster to preview it. Double-click or choose Details to load episodes."
+        details.showPlainText("Select a poster to preview it. Double-click or choose Details to load episodes.")
         lines.model = DefaultComboBoxModel()
         model(episodes).clear()
     }
@@ -2257,7 +2306,7 @@ class CatalogPanel(
             CatalogItemKind.FOLDER -> "Double-click to open folder"
             CatalogItemKind.ACTION -> "Provider action"
         }
-        details.text = buildString {
+        details.showPlainText(buildString {
             appendLine(item.name)
             appendLine(sourceName(item.sourceKey))
             item.year.takeIf(String::isNotBlank)?.let { appendLine("Year: $it") }
@@ -2273,13 +2322,16 @@ class CatalogPanel(
                     CatalogItemKind.ACTION -> "\nThis is a provider action, not a playable media item."
                 },
             )
-        }
+        })
     }
 
     private fun updateStatusPresentation() {
         val showEmpty = items.isEmpty() && !showingDetails
         emptyState.text = status.text
         emptyState.isVisible = showEmpty
+        val selectedKey = (sources.selectedItem as? CatalogSourceChoice)?.source?.key
+        reviewSources.isVisible = showEmpty && onSourcesRequested != null && selectedKey != null &&
+            unavailableReason(selectedKey) != null
         status.isVisible = !showEmpty
     }
 
@@ -2394,7 +2446,10 @@ class CatalogPanel(
         renderedHomeRequest = null
         clearCategoryBrowsing(clearTypes = true)
         showItems(emptyList())
-        status.text = "${selected.name}: $reason. See Settings → Sites and required runtimes."
+        status.text = listOf(
+            "${selected.name}: $reason. See Settings → Sources.",
+            configurationStatus.takeIf { it.isNotBlank() },
+        ).filterNotNull().joinToString("\n")
         updateActions()
         return true
     }
@@ -2456,6 +2511,7 @@ class CatalogPanel(
     private fun replaceCatalog(value: CatalogGateway?, reason: String) {
         catalog = value
         catalogGeneration++
+        episodePrewarm.invalidate()
         logger.info("catalog gateway changed generation=$catalogGeneration reason=$reason available=${value != null}")
     }
 
@@ -2465,6 +2521,7 @@ class CatalogPanel(
         expectedGeneration: Long? = null,
         expectedPlayback: Long? = null,
         completion: () -> Unit = {},
+        failure: ((Throwable) -> Unit)? = null,
         success: (T) -> Unit,
     ) {
         status.text = message
@@ -2497,7 +2554,7 @@ class CatalogPanel(
                     }.onFailure {
                         logger.log(Level.WARNING, "operation failed label=$message error=${rootMessage(it)}", it)
                         if (expectedPlayback != null) finishPlaybackStartup("Playback failed")
-                        error(rootMessage(it))
+                        if (failure != null) failure(it) else error(rootMessage(it))
                     }
                 } finally {
                     completion()
@@ -2566,8 +2623,6 @@ private data class BrowseSnapshot(
 
 private const val AUTOMATIC_HOME_SETTLE_MILLIS = 2_000
 private const val MAX_CONCURRENT_SOURCES = 4
-private const val TYPE_RAIL_HEIGHT = 44
-private const val FILTER_ROW_HEIGHT = 48
 private const val BROWSER_RESULTS = "results"
 private const val BROWSER_DETAILS = "details"
 private const val PROGRESSIVE_HOME_MERGE_RETRY_MILLIS = 25
@@ -2631,198 +2686,4 @@ internal object CatalogTypeChoices {
 internal object CatalogHomeSourceOrder {
     fun prioritize(sources: List<CatalogSource>): List<CatalogSource> =
         sources.sortedBy { if (it.indexProvider) 0 else 1 }
-}
-
-private class CatalogItemRenderer(
-    private val thumbnails: CatalogThumbnailCache,
-    private val thumbnailReady: () -> Unit,
-    private val sourceName: (String) -> String,
-) : JPanel(BorderLayout(0, 5)), ListCellRenderer<CatalogItem> {
-    private val poster = JLabel()
-    private val title = JLabel()
-    private val metadata = JLabel()
-    private val scaledIcons = object : LinkedHashMap<ScaledIconKey, javax.swing.ImageIcon>(48, 0.75f, true) {
-        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<ScaledIconKey, javax.swing.ImageIcon>?): Boolean =
-            size > 96
-    }
-
-    init {
-        isOpaque = true
-        poster.horizontalAlignment = JLabel.CENTER
-        poster.verticalAlignment = JLabel.CENTER
-        poster.preferredSize = Dimension(CatalogThumbnailCache.WIDTH, CatalogThumbnailCache.HEIGHT)
-        title.font = title.font.deriveFont(Font.BOLD, DesktopTvTheme.px(15).toFloat())
-        metadata.font = metadata.font.deriveFont(DesktopTvTheme.px(13).toFloat())
-        add(poster, BorderLayout.NORTH)
-        add(JPanel().apply {
-            isOpaque = false
-            layout = BoxLayout(this, BoxLayout.Y_AXIS)
-            add(title)
-            add(metadata)
-        }, BorderLayout.CENTER)
-    }
-
-    override fun getListCellRendererComponent(
-        list: JList<out CatalogItem>,
-        value: CatalogItem,
-        index: Int,
-        selected: Boolean,
-        focus: Boolean,
-    ): Component {
-        title.text = value.name.ifBlank { "Untitled" }
-        title.toolTipText = value.name
-        metadata.text = listOfNotNull(
-            when (value.kind) {
-                CatalogItemKind.MEDIA -> null
-                CatalogItemKind.FOLDER -> "Folder"
-                CatalogItemKind.ACTION -> "Action"
-            },
-            sourceName(value.sourceKey).takeIf(String::isNotBlank),
-            value.remarks.takeIf(String::isNotBlank) ?: value.year.takeIf(String::isNotBlank),
-        ).joinToString(" · ")
-        metadata.toolTipText = metadata.text
-
-        background = if (selected) list.selectionBackground else list.background
-        val foreground = if (selected) list.selectionForeground else list.foreground
-        title.foreground = foreground
-        metadata.foreground = if (selected) foreground else UIManager.getColor("Label.disabledForeground") ?: Color.GRAY
-        border = if (focus) {
-            BorderFactory.createCompoundBorder(
-                UIManager.getBorder("List.focusCellHighlightBorder"),
-                BorderFactory.createEmptyBorder(5, 5, 5, 5),
-            )
-        } else {
-            BorderFactory.createEmptyBorder(6, 6, 6, 6)
-        }
-        // Reserve measured text, gap and focus insets before assigning artwork space.
-        // A fixed text band clips metadata when fonts or desktop scale change.
-        val textHeight = title.preferredSize.height + metadata.preferredSize.height
-        val posterWidth = (list.fixedCellWidth - insets.left - insets.right).coerceAtLeast(1)
-        val posterHeight = (list.fixedCellHeight - insets.top - insets.bottom -
-            (layout as BorderLayout).vgap - textHeight).coerceAtLeast(1)
-        poster.preferredSize = Dimension(posterWidth, posterHeight)
-        poster.icon = scaledIcon(
-            thumbnails.iconFor(value.name, value.picture, thumbnailReady),
-            posterWidth,
-            posterHeight,
-        )
-        return this
-    }
-
-    companion object {
-        const val BASE_CARD_WIDTH = 180
-        const val BASE_CARD_HEIGHT = 246
-    }
-
-    private fun scaledIcon(icon: javax.swing.ImageIcon, availableWidth: Int, availableHeight: Int): javax.swing.ImageIcon {
-        if (icon.iconWidth <= 0 || icon.iconHeight <= 0) return icon
-        val ratio = minOf(
-            availableWidth.toDouble() / icon.iconWidth,
-            availableHeight.toDouble() / icon.iconHeight,
-        )
-        val width = (icon.iconWidth * ratio).toInt().coerceAtLeast(1)
-        val height = (icon.iconHeight * ratio).toInt().coerceAtLeast(1)
-        if (width == icon.iconWidth && height == icon.iconHeight) return icon
-        val key = ScaledIconKey(icon, width, height)
-        return scaledIcons.getOrPut(key) {
-            PosterImages.pixels(icon)?.let { PosterImages.icon(it, width, height) } ?: icon
-        }
-    }
-
-    private data class ScaledIconKey(val source: javax.swing.ImageIcon, val width: Int, val height: Int)
-}
-
-/** Rounded provider category/filter control matching Leanback's focusable chips. */
-private class LeanbackChip(
-    text: String,
-    compact: Boolean = false,
-) : JToggleButton(text) {
-
-    init {
-        putClientProperty("JComponent.sizeVariant", "small")
-        font = font.deriveFont(Font.BOLD, DesktopTvTheme.px(if (compact) 14 else 15).toFloat())
-        foreground = DesktopTvTheme.TEXT
-        isOpaque = false
-        isContentAreaFilled = false
-        isBorderPainted = false
-        isFocusPainted = false
-        isRolloverEnabled = true
-        border = BorderFactory.createEmptyBorder(
-            DesktopTvTheme.px(if (compact) 7 else 9),
-            DesktopTvTheme.px(if (compact) 13 else 17),
-            DesktopTvTheme.px(if (compact) 7 else 9),
-            DesktopTvTheme.px(if (compact) 13 else 17),
-        )
-    }
-
-    override fun paintComponent(graphics: Graphics) {
-        val canvas = graphics.create() as Graphics2D
-        canvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
-        canvas.color = when {
-            model.isSelected -> DesktopTvTheme.CHIP_SELECTED
-            model.isRollover -> DesktopTvTheme.TILE_SELECTED
-            else -> DesktopTvTheme.CHIP
-        }
-        canvas.fillRoundRect(0, 0, width, height, height, height)
-        if (hasFocus()) {
-            canvas.color = DesktopTvTheme.TEXT
-            canvas.drawRoundRect(1, 1, (width - 3).coerceAtLeast(1), (height - 3).coerceAtLeast(1), height, height)
-        }
-        canvas.dispose()
-        super.paintComponent(graphics)
-    }
-}
-
-@Suppress("UNCHECKED_CAST")
-private class NamedRenderer<T>(private val name: (T?) -> String) : javax.swing.DefaultListCellRenderer() {
-    override fun getListCellRendererComponent(
-        list: JList<*>?, value: Any?, index: Int, selected: Boolean, focus: Boolean,
-    ): java.awt.Component = super.getListCellRendererComponent(
-        list, name(value as? T), index, selected, focus,
-    ).also {
-        border = BorderFactory.createEmptyBorder(
-            DesktopTvTheme.px(5),
-            DesktopTvTheme.px(9),
-            DesktopTvTheme.px(5),
-            DesktopTvTheme.px(9),
-        )
-        verticalAlignment = javax.swing.SwingConstants.CENTER
-    }
-}
-
-private class EpisodeRenderer : javax.swing.DefaultListCellRenderer() {
-    override fun getListCellRendererComponent(
-        list: JList<*>?, value: Any?, index: Int, selected: Boolean, focus: Boolean,
-    ): java.awt.Component = super.getListCellRendererComponent(
-        list,
-        EpisodeDisplayName.format(value?.toString().orEmpty()),
-        index,
-        selected,
-        focus,
-    ).also { component ->
-        (component as? JLabel)?.apply {
-            border = BorderFactory.createEmptyBorder(5, 9, 5, 9)
-            toolTipText = value?.toString().orEmpty()
-        }
-    }
-}
-
-/** Keeps cloud-drive filenames from hiding the useful trailing episode number. */
-internal object EpisodeDisplayName {
-    fun format(value: String): String = com.wuming.tv.core.catalog.EpisodeDisplayName.format(value)
-}
-
-internal object EpisodeGridSizing {
-    fun cellWidth(availableWidth: Int, preferredWidth: Int): Int {
-        if (availableWidth <= 0) return preferredWidth
-        val columns = ((availableWidth + preferredWidth / 2) / preferredWidth).coerceAtLeast(1)
-        return (availableWidth / columns).coerceAtLeast(1)
-    }
-}
-
-internal object CatalogThumbnailSizing {
-    private const val BASE_VIEWPORT_FRACTION = 0.16
-
-    fun cellWidth(viewportWidth: Int, scalePercent: Int): Int =
-        (viewportWidth * BASE_VIEWPORT_FRACTION * scalePercent / 100.0).roundToInt().coerceAtLeast(1)
 }

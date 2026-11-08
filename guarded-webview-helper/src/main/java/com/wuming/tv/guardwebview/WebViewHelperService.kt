@@ -256,8 +256,8 @@ open class WebViewHelperService : Service() {
             if (intercept) {
                 p.mime = WebViewBridgeProtocol.str(message, "mime")
                 p.encoding = WebViewBridgeProtocol.str(message, "encoding")
-                p.body = if (message.has("body")) message.optString("body") else null
-                p.hasBody = true
+                p.body = WebViewBridgeProtocol.interceptBody(message)
+                p.hasBody = p.body != null
             } else {
                 p.boolValue = WebViewBridgeProtocol.bool(message, "override")
             }

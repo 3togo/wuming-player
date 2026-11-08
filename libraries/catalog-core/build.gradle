@@ -30,10 +30,13 @@ kotlin {
 }
 
 dependencies {
+    implementation project(':libraries:cache-core')
+    implementation project(':libraries:cloud-core')
     implementation project(':libraries:search-core')
     implementation project(':libraries:base-core')
     implementation project(':libraries:playback-core')
     implementation libs.gson
+    implementation 'org.jsoup:jsoup:1.22.1'
     testImplementation libs.junit
 }
 

@@ -425,6 +425,7 @@ dependencies {
     implementation project(':libraries:text-core')
     implementation project(':libraries:catalog-core')
     implementation project(':libraries:libvio-core')
+    implementation project(':libraries:hongguo-core')
     implementation project(':libraries:media-core')
     implementation project(':libraries:epg-core')
     implementation project(':libraries:cloud-core')
@@ -509,6 +510,7 @@ dependencies {
     mobileImplementation libs.autosize
     mobileImplementation libs.zxing
     testImplementation libs.junit
+    testImplementation testFixtures(project(':libraries:playback-core'))
     testImplementation libs.androidx.arch.core.testing
     androidTestImplementation libs.wrapper.java
     androidTestImplementation libs.wrapper.android

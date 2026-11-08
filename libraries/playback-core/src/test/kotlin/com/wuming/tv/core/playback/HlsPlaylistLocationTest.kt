@@ -23,6 +23,20 @@ class HlsPlaylistLocationTest {
     }
 
     @Test
+    fun desktopCapabilityProxyUsesTheSharedHlsPolicyAndOrigin() {
+        val desktop = PROXY.replace("/proxy?", "/b36ad026-a79a-4ee1-a2bb-d5f2f1d002ea/proxy?")
+        assertTrue(HlsPlaylistLocation.isProviderPlaylist(desktop))
+        assertTrue(HlsPlaylistLocation.shouldPurify(desktop))
+        assertEquals(PlaybackTransportPlan.Kind.HLS, PlaybackTransportPlan.inferKind(desktop, null, false))
+        assertEquals("https://vip.ffzy-online3.com/episode/", HlsPlaylistLocation.ruleBaseUrl(desktop))
+        assertTrue(HlsPlaylistLocation.isProviderPlaylist(desktop.replace("127.0.0.1", "[::1]")))
+        assertFalse(HlsPlaylistLocation.isProviderPlaylist(desktop.replace("127.0.0.1", "remote.example")))
+        assertFalse(HlsPlaylistLocation.isProviderPlaylist(desktop.replace("do=m3u8", "do=bili")))
+        assertEquals(PlaybackTransportPlan.Kind.PROGRESSIVE,
+            PlaybackTransportPlan.inferKind(desktop.replace("127.0.0.1", "remote.example"), null, false))
+    }
+
+    @Test
     fun ruleBaseUrlResolvesProviderPlaylistOrigin() {
         assertEquals("https://vip.ffzy-online3.com/episode/", HlsPlaylistLocation.ruleBaseUrl(PROXY))
         assertEquals("http://127.0.0.1:9978/", HlsPlaylistLocation.baseUrl(PROXY))

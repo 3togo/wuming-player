@@ -107,8 +107,12 @@ class GuardedSourceActivator {
                             site.providerKey,
                         )
                         requireProviderClass(prepared.path, guardedSite.className)
-                        GuardedCatVodCatalogSourceExecutor(guardedSite, prepared, emulatorBridge, gmsBridge).also {
-                            logger.info("activate success key=${site.key} abi=${abi.configName} cacheReused=${prepared.reused} emulatorBridge=${emulatorBridge::class.simpleName}")
+                        val adapter = if (com.wuming.tv.core.hongguo.HongGuoSiteSpec.matches(site.api)) {
+                            com.wuming.tv.desktop.catalog.DesktopHongGuo.executor(
+                                com.wuming.tv.core.hongguo.HongGuoSiteSpec(site.key, site.name, site.categories))
+                        } else null
+                        GuardedCatVodCatalogSourceExecutor(guardedSite, prepared, emulatorBridge, gmsBridge, adapter).also {
+                            logger.info("activate success key=${site.key} abi=${abi.configName} cacheReused=${prepared.reused} emulatorBridge=${emulatorBridge::class.simpleName} catalogAdapter=${adapter?.javaClass?.simpleName ?: "provider"}")
                         }
                     }
                 }

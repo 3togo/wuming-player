@@ -120,6 +120,10 @@ object WebViewBridgeProtocol : WebViewBridgeTypes {
     @JvmStatic
     fun bool(m: JSONObject?, key: String?): Boolean = m != null && m.has(key) && m.optBoolean(key)
 
+    /** Missing/null means normal WebView loading; an empty string is an intercepted empty body. */
+    fun interceptBody(message: JSONObject): String? =
+        if (message.has("body") && !message.isNull("body")) message.optString("body") else null
+
     private fun base(type: String?): JSONObject {
         val m: JSONObject = JSONObject()
         put(m, "t", type)

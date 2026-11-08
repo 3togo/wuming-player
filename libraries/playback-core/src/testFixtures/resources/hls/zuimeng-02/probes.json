@@ -1,0 +1,142 @@
+[
+  {
+    "index": 696,
+    "basename": "3ccc8c52106050439ddee7097c8a583f.ts",
+    "duration": 4.0,
+    "width": 1920,
+    "height": 1080,
+    "pts": 2789.16,
+    "frameRate": "25/1",
+    "codecParameters": "AAABZ2QAKKzZQHgCJ+XAWoCAgKAAAAMAIAAABkHjBjLAAAABaO+PywAAAQnw"
+  },
+  {
+    "index": 697,
+    "basename": "adf23e241a224ee2d31055b7766ba7f7.ts",
+    "duration": 4.0,
+    "width": 1920,
+    "height": 1080,
+    "pts": 2793.16,
+    "frameRate": "25/1",
+    "codecParameters": "AAABZ2QAKKzZQHgCJ+XAWoCAgKAAAAMAIAAABkHjBjLAAAABaO+PywAAAQnw"
+  },
+  {
+    "index": 700,
+    "basename": "81584bc45ef262b88f24b2c4ee3afec0.ts",
+    "duration": 4.0,
+    "width": 1920,
+    "height": 1080,
+    "pts": 2805.16,
+    "frameRate": "25/1",
+    "codecParameters": "AAABZ2QAKKzZQHgCJ+XAWoCAgKAAAAMAIAAABkHjBjLAAAABaO+PywAAAQnw"
+  },
+  {
+    "index": 704,
+    "basename": "b0b0fa474b97900127a68af4b1e01009.ts",
+    "duration": 4.0,
+    "width": 1920,
+    "height": 1080,
+    "pts": 2821.16,
+    "frameRate": "25/1",
+    "codecParameters": "AAABZ2QAKKzZQHgCJ+XAWoCAgKAAAAMAIAAABkHjBjLAAAABaO+PywAAAQnw"
+  },
+  {
+    "index": 707,
+    "basename": "66e320d47bb741f31da31d15c80e0db6.ts",
+    "duration": 4.0,
+    "width": 1920,
+    "height": 1080,
+    "pts": 2833.16,
+    "frameRate": "25/1",
+    "codecParameters": "AAABZ2QAKKzZQHgCJ+XAWoCAgKAAAAMAIAAABkHjBjLAAAABaO+PywAAAQnw"
+  },
+  {
+    "index": 708,
+    "basename": "796fccf0128097227dfd4f47d17c8124.ts",
+    "duration": 4.0,
+    "width": 1920,
+    "height": 1080,
+    "pts": 2837.16,
+    "frameRate": "25/1",
+    "codecParameters": "AAABZ2QAKKzZQHgCJ+XAWoCAgKAAAAMAIAAABkHjBjLAAAABaO+PywAAAQnw"
+  },
+  {
+    "index": 709,
+    "basename": "27789c405963cdf9f2c12865e2bcf5d7.ts",
+    "duration": 4.0,
+    "width": 1920,
+    "height": 1080,
+    "pts": 2841.16,
+    "frameRate": "25/1",
+    "codecParameters": "AAABZ2QAKKzZQHgCJ+XAWoCAgKAAAAMAIAAABkHjBjLAAAABaO+PywAAAQnw"
+  },
+  {
+    "index": 710,
+    "basename": "622af7b2562655cf3dc1f65c706ec37c.ts",
+    "duration": 4.0,
+    "width": 1920,
+    "height": 1080,
+    "pts": 2845.16,
+    "frameRate": "25/1",
+    "codecParameters": "AAABZ2QAKKzZQHgCJ+XAWoCAgKAAAAMAIAAABkHjBjLAAAABaO+PywAAAQnw"
+  },
+  {
+    "index": 711,
+    "basename": "da49c564b3010f5ac069c937e070b2b5.ts",
+    "duration": 4.0,
+    "width": 1920,
+    "height": 1080,
+    "pts": 2849.16,
+    "frameRate": "25/1",
+    "codecParameters": "AAABZ2QAKKzZQHgCJ+XAWoCAgKAAAAMAIAAABkHjBjLAAAABaO+PywAAAQnw"
+  },
+  {
+    "index": 712,
+    "basename": "639f58430aa0026b83526667367f3c92.ts",
+    "duration": 2.0,
+    "width": 1920,
+    "height": 1080,
+    "pts": 2853.16,
+    "frameRate": "25/1",
+    "codecParameters": "AAABZ2QAKKzZQHgCJ+XAWoCAgKAAAAMAIAAABkHjBjLAAAABaO+PywAAAQnw"
+  },
+  {
+    "index": 713,
+    "basename": "cb7163034bde5ecd64f74fbc662067ce.ts",
+    "duration": 6.633333,
+    "width": 1920,
+    "height": 1080,
+    "pts": 1.466667,
+    "frameRate": "30/1",
+    "codecParameters": "AAABZ2QAKKzZQHgCJ+XAWoCAgKAAAAMAIAAAB4HjBjLAAAABaO+PywAAAQnw"
+  },
+  {
+    "index": 714,
+    "basename": "87e3064442b1e86856d50c9d7d53486c.ts",
+    "duration": 3.333333,
+    "width": 1920,
+    "height": 1080,
+    "pts": 8.1,
+    "frameRate": "30/1",
+    "codecParameters": "AAABZ2QAKKzZQHgCJ+XAWoCAgKAAAAMAIAAAB4HjBjLAAAABaO+PywAAAQnw"
+  },
+  {
+    "index": 715,
+    "basename": "c8c70cbb10415aa4ea94bdc2949a945c.ts",
+    "duration": 4.8,
+    "width": 1920,
+    "height": 1080,
+    "pts": 11.433333,
+    "frameRate": "30/1",
+    "codecParameters": "AAABZ2QAKKzZQHgCJ+XAWoCAgKAAAAMAIAAAB4HjBjLAAAABaO+PywAAAQnw"
+  },
+  {
+    "index": 716,
+    "basename": "815a494a44dbf53784df9f0658afd9ab.ts",
+    "duration": 1.7,
+    "width": 1920,
+    "height": 1080,
+    "pts": 16.233333,
+    "frameRate": "30/1",
+    "codecParameters": "AAABZ2QAKKzZQHgCJ+XAWoCAgKAAAAMAIAAAB4HjBjLAAAABaO+PywAAAQnw"
+  }
+]

@@ -23,7 +23,7 @@ internal class PlaybackPreferencesPanel(preferences: Preferences) : JPanel(Borde
                 alignmentX = LEFT_ALIGNMENT
             })
             add(Box.createVerticalStrut(5))
-            add(mutedLabel("Control how episodes start, continue, and open in your external player.").apply {
+            add(mutedLabel("Control how episodes start, continue, and play in the app.").apply {
                 alignmentX = LEFT_ALIGNMENT
             })
             add(Box.createVerticalStrut(20))
@@ -34,10 +34,11 @@ internal class PlaybackPreferencesPanel(preferences: Preferences) : JPanel(Borde
                 }))
                 add(Box.createVerticalStrut(10))
             }
+            toggle("Play inside the app", "Embed mpv when supported; use an external window as a fallback.", settings.embeddedPlayback) { settings.embeddedPlayback = it }
             toggle("Start immediately", "Play the first episode when opening a title.", settings.autoPlayFirstEpisode) { settings.autoPlayFirstEpisode = it }
             toggle("Continue the series", "Play the next episode automatically when one finishes.", settings.autoPlayNextEpisode) { settings.autoPlayNextEpisode = it }
             toggle("Remember progress", "Resume from the last position in the same episode.", settings.restorePlaybackPosition) { settings.restorePlaybackPosition = it }
-            toggle("Fullscreen player", "Open mpv in fullscreen when playback begins.", settings.fullscreenOnStart) { settings.fullscreenOnStart = it }
+            toggle("Fullscreen player", "Start embedded or external mpv playback in fullscreen.", settings.fullscreenOnStart) { settings.fullscreenOnStart = it }
             add(preferenceRow("Default speed", "Used for new mpv playback sessions.",
                 JComboBox(arrayOf(0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0)).apply {
                     selectedItem = settings.defaultSpeed

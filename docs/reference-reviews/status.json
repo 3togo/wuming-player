@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "scope": "Incremental checkpoints; older references retain their existing dated reports.",
+  "references": {
+    "hongguo-linux-research": {
+      "path": "/home/eli/git/hongguo-linux-research",
+      "updated": false,
+      "reviewedRevision": "314004435ecb0b3f4420655fb2515292803693cf",
+      "reviewedScope": "Bounded guest playback preparation, catalogue wire shapes and independent account verification; see report for exact paths.",
+      "report": "2026-11-04-hongguo-linux-research.md",
+      "implemented": [
+        "Active-playback gating for existing Android prewarming in shared playback-core",
+        "Selective default-on desktop prewarming for reviewed MacCMS and Libvio resolvers",
+        "Shared preparation safety contract, cloud veto and expiring identity-bound preparation session"
+      ],
+      "deferred": [
+        "Built-in guest catalogue adapter and fixtures",
+        "Browser account integration and emulator export",
+        "Positive classification of additional runtimes requires resolver/version and per-route review"
+      ],
+      "validation": {
+        "result": "passed for bounded implementation",
+        "playbackCore": {
+          "tests": 292,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "regressionProof": "Removing the two new guards causes two of six progress-policy tests to fail; restored full suite passes.",
+        "architectureChecks": [
+          "verifyGenericLibraryBoundaries",
+          "verifyDesktopBoundaries",
+          "verifyCodeLifecycleIsolation"
+        ],
+        "androidCompilation": [
+          "mobile ARM64 verification Kotlin/Java",
+          "leanback ARM64 verification Kotlin/Java",
+          "leanback-lite ARM64 verification Kotlin/Java"
+        ],
+        "limitations": [
+          "No device playback or account testing",
+          "Ordinary debug compile blocked by production certificate mismatch; documented ephemeral verification builds passed"
+        ]
+      },
+      "remainingScope": "Other reference code, live site conformance, dedicated provider/browser integration and classification of further runtimes remain deferred.",
+      "desktopPrewarmFollowup": {
+        "documentation": "../desktop-prewarming.md",
+        "coreTests": 440,
+        "selectedDesktopTests": 60,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "regressionProof": "Removing the desktop prewarm trigger fails the playback reuse test; restored selected suites pass.",
+        "androidCompilation": "All three ARM64 verification Kotlin/Java variants passed",
+        "deviceTested": false
+      }
+    }
+  }
+}

@@ -2,10 +2,8 @@ package com.wuming.tv.desktop.ui
 
 import com.wuming.tv.core.media.TvHomeAction
 import com.wuming.tv.core.media.TvHomeLayoutSpec
-import com.wuming.tv.desktop.DesktopSmokeCheck
 import com.wuming.tv.desktop.cloud.DesktopCloudAccounts
 import com.wuming.tv.desktop.cloud.DesktopCloudPlaybackResolver
-import com.wuming.tv.desktop.diagnostics.DesktopLogging
 import com.wuming.tv.desktop.player.ExternalPlayerDiscovery
 import java.awt.BorderLayout
 import java.awt.CardLayout
@@ -17,7 +15,6 @@ import java.awt.Font
 import java.awt.GradientPaint
 import java.awt.Graphics
 import java.awt.Graphics2D
-import java.awt.GridLayout
 import java.awt.RenderingHints
 import java.awt.Point
 import java.awt.Rectangle
@@ -46,24 +43,37 @@ import javax.swing.SwingUtilities
 import javax.swing.Timer
 import javax.swing.WindowConstants
 
-class DesktopWindow {
+class DesktopWindow(
+    private val player: com.wuming.tv.desktop.player.ExternalPlayerAdapter? = ExternalPlayerDiscovery.discover(),
+    private val playbackPreferences: java.util.prefs.Preferences = java.util.prefs.Preferences.userNodeForPackage(CatalogPanel::class.java),
+    private val lanRelay: com.wuming.tv.desktop.server.DesktopLanRelay = com.wuming.tv.desktop.server.DesktopLanRelay(),
+) {
 
     private val repeatRequests = RepeatRequestGate()
     private val layoutSpec = TvHomeLayoutSpec.desktop()
-    private val player = ExternalPlayerDiscovery.discover()
     private val frame = JFrame("無名")
-    private val lanRelay = com.wuming.tv.desktop.server.DesktopLanRelay()
+    private lateinit var playbackSplit: javax.swing.JSplitPane
+    private lateinit var applicationBody: JPanel
+    private lateinit var applicationToolbar: JPanel
+    private var normalBounds: Rectangle? = null
+    private var normalDividerRatio = 0.45
+    private val embeddedPlayback = EmbeddedPlaybackPanel(player,
+        playbackPreferences,
+        ::showPlaybackSurface, ::setPlaybackFullscreen, { catalog.cancelPlayback(); liveTv.cancelPlaybackPreparation() })
     private var exiting = false
     private var assistanceMonitor: PlaybackAssistanceMonitor? = null
     private val tray = DesktopTray(::show, ::showAssistanceMonitor, ::exitDesktop,
-        { frame.isVisible = false }, { frame.extendedState = JFrame.ICONIFIED })
+        { embeddedPlayback.setFullscreen(false); frame.isVisible = false },
+        { frame.extendedState = JFrame.ICONIFIED })
     private val relayPreferences = LanRelayPreferencesPanel(lanRelay, ::exitDesktop, ::showAssistanceMonitor)
     private val cloudAccountState = DesktopCloudAccounts()
     private val cloudPlayback = DesktopCloudPlaybackResolver(cloudAccountState.credentials)
     private val catalog = CatalogPanel(
         player,
+        preferences = playbackPreferences,
         cloudPlaybackResolver = cloudPlayback,
         onBackRequested = ::navigateBack,
+        onSourcesRequested = { showAction(TvHomeAction.SETTINGS) },
         onCastRequested = { playback, title, onSent ->
             openMedia.prepareVideo(playback, title, onSent)
             showAction(TvHomeAction.PUSH)
@@ -96,7 +106,6 @@ class DesktopWindow {
     private val cards = JPanel(cardLayout).apply { isOpaque = false }
     private val navigation = TvHomeNavigationPanel(layoutSpec, ::showAction)
     private val openMedia = CastingPanel(player)
-    private val overview = overviewPanel()
     private val clock = JLabel().apply {
         horizontalAlignment = SwingConstants.RIGHT
         font = font.deriveFont(Font.BOLD, 18f)
@@ -115,7 +124,6 @@ class DesktopWindow {
     }
 
     init {
-        cards.add(overview, CARD_HOME)
         cards.add(catalog, CARD_VOD)
         cards.add(liveTv, CARD_LIVE)
         cards.add(cloudAccounts, CARD_ACCOUNTS)
@@ -125,19 +133,19 @@ class DesktopWindow {
             addTab("Sources", configuration)
             addTab("Playback assistance", relayPreferences)
             addTab("Appearance", AppearancePreferencesPanel())
-            addTab("Playback", PlaybackPreferencesPanel(java.util.prefs.Preferences.userNodeForPackage(CatalogPanel::class.java)))
+            addTab("Playback", PlaybackPreferencesPanel(playbackPreferences))
         }, CARD_SETTINGS)
 
         frame.iconImages = DesktopAppIcon.windowImages()
         frame.isUndecorated = true
         frame.defaultCloseOperation = WindowConstants.DO_NOTHING_ON_CLOSE
         val workArea = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().maximumWindowBounds
-        val minimumWidth = (workArea.width * 0.46).toInt().coerceAtLeast(800)
-        val minimumHeight = (workArea.height * 0.48).toInt().coerceAtLeast(540)
+        val minimumWidth = minOf(workArea.width, DesktopTvTheme.px(800))
+        val minimumHeight = minOf(workArea.height, DesktopTvTheme.px(720))
         val initialWidth = (workArea.width * 0.84).toInt().coerceIn(minimumWidth, workArea.width)
         val initialHeight = (workArea.height * 0.84).toInt().coerceIn(minimumHeight, workArea.height)
         frame.minimumSize = Dimension(minimumWidth, minimumHeight)
-        val applicationBody = DesktopGradientPanel().apply {
+        applicationBody = DesktopGradientPanel().apply {
             layout = BorderLayout()
             border = BorderFactory.createEmptyBorder(
                 DesktopTvTheme.px(16),
@@ -145,10 +153,12 @@ class DesktopWindow {
                 DesktopTvTheme.px(20),
                 DesktopTvTheme.px(20),
             )
-            add(toolbar(), BorderLayout.NORTH)
+            applicationToolbar = toolbar()
+            add(applicationToolbar, BorderLayout.NORTH)
             add(homeContent(), BorderLayout.CENTER)
         }
         frame.contentPane = windowShell(applicationBody)
+        player?.setEmbeddedVideoHost(embeddedPlayback)
         DesktopTvTheme.scaleExplicitMetrics(frame.contentPane)
         frame.pack()
         frame.setSize(initialWidth, initialHeight)
@@ -169,6 +179,7 @@ class DesktopWindow {
                 relayPreferences.close()
                 assistanceMonitor?.close(); assistanceMonitor = null
                 tray.close()
+                embeddedPlayback.setFullscreen(false)
                 frame.dispose()
                 configuration.cancelLoading()
                 openMedia.close()
@@ -177,6 +188,7 @@ class DesktopWindow {
                 liveTv.close()
                 cloudAccounts.close()
                 player?.terminateAll()
+                embeddedPlayback.close()
             }
         })
         tray.install()
@@ -204,7 +216,7 @@ class DesktopWindow {
         navigation.focusFirst()
         if (!startupConfigurationRequested) {
             startupConfigurationRequested = true
-            showAction(TvHomeAction.VOD)
+            showHome()
             SwingUtilities.invokeLater { configuration.loadSavedConfiguration() }
         }
     }
@@ -277,7 +289,7 @@ class DesktopWindow {
             }
 
             override fun mouseClicked(event: MouseEvent) {
-                if (event.clickCount == 2) toggleFullscreen()
+                if (event.clickCount == 2) toggleWindowMaximize()
             }
         }
         return JPanel(BorderLayout()).apply {
@@ -298,7 +310,7 @@ class DesktopWindow {
             add(JPanel(java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 6, 8)).apply {
                 isOpaque = false
                 add(titleBarButton("—", "Minimize", DesktopTvTheme.MUTED_TEXT) { frame.extendedState = JFrame.ICONIFIED })
-                add(titleBarButton("□", "Maximize or restore", DesktopTvTheme.MUTED_TEXT) { toggleFullscreen() })
+                add(titleBarButton("□", "Maximize or restore", DesktopTvTheme.MUTED_TEXT) { toggleWindowMaximize() })
                 add(titleBarButton("×", "Close", DesktopTvTheme.POSITIVE) {
                     frame.dispatchEvent(WindowEvent(frame, WindowEvent.WINDOW_CLOSING))
                 })
@@ -370,10 +382,69 @@ class DesktopWindow {
         }
     }
 
-    private fun homeContent(): JPanel = JPanel(BorderLayout(18, 0)).apply {
-        isOpaque = false
-        add(navigation, BorderLayout.WEST)
-        add(cards, BorderLayout.CENTER)
+    private fun homeContent(): JPanel {
+        cards.minimumSize = Dimension(320, 80)
+        playbackSplit = javax.swing.JSplitPane(javax.swing.JSplitPane.HORIZONTAL_SPLIT, cards, embeddedPlayback).apply {
+            isOpaque = false
+            // Keep appearance refreshes from reinstalling the look-and-feel's one-pixel frame.
+            border = BorderFactory.createEmptyBorder()
+            resizeWeight = 0.38
+            dividerSize = 0
+            isContinuousLayout = true
+        }
+        return JPanel(BorderLayout(18, 0)).apply {
+            isOpaque = false
+            add(navigation, BorderLayout.WEST)
+            add(playbackSplit, BorderLayout.CENTER)
+        }
+    }
+
+    private fun updatePlaybackLayout(resetDivider: Boolean = false) {
+        if (!::playbackSplit.isInitialized || embeddedPlayback.fullscreenActive) return
+        val wide = frame.width / DesktopTvTheme.uiScale >= 1100
+        val orientation = if (wide) javax.swing.JSplitPane.HORIZONTAL_SPLIT else javax.swing.JSplitPane.VERTICAL_SPLIT
+        val changed = playbackSplit.orientation != orientation
+        playbackSplit.orientation = orientation
+        playbackSplit.resizeWeight = if (wide) 0.38 else 0.42
+        if (embeddedPlayback.isVisible && (changed || resetDivider)) {
+            playbackSplit.setDividerLocation(playbackSplit.resizeWeight)
+        }
+    }
+
+    private fun showPlaybackSurface(show: Boolean) {
+        if (!::playbackSplit.isInitialized) return
+        playbackSplit.dividerSize = if (show) DesktopTvTheme.px(12) else 0
+        updatePlaybackLayout(resetDivider = show)
+        playbackSplit.revalidate()
+    }
+
+    private fun setPlaybackFullscreen(enabled: Boolean) {
+        if (!::playbackSplit.isInitialized) return
+        val device = frame.graphicsConfiguration.device
+        if (enabled) {
+            normalBounds = frame.bounds
+            normalDividerRatio = playbackSplit.dividerLocation.toDouble() / ((if (playbackSplit.orientation == javax.swing.JSplitPane.HORIZONTAL_SPLIT) playbackSplit.width else playbackSplit.height) - playbackSplit.dividerSize).coerceAtLeast(1)
+        }
+        applicationToolbar.isVisible = !enabled
+        navigation.isVisible = !enabled
+        playbackSplit.topComponent.isVisible = !enabled
+        playbackSplit.dividerSize = if (enabled) 0 else DesktopTvTheme.px(12)
+        val shell = frame.contentPane as JPanel
+        shell.components.filter { it !== applicationBody }.forEach { it.isVisible = !enabled }
+        applicationBody.border = if (enabled) null else BorderFactory.createEmptyBorder(
+            DesktopTvTheme.px(16), DesktopTvTheme.px(20), DesktopTvTheme.px(20), DesktopTvTheme.px(20))
+        if (enabled) {
+            device.fullScreenWindow = frame
+            frame.validate()
+            playbackSplit.dividerLocation = 0
+        } else {
+            if (device.fullScreenWindow === frame) device.fullScreenWindow = null
+            normalBounds?.let { frame.bounds = it }
+            frame.validate()
+            playbackSplit.setDividerLocation(normalDividerRatio.coerceIn(0.0, 1.0))
+            updatePlaybackLayout()
+        }
+        frame.validate()
     }
 
     private fun updateResponsiveLayout() {
@@ -381,11 +452,13 @@ class DesktopWindow {
         val logicalWidth = (availableWidth / DesktopTvTheme.uiScale).toInt()
         val railWidth = DesktopTvTheme.px(com.wuming.tv.core.design.LayoutPolicy.desktopRailWidth(logicalWidth))
         navigation.setRailWidth(railWidth)
+        updatePlaybackLayout()
     }
 
     private fun showHome() {
         catalog.cancelAutoAdvance()
-        cardLayout.show(cards, CARD_HOME)
+        cardLayout.show(cards, CARD_VOD)
+        catalog.showHome()
         currentAction = null
         backAction.isEnabled = false
         pageContext.text = "YOUR SPACE"
@@ -421,7 +494,9 @@ class DesktopWindow {
         val root = frame.rootPane
         root.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
             .put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), ACTION_BACK)
-        root.actionMap.put(ACTION_BACK, backAction)
+        root.actionMap.put(ACTION_BACK, object : AbstractAction() {
+            override fun actionPerformed(event: ActionEvent) = navigateBack()
+        })
     }
 
     private fun installFullscreenToggle() {
@@ -434,6 +509,11 @@ class DesktopWindow {
     }
 
     private fun toggleFullscreen() {
+        if (embeddedPlayback.isVisible) embeddedPlayback.setFullscreen(!embeddedPlayback.fullscreenActive)
+        else toggleWindowMaximize()
+    }
+
+    private fun toggleWindowMaximize() {
         frame.extendedState = if (frame.extendedState == JFrame.MAXIMIZED_BOTH) {
             JFrame.NORMAL
         } else {
@@ -442,6 +522,7 @@ class DesktopWindow {
     }
 
     private fun navigateBack() {
+        if (embeddedPlayback.fullscreenActive) { embeddedPlayback.setFullscreen(false); return }
         if (currentAction in setOf(TvHomeAction.VOD, TvHomeAction.SEARCH, TvHomeAction.KEEP) &&
             catalog.navigateBack()
         ) return
@@ -450,80 +531,6 @@ class DesktopWindow {
 
     private fun updateClock() {
         clock.text = LocalTime.now().format(CLOCK_FORMAT)
-    }
-
-    private fun overviewPanel(): JPanel {
-        val report = DesktopSmokeCheck.verify()
-        return JPanel(BorderLayout(0, 18)).apply {
-            isOpaque = false
-            border = BorderFactory.createEmptyBorder(4, 2, 2, 2)
-            add(DesktopCardPanel(DesktopTvTheme.SURFACE_RAISED).apply {
-                layout = BoxLayout(this, BoxLayout.Y_AXIS)
-                add(eyebrow("Ready when you are"))
-                add(Box.createVerticalStrut(8))
-                add(JLabel("What do you want to watch?").apply {
-                    font = font.deriveFont(Font.BOLD, 30f)
-                    alignmentX = 0f
-                })
-                add(Box.createVerticalStrut(8))
-                add(JLabel("Jump back in, browse live channels, or open something from another device.").apply {
-                    font = font.deriveFont(Font.PLAIN, 16f)
-                    foreground = DesktopTvTheme.MUTED_TEXT
-                    alignmentX = 0f
-                })
-                add(Box.createVerticalStrut(18))
-                add(JPanel(GridLayout(1, 3, 12, 0)).apply {
-                    isOpaque = false
-                    add(homeShortcut("▶", "Discover", "Browse films and series", TvHomeAction.VOD))
-                    add(homeShortcut("▣", "Live TV", "Open configured channels", TvHomeAction.LIVE_TV))
-                    add(homeShortcut("★", "My library", "Continue saved titles", TvHomeAction.KEEP))
-                    maximumSize = Dimension(Int.MAX_VALUE, 88)
-                    alignmentX = 0f
-                })
-            }, BorderLayout.NORTH)
-            add(DesktopCardPanel().apply {
-            layout = BoxLayout(this, BoxLayout.Y_AXIS)
-            add(eyebrow("System overview"))
-            add(Box.createVerticalStrut(10))
-            add(JLabel("Everything in one place").apply {
-                font = font.deriveFont(Font.BOLD, 20f)
-                alignmentX = 0f
-            })
-            add(Box.createVerticalStrut(14))
-            add(JPanel(GridLayout(1, 3, 12, 0)).apply {
-                isOpaque = false
-                add(metric("PLAYER", player?.name ?: "Not detected"))
-                add(metric("CORE MODULES", report.components.size.toString()))
-                add(metric("SHORTCUTS", "Esc · F11"))
-                maximumSize = Dimension(Int.MAX_VALUE, 82)
-                alignmentX = 0f
-            })
-            add(Box.createVerticalStrut(14))
-            add(mutedLabel("Add or change content sources in Settings. Diagnostics: ${DesktopLogging.directory}").apply {
-                alignmentX = 0f
-            })
-            }, BorderLayout.CENTER)
-        }
-    }
-
-    private fun homeShortcut(symbol: String, title: String, detail: String, action: TvHomeAction): JButton =
-        JButton("<html><b><font size='+1'>$symbol&nbsp;&nbsp;$title</font></b><br><font color='#9DA9BB'>$detail</font></html>").apply {
-            horizontalAlignment = SwingConstants.LEFT
-            putClientProperty("style", if (action == TvHomeAction.VOD) "primary" else "quiet")
-            addActionListener { showAction(action) }
-        }
-
-    private fun metric(label: String, value: String): JPanel = JPanel().apply {
-        isOpaque = true
-        background = DesktopTvTheme.BACKGROUND_RAISED
-        border = BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(DesktopTvTheme.DIVIDER),
-            BorderFactory.createEmptyBorder(12, 14, 12, 14),
-        )
-        layout = BoxLayout(this, BoxLayout.Y_AXIS)
-        add(JLabel(label).apply { foreground = DesktopTvTheme.SUBTLE_TEXT; font = font.deriveFont(Font.BOLD, 10f) })
-        add(Box.createVerticalStrut(5))
-        add(JLabel(value).apply { font = font.deriveFont(Font.BOLD, 15f) })
     }
 
     private fun TvHomeAction.contextLabel(): String = when (this) {
@@ -546,7 +553,6 @@ class DesktopWindow {
     }
 
     private companion object {
-        const val CARD_HOME = "home"
         const val CARD_VOD = "vod"
         const val CARD_LIVE = "live"
         const val CARD_ACCOUNTS = "accounts"

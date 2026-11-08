@@ -32,4 +32,6 @@ android {
 
 dependencies {
     implementation project(':libraries:guarded-runtime')
+    testImplementation libs.junit
+    testImplementation libs.android.json
 }

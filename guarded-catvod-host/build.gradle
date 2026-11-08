@@ -29,3 +29,12 @@ dependencies {
 tasks.named('check') {
     dependsOn rootProject.tasks.named('verifyCodeLifecycleIsolation')
 }
+
+// Gradle launcher properties are not inherited by its forked test JVM.
+// Keep hardware access opt-in and preserve an explicitly configured ADB tunnel port.
+tasks.named('test') {
+    ['tvbox.guarded.hardware.test.serial', 'tvbox.guarded.webview.adbPort'].each { key ->
+        def value = providers.systemProperty(key).orNull
+        if (value != null) systemProperty(key, value)
+    }
+}

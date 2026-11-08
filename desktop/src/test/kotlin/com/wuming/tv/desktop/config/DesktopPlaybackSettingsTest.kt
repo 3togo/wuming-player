@@ -23,6 +23,14 @@ class DesktopPlaybackSettingsTest {
     }
 
     @Test
+    fun `embedded playback defaults on and persists an explicit external preference`() {
+        val settings = DesktopPlaybackSettings(preferences)
+        assertTrue(settings.embeddedPlayback)
+        settings.embeddedPlayback = false
+        assertFalse(DesktopPlaybackSettings(preferences).embeddedPlayback)
+    }
+
+    @Test
     fun `auto-next defaults on and persists an explicit stop`() {
         val settings = DesktopPlaybackSettings(preferences)
         assertTrue(settings.autoPlayNextEpisode)

@@ -28,12 +28,13 @@ persistence and runtime adapters. It must not depend on `app`, Android runtime m
 
 | Area | Owner | Reason |
 | --- | --- | --- |
-| Linux desktop shell and external-player adapter | `desktop` | Desktop lifecycle, Swing and host process discovery are platform concerns |
+| Linux desktop shell and mpv surface/external-player adapters | `desktop` | Swing/AWT native-window handles, fullscreen, host process discovery and IPC lifecycle are platform concerns; transport and episode policy remain in shared core |
 | Bounded cache and heap-tier primitives | `cache-core` | `ExpiringLruCache` entry/byte budgets, `BoundedReferenceCache` reference eviction and the `MemoryBudget` heap tiers are platform-neutral and shared by both clients |
 | OpenDrive playback handle maps | `app` | Deliberately not unified: Quark and Uc hold unbounded live-handle registries whose entries carry a lease or guard a provider-side copy, while only Tianyi's are idle-expiring bounded references. `StreamCacheShapeTest` pins the split; see *Deliberate divergences* |
 | Catalogue/detail/episode wire contracts | `catalog-core` | Stable transport models contain no Android beans or JSON implementation |
 | Catalogue execution contract | `catalog-core` | `CatalogGateway` lets UI/use cases select a local JVM/JS engine or Android companion without coupling to either transport |
 | Per-source execution contract | `catalog-core` | `CatalogSourceExecutor` and `ExecutorCatalogGateway` adapt local JS/JVM runtimes without duplicating catalogue workflows |
+| Episode preparation contract and session | `catalog-core` | Reviewed resolver capability, cloud veto, active one-shot timing, exact selection identity and bounded expiry are shared policy; desktop supplies player feedback and scheduling |
 | Catalogue source-audit workflow | `catalog-core` | Staged discovery/search/detail/playback checks, cancellation and platform-capability classification operate on `CatalogGateway` only |
 | Companion catalogue API and provider execution | `app` | Pairing, spiders, private credentials and relay creation remain Android responsibilities |
 | Companion endpoint paths and parameter rules | `source-core` | Android server and desktop client share one versioned protocol contract and cannot drift independently |

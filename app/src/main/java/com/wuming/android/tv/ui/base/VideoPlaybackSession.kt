@@ -50,7 +50,7 @@ internal class VideoPlaybackSession {
         history.position = position
         history.duration = duration
         viewing.update(history, vod, playing, position, duration, elapsedTime, wallTime)
-        return progress.observe(position, duration, history.ending)
+        return progress.observe(position, duration, history.ending, playing)
     }
 
     fun release(wallTime: Long) {

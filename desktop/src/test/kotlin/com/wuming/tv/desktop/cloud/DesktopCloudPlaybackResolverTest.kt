@@ -81,6 +81,36 @@ class DesktopCloudPlaybackResolverTest {
         assertTrue(closed)
     }
 
+    @Test
+    fun `cloud routing vetoes prewarm capability through cache while direct episodes retain it`() {
+        var resolutions = 0
+        val transport = RecordingTransport()
+        val source = object : CatalogSourceExecutor {
+            override val source = CatalogSource("mixed", "Mixed")
+            override fun search(query: String) = emptyList<CatalogItem>()
+            override fun detail(id: String) = CatalogDetail(lines = listOf(
+                CatalogLine("opaque", "夸克原画", listOf(CatalogEpisode("Cloud", "opaque-id"))),
+                CatalogLine("direct", "Direct", listOf(CatalogEpisode("Stream", "https://cdn.example/stream.mp4"))),
+            ))
+            override fun playbackPreparationSafety(flag: String, id: String) = PlaybackPreparationSafety.READ_ONLY_STREAM
+            override fun play(flag: String, id: String): CatalogPlayback {
+                resolutions++
+                return CatalogPlayback(true, id)
+            }
+        }
+        val executor = cloudAwareExecutor(source,
+            DesktopCloudPlaybackResolver(MemoryCredentials("account-cookie"), transport, copies()) {})
+        executor.detail("show")
+        executor.detail("show") // cached detail still supplies cloud identity
+        val gateway = ExecutorCatalogGateway(listOf(executor))
+        org.junit.Assert.assertNull(gateway.prewarm("mixed", "opaque", "opaque-id"))
+        org.junit.Assert.assertNull(gateway.prewarm("mixed", "夸克", "https://cdn.example/other.mp4"))
+        assertTrue(transport.requests.isEmpty())
+        assertEquals(0, resolutions)
+        assertTrue(requireNotNull(gateway.prewarm("mixed", "direct", "https://cdn.example/stream.mp4")).supported)
+        assertEquals(1, resolutions)
+    }
+
     private fun copies() = SavedCopyRegistry(object : SavedCopyStore {
         private var records = emptyList<SavedCopyRecord>()
         override fun <T> locked(action: () -> T) = action()

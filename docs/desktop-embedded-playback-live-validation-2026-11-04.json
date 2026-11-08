@@ -1,0 +1,84 @@
+{
+  "completedAtUtc": "2026-11-04T04:35:14.981289+00:00",
+  "application": "Already-running installed desktop app; same PID throughout test",
+  "packageVersion": "0.1.0~snapshot-1",
+  "source": {
+    "type": "Temporary loopback MacCMS catalogue with real remote HTTPS media",
+    "media": "https://download.blender.org/demo/movies/Sintel.2010.1080p.mkv",
+    "entries": "Two separately identified entries for the same public movie, used to test queue advancement",
+    "nonCloudEvidence": "Reviewed built-in MacCMS direct resolver; public Blender media origin; no cloud-drive save/account workflow",
+    "rangeProbeHttpStatus": 206,
+    "productionProviderLimitations": [
+      "Configured built-in Libvio and its supported alternate origin returned HTTP 403 before playback",
+      "Configured children source returned a no-data placeholder"
+    ],
+    "thirdPartyProviderPlaybackEstablished": false
+  },
+  "controls": "Production Swing UI buttons/slider invoked in the existing process; mpv IPC queried for observed state. No simulated playback/end callbacks. Temporary Java attach probes did not transform application classes.",
+  "embeddedPlayback": {
+    "result": "passed",
+    "output": "gpu",
+    "decodedSize": [
+      1920,
+      818
+    ],
+    "durationSeconds": 888.032,
+    "visualCheck": "Movie rendered in fullscreen on the running display"
+  },
+  "relativeSeeking": {
+    "result": "passed",
+    "paused": true,
+    "beforeSeconds": 41.542,
+    "afterSeconds": 52.042,
+    "deltaSeconds": 10.5,
+    "action": "Embedded +10s UI control"
+  },
+  "fullscreen": {
+    "result": "passed",
+    "enteredAndExited": true,
+    "sameNativeSurfaceAcrossFullscreenAndNextEntry": true,
+    "nextEntryStillFullscreen": true
+  },
+  "automaticNext": {
+    "result": "passed",
+    "method": "Seek near end and resume; actual natural completion, no synthetic end event",
+    "nearEndSeconds": 879.15168,
+    "nextEntryIndex": 1,
+    "nextEntryDecodedSeconds": 9.208,
+    "newPlayerSessionObserved": true
+  },
+  "manualExternalHandoff": {
+    "result": "partial failure",
+    "externalWindowOpened": true,
+    "pausePreserved": true,
+    "expectedPositionSeconds": 70.083,
+    "observedPositionSeconds": 885.766397,
+    "issue": "Position restoration jumped near the end of the remote MKV. A subsequent diagnostic exact seek also reached EOF. Root cause is not isolated; do not attribute this solely to the handoff implementation yet."
+  },
+  "automaticExternalFallback": {
+    "result": "passed",
+    "fault": "Temporary invalid native parent-window ID, restored immediately afterward",
+    "launchAttempts": 2,
+    "firstAttemptExitCode": 1,
+    "finalWindowEmbedded": false,
+    "finalDecodedSeconds": 1.292,
+    "nativeHostRestored": true
+  },
+  "cleanup": {
+    "testPlaybackStopped": true,
+    "testSourceRemoved": true,
+    "originalSourcesCount": 48,
+    "originalSourceSelectionRestored": true,
+    "privateViewingRestoredToFalse": true,
+    "otherPlaybackPreferencesUnchanged": true,
+    "temporaryCatalogueServerStopped": true,
+    "attachProbeComponentReferencesCleared": true,
+    "applicationLeftRunning": true,
+    "hostInstalledFilesModified": false
+  },
+  "limitations": [
+    "The two-entry catalogue is a controlled test fixture, not a verified episodic third-party service",
+    "Audible sound and hardware-decoder use were not independently measured",
+    "Manual handoff position retention failed on this long network MKV; short local-media tests had passed"
+  ]
+}

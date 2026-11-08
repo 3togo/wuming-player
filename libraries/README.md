@@ -42,6 +42,7 @@ imports `android`, `androidx`, or `com.wuming.android`. The package map is enfor
 | `jvm-spider-runtime` | `tvbox-jvm-spider-runtime` | `com.wuming.tv.core.runtime.jvmspider` | JVM Spider host + CatVod executor. Implements `catalog-core`; depends on `base-core`. |
 | `guarded-runtime` | `tvbox-guarded-runtime` | `com.wuming.tv.core.runtime.guardspider` | Guarded Spider host/preparer/diagnostics. Implements `catalog-core`/`cloud-core`; depends on UnidBG + ASM. |
 | `cloud-login-runtime` | `tvbox-cloud-login-runtime` | `com.wuming.tv.core.runtime.cloudlogin` | Cloud QR/login resolvers. Implements `cloud-core`. |
+| `hongguo-core` | `tvbox-hongguo-core` | `com.wuming.tv.core.hongguo` | Current HongGuo website catalogue, episode and media parsing with bounded HTTP transport; shared by mobile, Leanback and desktop. |
 | `maccms-core` | `tvbox-maccms-core` | `com.wuming.tv.core.maccms` | MacCMS source parsing and normalization. |
 
 ## Dependency discipline

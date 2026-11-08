@@ -27,6 +27,10 @@ internal class DesktopPlaybackSettings(private val preferences: Preferences) {
         get() = preferences.getBoolean(KEY_PREWARM_NEXT, true)
         set(value) = preferences.putBoolean(KEY_PREWARM_NEXT, value)
 
+    var embeddedPlayback: Boolean
+        get() = preferences.getBoolean("playback.embedded", true)
+        set(value) = preferences.putBoolean("playback.embedded", value)
+
     var fullscreenOnStart: Boolean
         get() = preferences.getBoolean(KEY_FULLSCREEN_START, false)
         set(value) = preferences.putBoolean(KEY_FULLSCREEN_START, value)

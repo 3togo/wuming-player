@@ -155,16 +155,8 @@ object GuardedCatVodHostMain {
     private fun invoke(spider: Any?, context: Context?, request: Request): String? =
         when (request.operation) {
             "init" -> {
-                val method: Method? = find(spider, "init", Context::class.java, String::class.java)
-                if (method != null) {
-                    method.invoke(
-                        spider,
-                        context,
-                        GuardedCatVodHostMain.value(request.extension)
-                    )
-                } else {
-                    required(spider, "init", Context::class.java).invoke(spider, context)
-                }
+                SpiderInvocationSupport.initialize(spider!!, Context::class.java, context,
+                    GuardedCatVodHostMain.value(request.extension))
                 "{}"
             }
 

@@ -11,5 +11,7 @@ run `python3 scripts/build-guarded-fixtures.py`. The script records D8/version/A
 settings and output hashes in provenance.json. Only probe class files go into D8;
 the stub, Android framework and Google SDK implementations are not packaged.
 GmsProbe accesses a GMS class name by reflection; WebViewProbe uses Android WebView.
+WebViewProbe loads a self-contained HTML page and resolves its fixed test URL only
+after the matching device callback; it does not depend on a public website.
 The jars are test-only and are not included in production APKs. Hardware checks
 remain opt-in; rebuilding them is not a device-test result.

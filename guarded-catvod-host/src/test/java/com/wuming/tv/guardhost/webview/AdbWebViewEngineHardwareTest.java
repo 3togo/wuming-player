@@ -57,10 +57,15 @@ public class AdbWebViewEngineHardwareTest {
             }
         };
 
-        engine.loadUrl("https://www.example.com/", Collections.emptyMap(), bridge);
-        assertTrue("device WebView onPageFinished not received within timeout",
-            finished.await(20, TimeUnit.SECONDS));
-        assertEquals("https://www.example.com/", finishedUrl.get());
-        engine.destroy();
+        // Exercise the real device WebView without depending on public DNS, TLS or site uptime.
+        String page = "data:text/html,%3Chtml%3E%3Ctitle%3EBridge%3C/title%3E%3C/html%3E";
+        try {
+            engine.loadUrl(page, Collections.emptyMap(), bridge);
+            assertTrue("device WebView onPageFinished not received within timeout",
+                finished.await(20, TimeUnit.SECONDS));
+            assertEquals(page, finishedUrl.get());
+        } finally {
+            engine.destroy();
+        }
     }
 }

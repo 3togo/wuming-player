@@ -1,5 +1,107 @@
 # HLS ad filtering contracts
 
+## Appended advertisements (shared Linux and Android detector)
+
+`HlsAppendedAdFilter` runs after the existing enclosed-insertion passes in
+`HlsAdFilterEngine`. It detects a short independently encoded post-roll without
+requiring a programme return after ENDLIST. It uses no media fingerprints,
+provider names, host allowlists, episode IDs or advertising-specific URLs.
+
+All these conditions must hold (keep aligned with
+`HlsResolutionAdFilter.removeAppended`):
+
+- Complete, supported, unencrypted TS/AVC VOD ending with ENDLIST, with a final
+  discontinuity-bounded block containing 2–15 segments and at most 30 seconds.
+- The immediately preceding programme block lasts at least 60 seconds. Its
+  final segment is shorter than the normal programme cadence by more than 0.01
+  seconds, and the candidate starts with a segment more than 0.5 seconds longer
+  than that cadence. The preceding minute's declared segment durations, except
+  its truncated final segment, match that cadence within 0.01 seconds.
+- Three programme probes (at least 60 seconds back through the end, plus the
+  penultimate segment) have the same dimensions and known progressive AVC VUI
+  timing rate. Rates must be 10–120 Hz and match within 0.1 Hz. Their raw video
+  PTS advances according to declared segment durations within 0.5 seconds.
+- The candidate resets PTS to at most 10 seconds, backwards by at least 30
+  seconds, and changes the nominal timing rate by at least 1 Hz. Every candidate
+  segment is probed and must have matching candidate dimensions/timing rate and
+  a continuous internal PTS sequence (0.5-second tolerance).
+
+Resolution change is not required for this separate pass. VUI timing is a
+nominal encoder signal, not a claim that fixed-frame-rate pictures were measured;
+the captured programme and ad both have `fixed_frame_rate_flag=0`. The parser
+reads timing under [ITU-T H.264 Annex E](https://www.itu.int/rec/dologin_pub.asp?id=T-REC-H.264-202408-I%21%21PDF-E&lang=e&type=items). Missing/truncated timing or interlaced input
+leaves the rate unknown and retains the tail, while preserving existing
+dimension/PTS detection. Existing JNI binaries returning only dimensions/PTS are
+enriched with matching portable-parser timing, so native availability does not
+silently disable the rule on Android. No new FFmpeg runtime dependency is used.
+
+Ordinary credits, a final short segment, a discontinuity, a timestamp reset or
+a timing-rate change alone are insufficient. Missing probes, inconsistent
+format/timestamps, budget exhaustion and cancellation retain the whole tail.
+All passes share the existing 64 KiB / 24-request / 3-second-per-request /
+15-second-total preparation budget and cache. Removed tails retain ENDLIST;
+every programme/credit URI and its order is preserved.
+
+This is a conservative structural heuristic, not semantic ad recognition. A
+separately encoded legitimate ending with every one of the same structural
+signals remains an ambiguity; transport metadata alone cannot universally
+distinguish it. Longer, same-timing-rate or otherwise unconfirmed post-rolls are
+deliberately retained. The unchanged legacy configured rules still have their
+own matching semantics.
+
+### Measured advertisement versus legitimate credits
+
+The captured source is 醉梦 第02集, 视界 / YZ有广, stream `19140_b37d4650`.
+Direct upstream decoding confirms real credit text and the final programme card
+before the appended gambling advertisement:
+
+| Property | Programme / legitimate ending credits | Appended advertisement |
+| --- | --- | --- |
+| Segment indices (zero-based) | 0–712 | 713–716 |
+| Final boundary / duration | Ends 47:33.68 | 47:33.68–47:50.146666, 16.466666 s |
+| Dimensions | 1920×1080 | 1920×1080 |
+| Nominal timing / ffprobe rate | 25 | 30 |
+| Segmentation | 4 s cadence, closes with 2 s | 6.633333, 3.333333, 4.8, 1.7 s |
+| Sampled raw video PTS | 2793.16 → 2849.16 → 2853.16 | 1.466667 → 8.1 → 11.433333 → 16.233333 |
+
+The old enclosed detectors removed zero segments and made zero probes. The new
+pass removes exactly four segments using seven unique probes, retaining the
+identical first 713 segments and a duration of 2853.68 seconds. The credits-only
+control and ordinary credit discontinuities are retained. Negative regressions
+also cover continuous timestamps, unchanged/unknown timing, missing structural
+evidence, inconsistent samples, failed probes and unsupported playlists.
+
+The shared test fixture stores the sanitized captured playlist, measured probe
+metadata and SPS/PPS codec parameters, without video pictures. Core tests replay
+both generated packets and, optionally, original local TS prefixes. Desktop
+tests exercise the actual HTTP relay; Android mode/ABI unit tests exercise its
+TS wrapper and shared bounded probe/engine. JVM Android tests supply Java URI
+resolution because the production resolver uses Android TextUtils; these are
+not physical-device playback tests. See the fixture's README under
+`libraries/playback-core/src/testFixtures/resources/hls/zuimeng-02/`.
+
+```sh
+TV_AD_TAIL_FIXTURE_DIR="$PWD/artifacts/ad-filter-investigation/2026-11-04-desktop-tail" \
+  ./gradlew-safe :libraries:playback-core:test --tests '*HlsAppendedAdFilterTest'
+```
+
+For an explicitly authorized physical phone/tablet, the opt-in
+`HlsPostrollPlaybackInstrumentedTest` opens the real upstream episode through
+`VideoActivity`, with HLS purification enabled. Supply the captured original
+manifest as `files/postroll-fixture/original.m3u8` in the testing application's
+private storage. Pass `postrollLive=true` and the episode master URL as
+`postrollUrl` to instrumentation, selecting only
+`realEpisodeRetainsEveryCreditSegmentAndEndsBeforeTheAppendedAd`. Ordinary test
+discovery skips this network/device-specific method.
+
+The check requires the production `/m3u8` replacement, the exact original 713
+programme/credit URIs, the filtered duration, decoded credit frames and natural
+end-of-stream after the final programme segment. It writes the filtered playlist,
+numeric playback samples and screenshots under `cache/postroll-validation` for
+host collection and visual inspection. Host setup must preserve application data,
+check APK signatures, keep both devices awake/unlocked, and restore temporary
+power/timeout settings. Compilation or an opt-in skip is not physical validation.
+
 ## Existing behavior
 
 Android applies the first matching nonempty host-rule group (VOD before live).
