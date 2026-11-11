@@ -333,7 +333,7 @@
     },
     {
       "path": "desktop/src/test/resources/guarded/WebViewProbe-dexed.jar",
-      "sha256": "33bf120bb56b470e92d88038e5681b778dd6af3fe687d88562a2a0f7809671c8",
+      "sha256": "fdd682ba0351bb13b25b4c5c3ad5bef946cb45bcccf77e9e7d53532055c654ff",
       "origin": "Project-authored artwork/media or fixture; editable source and recipes under artwork/, test-fixtures/ and scripts/",
       "license": "GPL-3.0"
     },
@@ -533,7 +533,7 @@
   "supportingArtifacts": [
     {
       "path": "app/build.gradle",
-      "sha256": "c81630b478c94197548eba49fde17aef74a2892bf261c73af1fc0de45d97e61f"
+      "sha256": "a9131e7df42c12865f07a208b0fd8348bf4af5eb12287be6dd2f3454d815e169"
     },
     {
       "path": "app/src/androidTest/assets/cast-remux/README.md",
@@ -1149,7 +1149,7 @@
     },
     {
       "path": "build.gradle",
-      "sha256": "0256acbf18060ef5877da9d6998abbada5342969cbc9ce7a470cd532b3f358f8"
+      "sha256": "58423946ba911ffc2d76f8bd8e6ec7e690cee8e8e4164ab1999b793c05825a77"
     },
     {
       "path": "catvod/build.gradle",
@@ -1161,7 +1161,7 @@
     },
     {
       "path": "desktop/build.gradle",
-      "sha256": "b6e318a9cda099c9e213d4a86b663cba420048c0cb1601157c74989db12afd7a"
+      "sha256": "bfc0c06653e30e700bcfcb2d7c4bc2e1ea7962862928757d202c61a671079576"
     },
     {
       "path": "docs/public-maven-inventory.json",
@@ -1201,7 +1201,7 @@
     },
     {
       "path": "guarded-catvod-host/build.gradle",
-      "sha256": "57cc502f21dcaafb3303701919e8d4f6c8427e2905d1f7ebd1df44e7a85630c9"
+      "sha256": "30811f11223a2428989babd97b8eadecb43ccbe6228eaef663e901b0d2d7a61e"
     },
     {
       "path": "guarded-spider-helper/build.gradle",
@@ -1209,7 +1209,7 @@
     },
     {
       "path": "guarded-webview-helper/build.gradle",
-      "sha256": "57033047b69107303358af43004f73113cbb238bf2200fbd4849902d1f20d56a"
+      "sha256": "998eb61122c8acebc683a1d18abe9cbf0f921594e01e39cfb78399b54eb9fd8c"
     },
     {
       "path": "libraries/base-core/build.gradle",
@@ -1221,7 +1221,7 @@
     },
     {
       "path": "libraries/catalog-core/build.gradle",
-      "sha256": "1cf64621115580b0593022d008b62831272a6d63d5d2162de80d94efa8a475e8"
+      "sha256": "b2d4339e2d8b58e4f718d41011903637a302550b940d95d0354e7025cea496d9"
     },
     {
       "path": "libraries/cloud-core/build.gradle",
@@ -1269,7 +1269,7 @@
     },
     {
       "path": "libraries/playback-core/build.gradle",
-      "sha256": "9a19167baf9b4a64017725c3359afa851ec387d8bf571796154c59aacf9713e3"
+      "sha256": "ccfb15f1026de47cdf7a74fac62657769c3baf84e9fdf33925d1237fb59eec40"
     },
     {
       "path": "libraries/playback-core/src/main/resources/renderer-probes/README.txt",
@@ -1357,7 +1357,7 @@
     },
     {
       "path": "settings.gradle",
-      "sha256": "079d172190a18469ba6edc6b1863c2f92b6bd1476d916f5fa96fd221334568e4"
+      "sha256": "9853e9bc5445dd8a43688afc6fd9c58d5718e0ab1dc2df66e15e26764dd67349"
     },
     {
       "path": "test-fixtures/synthetic-media-provenance.json",
@@ -2934,6 +2934,10 @@
     {
       "path": "app/src/main/res/drawable/ic_setting_validate.xml",
       "sha256": "1a59069cfa0f58e7fce917d6be27e6e2b9e1753fdedd8fd3512db57b51ac9da3"
+    },
+    {
+      "path": "libraries/hongguo-core/build.gradle",
+      "sha256": "977c02f9c08b994cb4dd3fc007ddf3a7ed86d068a3c278f352ead325f10921dd"
     }
   ]
 }

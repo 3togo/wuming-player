@@ -161,3 +161,59 @@ do not infer silence from muted ringtone alone. Stop testing processes before
 restoring audio. AudioService persists ringer mode asynchronously: allow it to
 settle, then verify every saved value rather than declaring restoration from an
 immediate setting read. Preserve failed-attempt evidence and exact test selections.
+
+## Android 10 Q601B box: delayed background kills during instrumentation (2026-11-11)
+
+The authorized network box (Q601B, API 29, ARM32) exposes firmware components named
+SkyworthConfig; its manufacturer property is SkyworthDigitalRT. These observations
+identify box firmware, not an attached display. Its ActivityManagerService checks
+`enable_running_backgroud_components`/background whitelist membership, queues a
+500 ms background kill, and rechecks whether another process of the same UID has
+foreground activities. Ordinary instrumentation startup stops the previous app;
+that transition can queue a kill which catches the next test process before its
+Application initialization finishes. AndroidX activity finishing can create another
+gap before final results. The host's old five-second Home refresh missed these gaps
+and could interfere with UI navigation.
+
+`ForegroundSmokeRunner` and the shared smoke runner now coordinate startup through
+unique cache markers. The host first stops the previous testing process and lets
+its delayed cleanup settle. It queues Home only until the in-process runner is
+ready; an acknowledgment stops host navigation before tests begin. The runner then
+opens MemoryTestActivity in its own task so Home's single-task navigation cannot
+clear it. AndroidX's `waitForActivitiesToComplete=false` retains this verification
+host until the host-side cleanup force-stops the test package. Wake events continue,
+but there is no repeated Home launch during UI tests. Failed handshakes remain
+failures. No firmware whitelist, global background restriction, lock credential or
+application data is changed. `cmd settings` accesses the normal settings service
+on firmware that rejects the `settings` launcher.
+
+Retain raw instrumentation output. A completed test, a firmware interruption and a
+fixture exception are different outcomes. In the private composition, unavailable
+fixture APIs and missing selected methods can be preflight skips with explicit
+reasons; skips never establish coverage. Unexpected process deaths must not be
+silently relabelled as passes. A rerun of the 52-method private selection with the
+separate-task host produced 46 passes, five declared skips and one dynamic-dialog
+fixture lifecycle failure; it did not reproduce the earlier process-crash losses.
+The remaining lifecycle failure is separate from a successful runner startup.
+After moving the same host protocol into the shared runner, the final composed
+private run completed all 47 runnable tests successfully, with five preflight
+skips. Its post-suite cold launch initially hit the delayed-stop window too.
+The launch helper now drains that window before starting Home; separate cold-start,
+restart and background-return checks all passed. Preserve the raw full-run failure
+and the successful follow-up launch report separately; these are not one combined
+all-green run. The original power value 0 and timeout 240000 were restored.
+
+
+### Search focus fixture: test-package bootstrap ownership
+
+On this box, a force-stop of the separate `.verification.test` UID can finish
+`InstrumentationActivityInvoker$BootstrapActivity` and its for-result child even
+while the target application's foreground host remains alive. The observed result
+was `ActivityScenario` reporting an already-destroyed search activity, rather than
+a focus assertion failure. The search-order fixtures need no activity result and
+now use direct `ActivityScenario.launch` with `FLAG_ACTIVITY_MULTIPLE_TASK` to
+isolate the target screen from both the bootstrap UID and the runner's task.
+Do not change the shared launcher without auditing its other callers. Keep the
+video and site-focus selections separate in the smoke manifest, retain interrupted
+reports, and validate focus and the selected source filter through the actual UI.
+Both dedicated selections passed on the Q601B after this fixture change.

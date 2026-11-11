@@ -63,7 +63,10 @@ internal class HlsCompatibilityPreparer(
     }
 
     override fun prepare(location: String, headers: Map<String, String>): PreparedPlaybackTarget {
-        val playlist = httpUri(location)?.takeIf { it.path.orEmpty().lowercase().endsWith(".m3u8") }
+        val playlist = httpUri(location)?.takeIf {
+            com.wuming.tv.core.playback.PlaybackTransportPlan.inferKind(location, null, false) ==
+                com.wuming.tv.core.playback.PlaybackTransportPlan.Kind.HLS
+        }
             ?: return progressivePreparer.prepare(location, headers)
         val preserveAllHeaders = requiresHeaderRelay(headers)
         val manifest = runCatching { fetch(location, headers) }.getOrElse {
@@ -86,6 +89,12 @@ internal class HlsCompatibilityPreparer(
                 throw PlaybackPreparationException(
                     "Media URL returned an error document instead of an HLS playlist. " +
                         "Reload details for a fresh link or choose another playback source.",
+                )
+            }
+            if (com.wuming.tv.core.playback.HlsPlaylistLocation.isProviderPlaylist(location)) {
+                throw PlaybackPreparationException(
+                    "Provider proxy returned invalid HLS data instead of a playlist. " +
+                        "The upstream line may be unavailable; choose another playback line.",
                 )
             }
             return PreparedPlaybackTarget(location)
@@ -314,6 +323,7 @@ private class HlsCompatibilityRelay(
         val removed = HlsManifestDetector.segmentCount(original) - HlsManifestDetector.segmentCount(filtered)
         logger.info("HLS preparation host=${base.host} removedSegments=$removed " +
             "resolutionBlocks=${prepared.resolution.removedBlocks} timestampBlocks=${prepared.insertion.removedBlocks} " +
+            "appendedBlocks=${prepared.appended.removedBlocks} " +
             "segmentProbes=${session.requestCount}")
 
         return com.wuming.tv.core.playback.HlsReferenceRewriter.rewrite(filtered,

@@ -134,6 +134,34 @@
         "com.wuming.android.tv.ui.LeanbackRemoteDialogsInstrumentedTest#remoteCanLeaveEditorsAndReachConfirmation",
         "com.wuming.android.tv.ui.LeanbackRemoteDialogsInstrumentedTest#dynamicDialogActionsReceiveFocusAndRemainReachable"
       ]
+    },
+    {
+      "id": "tv-wallpaper-preview",
+      "mode": "leanback",
+      "ui": true,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.ui.LeanbackWallpaperPreviewInstrumentedTest#defaultWallpaperButtonChangesVisibleBackground",
+        "com.wuming.android.tv.ui.LeanbackWallpaperPreviewInstrumentedTest#previewHidesInformationAndClockAfterFullscreenAndRefresh"
+      ]
+    },
+    {
+      "id": "tv-search-order",
+      "mode": "leanback",
+      "ui": true,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.ui.LeanbackSearchOrderInstrumentedTest#remoteInputAppendsUntilIdleThenSortsWithoutChangingFocusedVideo"
+      ]
+    },
+    {
+      "id": "tv-search-site-focus",
+      "mode": "leanback",
+      "ui": true,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.ui.LeanbackSearchOrderInstrumentedTest#idleSortKeepsFocusedSiteAndItsFilter"
+      ]
     }
   ]
 }

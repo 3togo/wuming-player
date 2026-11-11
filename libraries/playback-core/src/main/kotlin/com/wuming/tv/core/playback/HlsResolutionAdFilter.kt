@@ -13,7 +13,11 @@ object HlsResolutionAdFilter {
     private const val MAX_CANDIDATE_SAMPLES = 16
     private const val MIN_PROGRAMME_SECONDS = 60.0
 
-    class VideoInfo(val width: Int, val height: Int, val ptsSeconds: Double) {
+    class VideoInfo @JvmOverloads constructor(
+        val width: Int, val height: Int, val ptsSeconds: Double,
+        /** Progressive AVC VUI timing rate; zero means unknown, not measured FPS. */
+        val nominalFrameRate: Double = 0.0,
+    ) {
         @JvmName("width")
         fun widthAccessor(): Int = width
         @JvmName("height")
@@ -52,7 +56,8 @@ object HlsResolutionAdFilter {
     }
 
     internal fun filterInternal(base: String, playlist: String?, probe: Probe?,
-                                resolver: BiFunction<String, String, String>, timestampInsertion: Boolean): Result {
+                                resolver: BiFunction<String, String, String>, timestampInsertion: Boolean,
+                                appended: Boolean = false): Result {
         val unchanged = Result(playlist ?: "", 0, 0)
         if (probe == null || playlist == null || !playlist.startsWith("#EXTM3U") || !playlist.contains("#EXT-X-ENDLIST")) return unchanged
         for (tag in listOf("#EXT-X-KEY", "#EXT-X-MAP", "#EXT-X-BYTERANGE",
@@ -62,6 +67,16 @@ object HlsResolutionAdFilter {
         }
         try {
             val blocks = parse(base, playlist) { b, r -> resolver.apply(b, r) }
+            if (appended) {
+                val result = removeAppended(playlist, blocks, probe)
+                if (result.removedSegments == 0) return result
+                // Android publishes replacements at a different local URL. As in
+                // the enclosed passes, resolve programme URIs before publishing.
+                val content = result.content.lineSequence().joinToString("\n") {
+                    if (it.isBlank() || it.startsWith('#')) it else resolver.apply(base, it.trim())
+                }
+                return Result(content, result.removedBlocks, result.removedSegments)
+            }
             val cache = HashMap<String, VideoInfo?>()
             val targetDuration = playlist.lineSequence().firstOrNull { it.startsWith("#EXT-X-TARGETDURATION:") }
                 ?.substringAfter(":")?.trim()?.toDoubleOrNull() ?: 0.0
@@ -103,6 +118,61 @@ object HlsResolutionAdFilter {
             }
             return Result(absolute.toString(), removedBlocks, removedSegments)
         } catch (_: RuntimeException) {
+            return unchanged
+        }
+    }
+
+    /** Tail confirmation differs from enclosed insertions: no programme return
+     * exists. Keep this conjunction aligned with docs/hls-ad-filtering.md. */
+    private fun removeAppended(playlist: String, blocks: List<Block>, probe: Probe): Result {
+        val unchanged = Result(playlist, 0, 0)
+        if (blocks.size < 2 || playlist.lineSequence().lastOrNull { it.isNotBlank() } != "#EXT-X-ENDLIST") return unchanged
+        val tail = blocks.last()
+        val programme = blocks[blocks.lastIndex - 1]
+        if (tail.duration <= 0 || tail.duration > MAX_TIMESTAMP_INSERTION_SECONDS ||
+            tail.segments.size !in 2..15 || programme.duration < MIN_PROGRAMME_SECONDS ||
+            programme.segments.size < 3) return unchanged
+        val last = programme.segments.lastIndex
+        val cadence = programme.segments[last - 1].duration
+        // Independent segmentation: programme closes early, and the new encoder
+        // starts a longer segment. A normal final short segment alone is retained.
+        if (programme.segments[last].duration >= cadence - 0.01 ||
+            tail.segments.first().duration <= cadence + 0.5) return unchanged
+        var window = programme.segments[last].duration
+        var anchor = last - 1
+        while (anchor >= 0 && window - programme.segments[last].duration < MIN_PROGRAMME_SECONDS) {
+            if (kotlin.math.abs(programme.segments[anchor].duration - cadence) > 0.01) return unchanged
+            window += programme.segments[anchor].duration
+            anchor--
+        }
+        anchor++
+        if (window - programme.segments[last].duration < MIN_PROGRAMME_SECONDS) return unchanged
+        try {
+            val cache = HashMap<String, VideoInfo?>()
+            val earlier = read(programme.segments[anchor], probe, cache) ?: return unchanged
+            val preceding = read(programme.segments[last - 1], probe, cache) ?: return unchanged
+            val end = read(programme.segments[last], probe, cache) ?: return unchanged
+            fun knownRate(info: VideoInfo) = info.nominalFrameRate.isFinite() && info.nominalFrameRate in 10.0..120.0
+            fun sameRate(a: VideoInfo, b: VideoInfo) = kotlin.math.abs(a.nominalFrameRate - b.nominalFrameRate) <= 0.1
+            if (!knownRate(earlier) || !knownRate(preceding) || !knownRate(end) ||
+                !earlier.sameResolution(end) || !preceding.sameResolution(end) ||
+                !sameRate(earlier, end) || !sameRate(preceding, end) ||
+                kotlin.math.abs(end.ptsSeconds - earlier.ptsSeconds - (window - programme.segments[last].duration)) > 0.5 ||
+                kotlin.math.abs(end.ptsSeconds - preceding.ptsSeconds - cadence) > 0.5) return unchanged
+            val first = read(tail.segments.first(), probe, cache) ?: return unchanged
+            if (!knownRate(first) || kotlin.math.abs(first.nominalFrameRate - end.nominalFrameRate) < 1.0 ||
+                first.ptsSeconds > 10 || end.ptsSeconds - first.ptsSeconds < 30) return unchanged
+            var elapsed = 0.0
+            for (segment in tail.segments) {
+                val sample = read(segment, probe, cache) ?: return unchanged
+                if (!knownRate(sample) || !first.sameResolution(sample) || !sameRate(first, sample) ||
+                    kotlin.math.abs(sample.ptsSeconds - first.ptsSeconds - elapsed) > 0.5) return unchanged
+                elapsed += segment.duration
+            }
+            // ENDLIST is in the removed block. Retain it, and every programme line.
+            val output = blocks.dropLast(1).flatMap { it.lines }.joinToString("\n") + "\n#EXT-X-ENDLIST\n"
+            return Result(output, 1, tail.segments.size)
+        } catch (_: Exception) {
             return unchanged
         }
     }

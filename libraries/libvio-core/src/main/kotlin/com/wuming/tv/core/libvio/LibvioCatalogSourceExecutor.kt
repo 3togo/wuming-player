@@ -73,6 +73,10 @@ class LibvioCatalogSourceExecutor(private val spec: LibvioSiteSpec, private val 
         return CatalogDetail(CatalogItem(source.key, location, title, picture(image, location), "", metadata.firstOrNull { it.matches(Regex("\\d{4}")) }.orEmpty()),
             content = content, actor = actor, director = director, lines = lines)
     }
+    // The reviewed path reads a validated first-party player page, without cloud-save APIs.
+    override fun playbackPreparationSafety(flag: String, id: String) = PlaybackPreparationPolicy.classify(
+        runCatching { sitePage(id, Regex("/w/\\d+-\\d+-\\d+\\.html")) }.isSuccess, flag, id)
+
     override fun play(flag: String, id: String): CatalogPlayback {
         val location = sitePage(id, Regex("/w/\\d+-\\d+-\\d+\\.html"))
         val document = page(location)

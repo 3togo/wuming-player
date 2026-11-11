@@ -53,6 +53,54 @@ class CatalogProviderStatusTest {
         }
     }
 
+    @Test fun inactiveHomeShowsApprovalEvenWhenOtherProvidersAreActiveAndOffersSettings() {
+        val directory = Files.createTempDirectory("provider-status-test-")
+        val preferences = Preferences.userRoot().node("tvbox-desktop-test/${UUID.randomUUID()}")
+        val json = """{"spider":"https://example.test/provider.jar","sites":[
+            {"key":"index","name":"Index","type":3,"api":"csp_DouDouGuard"},
+            {"key":"other","name":"Other","type":1,"api":"https://example.test/api"}
+        ]}""".toByteArray()
+        val configuration = DesktopTvBoxConfigurationLoader(cache = null) { json }.load("https://custom.test/tv")
+        val settingsRequests = java.util.concurrent.atomic.AtomicInteger()
+        lateinit var panel: CatalogPanel
+        try {
+            SwingUtilities.invokeAndWait {
+                panel = CatalogPanel(null, preferences,
+                    userLibrary = DesktopUserLibrary.open(directory.resolve("library.json")),
+                    onSourcesRequested = { settingsRequests.incrementAndGet() })
+                panel.useLocalConfiguration(configuration)
+                val message = "Provider bundle changed. Click Review updated bundle in Settings."
+                panel.showConfigurationStatus(message)
+                fun field(name: String) = panel.javaClass.getDeclaredField(name).apply { isAccessible = true }.get(panel)
+                assertTrue((field("status") as JLabel).text.contains("Review updated bundle"))
+                assertTrue((field("emptyState") as javax.swing.JTextArea).text.contains("Review updated bundle"))
+                val review = field("reviewSources") as javax.swing.JButton
+                assertTrue(review.isVisible)
+                review.doClick()
+                assertEquals(1, settingsRequests.get())
+                // Returning Home must retain the actual approval failure after its generic unavailable check.
+                panel.showHome()
+                assertTrue((field("emptyState") as javax.swing.JTextArea).text.contains("Review updated bundle"))
+                assertTrue(review.isVisible)
+                // A working provider with content must not be replaced by a background setup message.
+                val sources = field("sources") as javax.swing.JComboBox<*>
+                sources.selectedIndex = 1
+                val showItems = panel.javaClass.getDeclaredMethod("showItems", List::class.java, String::class.java, Int::class.javaPrimitiveType)
+                showItems.isAccessible = true
+                showItems.invoke(panel, listOf(com.wuming.tv.core.catalog.CatalogItem("other", "one", "One")), null, 0)
+                val status = field("status") as JLabel
+                status.text = "Loaded one video"
+                panel.showConfigurationStatus(message)
+                assertEquals("Loaded one video", status.text)
+                assertFalse(review.isVisible)
+            }
+        } finally {
+            SwingUtilities.invokeAndWait { panel.close() }
+            preferences.removeNode()
+            directory.toFile().deleteRecursively()
+        }
+    }
+
     @Test fun emptyConfiguredCatalogShowsPendingProviderApproval() {
         val directory = Files.createTempDirectory("provider-status-test-")
         val preferences = Preferences.userRoot().node("tvbox-desktop-test/${UUID.randomUUID()}")

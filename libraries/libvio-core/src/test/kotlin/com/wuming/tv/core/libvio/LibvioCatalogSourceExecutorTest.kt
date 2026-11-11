@@ -24,6 +24,16 @@ class LibvioCatalogSourceExecutorTest {
         <li><a href="https://ad.example/w/123-1-3.html">Advertisement</a></li></ul></div>
         <div class="playlist-panel netdisk-panel"><h3>Cloud</h3><a href="https://pan.quark.cn/s/123">Download</a></div>
     """.trimIndent()
+    @Test fun prewarmingValidatesTheReviewedPagePathAndRejectsCloudOrForeignPages() {
+        val fixture = Fixture("""<script>var player_test={"url":"https://cdn.example/next.m3u8","encrypt":0};</script>""")
+        val executor = executor(fixture)
+        assertNull(executor.prewarm("direct", "https://foreign.example/w/123-1-2.html"))
+        assertNull(executor.prewarm("夸克", base + "w/123-1-2.html"))
+        assertEquals("", fixture.requested)
+        assertEquals("https://cdn.example/next.m3u8", executor.prewarm("direct", base + "w/123-1-2.html")?.url)
+        assertEquals(base + "w/123-1-2.html", fixture.requested)
+    }
+
     @Test fun detailsKeepDirectEpisodesAndMetadataWithoutCloudOrAdvertisements() {
         val value = executor(Fixture(detail)).detail("/detail/123.html")
         assertEquals("Example & Title", value.item.name)

@@ -493,6 +493,12 @@ class LiveTvPanel(
         if (repeatRequests.accept("live-play:${channel.tvgId}:${channel.name}:$stream")) playSelected()
     }
 
+    fun cancelPlaybackPreparation() {
+        playbackRequest++
+        preparingPlayback = false
+        updateActions()
+    }
+
     override fun close() {
         generation++
         playbackRequest++

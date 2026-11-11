@@ -6,6 +6,11 @@ import com.wuming.android.tv.setting.DisplaySettings;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.SystemClock;
+import android.view.KeyEvent;
+import com.wuming.tv.core.search.SearchOrderIdleWindow;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -68,6 +73,50 @@ public class LeanbackFastSearchActivity extends BaseActivity {
     private LeanbackFastListAdapter spListAdapter;
     private String searchTitle = "";
     private FastSearchCoordinator searchCoordinator;
+    private final Handler orderHandler = new Handler(Looper.getMainLooper());
+    private final SearchOrderIdleWindow orderWindow = new SearchOrderIdleWindow();
+    private final HashMap<String, Integer> sourceOrder = new HashMap<>();
+    private final Runnable idleSort = this::sortResultsIfIdle;
+    private boolean orderDirty;
+    private long navigationRevision;
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN || event.getAction() == KeyEvent.ACTION_UP) {
+            navigationRevision++;
+            orderWindow.recordInput(SystemClock.uptimeMillis());
+            orderHandler.removeCallbacks(idleSort);
+            orderHandler.postDelayed(idleSort, 2000);
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    private void sortResultsIfIdle() {
+        if (!orderDirty || !orderWindow.canSort(SystemClock.uptimeMillis())) return;
+        if (mGridView.isComputingLayout() || mGridViewWord.isComputingLayout()) {
+            orderHandler.postDelayed(idleSort, 16);
+            return;
+        }
+        orderDirty = false;
+        long revision = navigationRevision;
+        searchAdapter.sortPreservingFocus(mGridView, searchCoordinator.rankingComparator(), () -> revision == navigationRevision);
+        searchAdapterFilter.sortPreservingFocus(mGridViewFilter, searchCoordinator.rankingComparator(), () -> revision == navigationRevision);
+        spListAdapter.rankSources(mGridViewWord, name -> sourceOrder.getOrDefault(name, Integer.MAX_VALUE), () -> revision == navigationRevision);
+    }
+
+    @Override
+    protected void onPause() {
+        navigationRevision++;
+        orderHandler.removeCallbacks(idleSort);
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        orderHandler.postDelayed(idleSort, 2000);
+    }
+
     private int finishedCount = 0;
     private final List<String> quickSearchWord = new ArrayList<>();
     private HashMap<String, String> mCheckSources = null;
@@ -90,8 +139,8 @@ public class LeanbackFastSearchActivity extends BaseActivity {
                 } else {
                     int ret = adapter.onSetFocus(itemView);
                     if (ret < 0) return;
-                    TextView v = (TextView) itemView;
-                    activity.filterResult(v.getText().toString());
+                    int position = activity.mGridViewWord.getChildAdapterPosition(itemView);
+                    if (position != RecyclerView.NO_POSITION) activity.filterResult(adapter.getData().get(position));
                 }
             } catch (Exception e) {
                 AppLog.e(TAG, e);
@@ -203,15 +252,12 @@ public class LeanbackFastSearchActivity extends BaseActivity {
         spListAdapter.setTargetItemHeight(targetItemHeight);
         mGridViewWord.setAdapter(spListAdapter);
 
+        focusChangeListener = new FocusChangeListener(this, spListAdapter);
         mGridViewWord.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(@NonNull View child) {
                 child.setFocusable(true);
                 child.setOnFocusChangeListener(focusChangeListener);
-                TextView t = (TextView) child;
-                if (t.getText().equals(getString(R.string.fs_show_all))) {
-                    t.requestFocus();
-                }
             }
 
             @Override
@@ -350,6 +396,10 @@ public class LeanbackFastSearchActivity extends BaseActivity {
     }
 
     private void search(String title) {
+        orderHandler.removeCallbacks(idleSort);
+        orderWindow.reset();
+        orderDirty = false;
+        sourceOrder.clear();
         this.searchTitle = title;
         fenci();
         mGridView.setVisibility(View.INVISIBLE);
@@ -372,6 +422,10 @@ public class LeanbackFastSearchActivity extends BaseActivity {
         List<Site> searchRequestList = searchCoordinator.begin(
                 VodConfig.get().getSites(), mCheckSources);
 
+        for (int i = 0; i < searchRequestList.size(); i++) {
+            sourceOrder.putIfAbsent(searchRequestList.get(i).getName(), i);
+        }
+
         // Clear site list - will be populated as results come in
         spListAdapter.setNewData(new ArrayList<>());
         spListAdapter.addData(getString(R.string.fs_show_all));
@@ -386,7 +440,8 @@ public class LeanbackFastSearchActivity extends BaseActivity {
 
             List<String> names = spListAdapter.getData();
             if (names.contains(name)) return key;
-            spListAdapter.addData(searchCoordinator.sourceInsertionPosition(key, names), name, key);
+            spListAdapter.addData(name, key);
+            orderDirty = true;
 
             return key;
         } catch (Exception e) {
@@ -405,7 +460,14 @@ public class LeanbackFastSearchActivity extends BaseActivity {
         }
         
         searchAdapter.addData(vodList);
-        searchAdapter.sort(searchCoordinator.rankingComparator());
+        if (mGridViewFilter.getVisibility() == View.VISIBLE) {
+            List<Vod> selected = searchCoordinator.allResults();
+            List<Vod> incoming = new ArrayList<>();
+            for (Vod vod : vodList) if (selected.contains(vod)) incoming.add(vod);
+            searchAdapterFilter.addData(incoming);
+        }
+        orderDirty = true;
+        sortResultsIfIdle();
 
         // Update result count
         if (mSearchTitle != null) {
@@ -416,6 +478,7 @@ public class LeanbackFastSearchActivity extends BaseActivity {
     
     @Override
     protected void onDestroy() {
+        orderHandler.removeCallbacks(idleSort);
         if (siteViewModel != null) {
             siteViewModel.stopSearch();
             siteViewModel.getSearch().removeObservers(this);

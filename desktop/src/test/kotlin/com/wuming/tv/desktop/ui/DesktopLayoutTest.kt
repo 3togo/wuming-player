@@ -100,7 +100,9 @@ class DesktopLayoutTest {
                     add(TvHomeNavigationPanel(onSelected = {}).apply { showSelection(TvHomeAction.VOD) }, BorderLayout.WEST)
                     add(panel, BorderLayout.CENTER)
                 }
-                for ((width, height) in listOf(960 to 620, 1280 to 800)) {
+                // DesktopWindow enforces a 720-logical-pixel minimum height. Exercise the
+                // compact supported size rather than an unreachable, shorter window.
+                for ((width, height) in listOf(960 to DesktopTvTheme.px(720), 1280 to DesktopTvTheme.px(800))) {
                     render(shell, width, height, "catalogue-$width")
                     assertTrue("Catalogue keeps usable height: ${field<JList<*>>(panel, "results").parent.height} at $width×$height", field<JList<*>>(panel, "results").parent.height >= 240)
                     assertFalse(field<JPanel>(panel, "playerActions").isVisible)

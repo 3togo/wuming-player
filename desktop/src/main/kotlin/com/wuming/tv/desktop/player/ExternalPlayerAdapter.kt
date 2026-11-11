@@ -27,6 +27,13 @@ fun interface PlaybackStateCallback {
 
 typealias PlaybackState = com.wuming.tv.core.playback.PlaybackState
 
+/** Host-owned native video surface. Implementations marshal UI work to the event thread. */
+interface EmbeddedVideoHost {
+    fun acquire(title: String?, fullscreen: Boolean): Long?
+    fun externalPlayback()
+    fun playbackClosed()
+}
+
 class ExternalPlayerAdapter internal constructor(
     val executable: Path,
     private val processStarter: ProcessStarter,
@@ -39,6 +46,38 @@ class ExternalPlayerAdapter internal constructor(
             playerProcessBuilder(command).redirectErrorStream(true).start()
         },
     ) : this(executable, processStarter, HlsCompatibilityPreparer())
+
+    @Volatile private var volumeOverride: Int? = null
+    @Volatile private var muteOverride: Boolean? = null
+    @Volatile private var embeddedHost: EmbeddedVideoHost? = null
+    private val stateListeners = java.util.concurrent.CopyOnWriteArrayList<PlaybackStateCallback>()
+    fun addPlaybackStateListener(callback: PlaybackStateCallback): AutoCloseable {
+        stateListeners += callback
+        return AutoCloseable { stateListeners -= callback }
+    }
+
+    private val stopGeneration = java.util.concurrent.atomic.AtomicLong()
+    private val playbackRequest = java.util.concurrent.atomic.AtomicLong()
+
+    fun setEmbeddedVideoHost(host: EmbeddedVideoHost?) { embeddedHost = host }
+
+    fun openExternally(): Boolean {
+        val session = synchronized(mpvSessionLock) { mpvSession } ?: return false
+        return session.retryExternally?.invoke() ?: false
+    }
+
+    fun setVolume(percent: Int): Boolean {
+        if (percent !in 0..100) return false
+        volumeOverride = percent
+        return mpvSetProperty("volume", percent.toString())
+    }
+
+    fun setMuted(muted: Boolean): Boolean {
+        muteOverride = muted
+        return mpvSetProperty("mute", if (muted) "yes" else "no")
+    }
+
+    fun seekRelative(seconds: Double): Boolean = seconds.isFinite() && mpvCommand("seek", seconds.toString(), "relative")
 
     private val logger = Logger.getLogger("tvbox.player")
     private val mpvSessionLock = Any()
@@ -64,7 +103,10 @@ class ExternalPlayerAdapter internal constructor(
 
     fun addSubtitle(filePath: String): Boolean {
         if (!name.equals("mpv", true)) return false
-        return mpvCommand("sub-add", filePath, "auto")
+        // Explicit user selection must activate the track; mpv auto only loads it.
+        val added = mpvCommand("sub-add", filePath, "cached")
+        if (added) synchronized(mpvSessionLock) { mpvSession?.subtitles?.add(filePath) }
+        return added
     }
 
     fun togglePause(): Boolean {
@@ -87,10 +129,32 @@ class ExternalPlayerAdapter internal constructor(
         reuseRunningPlayer: Boolean = false,
         displayName: String? = null,
         onPlaybackStarted: (() -> Unit)? = null,
-        onPlaybackFailed: (() -> Unit)? = null,
+        onPlaybackFailed: ((String) -> Unit)? = null,
         isCancelled: () -> Boolean = { false },
         initialSpeed: Double = 1.0,
         fullscreen: Boolean = false,
+    ): PlayerLaunchResult {
+        val request = playbackRequest.incrementAndGet()
+        val stopped = stopGeneration.get()
+        return playInternal(value, headers, onEnded, onClosed, reuseRunningPlayer, displayName,
+            onPlaybackStarted, onPlaybackFailed, { isCancelled() || stopped != stopGeneration.get() }, initialSpeed, fullscreen,
+            retryAllowed = { request == playbackRequest.get() })
+    }
+
+    private fun playInternal(
+        value: String,
+        headers: Map<String, String>,
+        onEnded: (() -> Unit)? = null,
+        onClosed: (() -> Unit)? = null,
+        reuseRunningPlayer: Boolean = false,
+        displayName: String? = null,
+        onPlaybackStarted: (() -> Unit)? = null,
+        onPlaybackFailed: ((String) -> Unit)? = null,
+        isCancelled: () -> Boolean = { false },
+        initialSpeed: Double = 1.0,
+        fullscreen: Boolean = false,
+        forceExternal: Boolean = false,
+        retryAllowed: () -> Boolean = { true },
     ): PlayerLaunchResult {
         if (com.wuming.tv.core.source.PlaybackProtocolPolicy.unsupported(value)) {
             return PlayerLaunchResult(false, "This playback protocol is not supported in this build. Choose another source.")
@@ -100,6 +164,7 @@ class ExternalPlayerAdapter internal constructor(
         val target = resolved.target
         val safeHeaders = resolved.safeHeaders
         var prepared: PreparedPlaybackTarget? = null
+        var embeddedAttempt = false
         return try {
             if (isCancelled()) return PlayerLaunchResult(false, "Playback cancelled.")
             prepared = targetPreparer.prepare(target, safeHeaders)
@@ -108,27 +173,31 @@ class ExternalPlayerAdapter internal constructor(
                 return PlayerLaunchResult(false, "Playback cancelled.")
             }
             val ready = prepared
+            val host = embeddedHost
+            val windowId = if (!forceExternal && name.equals("mpv", true)) host?.acquire(displayName, fullscreen)?.takeIf { it > 0 } else null
+            embeddedAttempt = windowId != null
+            if (windowId == null) host?.externalPlayback()
             synchronized(windowLaunchLock) {
                 if (isCancelled()) {
                     ready.resource?.close()
                     return PlayerLaunchResult(false, "Playback cancelled.")
                 }
                 val keepOneWindow = singleWindow()
-                if ((reuseRunningPlayer || keepOneWindow) && name.equals("mpv", true) &&
-                    enqueueInMpvSession(ready, safeHeaders, onEnded, onClosed, displayName, onPlaybackStarted = onPlaybackStarted, onPlaybackFailed = onPlaybackFailed)
+                if (windowId == null && (reuseRunningPlayer || keepOneWindow) && name.equals("mpv", true) &&
+                    enqueueInMpvSession(ready, safeHeaders, onEnded, onClosed, displayName, onPlaybackStarted = onPlaybackStarted, onPlaybackFailed = onPlaybackFailed, windowId = windowId)
                 ) {
                     if (initialSpeed.isFinite() && initialSpeed in 0.25..4.0) setSpeed(initialSpeed)
                     mpvSetProperty("fullscreen", if (fullscreen) "yes" else "no")
                     logger.info("reuse player=$name target=${tag(target)} compatibilityRelay=${ready.resource != null}")
                     return PlayerLaunchResult(true, "Playing in $name")
                 }
-                if (keepOneWindow) stopBeforeReplacement()
+                if (keepOneWindow || windowId != null || (forceExternal && synchronized(mpvSessionLock) { mpvSession?.windowId != null })) stopBeforeReplacement()
                 if (isCancelled()) {
                     ready.resource?.close()
                     return PlayerLaunchResult(false, "Playback cancelled.")
                 }
                 val ipcPath = if (name.equals("mpv", true)) newMpvSocketPath() else null
-                val process = processStarter.start(command(ready.location, safeHeaders, ipcPath, displayName, initialSpeed, fullscreen))
+                val process = processStarter.start(command(ready.location, safeHeaders, ipcPath, displayName, initialSpeed, fullscreen, windowId))
                 logger.info(
                     "launch player=$name target=${tag(target)} headers=${safeHeaders.keys.sorted()} " +
                         "compatibilityRelay=${ready.resource != null} pid=${process?.pid() ?: "test"}",
@@ -136,24 +205,57 @@ class ExternalPlayerAdapter internal constructor(
                 process?.let { running ->
                     track(running)
                     val session = ipcPath?.let { path ->
-                        MpvSession(running, path, transportHeaders(safeHeaders), ready, onEnded, onClosed, onPlaybackStarted = onPlaybackStarted, onPlaybackFailed = onPlaybackFailed).also {
-                            synchronized(mpvSessionLock) { mpvSession = it }
-                            connectMpvSession(it)
+                        MpvSession(running, path, transportHeaders(safeHeaders), ready, onEnded, onClosed, onPlaybackStarted = onPlaybackStarted, onPlaybackFailed = onPlaybackFailed, windowId = windowId).also {
+                            val item = it
+                            if (windowId != null) item.retryExternally = {
+                                val retry = synchronized(mpvSessionLock) {
+                                    if (mpvSession !== item || isCancelled() || !retryAllowed() || !item.retryStarted.compareAndSet(false, true)) null
+                                    else {
+                                        val callbacks = Triple(item.onEnded, item.onClosed, item.onPlaybackStarted)
+                                        item.onEnded = null; item.onClosed = null; item.onPlaybackStarted = null; item.onPlaybackFailed = null
+                                        callbacks
+                                    }
+                                }
+                                if (retry == null) false else {
+                                    Thread({
+                                        val snapshot = item.playbackState
+                                        val position = snapshot.positionSeconds
+                                        val subtitles = synchronized(mpvSessionLock) { item.subtitles.toList() }
+                                        val result = playInternal(value, headers, retry.first, retry.second, false, displayName,
+                                            {
+                                                if (position > 0) seekTo(position)
+                                                subtitles.forEach(::addSubtitle)
+                                                if (snapshot.paused) mpvSetProperty("pause", "yes")
+                                                retry.third?.invoke()
+                                            }, onPlaybackFailed, { isCancelled() || !retryAllowed() }, snapshot.speed, fullscreen,
+                                            forceExternal = true, retryAllowed = retryAllowed)
+                                        if (result.started) item.stateCallback?.let { observePlaybackState(it) }
+                                        else if (!isCancelled()) { onPlaybackFailed?.invoke(result.message); retry.second?.invoke() }
+                                    }, "tvbox-player-external-fallback").apply { isDaemon = true; start() }
+                                    true
+                                }
+                            }
+                            synchronized(mpvSessionLock) { mpvSession = item }
+                            connectMpvSession(item)
                         }
                     }
-                    val output = monitorOutput(running)
+                    val output = monitorOutput(running, session)
                     running.onExit().thenCombine(output) { finished, naturalEnd ->
                         logger.info(
                             "exit player=$name pid=${finished.pid()} code=${finished.exitValue()} " +
                                 "naturalEnd=$naturalEnd target=${tag(target)}",
                         )
+                        val retrying = session?.takeIf { it.windowId != null && !it.started && !it.mediaFailed && !isCancelled() }
+                            ?.retryExternally?.invoke() == true
                         if (session != null) closeMpvSession(session) else ready.resource?.close()
+                        if (retrying) return@thenCombine
+                        if (session?.windowId != null && !session.retryStarted.get() && !isCancelled()) host?.playbackClosed()
                         if (session == null && naturalEnd && finished.exitValue() == 0) {
                             runCatching { onEnded?.invoke() }.onFailure { error ->
                                 logger.log(Level.WARNING, "end callback failed player=$name", error)
                             }
                         }
-                        val closed = session?.onClosed ?: onClosed
+                        val closed = if (session != null) session.onClosed else onClosed
                         runCatching { closed?.invoke() }.onFailure { error ->
                             logger.log(Level.WARNING, "close callback failed player=$name", error)
                         }
@@ -166,11 +268,17 @@ class ExternalPlayerAdapter internal constructor(
                 PlayerLaunchResult(true, "Opened in $name")
             }
         } catch (error: PlaybackPreparationException) {
+            if (!isCancelled()) embeddedHost?.playbackClosed()
             prepared?.resource?.close()
             logger.warning("playback unavailable player=$name target=${tag(target)} error=${error.message}")
             PlayerLaunchResult(false, error.message ?: "Playback source is unavailable.")
         } catch (error: Exception) {
             prepared?.resource?.close()
+            if (!forceExternal && embeddedAttempt && !isCancelled() && retryAllowed()) {
+                return playInternal(value, headers, onEnded, onClosed, reuseRunningPlayer, displayName,
+                    onPlaybackStarted, onPlaybackFailed, { isCancelled() || !retryAllowed() }, initialSpeed, fullscreen,
+                    forceExternal = true, retryAllowed = retryAllowed)
+            }
             logger.log(Level.WARNING, "launch failed player=$name target=${tag(target)} error=${error.message}", error)
             PlayerLaunchResult(false, "$name could not start: ${error.message ?: error.javaClass.simpleName}")
         }
@@ -183,6 +291,7 @@ class ExternalPlayerAdapter internal constructor(
         displayName: String? = null,
         initialSpeed: Double = 1.0,
         fullscreen: Boolean = false,
+        windowId: Long? = null,
     ): List<String> {
         val arguments = mutableListOf(executable.toString())
         when (name.lowercase()) {
@@ -197,7 +306,11 @@ class ExternalPlayerAdapter internal constructor(
                     "--osc=yes",
                 )
                 if (initialSpeed.isFinite() && initialSpeed in 0.25..4.0 && initialSpeed != 1.0) arguments += "--speed=$initialSpeed"
-                if (fullscreen) arguments += "--fullscreen"
+                if (windowId != null) {
+                    require(windowId > 0) { "A positive native video window is required" }
+                    arguments += listOf("--wid=$windowId", "--vo=gpu,x11", "--gpu-context=x11egl",
+                        "--input-vo-keyboard=no", "--input-default-bindings=no", "--osc=no", "--window-dragging=no", "--fullscreen=no")
+                } else if (fullscreen) arguments += "--fullscreen"
                 mpvSocketPath?.let { path ->
                     arguments += listOf(
                         "--idle=yes",
@@ -252,10 +365,11 @@ class ExternalPlayerAdapter internal constructor(
         displayName: String?,
         mode: String = "replace",
         onPlaybackStarted: (() -> Unit)? = null,
-        onPlaybackFailed: (() -> Unit)? = null,
+        onPlaybackFailed: ((String) -> Unit)? = null,
+        windowId: Long? = null,
     ): Boolean = synchronized(mpvSessionLock) {
         val session = mpvSession ?: return false
-        if (!session.process.isAlive || session.writer == null || session.transportHeaders != transportHeaders(headers)) {
+        if (!session.process.isAlive || session.writer == null || session.transportHeaders != transportHeaders(headers) || session.windowId != windowId) {
             return false
         }
         return try {
@@ -280,6 +394,9 @@ class ExternalPlayerAdapter internal constructor(
                 val previous = session.prepared
                 session.prepared = prepared
                 session.playbackState = PlaybackState()
+                session.started = false
+                session.mediaFailed = false
+                session.retryStarted.set(false)
                 session.onEnded = onEnded
                 session.onClosed = onClosed
                 session.onPlaybackStarted = onPlaybackStarted
@@ -310,6 +427,7 @@ class ExternalPlayerAdapter internal constructor(
             }
             if (channel == null) {
                 logger.warning("mpv IPC unavailable pid=${session.process.pid()}")
+                if (session.windowId != null) session.retryExternally?.invoke()
                 return@Thread
             }
             val reader = Channels.newReader(channel, Charsets.UTF_8)
@@ -331,25 +449,33 @@ class ExternalPlayerAdapter internal constructor(
                     flush()
                 }
             }
+            volumeOverride?.let { mpvSetProperty("volume", it.toString()) }
+            muteOverride?.let { mpvSetProperty("mute", if (it) "yes" else "no") }
             logger.info("mpv IPC ready pid=${session.process.pid()}")
             reader.buffered().useLines { lines ->
                 lines.forEach { line ->
                     if (isMpvPlaybackStartedEvent(line)) {
                         val callback = synchronized(mpvSessionLock) {
+                            session.started = true
                             session.onPlaybackStarted.also { session.onPlaybackStarted = null }
                         }
                         runCatching { callback?.invoke() }
                             .onFailure { logger.log(Level.WARNING, "playback-start callback failed", it) }
                     }
                     mpvEndReason(line)?.let { reason ->
-                        logger.info("mpv end-file pid=${session.process.pid()} reason=$reason")
+                        val failureMessage = mpvPlaybackFailure(line)
+                        logger.info("mpv end-file pid=${session.process.pid()} reason=$reason" +
+                            (failureMessage?.let { " failure=$it" } ?: ""))
                         if (reason == "eof") completeMpvItem(session)
+                        if (reason == "error" && isMpvVideoOutputFailure(line) && session.windowId != null && !session.started && session.retryExternally?.invoke() == true) return@forEach
                         if (reason == "error") {
                             val callback = synchronized(mpvSessionLock) {
+                                if (mpvSession !== session) return@synchronized null
+                                session.mediaFailed = true
                                 session.onPlaybackStarted = null
                                 session.onPlaybackFailed.also { session.onPlaybackFailed = null }
                             }
-                            runCatching { callback?.invoke() }
+                            runCatching { callback?.invoke(failureMessage ?: "mpv could not open this video. Choose another line.") }
                                 .onFailure { logger.log(Level.WARNING, "playback-failure callback failed", it) }
                         }
                     }
@@ -360,6 +486,9 @@ class ExternalPlayerAdapter internal constructor(
                     parseMpvPropertyChange(line, session.playbackState)?.let { state ->
                         session.playbackState = state
                         session.stateCallback?.onState(state)
+                        if (synchronized(mpvSessionLock) { mpvSession === session }) stateListeners.forEach { callback ->
+                            runCatching { callback.onState(state) }
+                        }
                     }
                 }
             }
@@ -378,6 +507,7 @@ class ExternalPlayerAdapter internal constructor(
 
     private fun closeMpvSession(session: MpvSession) {
         synchronized(mpvSessionLock) {
+            if (!session.closed.compareAndSet(false, true)) return
             if (mpvSession === session) mpvSession = null
             session.prepared.resource?.close()
             // Appended items were never handed to `prepared`; their relays are still open.
@@ -401,7 +531,7 @@ class ExternalPlayerAdapter internal constructor(
 
     private fun stopBeforeReplacement() {
         val previous = synchronized(launchedLock) { launched.toList() }
-        terminateAll()
+        terminateAll(invalidateRequest = false)
         previous.forEach { process ->
             if (process.isAlive && !process.waitFor(GRACE_PERIOD_SECONDS, TimeUnit.SECONDS)) {
                 synchronized(launchedLock) { launched.addAll(previous.filter { it.isAlive }) }
@@ -416,6 +546,9 @@ class ExternalPlayerAdapter internal constructor(
 
     /** Stops the running player. mpv is asked to quit over IPC so it can clean up its socket. */
     fun stop(): Boolean {
+        stopGeneration.incrementAndGet()
+        playbackRequest.incrementAndGet()
+        embeddedHost?.playbackClosed()
         val session = synchronized(mpvSessionLock) { mpvSession }
         if (session != null) {
             quitMpv(session)
@@ -470,7 +603,14 @@ class ExternalPlayerAdapter internal constructor(
      * Never leave a player behind when the app exits. mpv is quit politely first; anything still
      * alive after the grace period is killed.
      */
-    fun terminateAll(): Boolean {
+    fun terminateAll(): Boolean = terminateAll(invalidateRequest = true)
+
+    private fun terminateAll(invalidateRequest: Boolean): Boolean {
+        if (invalidateRequest) {
+            stopGeneration.incrementAndGet()
+            playbackRequest.incrementAndGet()
+            embeddedHost?.playbackClosed()
+        }
         val session = synchronized(mpvSessionLock) { mpvSession }
         if (session != null) quitMpv(session)
         val stragglers = synchronized(launchedLock) { launched.toList() }
@@ -487,6 +627,7 @@ class ExternalPlayerAdapter internal constructor(
     }
 
     private fun quitMpv(session: MpvSession) {
+        synchronized(mpvSessionLock) { session.onEnded = null; session.onPlaybackStarted = null; session.onPlaybackFailed = null }
         runCatching {
             session.writer?.apply {
                 write("""{"command":["quit"]}""")
@@ -568,7 +709,7 @@ class ExternalPlayerAdapter internal constructor(
         append('"')
     }
 
-    private fun monitorOutput(process: Process): CompletableFuture<Boolean> {
+    private fun monitorOutput(process: Process, session: MpvSession? = null): CompletableFuture<Boolean> {
         val completion = CompletableFuture<Boolean>()
         Thread({
             val reported = mutableSetOf<String>()
@@ -578,6 +719,9 @@ class ExternalPlayerAdapter internal constructor(
                     lines.forEach { line ->
                         if (isNaturalEndDiagnostic(line)) naturalEnd = true
                         classifyPlayerOutput(line)?.takeIf(reported::add)?.let { event ->
+                            if (event.startsWith("http-status-") || event == "input-format-failed" || event == "input-open-failed") {
+                                session?.mediaFailed = true
+                            }
                             logger.info("diagnostic player=$name pid=${process.pid()} event=$event")
                         }
                     }
@@ -638,7 +782,14 @@ class ExternalPlayerAdapter internal constructor(
         @Volatile var stateCallback: PlaybackStateCallback? = null,
         @Volatile var playbackState: PlaybackState = PlaybackState(),
         var onPlaybackStarted: (() -> Unit)? = null,
-        var onPlaybackFailed: (() -> Unit)? = null,
+        var onPlaybackFailed: ((String) -> Unit)? = null,
+        val windowId: Long? = null,
+        @Volatile var started: Boolean = false,
+        @Volatile var mediaFailed: Boolean = false,
+        var retryExternally: (() -> Boolean)? = null,
+        val retryStarted: java.util.concurrent.atomic.AtomicBoolean = java.util.concurrent.atomic.AtomicBoolean(),
+        val closed: java.util.concurrent.atomic.AtomicBoolean = java.util.concurrent.atomic.AtomicBoolean(),
+        val subtitles: MutableSet<String> = linkedSetOf(),
     )
 }
 
@@ -650,6 +801,26 @@ internal fun mpvEndReason(line: String): String? = runCatching {
     val value = com.google.gson.JsonParser.parseString(line).asJsonObject
     value.takeIf { it.get("event")?.asString == "end-file" }?.get("reason")?.asString
 }.getOrNull()
+
+/** mpv's error strings are mapped to fixed text so provider URLs cannot leak into logs or UI. */
+internal fun mpvPlaybackFailure(line: String): String? {
+    if (mpvEndReason(line) != "error") return null
+    val error = runCatching { com.google.gson.JsonParser.parseString(line).asJsonObject.get("file_error")?.asString }
+        .getOrNull().orEmpty().lowercase()
+    return when {
+        "unrecognized file format" in error -> "mpv could not recognize the media format. The provider may have returned an invalid playlist. Choose another line."
+        "loading failed" in error || "failed to open" in error -> "mpv could not load the media from the provider. Retry or choose another line."
+        isMpvVideoOutputFailure(line) -> "mpv could not initialize video output."
+        else -> "mpv could not open this video. Retry or choose another line."
+    }
+}
+
+internal fun isMpvVideoOutputFailure(line: String): Boolean = runCatching {
+    val error = com.google.gson.JsonParser.parseString(line).asJsonObject.get("file_error")?.asString.orEmpty()
+    error.contains("video output", true) || error.contains("audio/video output", true) ||
+        // mpv 0.38 reports this when a selected renderer cannot initialize.
+        error.equals("no audio or video data played", true)
+}.getOrDefault(false)
 
 internal fun isMpvNaturalEndEvent(line: String): Boolean = mpvEndReason(line) == "eof"
 
@@ -681,6 +852,7 @@ internal fun classifyPlayerOutput(line: String): String? = when {
     line.contains("Stream buffering done", ignoreCase = true) -> "buffering-complete"
     line.contains("using demux module \"adaptive\"", ignoreCase = true) -> "hls-demux-ready"
     line.contains("using demux module \"ts\"", ignoreCase = true) -> "transport-demux-ready"
+    line.contains("Failed to recognize file format", ignoreCase = true) -> "input-format-failed"
     line.contains("cannot be opened", ignoreCase = true) -> "input-open-failed"
     line.contains("input error", ignoreCase = true) -> "input-error"
     line.contains("connection failed", ignoreCase = true) &&

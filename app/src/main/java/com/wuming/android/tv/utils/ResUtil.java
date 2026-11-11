@@ -306,40 +306,55 @@ public class ResUtil {
 
     /** Reference height (dp) the overlay sizes were designed against. */
     private static final float OVERLAY_REFERENCE_HEIGHT_DP = 873f;
-    private static final float TV_OVERLAY_REFERENCE_HEIGHT_DP = 1080f;
+    /** TV overlay shrink relative to the semantic caption size: the documented 40.5%
+     *  shrink, then reduced a further 30% per sizing feedback (user-requested). */
+    private static final float OVERLAY_SHRINK = 0.42f;
+    /** Legacy mobile shrink chain; kept so phone overlay proportions stay unchanged. */
+    private static final float MOBILE_OVERLAY_SHRINK = 1.6f * 0.7f * 0.85f;
 
     /**
-     * Scale the video player overlay info/clock text so its size is relative to
-     * the displayed screen and 40.5% smaller than the original
-     * overlay size, with a top margin of one quarter of the resulting text size.
+     * Scale the video player overlay info/clock text so its size is a fixed
+     * proportion of the screen, with a top margin of one quarter of the
+     * resulting text size.
      *
-     * <p>Mobile scales against the stable long edge (≈873dp on a phone), TV against
-     * the 1080dp reference height, so the overlay keeps the same proportions on
-     * every screen. The margin uses the resolved text size in pixels rather than
-     * the original layout margin, so repeated calls keep the same spacing.</p>
+     * <p>The semantic caption size already tracks the physical screen: TV resolves it
+     * through the 960x540 viewport density and mobile through the native density.
+     * TV therefore applies only the documented shrink; the previous heightDp/1080dp
+     * factor multiplied a second screen-size term on top of it, so TV boxes whose
+     * output resolution follows the video (1080p video, then 4K) rendered the
+     * overlay twice as large relative to the screen. Mobile still scales against
+     * the stable long edge (≈873dp on a phone). The margin uses the resolved text
+     * size in pixels rather than the original layout margin, so repeated calls
+     * keep the same spacing.</p>
      */
     public static void scalePlayerOverlay(TextView... views) {
         for (TextView view : views) {
             if (view == null) continue;
+            float before = view.getTextSize();
             float scale = playerOverlayScale(view.getContext());
             // Explicit overlay variant is resolved from its semantic role, never the last text size.
-            TextScale.setPlayerOverlayScale(view, scale * 1.6f * 0.7f * 0.85f);
+            TextScale.setPlayerOverlayScale(view, scale);
             ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
             if (lp != null) {
                 lp.topMargin = Math.max(1, Math.round(view.getTextSize() * 0.25f));
                 view.setLayoutParams(lp);
             }
+            android.util.Log.i("OverlayScale", "view=" + view.getResources().getResourceEntryName(view.getId())
+                + " deviceType=" + ProductCore.getDeviceType() + " scale=" + scale
+                + " densityDpi=" + view.getResources().getConfiguration().densityDpi
+                + " widthPx=" + getScreenWidth(view.getContext()) + " heightPx=" + getScreenHeight(view.getContext())
+                + " before=" + before + " after=" + view.getTextSize());
         }
     }
 
     private static float playerOverlayScale(Context context) {
+        if (ProductCore.getDeviceType() == 0) return OVERLAY_SHRINK;
         // Use the display bounds and native density. Resource display metrics can be
         // rewritten by layout scaling and must not determine playback overlay size.
         float density = context.getResources().getConfiguration().densityDpi / 160f;
         float widthDp = getScreenWidth(context) / density;
         float heightDp = getScreenHeight(context) / density;
-        if (ProductCore.getDeviceType() == 0) return heightDp / TV_OVERLAY_REFERENCE_HEIGHT_DP;
-        return Math.max(widthDp, heightDp) / OVERLAY_REFERENCE_HEIGHT_DP;
+        return Math.max(widthDp, heightDp) / OVERLAY_REFERENCE_HEIGHT_DP * MOBILE_OVERLAY_SHRINK;
     }
 
 }

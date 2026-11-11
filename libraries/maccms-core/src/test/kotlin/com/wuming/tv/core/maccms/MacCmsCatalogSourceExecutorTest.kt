@@ -7,6 +7,15 @@ import org.junit.Test
 
 class MacCmsCatalogSourceExecutorTest {
 
+    @Test fun prewarmingOnlyUsesTheReviewedDirectResolver() {
+        val executor = MacCmsCatalogSourceExecutor(MacCmsSiteSpec("site", "Site", "https://api.example/api.php/provide/vod/"),
+            MacCmsTransport { _, _, _ -> error("Prewarming must not fetch catalogue or cloud data") })
+        assertEquals("https://media.example/next.m3u8", executor.prewarm("hls", "https://media.example/next.m3u8")?.url)
+        org.junit.Assert.assertNull(executor.prewarm("夸克", "https://media.example/next.m3u8"))
+        org.junit.Assert.assertNull(executor.prewarm("hls", "https://pan.quark.cn/s/test"))
+        org.junit.Assert.assertNull(executor.prewarm("hls", "opaque-provider-id"))
+    }
+
     private val json = """
         {
           "code": 1,

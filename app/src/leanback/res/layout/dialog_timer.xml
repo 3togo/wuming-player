@@ -30,7 +30,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:clickable="true"
-            android:foreground="@drawable/tv_focus_outline"
+            android:foreground="@drawable/tv_dialog_focus_outline"
             android:focusable="true"
             android:id="@+id/time1"
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:clickable="true"
-            android:foreground="@drawable/tv_focus_outline"
+            android:foreground="@drawable/tv_dialog_focus_outline"
             android:focusable="true"
             android:id="@+id/time2"
             android:layout_width="match_parent"
@@ -64,7 +64,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:clickable="true"
-            android:foreground="@drawable/tv_focus_outline"
+            android:foreground="@drawable/tv_dialog_focus_outline"
             android:focusable="true"
             android:id="@+id/time3"
             android:layout_width="match_parent"
@@ -81,7 +81,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:clickable="true"
-            android:foreground="@drawable/tv_focus_outline"
+            android:foreground="@drawable/tv_dialog_focus_outline"
             android:focusable="true"
             android:id="@+id/time4"
             android:layout_width="match_parent"

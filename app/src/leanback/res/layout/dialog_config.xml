@@ -31,13 +31,13 @@
             android:paddingStart="@dimen/vs_4"
             android:paddingEnd="@dimen/vs_4"
             android:textColor="?attr/dialogOnSurface"
-            android:textSize="@dimen/font_title"
+            android:textSize="@dimen/font_label"
             tools:text="使用手机扫描二维码\n或于浏览器访问地址" >
-            <tag android:id="@id/tag_typography_role" android:value="title" />
+            <tag android:id="@id/tag_typography_role" android:value="label" />
         </com.google.android.material.textview.MaterialTextView>
 
         <com.wuming.android.tv.ui.custom.CustomEditText
-                android:foreground="@drawable/tv_focus_outline"
+                android:foreground="@drawable/tv_dialog_focus_outline"
                 android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,8 +52,8 @@
             android:paddingEnd="@dimen/vs_4"
             android:singleLine="true"
             android:textColor="?attr/dialogOnSurface"
-            android:textSize="@dimen/font_title" >
-            <tag android:id="@id/tag_typography_role" android:value="title" />
+            android:textSize="@dimen/font_label" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
         </com.wuming.android.tv.ui.custom.CustomEditText>
 
         <View
@@ -68,12 +68,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            android:textSize="@dimen/font_body">
-            <tag android:id="@id/tag_typography_role" android:value="body" />
+            android:textSize="@dimen/font_label">
+            <tag android:id="@id/tag_typography_role" android:value="label" />
         </com.google.android.material.textview.MaterialTextView>
 
         <com.wuming.android.tv.ui.custom.CustomEditText
-                android:foreground="@drawable/tv_focus_outline"
+                android:foreground="@drawable/tv_dialog_focus_outline"
                 android:id="@+id/editName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,8 +88,8 @@
             android:paddingEnd="@dimen/vs_4"
             android:singleLine="true"
             android:textColor="?attr/dialogOnSurface"
-            android:textSize="@dimen/font_title" >
-            <tag android:id="@id/tag_typography_role" android:value="title" />
+            android:textSize="@dimen/font_label" >
+            <tag android:id="@id/tag_typography_role" android:value="label" />
         </com.wuming.android.tv.ui.custom.CustomEditText>
 
         <com.google.android.material.textview.MaterialTextView
@@ -122,6 +122,7 @@
                 android:layout_marginEnd="@dimen/vs_16"
                 android:text="@string/dialog_config_help" >
                 <tag android:id="@id/tag_typography_role" android:value="label" />
+                <tag android:id="@id/tag_typography_variant" android:value="compact-action" />
             </com.google.android.material.textview.MaterialTextView>
 
             <com.google.android.material.textview.MaterialTextView
@@ -130,6 +131,7 @@
                 android:layout_marginEnd="@dimen/vs_16"
                 android:text="@string/setting_choose" >
                 <tag android:id="@id/tag_typography_role" android:value="label" />
+                <tag android:id="@id/tag_typography_variant" android:value="compact-action" />
             </com.google.android.material.textview.MaterialTextView>
 
             <com.google.android.material.textview.MaterialTextView
@@ -138,6 +140,7 @@
                 android:layout_marginEnd="@dimen/vs_16"
                 android:text="@string/dialog_positive" >
                 <tag android:id="@id/tag_typography_role" android:value="label" />
+                <tag android:id="@id/tag_typography_variant" android:value="compact-action" />
             </com.google.android.material.textview.MaterialTextView>
 
             <com.google.android.material.textview.MaterialTextView
@@ -145,6 +148,7 @@
                 style="@style/DialogButton"
                 android:text="@string/dialog_negative" >
                 <tag android:id="@id/tag_typography_role" android:value="label" />
+                <tag android:id="@id/tag_typography_variant" android:value="compact-action" />
             </com.google.android.material.textview.MaterialTextView>
 
         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,5 +1,8 @@
 # Daily maintenance GUI
 
+For reproducing, tracing, repairing and validating defects, see the
+[bug-fixing maintenance guide](bug-fixing.md), including examples from Git history.
+
 `./maintain.sh` (activates `~/venv`, then runs `python scripts/maintain.py`; requires `python3-tk`).
 
 Buttons map to the repository's maintenance pipeline:
@@ -215,3 +218,124 @@ launcher), plus `scripts/maintain.py` and the other test/publish helpers.
 files, and the runtime configs `updates.json`, `github_proxies.json`, and
 `wuming-config.example.json`, which are read by app/desktop/gradle code by
 root-relative path.
+
+## Recovering a disk-full build: Gradle lock and partial native dependencies
+
+A disk-full failure can leave two separate problems: an idle Gradle daemon still
+owns the execution-history lock, and a native dependency has only partially
+installed. Fixing the lock does not establish that the native build cache is
+complete. The following recovery was validated by successful leanback ARM64 and
+ARM32 verification assembly on 2026-11-11.
+
+### 1. Restore space and identify the lock owner
+
+Run from the project root; substitute the Gradle version used by the failed build:
+
+```bash
+df -h . "$HOME/temp"
+fuser .gradle/9.7.1/executionHistory/executionHistory.lock
+ps -eo pid,ppid,etime,args | rg 'GradleDaemon|GradleWrapperMain|gradlew-safe'
+```
+
+Preserve the failed log under a descriptive folder in `~/temp/`. Free space only
+from reviewed disposable outputs; do not delete checkouts, signing keys or unrelated
+caches. In this incident approximately 25 GB was available before the successful
+retry; that is an observation, not a universal build-space requirement.
+
+The diagnostic was `Cannot lock execution history cache ... as it has already
+been locked by this process`. Inspect the identified PID's daemon log:
+
+```bash
+# Replace OWNER_PID with the PID reported by fuser.
+tail -60 "$HOME/.gradle/daemon/9.7.1/daemon-OWNER_PID.out.log"
+```
+
+Confirm it belongs to the failed build and is idle, with no active build client
+or worker children. Periodic daemon health checks alone do not establish that an
+unrelated build can be stopped. Recheck process identity immediately before
+sending `kill -TERM OWNER_PID` to that specific daemon. Wait for it to exit and
+rerun `fuser`; if ownership changes, investigate the new owner rather than killing
+it automatically. Do not use `pkill java`, stop unrelated daemons, or unlink a
+lock file while a process owns it. This recovery required no cache deletion.
+
+Start the retry with `--no-daemon` to avoid reusing the failed long-lived daemon
+(Gradle may still create a fresh single-use daemon):
+
+```bash
+mkdir -p "$HOME/temp/wuming-leanback-recovery"
+./gradlew-safe --no-daemon \
+  :app:assembleLeanbackArm64_v8aVerification \
+  :app:assembleLeanbackArmeabi_v7aVerification \
+  > "$HOME/temp/wuming-leanback-recovery/build.log" 2>&1
+```
+
+Use the configured shared signing identity normally. For an intentional local test
+build with an existing alternate configured key, the supported
+`-PwumingEphemeralSigning=true` option permits test signing; it is not a release
+workaround. Disclose that such an APK cannot update a differently signed testing
+installation. Never generate a replacement key or skip signing validation.
+
+### 2. Diagnose incomplete native installation separately
+
+The next failure in this incident was `:app:prepareNativePythonArm64_v8a`:
+`lxml` reported that libxml2/libxslt development packages were missing. The
+underlying generated prefix contained `libxslt.a` but lacked `bin/xslt-config`.
+The preparation script's archive-existence check skipped rebuilding that dependency,
+so simply retrying Gradle did not repair it.
+
+Inspect the traceback and generated prefix before installing host development
+packages or deleting build caches:
+
+```bash
+rg -n -A15 'Traceback|Error:|What went wrong' \
+  "$HOME/temp/wuming-leanback-recovery/build.log"
+ls -l build/python-native/packages/aarch64-linux-android/native/bin
+build/python-native/packages/aarch64-linux-android/native/bin/xml2-config --version
+build/python-native/packages/aarch64-linux-android/native/bin/xslt-config --version
+```
+
+For the specific missing-script case, use the already configured generated source
+and its installation target. Confirm the paths/version against the current
+`scripts/python-runtime/build-packages.py`; ARM32 uses `arm-linux-androideabi`,
+not `aarch64-linux-android`.
+
+```bash
+make -C build/python-native/packages/aarch64-linux-android/libxslt/libxslt-1.1.43 \
+  install-binSCRIPTS
+build/python-native/packages/aarch64-linux-android/native/bin/xslt-config --version
+```
+
+This installs the generated `xslt-config` into the configured native prefix without
+altering tracked source. Do not copy a host-system `xslt-config`: its include and
+library paths would describe the wrong target. A broader `make install` was also
+attempted in this incident but failed during documentation installation with a
+segmentation fault; it was **not** a successful repair. The narrower
+`install-binSCRIPTS` target succeeded, followed by complete APK assembly.
+
+This narrow repair applies only when the missing script is the established defect.
+If archives, headers or other outputs are damaged, inspect them and rebuild the
+affected dependency using its maintained cross-build environment. The existence of
+an archive alone does not establish a complete install. Do not edit preparation
+scripts while another build is running or hand-create success markers.
+
+### 3. Verify recovery through finished artifacts
+
+Rerun the requested assembly tasks and require a zero exit status and
+`BUILD SUCCESSFUL`. Read current `output-metadata.json` under
+`app/build/outputs/apk/leanback*/verification/` to locate the newly built files;
+an older APK left in the output directory does not prove recovery.
+
+Use the installed SDK build tools on each exact output APK:
+
+```bash
+# Set these to the installed SDK build-tools directory and the current output APK.
+"$BUILD_TOOLS/aapt" dump badging "$APK"
+"$BUILD_TOOLS/apksigner" verify --verbose --print-certs "$APK"
+sha256sum "$APK"
+```
+
+Check the expected package ending in `.verification`, the `無名(testing)` label,
+version and ARM ABI. Record the certificate digest and APK checksum. Signature
+integrity does not independently establish that the certificate is the intended
+shared publisher identity. Device text sizing and pause behavior still require
+TV validation; successful packaging establishes neither.

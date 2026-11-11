@@ -68,6 +68,12 @@ abstract class BaseFastListAdapter : RecyclerView.Adapter<BaseFastListAdapter.Vi
         notifyItemInserted(position)
     }
 
+    protected fun moveItem(from: Int, to: Int) {
+        items.add(to, items.removeAt(from))
+        siteKeys.add(to, siteKeys.removeAt(from))
+        notifyItemMoved(from, to)
+    }
+
     open fun getData(): MutableList<String> = items
 
     open fun reset() {

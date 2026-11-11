@@ -24,6 +24,14 @@ object SpiderInvocationSupport {
 
     val GSON: Gson = Gson()
 
+    /** Match the Spider ABI: initialization is required even when no extension is configured. */
+    @JvmStatic
+    fun initialize(spider: Any, contextType: Class<*>, context: Any?, extension: String) {
+        val withExtension = find(spider, "init", contextType, String::class.java)
+        if (withExtension != null) withExtension.invoke(spider, context, extension)
+        else required(spider, "init", contextType).invoke(spider, context)
+    }
+
     fun playbackUrl(root: JsonObject): String {
         val value = root.get("url")
         var selected = ""

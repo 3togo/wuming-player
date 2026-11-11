@@ -11,7 +11,7 @@
         android:padding="@dimen/vs_8">
 
         <com.wuming.android.tv.ui.custom.CustomEditText
-                android:foreground="@drawable/tv_focus_outline"
+                android:foreground="@drawable/tv_dialog_focus_outline"
                 android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
         </com.wuming.android.tv.ui.custom.CustomEditText>
 
         <com.wuming.android.tv.ui.custom.CustomEditText
-                android:foreground="@drawable/tv_focus_outline"
+                android:foreground="@drawable/tv_dialog_focus_outline"
                 android:id="@+id/url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         </com.wuming.android.tv.ui.custom.CustomEditText>
 
         <com.wuming.android.tv.ui.custom.CustomEditText
-                android:foreground="@drawable/tv_focus_outline"
+                android:foreground="@drawable/tv_dialog_focus_outline"
                 android:id="@+id/path"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
         </com.wuming.android.tv.ui.custom.CustomEditText>
 
         <com.wuming.android.tv.ui.custom.CustomEditText
-                android:foreground="@drawable/tv_focus_outline"
+                android:foreground="@drawable/tv_dialog_focus_outline"
                 android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
         </com.wuming.android.tv.ui.custom.CustomEditText>
 
         <com.wuming.android.tv.ui.custom.CustomEditText
-                android:foreground="@drawable/tv_focus_outline"
+                android:foreground="@drawable/tv_dialog_focus_outline"
                 android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -14,6 +14,16 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class ExternalPlayerAdapterTest {
+    @Test fun mpvFailureKeepsFormatDetailsAndDistinguishesVideoOutputFromBadMedia() {
+        val invalid = """{"event":"end-file","reason":"error","file_error":"unrecognized file format"}"""
+        assertTrue(mpvPlaybackFailure(invalid)!!.contains("invalid playlist"))
+        assertFalse(isMpvVideoOutputFailure(invalid))
+        assertTrue(isMpvVideoOutputFailure("""{"event":"end-file","reason":"error","file_error":"audio/video output initialization failed"}"""))
+        assertNull(mpvPlaybackFailure("""{"event":"end-file","reason":"eof"}"""))
+        assertFalse(mpvPlaybackFailure("""{"event":"end-file","reason":"error","file_error":"https://secret.example/?token=secret"}""")!!.contains("secret"))
+        assertEquals("input-format-failed", classifyPlayerOutput("Failed to recognize file format."))
+    }
+
     @Test
     fun removedSdkProtocolsNeverLaunchAnExternalProcess() {
         org.junit.Assume.assumeFalse(com.wuming.tv.core.base.EditionSettings.current.nativeProtocols)
@@ -113,6 +123,77 @@ class ExternalPlayerAdapterTest {
             server.close()
             socket?.let { Files.deleteIfExists(it) }
         }
+    }
+
+    @Test
+    fun malformedMediaReportsFailureWithoutRetryingInAnExternalWindow() {
+        val process = AliveProcess()
+        val launches = java.util.concurrent.atomic.AtomicInteger()
+        val failure = java.util.concurrent.atomic.AtomicReference<String>()
+        val failed = CountDownLatch(1)
+        val server = java.nio.channels.ServerSocketChannel.open(java.net.StandardProtocolFamily.UNIX)
+        var socket: Path? = null
+        val adapter = ExternalPlayerAdapter(Path.of("/usr/bin/mpv"), { command ->
+            launches.incrementAndGet()
+            socket = Path.of(command.single { it.startsWith("--input-ipc-server=") }.substringAfter('='))
+            server.bind(java.net.UnixDomainSocketAddress.of(socket))
+            process
+        }, PlaybackTargetPreparer { target, _ -> PreparedPlaybackTarget(target) })
+        adapter.setEmbeddedVideoHost(object : EmbeddedVideoHost {
+            override fun acquire(title: String?, fullscreen: Boolean): Long = 1234L
+            override fun externalPlayback() = Unit
+            override fun playbackClosed() = Unit
+        })
+        try {
+            assertTrue(adapter.play("https://example.test/invalid.m3u8", onPlaybackFailed = {
+                failure.set(it); failed.countDown()
+            }).started)
+            server.configureBlocking(false)
+            var connection: java.nio.channels.SocketChannel? = null
+            val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(3)
+            while (connection == null && System.nanoTime() < deadline) {
+                connection = server.accept()
+                if (connection == null) Thread.sleep(10)
+            }
+            checkNotNull(connection).use { client ->
+                val event = """{"event":"end-file","reason":"error","file_error":"unrecognized file format"}""" + "\n"
+                val bytes = java.nio.ByteBuffer.wrap(event.toByteArray())
+                while (bytes.hasRemaining()) client.write(bytes)
+                assertTrue(failed.await(3, TimeUnit.SECONDS))
+                assertTrue(failure.get().contains("invalid playlist"))
+                assertEquals(1, launches.get())
+            }
+        } finally {
+            adapter.stop(); server.close(); socket?.let { Files.deleteIfExists(it) }
+        }
+    }
+
+    @Test
+    fun embeddedCommandUsesNativeSurfaceWithoutLettingMpvControlTheApplicationWindow() {
+        val adapter = ExternalPlayerAdapter(Path.of("/usr/bin/mpv"))
+        val command = adapter.command("https://media.example/next.mp4", emptyMap(), fullscreen = true, windowId = 1234)
+        assertTrue("--wid=1234" in command)
+        assertTrue("--input-vo-keyboard=no" in command)
+        assertTrue("--window-dragging=no" in command)
+        assertTrue("--fullscreen=no" in command)
+        assertFalse("--fullscreen" in command)
+        assertFalse(adapter.command("https://media.example/next.mp4", emptyMap()).any { it.startsWith("--wid=") })
+    }
+
+    @Test
+    fun unavailableNativeSurfaceUsesTheExistingExternalPlayerPath() {
+        var launched = emptyList<String>()
+        var external = false
+        val adapter = ExternalPlayerAdapter(Path.of("/usr/bin/mpv"), { launched = it; null },
+            PlaybackTargetPreparer { target, _ -> PreparedPlaybackTarget(target) })
+        adapter.setEmbeddedVideoHost(object : EmbeddedVideoHost {
+            override fun acquire(title: String?, fullscreen: Boolean): Long? = null
+            override fun externalPlayback() { external = true }
+            override fun playbackClosed() = Unit
+        })
+        assertTrue(adapter.play("https://media.example/next.mp4").started)
+        assertTrue(external)
+        assertFalse(launched.any { it.startsWith("--wid=") })
     }
 
     @Test

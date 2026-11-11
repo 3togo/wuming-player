@@ -49,6 +49,11 @@ class CloudResolvingCatalogSourceExecutor(
         cloudEpisodes.putAll(detected)
     }
 
+    override fun playbackPreparationSafety(flag: String, id: String): PlaybackPreparationSafety =
+        if (cloudEpisodes.containsKey(flag to id) ||
+            PlaybackPreparationPolicy.classify(false, flag, id) == PlaybackPreparationSafety.CLOUD
+        ) PlaybackPreparationSafety.CLOUD else delegate.playbackPreparationSafety(flag, id)
+
     override fun play(flag: String, id: String): CatalogPlayback = cloudEpisodes[flag to id]
         ?.let { resolver.resolve(it, id) } ?: delegate.play(flag, id)
 

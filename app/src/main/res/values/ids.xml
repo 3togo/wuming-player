@@ -16,4 +16,5 @@
     <item name="tag_typography_recycler" type="id" />
     <item name="tag_typography_overlay_scale" type="id" />
     <item name="tag_control_spacing_applied" type="id" />
+    <item name="tag_typography_variant" type="id" />
 </resources>

@@ -11,6 +11,10 @@ import org.objectweb.asm.tree.ClassNode
 import org.objectweb.asm.tree.InsnList
 import org.objectweb.asm.tree.InsnNode
 import org.objectweb.asm.tree.MethodInsnNode
+import org.objectweb.asm.tree.FrameNode
+import org.objectweb.asm.tree.JumpInsnNode
+import org.objectweb.asm.tree.LookupSwitchInsnNode
+import org.objectweb.asm.tree.TableSwitchInsnNode
 
 /** Adapts provider-owned request construction without changing OkHttp or the approved JAR. */
 class GuardedProviderClassLoader(urls: Array<URL?>, parent: ClassLoader) : URLClassLoader(urls, parent) {
@@ -44,7 +48,28 @@ class GuardedProviderClassLoader(urls: Array<URL?>, parent: ClassLoader) : URLCl
                 }
             }
         }
-        val adapted = if (changed) ClassWriter(ClassWriter.COMPUTE_MAXS).also(node::accept).toByteArray() else bytes
+        val missingFrames = node.version >= Opcodes.V1_7 && node.methods.any { method ->
+            val instructions = method.instructions.toArray()
+            instructions.none { it is FrameNode } &&
+                (method.tryCatchBlocks.isNotEmpty() || instructions.any {
+                    it is JumpInsnNode || it is LookupSwitchInsnNode || it is TableSwitchInsnNode
+                })
+        }
+        val adapted = when {
+            missingFrames -> {
+                // Converted Java 7+ providers can omit StackMapTable. Repair in memory so
+                // previously prepared caches benefit without rewriting approved provider bytes.
+                // Hierarchy lookup must not recursively define this class through our loader,
+                // or initialize unused provider classes while ASM calculates common parents.
+                URLClassLoader(getURLs(), parent).use { hierarchy ->
+                    object : ClassWriter(COMPUTE_FRAMES or COMPUTE_MAXS) {
+                        override fun getClassLoader(): ClassLoader = hierarchy
+                    }.also(node::accept).toByteArray()
+                }
+            }
+            changed -> ClassWriter(ClassWriter.COMPUTE_MAXS).also(node::accept).toByteArray()
+            else -> bytes
+        }
         return defineClass(name, adapted, 0, adapted.size, CodeSource(getURLs().first(), null as Array<Certificate>?))
     }
 

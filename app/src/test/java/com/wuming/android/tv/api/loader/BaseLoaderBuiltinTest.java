@@ -10,6 +10,11 @@ import org.junit.Test;
 public class BaseLoaderBuiltinTest {
 
     @Test
+    public void builtinHongGuoDoesNotDependOnAnExternalJar() {
+        assertTrue(BaseLoader.createBuiltinSpider("hongguo") instanceof com.wuming.android.tv.catalog.HongGuoSpider);
+    }
+
+    @Test
     public void builtinLibvioDoesNotDependOnAnExternalJar() {
         assertTrue(BaseLoader.createBuiltinSpider("libvio") instanceof com.wuming.android.tv.catalog.LibvioSpider);
     }

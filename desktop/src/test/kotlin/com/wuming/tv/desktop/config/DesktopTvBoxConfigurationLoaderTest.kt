@@ -18,6 +18,23 @@ import java.util.Base64
 class DesktopTvBoxConfigurationLoaderTest {
 
     @Test
+    fun hongGuoUsesSharedAdapterForBothExplicitAliasesAndKeepsOtherProvidersUnchanged() {
+        for (api in listOf("csp_HongGuo", "builtin_hongguo")) {
+            val json = """{"spider":"https://unused.example/provider.jar","sites":[
+                {"key":"custom","name":"My HongGuo","type":3,"api":"$api","searchable":0,"categories":["短剧大全"]},
+                {"key":"other","type":3,"api":"csp_HongGuoOther"}]}"""
+            val config = DesktopTvBoxConfigurationLoader(null) { json.toByteArray() }.load("https://fixture.example/config")
+            val site = config.sites.first()
+            assertEquals("custom", site.hongGuoExecution?.key)
+            assertEquals("My HongGuo", site.hongGuoExecution?.name)
+            assertEquals(listOf("短剧大全"), site.hongGuoExecution?.categories)
+            assertEquals(false, site.searchable)
+            assertEquals(null, site.jvmExecution)
+            assertEquals("csp_HongGuoOther", config.jvmSpiderSites.single().jvmExecution?.api)
+        }
+    }
+
+    @Test
     fun libvioUsesBuiltinAdapterWithoutJarOrApprovalAndPreservesIdentity() {
         val json = """{"spider":"https://unused.example/spider.jar","sites":[
             {"key":"custom-key","name":"My Libvio","type":3,"api":"csp_LibvioGuard","ext":{"siteUrl":"https://www.libvio.pw/"}},

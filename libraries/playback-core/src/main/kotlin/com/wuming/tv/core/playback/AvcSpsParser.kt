@@ -77,7 +77,28 @@ internal object AvcSpsParser : TsStreamProbe.SpsParserPort {
         val width = widthMbs * 16L - (left.toLong() + right) * cropX
         val height = heightUnits * 16L * (2 - frameOnly) - (top.toLong() + bottom) * cropY
         require(width in 1..Int.MAX_VALUE && height in 1..Int.MAX_VALUE)
-        return HlsResolutionAdFilter.VideoInfo(width.toInt(), height.toInt(), 0.0)
+        // Missing/truncated optional timing must not invalidate dimensions used by
+        // the existing detectors. Interlaced timing is deliberately left unknown.
+        val rate = if (frameOnly == 1) runCatching { timingRate(bits) }.getOrDefault(0.0) else 0.0
+        return HlsResolutionAdFilter.VideoInfo(width.toInt(), height.toInt(), 0.0, rate)
+    }
+
+    /** H.264 Annex E VUI, through timing_info (a clock rate, not fixed-FPS proof). */
+    private fun timingRate(bits: Bits): Double {
+        if (bits.read(1) == 0) return 0.0 // vui_parameters_present_flag
+        if (bits.read(1) != 0 && bits.read(8) == 255) { bits.read(16); bits.read(16) }
+        if (bits.read(1) != 0) bits.read(1) // overscan
+        if (bits.read(1) != 0) {
+            bits.read(3); bits.read(1) // video format, full range
+            if (bits.read(1) != 0) { bits.read(8); bits.read(8); bits.read(8) }
+        }
+        if (bits.read(1) != 0) { bits.ue(); bits.ue() } // chroma location
+        if (bits.read(1) == 0) return 0.0
+        fun uint32() = (bits.read(16).toLong() shl 16) or bits.read(16).toLong()
+        val ticks = uint32()
+        val scale = uint32()
+        bits.read(1) // fixed_frame_rate_flag may be false in both programme and ad
+        return if (ticks > 0 && scale > 0) scale.toDouble() / (2.0 * ticks) else 0.0
     }
 
     private class Bits(private val bytes: ByteArray) {

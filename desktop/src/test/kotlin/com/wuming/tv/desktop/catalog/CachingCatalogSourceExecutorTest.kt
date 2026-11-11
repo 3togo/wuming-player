@@ -65,4 +65,20 @@ class CachingCatalogSourceExecutorTest {
         CachingCatalogSourceExecutor(replacement).search("test")
         assertEquals(1, replacement.searches)
     }
+
+    @Test fun desktopAccountSignalReachesTheSharedCacheThroughTheAdapter() {
+        val source = Source()
+        CachingCatalogSourceExecutor(source).use { cache ->
+            cache.search("query")
+            cache.search("query")
+            assertEquals(1, source.searches)
+            com.wuming.tv.desktop.cache.DesktopCacheGeneration.value.incrementAndGet()
+            cache.search("query")
+            assertEquals(2, source.searches)
+            cache.clear()
+            cache.search("query")
+            assertEquals(3, source.searches)
+        }
+        assertTrue(source.closed)
+    }
 }

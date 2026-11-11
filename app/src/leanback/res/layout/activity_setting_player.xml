@@ -580,6 +580,40 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
                 android:tag="settings-row"
+            android:id="@+id/playbackTextSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vs_16"
+            android:background="@drawable/selector_item"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/vs_16"
+                android:text="@string/player_overlay_text_size"
+                android:textColor="?attr/appOnBackground"
+                android:textSize="@dimen/font_title" >
+                <tag android:id="@id/tag_typography_role" android:value="title" />
+            </com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/playbackTextSizeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textColor="?attr/appOnBackground"
+                android:textSize="@dimen/font_title"
+                tools:text="Off" >
+                <tag android:id="@id/tag_typography_role" android:value="title" />
+            </com.google.android.material.textview.MaterialTextView>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:tag="settings-row"
             android:id="@+id/danmakuShow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

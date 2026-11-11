@@ -27,5 +27,8 @@ interface CatalogGateway {
 
     fun detail(source: String, id: String): CatalogDetail
 
+    /** Optional read-only resolution. Remote/older gateways safely do nothing by default. */
+    fun prewarm(source: String, flag: String, id: String): CatalogPlayback? = null
+
     fun play(source: String, flag: String, id: String): CatalogPlayback
 }

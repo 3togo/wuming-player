@@ -9,10 +9,20 @@ import org.junit.Test
 class CatalogThumbnailSizingTest {
     @Test
     fun `thumbnail width scales with viewport and user preference`() {
-        assertEquals(160, CatalogThumbnailSizing.cellWidth(1_000, 100))
-        assertEquals(240, CatalogThumbnailSizing.cellWidth(1_500, 100))
-        assertEquals(256, CatalogThumbnailSizing.cellWidth(1_000, 160))
-        assertEquals(104, CatalogThumbnailSizing.cellWidth(1_000, 65))
+        assertEquals(166, CatalogThumbnailSizing.cellWidth(1_000, 100))
+        assertEquals(250, CatalogThumbnailSizing.cellWidth(1_500, 100))
+        assertEquals(333, CatalogThumbnailSizing.cellWidth(1_000, 160))
+        assertEquals(111, CatalogThumbnailSizing.cellWidth(1_000, 65))
+    }
+
+    @Test
+    fun `narrow panes keep posters readable and use complete columns`() {
+        for (width in listOf(1, 75, 320, 665)) {
+            val cell = CatalogThumbnailSizing.cellWidth(width, 100)
+            val columns = width / cell
+            org.junit.Assert.assertTrue(cell >= minOf(width, DesktopTvTheme.px(96)))
+            org.junit.Assert.assertTrue(width - cell * columns < columns)
+        }
     }
 
     @Test

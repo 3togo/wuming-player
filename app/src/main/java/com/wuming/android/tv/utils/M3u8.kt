@@ -30,6 +30,8 @@ object M3u8 {
             "resolution-reset: removedBlocks=${prepared.resolution.removedBlocks}, removedSegments=${prepared.resolution.removedSegments}")
         if (prepared.insertion.removedSegments > 0) android.util.Log.i("HlsAdFilter",
             "timestamp-insertion: removedBlocks=${prepared.insertion.removedBlocks}, removedSegments=${prepared.insertion.removedSegments}")
+        if (prepared.appended.removedSegments > 0) android.util.Log.i("HlsAdFilter",
+            "appended-ad: removedBlocks=${prepared.appended.removedBlocks}, removedSegments=${prepared.appended.removedSegments}")
         return prepared.replacement
     }
 

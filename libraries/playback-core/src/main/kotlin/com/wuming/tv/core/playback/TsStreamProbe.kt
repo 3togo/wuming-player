@@ -23,9 +23,18 @@ class TsStreamProbe private constructor(private val spsParser: SpsParserPort) {
         if (nativeAvailable) {
             val result = nativeProbe(data)
             if (result != null) {
-                return HlsResolutionAdFilter.VideoInfo(result[0].toInt(), result[1].toInt(), result[2])
+                // Older native binaries return only dimensions/PTS. Enrich from
+                // the shared portable parser so Android and Linux see VUI timing.
+                val portable = readPortable(data)
+                val rate = portable?.takeIf { it.width == result[0].toInt() && it.height == result[1].toInt() &&
+                    kotlin.math.abs(it.ptsSeconds - result[2]) <= 0.001 }?.nominalFrameRate ?: 0.0
+                return HlsResolutionAdFilter.VideoInfo(result[0].toInt(), result[1].toInt(), result[2], rate)
             }
         }
+        return readPortable(data)
+    }
+
+    private fun readPortable(data: ByteArray): HlsResolutionAdFilter.VideoInfo? {
         try {
             var videoPid = -1
             var pts = -1.0
@@ -97,7 +106,7 @@ class TsStreamProbe private constructor(private val spsParser: SpsParserPort) {
                 }
                 if (nalEnd + 3 >= bytes.size) return null
                 val sps = spsParser.parseSps(bytes, i + 3, nalEnd)
-                return HlsResolutionAdFilter.VideoInfo(sps.width, sps.height, pts)
+                return HlsResolutionAdFilter.VideoInfo(sps.width, sps.height, pts, sps.nominalFrameRate)
             }
         } catch (_: RuntimeException) {
         }

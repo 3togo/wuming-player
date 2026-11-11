@@ -45,8 +45,15 @@ object HlsPlaylistLocation {
         return ruleBaseUrl(url)
     }
 
+    /** Both Android's fixed endpoint and desktop's per-provider capability endpoint. */
+    @JvmStatic
+    fun isProviderPlaylist(url: String?): Boolean = runCatching {
+        url != null && isProviderPlaylist(URI.create(url))
+    }.getOrDefault(false)
+
     private fun isProviderPlaylist(uri: URI): Boolean =
-        isLoopback(uri) && "/proxy" == uri.path && "m3u8" == parameter(uri, "do")
+        isLoopback(uri) && uri.path.orEmpty().endsWith("/proxy") &&
+            "m3u8".equals(parameter(uri, "do"), ignoreCase = true)
 
     private fun isLoopback(uri: URI): Boolean {
         val host = uri.host
@@ -58,7 +65,7 @@ object HlsPlaylistLocation {
         val query = uri.rawQuery ?: return ""
         for (part in query.split("&")) {
             val equals = part.indexOf('=')
-            if (equals >= 0 && name == part.substring(0, equals)) {
+            if (equals >= 0 && name.equals(part.substring(0, equals), ignoreCase = true)) {
                 return URLDecoder.decode(part.substring(equals + 1), "UTF-8")
             }
         }

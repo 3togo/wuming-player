@@ -13,18 +13,20 @@ import java.nio.file.Path
 import java.security.MessageDigest
 
 /**
- * Real-provider end-to-end validation of the desktop GMS-relay vertical: activate the actual 红果
- * plain-DEX provider (type 3, shares the config's `fm.jar`) through the real [GuardedSourceActivator]
- * and route its GMS-dependent `detail`/`play` to a wired device (`7e34269d`, which has Google Play
- * Services). This goes beyond the synthetic `GmsProbe` hardware test by exercising a production provider.
+ * Real-provider resolution smoke with an Android bridge available: activate the 红果 plain-DEX
+ * provider through [GuardedSourceActivator], discover a real item, then require episode lines and
+ * supported playback. The historical method name does not establish which runtime resolved it:
+ * detail/play only route to the device when the provider raises a GMS marker. Provider versions can
+ * change implementation; a pass does not prove GMS routing, media decoding or sustained playback.
+ * The production activator now supplies the shared first-party HongGuo website adapter after
+ * validating/loading the selected JAR. This verifies the application's compatible source route;
+ * the independently pinned DEX test verifies the downloaded artifact itself.
  *
- * The 红果 vod id is harvested automatically: first from the desktop `home()`, then — because 红果's
- * `home`/`category`/`search` return 0 on the desktop JVM — directly from the wired GMS device's
+ * The 红果 vod id is harvested automatically: first from the desktop `home()`, then from the wired GMS device's
  * `home`/`category` (via [com.wuming.tv.core.runtime.guardspider.GuardedCatVodCatalogSourceExecutor.deviceHomeIds]).
- * A manual id may still be forced with `-Dtvbox.hongguo.vodId=<id>`. That value is tolerated in several
- * shapes: a bare vod id, a `detail` logcat line (`key=csp_HongGuo,id=<id>,...`), or a share URL (the id
- * is taken from a `?id=` query param or the last path segment, with a trailing `.html` stripped). So a
- * 红果 share link pasted verbatim also works.
+ * A manual id may still be forced with `-Dtvbox.hongguo.vodId=<id>`. The legacy normalization
+ * helper accepts several input shapes; this website adapter requires a published detail path.
+ * Official HongGuo app share URLs belong to a different service and are not compatible IDs.
  *
  * Runs only when `-Dtvbox.guarded.hardware.test.serial=<serial>` is supplied.
  */
@@ -83,17 +85,18 @@ class GuardedSourceActivatorHongGuoRealDeviceTest {
             detail.lines.forEach { line ->
                 println("  line flag=${line.flag} name=${line.name} episodes=${line.episodes.size}")
             }
-            assertFalse("Device-resolved 红果 detail must carry at least one play line", detail.lines.isEmpty())
+            assertFalse("红果 detail must carry at least one play line", detail.lines.isEmpty())
 
             val line = detail.lines.first()
             val episode = line.episodes.first()
             val playback = executor.play(line.flag, episode.id)
-            println("HONGGUO_PLAY supported=${playback.supported} url=${playback.url} format=${playback.format} message=${playback.message}")
+            println("HONGGUO_PLAY supported=${playback.supported} urlPresent=${playback.url.isNotBlank()} format=${playback.format}")
             assertTrue(
-                "红果 play() must be resolved on the device (GMS relay) and report a supported playback. " +
-                    "Got: supported=${playback.supported} url=${playback.url} message=${playback.message}",
+                "红果 play() must report supported playback. " +
+                    "Got: supported=${playback.supported} urlPresent=${playback.url.isNotBlank()}",
                 playback.supported,
             )
+            assertTrue("Supported playback must include a resolved URL", playback.url.isNotBlank())
         } finally {
             executor.close()
         }

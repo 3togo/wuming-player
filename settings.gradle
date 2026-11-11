@@ -122,3 +122,5 @@ def editionSettings = file('gradle/edition-settings.gradle')
 if (editionSettings.isFile()) apply from: editionSettings
 
 include ':libraries:libvio-core'
+
+include ':libraries:hongguo-core'

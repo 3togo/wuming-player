@@ -1,0 +1,443 @@
+{
+  "spider": "./fm.jar",
+  "sites": [
+    {
+      "key": "豆瓣",
+      "name": "👒┃豆瓣┃推荐┃❤驸马影视 随心观影❤",
+      "type": 3,
+      "api": "csp_Douban"
+    },
+    {
+      "key": "网盘配置",
+      "name": "🍭┃配置┃中心",
+      "type": 3,
+      "api": "csp_Config"
+    },
+    {
+      "key": "FirstAid",
+      "name": "🚑 ┃急救┃知识 ",
+      "type": 3,
+      "api": "csp_FirstAid"
+    },
+    {
+      "key": "酷狗音乐",
+      "name": "🎸┃酷狗┃音乐",
+      "type": 3,
+      "api": "csp_Kugou"
+    },
+    {
+      "key": "哔哩听书",
+      "name": "🅱️┃哔哩┃听书",
+      "type": 3,
+      "api": "csp_Bili"
+    },
+    {
+      "key": "聚合直播",
+      "name": "🎥┃聚合┃直播",
+      "type": 3,
+      "api": "csp_Living"
+    },
+    {
+      "key": "星芽短剧",
+      "name": "🌟┃星芽┃短剧",
+      "type": 3,
+      "api": "csp_Xydj"
+    },
+    {
+      "key": "樱花动漫",
+      "name": "🌺┃樱花┃动漫",
+      "type": 3,
+      "api": "csp_Yhdm"
+    },
+    {
+      "key": "哔哩集合",
+      "name": "🅱️┃哔哩┃集合",
+      "type": 3,
+      "api": "csp_Bili"
+    },
+    {
+      "key": "瓜子影视",
+      "name": "🍉┃瓜子┃影视",
+      "type": 3,
+      "api": "csp_Guazi"
+    },
+    {
+      "key": "旺旺影视",
+      "name": "🐶┃旺旺┃影视",
+      "type": 3,
+      "api": "csp_Wwys"
+    },
+    {
+      "key": "驸马影视",
+      "name": "💂┃驸马┃影视",
+      "type": 3,
+      "api": "csp_Fmys"
+    },
+    {
+      "key": "多多影音",
+      "name": "🤴┃多多┃影音",
+      "type": 3,
+      "api": "csp_Ddyy"
+    },
+    {
+      "key": "二小网盘",
+      "name": "🐮┃二小┃网盘",
+      "type": 3,
+      "api": "csp_Mogg"
+    },
+    {
+      "key": "闪电网盘",
+      "name": "⚡️┃闪电┃网盘",
+      "type": 3,
+      "api": "csp_Mogg"
+    },
+    {
+      "key": "至臻网盘",
+      "name": "🏆️┃至臻┃网盘",
+      "type": 3,
+      "api": "csp_Mogg"
+    },
+    {
+      "key": "木偶哥哥",
+      "name": "🧸┃木偶┃哥哥",
+      "type": 3,
+      "api": "csp_Mogg"
+    },
+    {
+      "key": "蜡笔网盘",
+      "name": "🖍︎┃蜡笔┃网盘",
+      "type": 3,
+      "api": "csp_Mogg"
+    },
+    {
+      "key": "仓鼠app",
+      "name": "🐹┃仓鼠┃影视",
+      "type": 3,
+      "api": "csp_Getapp"
+    },
+    {
+      "key": "叁圈影视",
+      "name": "⭕️┃叁圈┃影视",
+      "type": 3,
+      "api": "csp_Qqys"
+    },
+    {
+      "key": "天天",
+      "name": "🍃┃天天┃影视",
+      "type": 3,
+      "api": "csp_TianTian"
+    },
+    {
+      "key": "热播",
+      "name": "🐠┃热播┃影视",
+      "type": 3,
+      "api": "csp_TianTian"
+    },
+    {
+      "key": "厂长",
+      "name": "🏭┃厂长┃影视",
+      "type": 3,
+      "api": "csp_Czzy"
+    },
+    {
+      "key": "雷鲸天翼",
+      "name": "🐳┃雷鲸┃天翼",
+      "type": 3,
+      "api": "csp_LeiJing"
+    },
+    {
+      "key": "优视频",
+      "name": "💯┃优优┃视频",
+      "type": 3,
+      "api": "csp_Uvod"
+    },
+    {
+      "key": "低端影视",
+      "name": "🔅┃低端┃影视",
+      "type": 3,
+      "api": "csp_Ddys"
+    },
+    {
+      "key": "金牌影院",
+      "name": "🏅┃金牌┃影院",
+      "type": 3,
+      "api": "csp_Jinpai"
+    },
+    {
+      "key": "人人pp",
+      "name": "👯‍♀┃人人┃影视",
+      "type": 3,
+      "api": "csp_Getapp"
+    },
+    {
+      "key": "咖啡app",
+      "name": "☕️┃咖啡┃影视",
+      "type": 3,
+      "api": "csp_Getapp"
+    },
+    {
+      "key": "魔方app",
+      "name": "♦️┃魔方┃影视",
+      "type": 3,
+      "api": "csp_Getapp"
+    },
+    {
+      "key": "小野app",
+      "name": "🍃┃小野┃影视",
+      "type": 3,
+      "api": "csp_Getapp"
+    },
+    {
+      "key": "爱看app",
+      "name": "💗┃爱看┃影视",
+      "type": 3,
+      "api": "csp_Getapp"
+    },
+    {
+      "key": "稀饭app",
+      "name": "🥣┃稀饭┃影视",
+      "type": 3,
+      "api": "csp_Getapp"
+    },
+    {
+      "key": "蓝光app",
+      "name": "🥣┃蓝光┃影视",
+      "type": 3,
+      "api": "csp_Getapp"
+    },
+    {
+      "key": "豆丁app",
+      "name": "🫘┃豆丁┃影视",
+      "type": 3,
+      "api": "csp_Getapp"
+    },
+    {
+      "key": "莲花app",
+      "name": "🪷┃莲花┃影视",
+      "type": 3,
+      "api": "csp_Getapp"
+    },
+    {
+      "key": "鲸鱼app",
+      "name": "🐳┃鲸鱼┃影视",
+      "type": 3,
+      "api": "csp_Getapp"
+    },
+    {
+      "key": "海豚app",
+      "name": "🐬┃海豚┃影视",
+      "type": 3,
+      "api": "csp_Getapp"
+    },
+    {
+      "key": "若惜app",
+      "name": "💦┃若惜┃影视",
+      "type": 3,
+      "api": "csp_Getapp"
+    },
+    {
+      "key": "橘子app",
+      "name": "🍊┃橘子┃影视",
+      "type": 3,
+      "api": "csp_Getapp"
+    },
+    {
+      "key": "追剧",
+      "name": "☕️┃追剧┃影视",
+      "type": 3,
+      "api": "csp_TianTian"
+    },
+    {
+      "key": "文才影视",
+      "name": "🖌︎┃文才┃影视",
+      "type": 3,
+      "api": "csp_XBPQ"
+    },
+    {
+      "key": "木耳",
+      "name": "🎠┃木耳┃影视",
+      "type": 3,
+      "api": "csp_Hmer"
+    },
+    {
+      "key": "荐片",
+      "name": "⏳┃荐片┃影视",
+      "type": 3,
+      "api": "csp_Jianpian"
+    },
+    {
+      "key": "夸克盘社",
+      "name": "📀┃夸克┃盘社",
+      "type": 3,
+      "api": "csp_Kwps"
+    },
+    {
+      "key": "电影云集",
+      "name": "🍫┃电影┃云集",
+      "type": 3,
+      "api": "csp_Dyyj"
+    },
+    {
+      "key": "云盘合集",
+      "name": "🈴┃云盘┃合集",
+      "type": 3,
+      "api": "csp_Ypba"
+    },
+    {
+      "key": "湾湾频道",
+      "name": "🌀┃湾湾┃频道",
+      "type": 3,
+      "api": "csp_Ptt"
+    },
+    {
+      "key": "XBPQ_黑狐影院",
+      "name": "🦊┃黑狐┃影院",
+      "type": 3,
+      "api": "csp_XBPQ"
+    },
+    {
+      "key": "XBPQ_电影先生",
+      "name": "📽︎┃电影┃先生",
+      "type": 3,
+      "api": "csp_XBPQ"
+    },
+    {
+      "key": "采集机器人",
+      "name": "🤖┃采集┃合集",
+      "type": 3,
+      "api": "csp_Ikanbot"
+    },
+    {
+      "key": "新6V",
+      "name": "🧲┃六维┃磁力",
+      "type": 3,
+      "api": "csp_Xb6v"
+    },
+    {
+      "key": "红果短剧",
+      "name": "🍎┃红果┃短剧",
+      "type": 3,
+      "api": "csp_HongGuo"
+    },
+    {
+      "key": "巴士",
+      "name": "🚌┃巴士┃动漫",
+      "type": 3,
+      "api": "csp_Dm84"
+    },
+    {
+      "key": "异界动漫",
+      "name": "👻┃异界┃动漫",
+      "type": 3,
+      "api": "csp_Ysj"
+    },
+    {
+      "key": "南风短剧",
+      "name": "☢️┃南风┃短剧",
+      "type": 3,
+      "api": "csp_Nfdj"
+    },
+    {
+      "key": "88js",
+      "name": "⚽ ┃88┃看球",
+      "type": 3,
+      "api": "csp_Kanqiu"
+    },
+    {
+      "key": "MV演唱会",
+      "name": "🎵┃歌曲┃M V",
+      "type": 3,
+      "api": "csp_Bili"
+    },
+    {
+      "key": "酷奇MV",
+      "name": "🎸┃酷奇┃MV",
+      "type": 3,
+      "api": "csp_XBPQ"
+    },
+    {
+      "key": "MV_vod",
+      "name": "🎤┃电视┃MTV",
+      "type": 3,
+      "api": "csp_Bili"
+    },
+    {
+      "key": "戏曲",
+      "name": "🅱️┃戏曲┃大全",
+      "type": 3,
+      "api": "csp_Bili"
+    },
+    {
+      "key": "哔哩健身",
+      "name": "🅱️┃哔哩┃健身",
+      "type": 3,
+      "api": "csp_Bili"
+    },
+    {
+      "key": "宝宝趣学",
+      "name": "👶┃宝宝┃趣学",
+      "type": 3,
+      "api": "csp_Bili2"
+    },
+    {
+      "key": "哔哩幼儿",
+      "name": "🅱️┃哔哩┃幼儿",
+      "type": 3,
+      "api": "csp_Bili"
+    },
+    {
+      "key": "哔哩少儿",
+      "name": "🅱️┃哔哩┃少儿",
+      "type": 3,
+      "api": "csp_Bili"
+    },
+    {
+      "key": "哔哩小学",
+      "name": "🅱️┃哔哩┃小学",
+      "type": 3,
+      "api": "csp_Bili"
+    },
+    {
+      "key": "哔哩初中",
+      "name": "🅱️┃哔哩┃初中",
+      "type": 3,
+      "api": "csp_Bili"
+    },
+    {
+      "key": "哔哩高中",
+      "name": "🅱️┃哔哩┃高中",
+      "type": 3,
+      "api": "csp_Bili"
+    },
+    {
+      "key": "Tgsou",
+      "name": "🔎┃飞机┃搜索",
+      "type": 3,
+      "api": "csp_Tgsou"
+    },
+    {
+      "key": "海音搜索",
+      "name": "🔍┃海音┃搜索",
+      "type": 3,
+      "api": "csp_HaiYin"
+    },
+    {
+      "key": "盘搜",
+      "name": "🔍┃盘搜┃搜索",
+      "type": 3,
+      "api": "csp_PanSearch"
+    },
+    {
+      "key": "TianYiSo",
+      "name": "🔎┃天翼┃搜索",
+      "type": 3,
+      "api": "csp_TianYiSo"
+    },
+    {
+      "key": "push_agent",
+      "name": "🍭┃手机┃推送",
+      "type": 3,
+      "api": "csp_Push"
+    }
+  ]
+}

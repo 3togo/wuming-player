@@ -18,6 +18,7 @@ import com.wuming.android.tv.Updater;
 import com.wuming.android.tv.api.config.LiveConfig;
 import com.wuming.android.tv.api.config.VodConfig;
 import com.wuming.android.tv.api.config.WallConfig;
+import com.wuming.android.tv.utils.TvAlertDialogBuilder;
 import com.wuming.android.tv.bean.Config;
 import com.wuming.android.tv.bean.Live;
 import com.wuming.android.tv.bean.Site;
@@ -199,6 +200,7 @@ public class SettingActivity extends BaseActivity implements ConfigCallback, Sit
         mBinding.vodRanking.setOnClickListener(this::onVodRanking);
         mBinding.liveHistory.setOnClickListener(this::onLiveHistory);
         mBinding.liveDefault.setOnClickListener(this::onLiveDefault);
+        mBinding.wallHome.setOnClickListener(this::onWallHome);
         mBinding.wallDefault.setOnClickListener(this::setWallDefault);
         mBinding.wallHistory.setOnClickListener(this::onWallHistory);
         mBinding.wallRefresh.setOnClickListener(this::setWallRefresh);
@@ -342,6 +344,20 @@ public class SettingActivity extends BaseActivity implements ConfigCallback, Sit
 
     private void onVersion(View view) {
         Updater.create().force().start(this);
+    }
+
+    private void onWallHome(View view) {
+        String[] wallpapers = new String[4];
+        for (int i = 0; i < wallpapers.length; i++) {
+            wallpapers[i] = getString(R.string.setting_builtin_wallpaper_number, i + 1);
+        }
+        new TvAlertDialogBuilder(this).setTitle(R.string.setting_builtin_wallpapers)
+                .setSingleChoiceItems(wallpapers, DisplaySettings.getWall() - 1, (dialog, which) -> {
+                    DisplaySettings.putWall(which + 1);
+                    DisplaySettings.putWallType(0);
+                    ConfigEvent.wall();
+                    dialog.dismiss();
+                }).show();
     }
 
     private void setWallDefault(View view) {

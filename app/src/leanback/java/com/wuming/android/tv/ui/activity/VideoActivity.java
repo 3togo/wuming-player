@@ -206,7 +206,7 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         mFrameParams = mBinding.video.getLayoutParams();
-        ResUtil.scalePlayerOverlay(mBinding.videoInfo, mBinding.videoClock);
+
         mClock = Clock.create(mBinding.widget.clock);
         mVideoClock = Clock.create(mBinding.videoClock).format("HH:mm");
         mKeyDown = CustomKeyDownVod.create(this);
@@ -547,6 +547,7 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
         if (flagPos >= 0 && flagPos < mFlagAdapter.getItemCount()) mBinding.flag.setSelectedPosition(flagPos);
         mKeyDown.setFull(true);
         setFullscreen(true);
+        updateVideoInfo();
         setDanmakuSize();
         mFocus2 = null;
     }
@@ -740,10 +741,10 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
     }
 
     private void showInfo() {
-        mBinding.widget.top.setVisibility(View.VISIBLE);
+        // Keep the same top row through pause/INFO; only the centre controls change.
+        mBinding.widget.top.setVisibility(View.GONE);
         mBinding.widget.center.setVisibility(View.VISIBLE);
-        mBinding.videoInfo.setVisibility(View.GONE);
-        mBinding.videoClock.setVisibility(View.GONE);
+        updateVideoInfo();
         mBinding.widget.duration.setText(player().getDurationTime());
         mBinding.widget.position.setText(player().getPositionTime(0));
     }
@@ -751,8 +752,7 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
     private void hideInfo() {
         mBinding.widget.top.setVisibility(View.GONE);
         mBinding.widget.center.setVisibility(View.GONE);
-        if (PlaybackOverlayState.shouldShowVideoInfo(PlayerSettings.getVideoInfo(), isFullscreen())) mBinding.videoInfo.setVisibility(View.VISIBLE);
-        if (PlayerSettings.showVideoClock()) mBinding.videoClock.setVisibility(View.VISIBLE);
+        updateVideoInfo();
     }
 
     private void showControl(View view) {
@@ -967,6 +967,11 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
                 mBinding.videoInfo.setVisibility(PlaybackOverlayState.shouldShowVideoInfo(PlayerSettings.getVideoInfo(), isFullscreen()) ? View.VISIBLE : View.GONE);
             }
         }
+        // Preview has its own adjacent details; never cover its video with the full-screen row.
+        if (!isFullscreen()) {
+            mBinding.videoInfo.setVisibility(View.GONE);
+            mBinding.videoClock.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -1056,6 +1061,7 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
     @Override
     protected void onStart() {
         super.onStart();
+        com.wuming.android.tv.ui.PlaybackTextSize.apply(mBinding.videoInfo, mBinding.videoClock);
         mClock.stop().start();
         mVideoClock.stop().start();
     }

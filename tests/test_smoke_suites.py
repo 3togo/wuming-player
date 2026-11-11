@@ -72,11 +72,11 @@ class SuiteSelectionTest(unittest.TestCase):
             for group in smoke.load_suite("deep", mode):
                 for name in group["tests"]:
                     cls, method = name.split("#")
-                    candidates = [ROOT / "app/src" / source / "java" / (cls.replace(".", "/") + ".java")
-                                  for source in source_sets]
+                    candidates = [ROOT / "app/src" / source / "java" / (cls.replace(".", "/") + suffix)
+                                  for source in source_sets for suffix in [".java", ".kt"]]
                     source = next((p for p in candidates if p.exists()), None)
                     self.assertIsNotNone(source, name)
-                    tests = re.findall(r"@Test(?:\([^)]*\))?\s+public void (\w+)\(", source.read_text())
+                    tests = re.findall(r"@Test(?:\([^)]*\))?\s+(?:public void|fun) (\w+)\(", source.read_text())
                     self.assertIn(method, tests, name)
 
     def test_live_and_opt_in_fixtures_are_not_silently_counted(self):
@@ -115,7 +115,7 @@ class SuiteSelectionTest(unittest.TestCase):
         plan = json.loads(stdout.getvalue())
         methods = [test for group in plan["groups"] for test in group["tests"]]
         self.assertEqual(len(methods), len(set(methods)))
-        self.assertEqual(34, len(methods))
+        self.assertEqual(38, len(methods))
 
     def test_persistence_selection_uses_only_existing_fixture_methods(self):
         with patch.object(subprocess, "run", side_effect=AssertionError("Unexpected device call")), \
@@ -218,3 +218,39 @@ class CleanupTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class ForegroundStartupTest(unittest.TestCase):
+    def test_handshake_stops_navigation_before_test_body(self):
+        import threading
+        with tempfile.TemporaryDirectory() as directory:
+            device = smoke.DeviceRun('authorized-box', pathlib.Path(directory))
+            ack = threading.Event()
+            commands = []
+            def adb(*args, **kwargs):
+                commands.append(args)
+                return subprocess.CompletedProcess(args, 0, 'ready', '')
+            def checked(*args, **kwargs):
+                commands.append(args)
+                if 'touch' in args:
+                    ack.set()
+                return ''
+            device.adb = adb
+            device.checked = checked
+            def instrument(group):
+                self.assertTrue(ack.wait(2), 'Runner did not receive startup acknowledgment')
+            device._instrument = instrument
+            with patch.object(smoke.time, 'sleep'):
+                device.instrument({'id': 'ui'})
+            self.assertTrue(any('touch' in args for args in commands))
+            self.assertFalse(any('start' in args for args in commands))
+
+    def test_settings_calls_use_the_service_without_changing_other_commands(self):
+        with tempfile.TemporaryDirectory() as directory:
+            device = smoke.DeviceRun('authorized-box', pathlib.Path(directory))
+            with patch.object(smoke.subprocess, 'run') as run:
+                device.adb('shell', 'settings', 'get', 'global', 'x')
+                self.assertEqual(['adb', '-s', 'authorized-box', 'shell', 'cmd', 'settings',
+                                  'get', 'global', 'x'], run.call_args.args[0])
+                device.adb('shell', 'input', 'keyevent', 'KEYCODE_WAKEUP')
+                self.assertEqual(['adb', '-s', 'authorized-box', 'shell', 'input', 'keyevent',
+                                  'KEYCODE_WAKEUP'], run.call_args.args[0])

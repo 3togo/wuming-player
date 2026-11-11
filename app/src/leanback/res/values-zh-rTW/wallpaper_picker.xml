@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setting_builtin_wallpapers">內建桌布</string>
+    <string name="setting_builtin_wallpaper_number">桌布 %1$d</string>
+</resources>

@@ -1,6 +1,7 @@
 package com.wuming.tv.desktop.player
 
 import com.sun.net.httpserver.HttpServer
+import com.wuming.tv.core.playback.fixtures.PostrollEpisodeFixture
 import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.net.URI
@@ -13,6 +14,47 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class HlsSharedAdFilterTest {
+    @Test fun capturedEpisodePostrollIsRemovedThroughDesktopRelayWhileCreditsArePreserved() {
+        val fixture = PostrollEpisodeFixture()
+        for (includeAd in listOf(false, true)) {
+            val requests = ConcurrentHashMap<String, Int>()
+            val server = HttpServer.create(InetSocketAddress(InetAddress.getLoopbackAddress(), 0), 0)
+            val base = "http://127.0.0.1:${server.address.port}/"
+            val input = (if (includeAd) fixture.playlist else fixture.creditsOnly)
+                .replace("https://media.example/zuimeng-02/", base)
+            server.createContext("/") { exchange ->
+                val name = exchange.requestURI.path.substringAfterLast('/')
+                val bytes = if (name == "episode.m3u8") input.toByteArray() else {
+                    assertEquals("bytes=0-65535", exchange.requestHeaders.getFirst("Range"))
+                    assertEquals("fixture", exchange.requestHeaders.getFirst("Cookie"))
+                    requests.merge(name, 1, Int::plus)
+                    fixture.prefix(base + name)
+                }
+                exchange.sendResponseHeaders(200, bytes.size.toLong())
+                exchange.responseBody.use { it.write(bytes) }
+                exchange.close()
+            }
+            server.start()
+            var prepared: PreparedPlaybackTarget? = null
+            try {
+                prepared = HlsCompatibilityPreparer().prepare(base + "episode.m3u8", mapOf("Cookie" to "fixture"))
+                val response = HttpClient.newHttpClient().send(HttpRequest.newBuilder(URI(prepared.location)).GET().build(),
+                    HttpResponse.BodyHandlers.ofString())
+                assertEquals(200, response.statusCode())
+                val names = response.body().lines().filter { it.isNotBlank() && !it.startsWith('#') }.map {
+                    URI(String(Base64.getUrlDecoder().decode(URI(it).path.substringAfterLast('/')))).path.substringAfterLast('/')
+                }
+                assertEquals(fixture.urls.take(713).map { URI(it).path.substringAfterLast('/') }, names)
+                assertTrue(response.body().trimEnd().endsWith("#EXT-X-ENDLIST"))
+                assertEquals(if (includeAd) 7 else 0, requests.size)
+                assertTrue(requests.values.all { it == 1 })
+            } finally {
+                prepared?.resource?.close()
+                server.stop(0)
+            }
+        }
+    }
+
     @Test fun desktopUsesSharedDetectorsForSameLowerAndHigherResolutionInsertions() {
         for (mode in listOf("same", "lower", "higher")) {
             val programmeSps = if (mode == "higher") PROGRAMME else AD

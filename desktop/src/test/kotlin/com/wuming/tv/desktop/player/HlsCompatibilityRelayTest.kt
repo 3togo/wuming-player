@@ -16,6 +16,41 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class HlsCompatibilityRelayTest {
+    @Test
+    fun validatesCapabilityHlsProxyBeforeLaunchingAPlayer() {
+        val proxy = "http://127.0.0.1:9978/token/proxy?do=m3u8&url=https%3A%2F%2Fcdn.example%2Findex.m3u8"
+        val failure = assertThrows(PlaybackPreparationException::class.java) {
+            HlsCompatibilityPreparer(fetch = { _, _ -> "https://cdn.example/index.m3u8".toByteArray() })
+                .prepare(proxy, emptyMap())
+        }
+        assertTrue(failure.message.orEmpty().contains("invalid HLS"))
+        assertTrue(failure.message.orEmpty().contains("another playback line"))
+    }
+
+    @Test
+    fun capabilityHlsProxyRunsWrappedMediaThroughTheExistingRelay() {
+        val proxy = "http://127.0.0.1:9978/token/proxy?do=m3u8&url=https%3A%2F%2Fcdn.example%2Findex.m3u8"
+        val segment = "https://cdn.example/chunk.png"
+        val manifest = "#EXTM3U\n#EXTINF:3,\n$segment\n#EXT-X-ENDLIST\n".toByteArray()
+        val transport = ByteArray(188 * 4) { if (it % 188 == 0) 0x47 else 0x55 }
+        val fetch = { location: String, _: Map<String, String> ->
+            when (location) {
+                proxy -> manifest
+                segment -> byteArrayOf(1, 2, 3) + transport
+                else -> error("unexpected fixture request")
+            }
+        }
+        val prepared = HlsCompatibilityPreparer(fetch = fetch, relayFetch = fetch).prepare(proxy, emptyMap())
+        try {
+            assertNotEquals(proxy, prepared.location)
+            val relayedManifest = getText(prepared.location)
+            val localSegment = relayedManifest.lineSequence().first { it.startsWith("http://127.0.0.1:") }
+            val response = HttpClient.newHttpClient().send(HttpRequest.newBuilder(URI(localSegment)).GET().build(),
+                HttpResponse.BodyHandlers.ofByteArray())
+            assertArrayEquals(transport, response.body())
+        } finally { prepared.resource?.close() }
+    }
+
 
     @Test
     fun reportsSourceIpDenialBeforeLaunchingVlc() {

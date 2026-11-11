@@ -27,7 +27,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:clickable="true"
-            android:foreground="@drawable/tv_focus_outline"
+            android:foreground="@drawable/tv_dialog_focus_outline"
             android:focusable="true"
             android:id="@+id/disconnect"
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:clickable="true"
-            android:foreground="@drawable/tv_focus_outline"
+            android:foreground="@drawable/tv_dialog_focus_outline"
             android:focusable="true"
             android:id="@+id/mode"
             android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:clickable="true"
-            android:foreground="@drawable/tv_focus_outline"
+            android:foreground="@drawable/tv_dialog_focus_outline"
             android:focusable="true"
             android:id="@+id/scan"
             android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:clickable="true"
-            android:foreground="@drawable/tv_focus_outline"
+            android:foreground="@drawable/tv_dialog_focus_outline"
             android:focusable="true"
             android:id="@+id/refresh"
             android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:text="@string/renderer_profiles_saved"
-        android:foreground="@drawable/tv_focus_outline"
+        android:foreground="@drawable/tv_dialog_focus_outline"
         android:textSize="@dimen/font_label">
         <tag android:id="@id/tag_typography_role" android:value="label" />
     </com.google.android.material.button.MaterialButton>

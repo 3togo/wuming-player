@@ -1,0 +1,7 @@
+Java Native Access (JNA) 5.18.1
+Origin: https://github.com/java-native-access/jna/tree/5.18.1
+Maven coordinate: net.java.dev.jna:jna:5.18.1
+Unmodified official Maven artifact; this distribution elects Apache License 2.0
+from the upstream Apache-2.0 OR LGPL-2.1-or-later dual licence.
+The original META-INF/LICENSE is preserved beside this notice.
+Used only by the desktop native-window adapter; no JNA dependency is added to Android.

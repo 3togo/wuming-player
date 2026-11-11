@@ -236,7 +236,7 @@
         <item name="android:focusableInTouchMode">true</item>
         <item name="backgroundTint">@color/tv_dialog_button_background</item>
         <item name="android:textColor">@color/tv_dialog_button_text</item>
-        <item name="android:foreground">@drawable/tv_focus_outline</item>
+        <item name="android:foreground">@drawable/tv_dialog_focus_outline</item>
     </style>
 
 </resources>

@@ -20,7 +20,9 @@ class CatalogRendererLayoutTest {
                         it.isAccessible = true
                         it.get(panel) as JList<CatalogItem>
                     }
-                    for (focus in listOf(false, true)) {
+                    for (width in listOf(96, 144, 180, 250)) for (focus in listOf(false, true)) {
+                        list.fixedCellWidth = width
+                        list.fixedCellHeight = (list.cellRenderer as CatalogItemRenderer).cellHeight(width)
                         val renderer = list.cellRenderer.getListCellRendererComponent(list,
                             CatalogItem("offline", "one", "A title", remarks = "2026 · Drama"), 0, true, focus) as JPanel
                         renderer.setSize(list.fixedCellWidth, list.fixedCellHeight)
@@ -30,6 +32,10 @@ class CatalogRendererLayoutTest {
                         }
                         layout(renderer)
                         val text = renderer.components.filterIsInstance<JPanel>().single()
+                        val poster = renderer.components.filterIsInstance<JLabel>().single()
+                        assertTrue("Poster fills the card width", poster.icon.iconWidth >= width - renderer.insets.left - renderer.insets.right - 1)
+                        assertTrue("Artwork dominates captions", poster.icon.iconHeight > text.preferredSize.height * 2)
+                        assertTrue("Card gutters stay compact", renderer.insets.left + renderer.insets.right <= DesktopTvTheme.px(6))
                         for (label in text.components.filterIsInstance<JLabel>()) {
                             assertTrue("Text is fully visible with focus=$focus", label.height >= label.preferredSize.height)
                             assertTrue(label.y + label.height <= text.height)

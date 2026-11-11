@@ -61,6 +61,6 @@ The layout tests can emit PNGs to the directory above. They render actual Swing 
 2. Per-title opening/ending skip and playback presentation choices, with tests for episode changes, resume and natural completion.
 3. Accurate recommendation watch-time accounting during pause/buffering and for players without feedback; cancellable live preparation is now in place, but live startup has less detailed feedback than VOD.
 4. Catch-up playback and a complete cloud file browser, respecting the existing provider-specific playback/cleanup lessons.
-5. Runtime-specific features only after defining a supported Linux host contract. Do not enable speculative episode prewarming: resolution can have cloud-save side effects.
+5. Runtime-specific features only after defining a supported Linux host contract. The blanket episode-prewarming deferral was superseded on 2026-11-04 by an explicit reviewed read-only resolver contract; cloud and unknown resolution remain excluded. See [desktop prewarming](desktop-prewarming.md).
 
 These gaps are intentional findings, not claims that the corresponding Android features are useless or already abstracted.

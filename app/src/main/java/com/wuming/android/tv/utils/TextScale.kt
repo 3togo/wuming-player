@@ -145,7 +145,9 @@ object TextScale {
                 } else null
             if (role != null) {
                 val overlayScale = view.getTag(R.id.tag_typography_overlay_scale) as? Float ?: 1f
-                val size = sizes.getValue(role) * overlayScale
+                // Compact action labels retain LABEL semantics while fitting a dense dialog row.
+                val variantScale = if (view.getTag(R.id.tag_typography_variant) == "compact-action") 0.75f else 1f
+                val size = sizes.getValue(role) * overlayScale * variantScale
                 // The actual view is authoritative: cached targets cannot conceal a setter override.
                 if (kotlin.math.abs(view.textSize - size) > 0.01f) {
                     view.setTextSize(TypedValue.COMPLEX_UNIT_PX, size)

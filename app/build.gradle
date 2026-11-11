@@ -78,7 +78,7 @@ android {
         buildConfigField "String", "EDITION_EXTENSION", groovy.json.JsonOutput.toJson(rootProject.ext.wumingEdition.androidExtension)
         minSdk 26
         targetSdk 37
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.wuming.android.tv.ui.ForegroundSmokeRunner"
         // Debug/testing hook: SettingActivity is exported (so a script can open the Depot dialog
         // directly) only in debug/verification builds; release stays non-exported.
         manifestPlaceholders = [settingActivityDebugExported: "false"]
@@ -125,6 +125,7 @@ android {
             res.srcDirs += 'src/leanback/res'
         }
         androidTestLeanback.java.srcDirs += 'src/leanbackAndroidTest/java'
+        androidTestLeanback.kotlin.srcDirs += 'src/leanbackAndroidTest/java'
         androidTestMobile.java.srcDirs += 'src/mobileAndroidTest/java'
         androidTest.assets.srcDirs += files("$projectDir/schemas")
     }
@@ -425,6 +426,7 @@ dependencies {
     implementation project(':libraries:text-core')
     implementation project(':libraries:catalog-core')
     implementation project(':libraries:libvio-core')
+    implementation project(':libraries:hongguo-core')
     implementation project(':libraries:media-core')
     implementation project(':libraries:epg-core')
     implementation project(':libraries:cloud-core')
@@ -509,6 +511,7 @@ dependencies {
     mobileImplementation libs.autosize
     mobileImplementation libs.zxing
     testImplementation libs.junit
+    testImplementation testFixtures(project(':libraries:playback-core'))
     testImplementation libs.androidx.arch.core.testing
     androidTestImplementation libs.wrapper.java
     androidTestImplementation libs.wrapper.android

@@ -1,0 +1,66 @@
+{
+  "validatedAtUtc": "2026-11-04T03:36:20.557160+00:00",
+  "baseRevision": "cf8ba7f94caf9a209fff7a6cc88ba69c5ca4a2cd",
+  "publication": "Local uncommitted working tree; no push or release",
+  "engine": "mpv v0.41.0 Copyright \u00a9 2000-2025 mpv/MPlayer/mplayer2 projects",
+  "jna": "5.18.1, unmodified Maven dependency; upstream notice and Apache-2.0 text packaged",
+  "desktopCheck": {
+    "tests": 359,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 9
+  },
+  "nativePlaybackTests": {
+    "tests": 2,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "passedTasks": [
+    ":desktop:check",
+    ":desktop:installDist",
+    ":desktop:embeddedPlaybackTest",
+    "packaged launcher --smoke",
+    "git diff --check"
+  ],
+  "nativeCoverage": [
+    "Visible synthetic portrait video and mpv child window",
+    "Keyboard pause, seeking and speed",
+    "Selected local subtitles, including handoff",
+    "Volume/mute and pause/position retained across external handoff",
+    "Fullscreen, Escape, resize and unchanged native peer",
+    "Natural catalogue episode advancement with fullscreen retained",
+    "Stop finalizes viewing and terminates player",
+    "Renderer failure retries externally once; no premature failure/close callback; retired resources close once"
+  ],
+  "nativeEnvironment": "Xvfb 1280x900, mpv X11 software renderer, synthetic local MPEG-4, audio output disabled",
+  "limitations": [
+    "GPU rendering and audible output unverified",
+    "Physical displays, HiDPI and native Wayland embedding unverified",
+    "Native Wayland/non-X11 and unsupported native targets use external fallback",
+    "Separate incoming DLNA receiving-player lifecycle remains external",
+    "No provider/account or Android-device validation performed"
+  ],
+  "screenshots": "/tmp/wuming-embedded-render/{embedded,fullscreen,subtitles}.png; visually inspected",
+  "sourceSha256": {
+    "desktop/build.gradle": "3f13eacdb17aa13666f13a14bc438053736c2f0a5cace3994ea309530817b3d3",
+    "desktop/src/main/kotlin/com/wuming/tv/desktop/catalog/CachingCatalogSourceExecutor.kt": "0df02c47dcd2b76241cbb845ba1d43fc5fba01de68136efa05f2334cc438878f",
+    "desktop/src/main/kotlin/com/wuming/tv/desktop/cloud/DesktopCloudPlaybackResolver.kt": "a85f8d01e145872e1ee2453b228937485a5aee2247f5f8e9a6786a8d81a33cb0",
+    "desktop/src/main/kotlin/com/wuming/tv/desktop/config/DesktopPlaybackSettings.kt": "8e0cefbc841039f026b17870f3c830ba9c77d17101a6e0f78cc2ebb412445aae",
+    "desktop/src/main/kotlin/com/wuming/tv/desktop/player/ExternalPlayerAdapter.kt": "8bf6dd385b06262146a97b9ad64001b03eac1f3599c429e5d5a63d87ffa28055",
+    "desktop/src/main/kotlin/com/wuming/tv/desktop/ui/CatalogPanel.kt": "edd394d3eda3598ad06926f513aad55d53772f6fabf686c56502d0c9ddf44b07",
+    "desktop/src/main/kotlin/com/wuming/tv/desktop/ui/DesktopWindow.kt": "d52141129202c280d3e02795f02178c80c9c3147ff90ec7972414a3593c39845",
+    "desktop/src/main/kotlin/com/wuming/tv/desktop/ui/EmbeddedPlaybackPanel.kt": "7f8a6d98d8f05c820c89ddc36a1950adbe3e161e1c3377ab6798a735be325d42",
+    "desktop/src/main/kotlin/com/wuming/tv/desktop/ui/LiveTvPanel.kt": "619b7e471dfdfd3334372248fb4ca1bad7301438f54dd9993fc13fb28567304a",
+    "desktop/src/main/kotlin/com/wuming/tv/desktop/ui/PlaybackPreferencesPanel.kt": "ffb7f11964cdcd23d40ac1f7d7639a07998521a95fd589ceb1350b4127a9e50d",
+    "desktop/src/main/resources/third-party/jna/Apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "desktop/src/main/resources/third-party/jna/LICENSE": "07c938b23950ab7d47a24ef35f9f5da3a05ae164278dc959ad6994135ed59ff1",
+    "desktop/src/main/resources/third-party/jna/NOTICE.txt": "0fece64a09bc48b537c9e5eebb6beb072c71a32d1f8422efd82727cc4b5fd1b5",
+    "desktop/src/test/kotlin/com/wuming/tv/desktop/cloud/DesktopCloudPlaybackResolverTest.kt": "f45840aaf0db208b7a97269bf772abb85af1c19a26010515d97e141e6defba0c",
+    "desktop/src/test/kotlin/com/wuming/tv/desktop/config/DesktopPlaybackSettingsTest.kt": "0ad937fd6b2ddf0d52d3b17f421e718547b70113766e67502c980afcde3b350a",
+    "desktop/src/test/kotlin/com/wuming/tv/desktop/player/ExternalPlayerAdapterTest.kt": "068b3fb957f06680f98b26a2209304edc19048026c7dbe9002517e15234357c2",
+    "desktop/src/test/kotlin/com/wuming/tv/desktop/ui/CatalogPanelPlaybackTest.kt": "8e538ca2a3e04e4915298a4ad40cdb25b51d8cfb8ef5942e7f8a0101f213c06a",
+    "desktop/src/test/kotlin/com/wuming/tv/desktop/ui/EmbeddedPlaybackIntegrationTest.kt": "23cc2b4c9e1ac750e26397f8ee1d10d6f2d4bf35e6d2309861ff91a8e7c30ed6",
+    "desktop/src/test/kotlin/com/wuming/tv/desktop/ui/EmbeddedPlaybackPanelTest.kt": "5d85dd6c19fb37f4edb9341471edfc97ec00c4efa7b22106802488abe9625e87"
+  }
+}

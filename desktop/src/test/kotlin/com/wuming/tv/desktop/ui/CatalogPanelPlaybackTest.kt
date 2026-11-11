@@ -307,6 +307,148 @@ class CatalogPanelPlaybackTest {
         } finally { closePanel(panel); preferences.removeNode() }
     }
 
+    @Test fun `default prewarming resolves once during active playback and reuses next headers`() {
+        withPrewarmPanel { panel, requests, launches ->
+            waitForPlayback { launches.size == 1 }
+            prewarmSample(panel, paused = true)
+            prewarmSample(panel, buffering = true)
+            assertEquals(listOf("first"), requests.toList())
+            prewarmSample(panel)
+            prewarmSample(panel)
+            waitForPlayback { preparedCount(panel) == 1 }
+            assertEquals(listOf("first", "second"), requests.toList())
+            onEdt { selectEpisode(panel, 1); invoke(panel, "playEpisode", true) }
+            waitForPlayback { launches.size == 2 }
+            assertEquals(listOf("first", "second"), requests.toList())
+            assertEquals("https://media.example/second.mp4", launches.last().first)
+            assertEquals("second", launches.last().second["X-Episode"])
+        }
+    }
+
+    @Test fun `unknown source never resolves ahead but ordinary playback still works`() {
+        withPrewarmPanel(safe = false) { panel, requests, launches ->
+            waitForPlayback { launches.size == 1 }
+            prewarmSample(panel)
+            onEdt { selectEpisode(panel, 1); invoke(panel, "playEpisode", true) }
+            waitForPlayback { launches.size == 2 }
+            assertEquals(listOf("first", "second"), requests.toList())
+        }
+    }
+
+    @Test fun `stop rejects an in-flight prewarm result`() {
+        val started = CountDownLatch(1)
+        val release = CountDownLatch(1)
+        try {
+            withPrewarmPanel(beforeNext = { started.countDown(); check(release.await(5, TimeUnit.SECONDS)) }) { panel, requests, launches ->
+                waitForPlayback { launches.size == 1 }
+                prewarmSample(panel)
+                assertTrue(started.await(5, TimeUnit.SECONDS))
+                onEdt { invoke(panel, "stopExternalPlayer") }
+                release.countDown()
+                onEdt { selectEpisode(panel, 1); invoke(panel, "playEpisode", true) }
+                waitForPlayback { launches.size == 2 }
+                assertEquals(listOf("first", "second", "second"), requests.toList())
+                assertEquals(0, preparedCount(panel))
+            }
+        } finally { release.countDown() }
+    }
+
+    @Test fun `failed prewarm falls back to normal lookup`() {
+        val attempted = CountDownLatch(1)
+        val attempts = java.util.concurrent.atomic.AtomicInteger()
+        withPrewarmPanel(beforeNext = {
+            if (attempts.incrementAndGet() == 1) { attempted.countDown(); error("Synthetic prewarm failure") }
+        }) { panel, requests, launches ->
+            waitForPlayback { launches.size == 1 }
+            prewarmSample(panel)
+            assertTrue(attempted.await(5, TimeUnit.SECONDS))
+            onEdt { selectEpisode(panel, 1); invoke(panel, "playEpisode", true) }
+            waitForPlayback { launches.size == 2 }
+            assertEquals(listOf("first", "second", "second"), requests.toList())
+        }
+    }
+
+    @Test fun `turning automatic next off prevents prewarming`() {
+        withPrewarmPanel { panel, requests, launches ->
+            waitForPlayback { launches.size == 1 }
+            onEdt {
+                val autoNext = panel.javaClass.getDeclaredField("autoNext").apply { isAccessible = true }.get(panel) as JCheckBox
+                autoNext.isSelected = false
+            }
+            prewarmSample(panel)
+            assertEquals(listOf("first"), requests.toList())
+        }
+    }
+
+    private fun prewarmSample(panel: CatalogPanel, paused: Boolean = false, buffering: Boolean = false) = onEdt {
+        invoke(panel, "updatePlaybackState", com.wuming.tv.desktop.player.PlaybackState(
+            positionSeconds = 85.0, durationSeconds = 100.0, paused = paused, buffering = buffering))
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun selectEpisode(panel: CatalogPanel, index: Int) {
+        (panel.javaClass.getDeclaredField("episodes").apply { isAccessible = true }.get(panel) as JList<Any>).selectedIndex = index
+    }
+
+    private fun preparedCount(panel: CatalogPanel): Int {
+        var count = 0
+        onEdt {
+            val session = panel.javaClass.getDeclaredField("episodePrewarm").apply { isAccessible = true }.get(panel)
+            val cache = session.javaClass.getDeclaredField("prepared").apply { isAccessible = true }.get(session)
+                as com.wuming.tv.core.cache.ExpiringLruCache<*, *>
+            count = cache.size()
+        }
+        return count
+    }
+
+    private fun waitForPlayback(condition: () -> Boolean) {
+        val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(5)
+        while (!condition() && System.nanoTime() < deadline) Thread.sleep(10)
+        assertTrue("Timed out waiting for playback", condition())
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun withPrewarmPanel(
+        safe: Boolean = true,
+        beforeNext: () -> Unit = {},
+        test: (CatalogPanel, java.util.concurrent.CopyOnWriteArrayList<String>,
+            java.util.concurrent.CopyOnWriteArrayList<Pair<String, Map<String, String>>>) -> Unit,
+    ) {
+        val requests = java.util.concurrent.CopyOnWriteArrayList<String>()
+        val launches = java.util.concurrent.CopyOnWriteArrayList<Pair<String, Map<String, String>>>()
+        val preferences = Preferences.userRoot().node("tvbox-test/${System.nanoTime()}")
+        val line = CatalogLine("line", "Line", listOf(CatalogEpisode("First", "first"), CatalogEpisode("Second", "second")))
+        val detail = CatalogDetail(CatalogItem("provider", "show", "Show"), lines = listOf(line))
+        val executor = object : CatalogSourceExecutor {
+            override val source = CatalogSource("provider", "Provider")
+            override fun search(query: String) = emptyList<CatalogItem>()
+            override fun detail(id: String) = detail
+            override fun playbackPreparationSafety(flag: String, id: String) = if (safe)
+                com.wuming.tv.core.catalog.PlaybackPreparationSafety.READ_ONLY_STREAM else com.wuming.tv.core.catalog.PlaybackPreparationSafety.UNKNOWN
+            override fun play(flag: String, id: String): CatalogPlayback {
+                requests += id
+                if (id == "second") beforeNext()
+                return CatalogPlayback(true, "https://media.example/$id.mp4", headers = mapOf("X-Episode" to id))
+            }
+        }
+        val player = ExternalPlayerAdapter(Path.of("/usr/bin/mpv"), { null }, PlaybackTargetPreparer { target, headers ->
+            launches += target to headers.toMap()
+            PreparedPlaybackTarget(target)
+        })
+        val panel = createPanelOnEdt(preferences, player)
+        try {
+            onEdt {
+                setField(panel, "catalog", ExecutorCatalogGateway(listOf(executor)))
+                setField(panel, "detail", detail)
+                val combo = panel.javaClass.getDeclaredField("lines").apply { isAccessible = true }.get(panel) as JComboBox<Any>
+                combo.addItem(line)
+                selectEpisode(panel, 0)
+                invoke(panel, "playEpisode", false)
+            }
+            test(panel, requests, launches)
+        } finally { closePanel(panel); preferences.removeNode() }
+    }
+
     @Suppress("UNCHECKED_CAST")
     private fun setupEpisodes(panel: CatalogPanel) {
         val line = CatalogLine("line", "Line", listOf(CatalogEpisode("First", "first")))

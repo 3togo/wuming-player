@@ -112,29 +112,13 @@ class PlaybackTransportPlan(
             if ("rtmp" == scheme || "rtmps" == scheme) return Kind.RTMP
             if ("magnet" == scheme || "ed2k" == scheme || "thunder" == scheme) return Kind.P2P
             if ("file" == scheme || "content" == scheme || "asset" == scheme || "android.resource" == scheme) return Kind.LOCAL
-            if (isLoopbackM3u8Proxy(value)) return Kind.HLS
+            if (HlsPlaylistLocation.isProviderPlaylist(value)) return Kind.HLS
             val path = path(value).lowercase(Locale.ROOT)
             if (path.endsWith(".m3u8")) return Kind.HLS
             if (path.endsWith(".mpd")) return Kind.DASH
             if (path.endsWith(".ism") || path.endsWith(".isml") || path.endsWith("/manifest")) return Kind.SMOOTH_STREAMING
             if ("http" == scheme || "https" == scheme) return Kind.PROGRESSIVE
             return if (scheme.isEmpty()) Kind.UNKNOWN else Kind.PROGRESSIVE
-        }
-
-        private fun isLoopbackM3u8Proxy(value: String?): Boolean {
-            try {
-                val uri = URI.create(value ?: "")
-                val host = uri.host
-                if (host == null || !("localhost".equals(host, ignoreCase = true) || "127.0.0.1" == host || "::1" == host) || "/proxy" != uri.path) return false
-                val query = uri.rawQuery ?: return false
-                for (field in query.split("&")) {
-                    val separator = field.indexOf('=')
-                    val name = if (separator < 0) field else field.substring(0, separator)
-                    val parameter = if (separator < 0) "" else field.substring(separator + 1)
-                    if ("do".equals(name, ignoreCase = true) && "m3u8".equals(parameter, ignoreCase = true)) return true
-                }
-            } catch (_: Exception) {}
-            return false
         }
 
         private fun equalsMime(actual: String?, expected: String): Boolean {

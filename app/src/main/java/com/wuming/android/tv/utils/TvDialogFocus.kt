@@ -65,7 +65,7 @@ class TvDialogFocus private constructor() {
                 focused.setColor(Color.TRANSPARENT)
                 val density = view.resources.displayMetrics.density
                 focused.cornerRadius = 4 * density
-                focused.setStroke(maxOf(2, Math.round(3 * density)), Color.WHITE)
+                focused.setStroke(maxOf(1, view.resources.getDimensionPixelSize(R.dimen.vs_1)), Color.WHITE)
                 outline.addState(intArrayOf(android.R.attr.state_focused), focused)
                 outline.addState(intArrayOf(), ColorDrawable(Color.TRANSPARENT))
                 val original = view.foreground

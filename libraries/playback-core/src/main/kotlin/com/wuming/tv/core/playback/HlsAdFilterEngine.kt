@@ -5,12 +5,13 @@ import java.util.function.BiFunction
 /** One preparation pipeline for Android phone/TV and desktop. Ports supply rules,
  * URI resolution, logging and bounded segment transport; decisions stay here. */
 object HlsAdFilterEngine {
-    class Result(
+    class Result @JvmOverloads constructor(
         val content: String,
         val replacement: String?,
         val resolution: HlsResolutionAdFilter.Result,
         val insertion: HlsResolutionAdFilter.Result,
         val legacyFailure: String?,
+        val appended: HlsResolutionAdFilter.Result = HlsResolutionAdFilter.Result(content, 0, 0),
     )
 
     @JvmStatic
@@ -28,11 +29,13 @@ object HlsAdFilterEngine {
         val sharedProbe = probe?.let(::HlsSegmentProbeCache)
         val resolution = HlsResolutionAdFilter.filter(base, legacy ?: playlist, sharedProbe, resolver)
         val insertion = HlsTimestampInsertionFilter.filter(base, resolution.content, sharedProbe, resolver)
+        val appended = HlsAppendedAdFilter.filter(base, insertion.content, sharedProbe, resolver)
         val replacement = when {
+            appended.removedSegments > 0 -> appended.content
             insertion.removedSegments > 0 -> insertion.content
             resolution.removedSegments > 0 -> resolution.content
             else -> legacy
         }
-        return Result(replacement ?: playlist, replacement, resolution, insertion, legacyFailure)
+        return Result(replacement ?: playlist, replacement, resolution, insertion, legacyFailure, appended)
     }
 }

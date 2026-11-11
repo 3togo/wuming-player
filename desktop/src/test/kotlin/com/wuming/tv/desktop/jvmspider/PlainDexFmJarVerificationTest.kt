@@ -2,13 +2,15 @@ package com.wuming.tv.desktop.jvmspider
 
 import com.wuming.tv.core.runtime.guardspider.GuardedSpiderAbi
 import com.wuming.tv.core.runtime.guardspider.PlainDexSpiderPreparer
+import com.wuming.tv.core.runtime.guardspider.GuardedProviderClassLoader
 import com.wuming.tv.core.runtime.jvmspider.JvmSpiderSiteSpec
-import com.wuming.tv.desktop.config.DesktopTvBoxConfigurationLoader
+import com.wuming.tv.core.source.config.TvBoxConfigDecoder
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeTrue
 import org.junit.Test
-import java.net.URLClassLoader
+import com.google.gson.JsonParser
+import java.security.MessageDigest
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.jar.JarFile
@@ -22,51 +24,53 @@ import java.util.jar.JarFile
  * `PlainDexSpiderPreparer` and confirms every provider class is present and instantiable on the
  * desktop JVM.
  *
- * Inputs are the real artifacts downloaded from fmys.top:
- *   /tmp/fmys.json  (configuration)
- *   /tmp/fm.jar     (unguarded spider package, sha256 856c1b7b...)
- *
- * They are developer-supplied fixtures, not build outputs, so the test is *skipped* (not failed)
- * when they are absent. Nothing is deleted on exit: the preparer writes into the app's plain-DEX
- * cache (`plain-dex-spiders`), which is intentionally reused across runs — see `prepared.reused`.
+ * The reviewed 2026-11-08 manifest pins the current JAR, a sanitized configuration snapshot and an
+ * independent inventory of all 1,095 raw DEX classes. Run scripts/desktop/prepare-fm-fixture.py
+ * to fetch the pinned binary into ignored artifacts, or supply -Dtvbox.fm.jar. Only absence skips;
+ * mismatched bytes, dropped classes or constructor failures fail. Approved bytes remain unchanged.
  */
 class PlainDexFmJarVerificationTest {
 
-    private val configPath = Path.of("/tmp/fmys.json")
-    private val jarPath = Path.of("/tmp/fm.jar")
-    private val trustedSha256 = "856c1b7be73d57866accb18705d123ee0731c0f4b3fb10a114c163dad352764c"
+    private val jarPath = Path.of(System.getProperty("tvbox.fm.jar") ?: "../artifacts/desktop-provider-fixtures/fm.jar")
+    private val manifest = JsonParser.parseString(resource("manifest.json")).asJsonObject
+    private val trustedSha256 = manifest.get("jarSha256").asString
+
+    private fun resource(name: String) = checkNotNull(javaClass.getResourceAsStream("/guarded/fm-current/$name"))
+        .bufferedReader(Charsets.UTF_8).use { it.readText() }
+    private fun sha256(bytes: ByteArray) = MessageDigest.getInstance("SHA-256").digest(bytes)
+        .joinToString("") { "%02x".format(it) }
 
     @Test
     fun loadsEveryCspProviderThroughPlainDexPipeline() {
         assumeTrue(
-            "missing /tmp/fmys.json (download from http://fmys.top/fmys.json)",
-            Files.isRegularFile(configPath),
-        )
-        assumeTrue(
-            "missing /tmp/fm.jar (download from http://fmys.top/lib/fm.jar)",
+            "Run scripts/desktop/prepare-fm-fixture.py or set -Dtvbox.fm.jar to the pinned JAR",
             Files.isRegularFile(jarPath),
         )
 
-        val config = DesktopTvBoxConfigurationLoader(
-            cache = null,
-            loadResource = { Files.readAllBytes(configPath) },
-        ).load("/tmp/fmys.json")
+        val configText = resource("sites.json")
+        assertEquals(manifest.get("configSha256").asString, sha256(configText.toByteArray(Charsets.UTF_8)))
+        JarFile(jarPath.toFile()).use { jar ->
+            val dex = jar.getInputStream(jar.getJarEntry("classes.dex")).use { it.readBytes() }
+            assertEquals(manifest.get("dexSha256").asString, sha256(dex))
+        }
 
-        val spiderSites = config.jvmSpiderSites.filter { it.jvmExecution?.api?.startsWith("csp_") == true }
+        // Verify all declared provider APIs, including ones the UI now routes to built-in adapters.
+        val spiderSites = TvBoxConfigDecoder.decode(configText).sites.filter { it.api.startsWith("csp_") }
         println("fmys.json csp_* spider sites resolved: ${spiderSites.size}")
 
         val specs = spiderSites.map { site ->
-            val exec = site.jvmExecution!!
             JvmSpiderSiteSpec(
-                key = exec.key,
-                name = exec.name,
-                api = exec.api,
-                extension = exec.extension,
+                key = site.key,
+                name = site.name,
+                api = site.api,
+                extension = site.ext,
                 artifactLocation = "file://" + jarPath.toAbsolutePath().toString(),
-                categories = exec.categories,
+                categories = site.categories,
             )
         }
         val distinctApis = specs.map { it.api }.distinct()
+        assertEquals(manifest.get("configuredSites").asInt, specs.size)
+        assertEquals(manifest.get("configuredApis").asInt, distinctApis.size)
         println("distinct csp_* provider classes: ${distinctApis.size}")
 
         // 1) The package must convert through dex2jar (the actual fix).
@@ -82,16 +86,22 @@ class PlainDexFmJarVerificationTest {
             specs.associate { it.api to names.contains("${it.className.replace('.', '/')}.class") }
         }
         val missing = presentClasses.filterNot { it.value }.keys
+        val convertedClasses = JarFile(prepared.path.toFile()).use { jar ->
+            jar.entries().asSequence().filter { it.name.endsWith(".class") }
+                .map { it.name.removeSuffix(".class").replace('/', '.') }.toSet()
+        }
+        val rawDexClasses = manifest.getAsJsonArray("rawDexClassNames").map { it.asString }.toSet()
+        assertEquals("Conversion must retain every independently inventoried DEX class", emptySet<String>(), rawDexClasses - convertedClasses)
         println("provider classes present: ${presentClasses.count { it.value }}/${presentClasses.size}")
         if (missing.isNotEmpty()) println("MISSING CLASSES: ${missing.sorted()}")
 
         // 3) Each present provider must instantiate on the desktop JVM (no native crypto needed).
-        val loader = URLClassLoader(arrayOf(prepared.path.toUri().toURL()), this.javaClass.classLoader)
-        val notInstantiable = presentClasses.filter { it.value }.mapNotNull { (api, _) ->
+        val notInstantiable = GuardedProviderClassLoader(arrayOf(prepared.path.toUri().toURL()), this.javaClass.classLoader).use { loader ->
+          presentClasses.filter { it.value }.mapNotNull { (api, _) ->
             val spec = specs.first { it.api == api }
             runCatching {
                 val obj = loader.loadClass(spec.className).getDeclaredConstructor().newInstance()
-                var parent = obj.javaClass
+                var parent: Class<*>? = obj.javaClass
                 var isSpider = false
                 while (parent != null) {
                     if (parent.name == "com.github.catvod.crawler.Spider") { isSpider = true; break }
@@ -99,6 +109,7 @@ class PlainDexFmJarVerificationTest {
                 }
                 check(isSpider) { "${spec.className} is not a CatVod Spider" }
             }.exceptionOrNull()?.let { api to it.message }
+          }
         }
         if (notInstantiable.isNotEmpty()) {
             notInstantiable.sortedBy { it.first }.forEach { (api, msg) -> println("NOT INSTANTIABLE: $api -> $msg") }

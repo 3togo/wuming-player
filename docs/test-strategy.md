@@ -29,6 +29,15 @@ The selections are versioned in `tests/smoke/suites.json`. Each test is listed a
 `class#method`; every selection is checked offline against the correct source set.
 Deep smoke is an explicit superset, not a separate set whose quick checks can drift.
 
+Leanback deep smoke also includes the wallpaper-button rendering and fullscreen-to-preview
+overlay regressions in `LeanbackWallpaperPreviewInstrumentedTest`; these two tests
+are not selected for mobile. `LeanbackSearchOrderInstrumentedTest` additionally verifies
+that incoming results and source chips append during remote activity, re-sort after
+two seconds of inactivity, and preserve the focused video's identity. A sibling test keeps the same focused
+site tab and source filter when that tab moves in the ranked row. Ranking uses
+the existing source-performance/configuration order; no popularity counters are
+collected by the TV UI.
+
 Both levels run **production code in the isolated verification build**. They do not
 install the normal app and do not prove the exact signed/minified release APK.
 Signing, release lint/assembly and artifact provenance remain separate release

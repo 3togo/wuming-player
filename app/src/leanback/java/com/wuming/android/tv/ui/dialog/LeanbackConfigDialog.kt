@@ -170,9 +170,13 @@ open class LeanbackConfigDialog(
         TextScale.bind(binding.choose)
         TextScale.bind(binding.positive)
         TextScale.bind(binding.negative)
-        setEndMargin(binding.help, outerPadding)
-        setEndMargin(binding.choose, outerPadding)
-        setEndMargin(binding.positive, outerPadding)
+        // Compact labels need room inside the four-action row, including English.
+        for (action in listOf(binding.help, binding.choose, binding.positive, binding.negative)) {
+            action.setPadding(innerPadding, action.paddingTop, innerPadding, action.paddingBottom)
+        }
+        setEndMargin(binding.help, innerPadding)
+        setEndMargin(binding.choose, innerPadding)
+        setEndMargin(binding.positive, innerPadding)
     }
 
     private fun getChooseHint(): Int =

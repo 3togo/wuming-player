@@ -81,6 +81,10 @@ class MacCmsCatalogSourceExecutor(
         return decode(fetch(params + ("ac" to "videolist")))
     }
 
+    // This resolver only validates/returns an existing URL; it performs no provider requests.
+    override fun playbackPreparationSafety(flag: String, id: String) =
+        com.wuming.tv.core.catalog.PlaybackPreparationPolicy.classify(isHttp(id.trim()), flag, id)
+
     override fun play(flag: String, id: String): CatalogPlayback {
         val location = id.trim()
         if (isHttp(location)) return CatalogPlayback(supported = true, url = location)

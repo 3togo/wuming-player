@@ -18,7 +18,7 @@ import time
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 PACKAGE = runpy.run_path(str(ROOT / 'scripts/edition-config.py'))['application_id'](ROOT) + '.verification'
 COMPONENT = PACKAGE + "/com.wuming.android.tv.ui.activity.HomeActivity"
-RUNNER = PACKAGE + ".test/androidx.test.runner.AndroidJUnitRunner"
+RUNNER = PACKAGE + ".test/com.wuming.android.tv.ui.ForegroundSmokeRunner"
 METHOD = re.compile(r"com\.wuming\.android\.tv\.[A-Za-z0-9_.$]+#[A-Za-z0-9_]+$")
 
 
@@ -121,6 +121,8 @@ class DeviceRun:
         self.summary = {"serial": serial, "package": PACKAGE, "groups": [], "launches": {}}
 
     def adb(self, *args, timeout=30):
+        if args[:2] == ('shell', 'settings'):
+            args = ('shell', 'cmd', 'settings', *args[2:])
         return subprocess.run(["adb", "-s", self.serial, *args], capture_output=True,
                               text=True, timeout=timeout, check=False)
 
@@ -131,12 +133,9 @@ class DeviceRun:
         return result.stdout
 
     def keep_awake(self):
-        while not self.stop.wait(5):
+        while not self.stop.wait(2):
             try:
                 self.checked("shell", "input", "keyevent", "KEYCODE_WAKEUP", timeout=10)
-                with self.focus_lock:
-                    if self.foreground.is_set():
-                        self.checked("shell", "am", "start", "-n", COMPONENT, timeout=10)
             except (RuntimeError, subprocess.TimeoutExpired):
                 # The main test deadline remains authoritative; cleanup failures
                 # are recorded separately and never turn a failed run green.
@@ -172,6 +171,8 @@ class DeviceRun:
                 raise RuntimeError("Data-preserving installation failed; see install log")
 
     def launch(self, name):
+        # Drain delayed firmware cleanup after install/force-stop before relaunch.
+        time.sleep(1)
         result = self.checked("shell", "am", "start", "-W", "-n", COMPONENT)
         (self.output / (name + "-launch.txt")).write_text(result)
         time.sleep(2)
@@ -184,6 +185,33 @@ class DeviceRun:
             raise RuntimeError(name + " failed (including possible locked device or external focus change)")
 
     def instrument(self, group):
+        # Let the firmware's delayed (500 ms) kill for the previous process
+        # drain before a new instrumentation process can reuse the same UID.
+        self.checked('shell', 'am', 'force-stop', PACKAGE)
+        time.sleep(1)
+        ready = threading.Event()
+        def bootstrap():
+            # am instrument first stops the old app. Queue a visible Home token
+            # during Application startup, before the firmware's background kill.
+            marker = 'cache/foreground-ready-' + self.output.name + '-' + group['id']
+            deadline = time.monotonic() + 30
+            while not ready.wait(0.15) and time.monotonic() < deadline:
+                probe = self.adb('shell', 'run-as', PACKAGE, 'cat', marker, timeout=5)
+                if probe.returncode == 0 and probe.stdout.strip() == 'ready':
+                    self.checked('shell', 'run-as', PACKAGE, 'touch', marker + '.ack', timeout=5)
+                    return
+                self.adb('shell', 'am', 'start', '-n', COMPONENT, timeout=5)
+        worker = threading.Thread(target=bootstrap, daemon=True)
+        worker.start()
+        try:
+            self._instrument(group)
+        finally:
+            ready.set()
+            worker.join(timeout=12)
+            if worker.is_alive():
+                raise RuntimeError('Foreground startup worker did not stop')
+
+    def _instrument(self, group):
         print(f"{group['id']}: {len(group['tests'])} tests", flush=True)
         with self.focus_lock:
             if group["ui"]:
