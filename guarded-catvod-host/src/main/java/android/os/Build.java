@@ -4,6 +4,14 @@ package android.os;
 public final class Build {
     public static final String BRAND = "TVBox";
     public static final String MODEL = "TVBox Desktop";
+    public static final String SERIAL = "unknown";
+    public static final String MANUFACTURER = "TVBox";
+    public static final String PRODUCT = "tvbox-desktop";
+    public static final String DEVICE = "desktop";
+    public static final String BOARD = "desktop";
+    public static final String HARDWARE = "desktop";
+    public static final String ID = "desktop";
+    public static final String CPU_ABI2 = "";
     public static final String CPU_ABI = selectedAbi();
     public static final String[] SUPPORTED_ABIS = new String[]{CPU_ABI};
 

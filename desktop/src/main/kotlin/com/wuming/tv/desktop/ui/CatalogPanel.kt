@@ -165,8 +165,16 @@ class CatalogPanel(
         (field.formatter as javax.swing.text.NumberFormatter).commitsOnValidEdit = true
         field.toolTipText = "Sets page-marker spacing while the video list remains continuously scrollable."
     }
-    private val thumbnailPrevious = JButton("‹ Previous page").apply { accessibleContext.accessibleName = "Previous video page" }
-    private val thumbnailNext = JButton("Next page ›").apply { accessibleContext.accessibleName = "Next video page" }
+    private val thumbnailPrevious = JButton("‹").apply {
+        putClientProperty("JComponent.sizeVariant", "small")
+        accessibleContext.accessibleName = "Previous video page"
+        toolTipText = "Previous video page"
+    }
+    private val thumbnailNext = JButton("›").apply {
+        putClientProperty("JComponent.sizeVariant", "small")
+        accessibleContext.accessibleName = "Next video page"
+        toolTipText = "Next video page"
+    }
     private val thumbnailPageLabel = JLabel()
     private val thumbnailSize = JSlider(
         DesktopCatalogSettings.MIN_THUMBNAIL_SCALE,
@@ -174,6 +182,7 @@ class CatalogPanel(
         catalogSettings.thumbnailScalePercent,
     ).apply {
         accessibleContext.accessibleName = "Thumbnail size"
+        preferredSize = Dimension(80, preferredSize.height)
         toolTipText = "Adjust video card size relative to the catalogue area"
     }
     private val thumbnailSizeLabel = JLabel("${thumbnailSize.value}%")
@@ -340,6 +349,7 @@ class CatalogPanel(
             audit, stopAudit, loadDetails, detailBack, keep, previous, play, cast, replay, next,
             playerPrevious, playerNext, playerStop, playerPause, speedButton, subtitleButton,
         ).forEach { button ->
+            button.putClientProperty("JComponent.sizeVariant", "small")
             button.font = button.font.deriveFont(Font.BOLD, 13f)
             button.margin = Insets(6, 12, 6, 12)
         }
@@ -537,6 +547,7 @@ class CatalogPanel(
                     sources.preferredSize = Dimension(340, 36)
                     add(sources, BorderLayout.CENTER)
                     add(JButton("Refresh").apply {
+                        putClientProperty("JComponent.sizeVariant", "small")
                         toolTipText = "Refresh the selected site's catalogue and episode lists"
                         addActionListener {
                             val key = (sources.selectedItem as? CatalogSourceChoice)?.source?.key
@@ -567,7 +578,7 @@ class CatalogPanel(
                 }, BorderLayout.CENTER)
                 add(JPanel(BorderLayout(0, 4)).apply {
                     add(JPanel(BorderLayout(6, 0)).apply {
-                        add(JLabel("Thumbnail size:"), BorderLayout.WEST)
+                        add(JLabel("Card size:"), BorderLayout.WEST)
                         add(thumbnailSize, BorderLayout.CENTER)
                         add(thumbnailSizeLabel, BorderLayout.EAST)
                     }, BorderLayout.NORTH)
@@ -715,6 +726,7 @@ class CatalogPanel(
                     add(keep)
                 }, BorderLayout.CENTER)
                 add(JButton("Source tools").apply {
+                    putClientProperty("JComponent.sizeVariant", "small")
                     toolTipText = "Show source audit controls"
                     addActionListener { auditActions.isVisible = !auditActions.isVisible; revalidate() }
                 }, BorderLayout.EAST)

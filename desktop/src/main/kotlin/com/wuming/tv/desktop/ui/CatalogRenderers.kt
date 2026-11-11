@@ -135,6 +135,7 @@ internal class LeanbackChip(
 ) : JToggleButton(text) {
 
     init {
+        putClientProperty("JComponent.sizeVariant", "small")
         font = font.deriveFont(Font.BOLD, DesktopTvTheme.px(if (compact) 14 else 15).toFloat())
         foreground = DesktopTvTheme.TEXT
         isOpaque = false

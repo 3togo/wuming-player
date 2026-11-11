@@ -131,7 +131,7 @@ class GuardedSpiderExtraction internal constructor(
     val dataDirectory: Path,
     val abi: GuardedSpiderAbi,
 ) : Closeable {
-    val decryptedDex: Path get() = dataDirectory.resolve("code-cache/sharedb/config.db")
+    val decryptedDex: Path get() = GuardedDexPayload.find(dataDirectory) ?: GuardedDexPayload.expectedOutput(dataDirectory)
 
     override fun close() = deleteExtractionTree(root)
 }

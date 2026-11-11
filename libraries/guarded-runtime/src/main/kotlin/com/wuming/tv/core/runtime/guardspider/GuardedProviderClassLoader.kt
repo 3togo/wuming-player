@@ -27,6 +27,11 @@ class GuardedProviderClassLoader(urls: Array<URL?>, parent: ClassLoader) : URLCl
         var changed = Dex2JarShortArrayRepair.apply(node)
         node.methods.forEach { method ->
             method.instructions.toArray().filterIsInstance<MethodInsnNode>().forEach { call ->
+                if (call.opcode == Opcodes.INVOKESTATIC && call.owner == "javax/crypto/Cipher" &&
+                    call.name == "getInstance" && call.desc == "(Ljava/lang/String;)Ljavax/crypto/Cipher;") {
+                    call.owner = "com/wuming/tv/core/runtime/guardspider/ProviderCiphers"
+                    changed = true
+                }
                 val pair = call.owner in BUILDERS && call.name in HEADER_SETTERS &&
                     call.desc == "(Ljava/lang/String;Ljava/lang/String;)L${call.owner};"
                 val map = call.owner in HEADERS && call.name in setOf("of", "-deprecated_of") &&

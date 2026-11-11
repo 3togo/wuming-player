@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Context {
     public static final int MODE_PRIVATE = 0;
     private final File dataDirectory;
+    private final ContentResolver contentResolver = new ContentResolver();
     private final Map<String, SharedPreferences> preferences = new ConcurrentHashMap<>();
 
     public Context() {
@@ -22,6 +23,10 @@ public class Context {
 
     public Context getApplicationContext() {
         return this;
+    }
+
+    public ContentResolver getContentResolver() {
+        return contentResolver;
     }
 
     public File getFilesDir() {

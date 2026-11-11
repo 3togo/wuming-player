@@ -19,8 +19,11 @@ import java.io.IOException
 import java.net.InetAddress
 import java.net.InetSocketAddress
 
-/** Desktop transports use the JDK HTTP server and the already bundled OkHttp client. */
-class DesktopUpnpConfiguration : DefaultUpnpServiceConfiguration() {
+/** Desktop transports use the JDK HTTP server and the already bundled OkHttp client.
+ * Provider compatibility stubs expose android.os.Build.ID on the desktop classpath; Cling's
+ * class-presence heuristic therefore cannot select this explicitly desktop configuration.
+ */
+class DesktopUpnpConfiguration : DefaultUpnpServiceConfiguration(false) {
     override fun createStreamClient(): StreamClient<*> =
         OkHttpStreamClient(
             OkHttpStreamClient.Configuration(syncProtocolExecutorService),

@@ -98,10 +98,11 @@ class GuardedSpiderRuntime(
             }
             if (outputPayload != null) {
                 check(response.dexProduced) { "Guarded spider did not produce a DEX payload" }
-                require(Files.isRegularFile(extraction.decryptedDex)) { "Guarded spider DEX payload is missing" }
+                val decryptedDex = extraction.decryptedDex
+                require(Files.isRegularFile(decryptedDex)) { "Guarded spider DEX payload is missing" }
                 outputPayload.parent?.let(Files::createDirectories)
                 val temporary = outputPayload.resolveSibling("${outputPayload.fileName}.tmp")
-                Files.copy(extraction.decryptedDex, temporary, StandardCopyOption.REPLACE_EXISTING)
+                Files.copy(decryptedDex, temporary, StandardCopyOption.REPLACE_EXISTING)
                 try {
                     Files.move(
                         temporary,

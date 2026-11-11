@@ -475,7 +475,12 @@ class DesktopButtonUI : javax.swing.plaf.basic.BasicButtonUI() {
 
     override fun getPreferredSize(component: JComponent): Dimension {
         val size = super.getPreferredSize(component)
-        return Dimension(size.width.coerceAtLeast(80), size.height.coerceAtLeast(DesktopTvTheme.px(DesignTokens.CONTROL_MIN_HEIGHT)))
+        // Catalogue toolbars opt into compact desktop controls; regular actions retain
+        // the shared minimum. The delegate's text/icon size still grows for larger fonts.
+        val compact = component.getClientProperty("JComponent.sizeVariant") == "small"
+        val minimumHeight = if (compact) 32 else DesignTokens.CONTROL_MIN_HEIGHT
+        return Dimension(size.width.coerceAtLeast(if (compact) 32 else 80),
+            size.height.coerceAtLeast(DesktopTvTheme.px(minimumHeight)))
     }
 }
 

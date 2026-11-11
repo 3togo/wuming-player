@@ -419,8 +419,13 @@ class ExternalPlayerAdapter internal constructor(
             var channel: SocketChannel? = null
             while (session.process.isAlive && channel == null && System.nanoTime() < deadline) {
                 channel = runCatching {
-                    SocketChannel.open(StandardProtocolFamily.UNIX).apply {
-                        connect(UnixDomainSocketAddress.of(session.socketPath))
+                    val attempt = SocketChannel.open(StandardProtocolFamily.UNIX)
+                    try {
+                        attempt.connect(UnixDomainSocketAddress.of(session.socketPath))
+                        attempt
+                    } catch (error: Exception) {
+                        attempt.close()
+                        throw error
                     }
                 }.getOrNull()
                 if (channel == null) Thread.sleep(25)
@@ -430,66 +435,76 @@ class ExternalPlayerAdapter internal constructor(
                 if (session.windowId != null) session.retryExternally?.invoke()
                 return@Thread
             }
-            val reader = Channels.newReader(channel, Charsets.UTF_8)
-            val writer = Channels.newWriter(channel, Charsets.UTF_8)
-            synchronized(mpvSessionLock) {
-                if (mpvSession !== session) {
-                    channel.close()
-                    return@Thread
-                }
-                session.channel = channel
-                session.writer = writer.buffered()
-                session.writer?.apply {
-                    write("""{"command":["observe_property",1,"eof-reached"]}""")
-                    newLine()
-                    listOf("time-pos", "duration", "pause", "speed", "paused-for-cache").forEachIndexed { index, property ->
-                        write("""{"command":["observe_property",${index + 2},"$property"]}""")
+            try {
+                val reader = Channels.newReader(channel, Charsets.UTF_8)
+                val writer = Channels.newWriter(channel, Charsets.UTF_8).buffered()
+                synchronized(mpvSessionLock) {
+                    if (mpvSession !== session) {
+                        channel.close()
+                        return@Thread
+                    }
+                    session.channel = channel
+                    session.writer = writer
+                    session.writer?.apply {
+                        write("""{"command":["observe_property",1,"eof-reached"]}""")
                         newLine()
+                        listOf("time-pos", "duration", "pause", "speed", "paused-for-cache").forEachIndexed { index, property ->
+                            write("""{"command":["observe_property",${index + 2},"$property"]}""")
+                            newLine()
+                        }
+                        flush()
                     }
-                    flush()
                 }
-            }
-            volumeOverride?.let { mpvSetProperty("volume", it.toString()) }
-            muteOverride?.let { mpvSetProperty("mute", if (it) "yes" else "no") }
-            logger.info("mpv IPC ready pid=${session.process.pid()}")
-            reader.buffered().useLines { lines ->
-                lines.forEach { line ->
-                    if (isMpvPlaybackStartedEvent(line)) {
-                        val callback = synchronized(mpvSessionLock) {
-                            session.started = true
-                            session.onPlaybackStarted.also { session.onPlaybackStarted = null }
-                        }
-                        runCatching { callback?.invoke() }
-                            .onFailure { logger.log(Level.WARNING, "playback-start callback failed", it) }
-                    }
-                    mpvEndReason(line)?.let { reason ->
-                        val failureMessage = mpvPlaybackFailure(line)
-                        logger.info("mpv end-file pid=${session.process.pid()} reason=$reason" +
-                            (failureMessage?.let { " failure=$it" } ?: ""))
-                        if (reason == "eof") completeMpvItem(session)
-                        if (reason == "error" && isMpvVideoOutputFailure(line) && session.windowId != null && !session.started && session.retryExternally?.invoke() == true) return@forEach
-                        if (reason == "error") {
+                volumeOverride?.let { mpvSetProperty("volume", it.toString()) }
+                muteOverride?.let { mpvSetProperty("mute", if (it) "yes" else "no") }
+                logger.info("mpv IPC ready pid=${session.process.pid()}")
+                reader.buffered().useLines { lines ->
+                    lines.forEach { line ->
+                        if (isMpvPlaybackStartedEvent(line)) {
                             val callback = synchronized(mpvSessionLock) {
-                                if (mpvSession !== session) return@synchronized null
-                                session.mediaFailed = true
-                                session.onPlaybackStarted = null
-                                session.onPlaybackFailed.also { session.onPlaybackFailed = null }
+                                session.started = true
+                                session.onPlaybackStarted.also { session.onPlaybackStarted = null }
                             }
-                            runCatching { callback?.invoke(failureMessage ?: "mpv could not open this video. Choose another line.") }
-                                .onFailure { logger.log(Level.WARNING, "playback-failure callback failed", it) }
+                            runCatching { callback?.invoke() }
+                                .onFailure { logger.log(Level.WARNING, "playback-start callback failed", it) }
+                        }
+                        mpvEndReason(line)?.let { reason ->
+                            val failureMessage = mpvPlaybackFailure(line)
+                            logger.info("mpv end-file pid=${session.process.pid()} reason=$reason" +
+                                (failureMessage?.let { " failure=$it" } ?: ""))
+                            if (reason == "eof") completeMpvItem(session)
+                            if (reason == "error" && isMpvVideoOutputFailure(line) && session.windowId != null && !session.started && session.retryExternally?.invoke() == true) return@forEach
+                            if (reason == "error") {
+                                val callback = synchronized(mpvSessionLock) {
+                                    if (mpvSession !== session) return@synchronized null
+                                    session.mediaFailed = true
+                                    session.onPlaybackStarted = null
+                                    session.onPlaybackFailed.also { session.onPlaybackFailed = null }
+                                }
+                                runCatching { callback?.invoke(failureMessage ?: "mpv could not open this video. Choose another line.") }
+                                    .onFailure { logger.log(Level.WARNING, "playback-failure callback failed", it) }
+                            }
+                        }
+                        if (isMpvEofReachedEvent(line)) {
+                            logger.info("mpv eof-reached pid=${session.process.pid()}")
+                            completeMpvItem(session)
+                        }
+                        parseMpvPropertyChange(line, session.playbackState)?.let { state ->
+                            session.playbackState = state
+                            runCatching { session.stateCallback?.onState(state) }
+                                .onFailure { logger.log(Level.WARNING, "playback-state callback failed", it) }
+                            if (synchronized(mpvSessionLock) { mpvSession === session }) stateListeners.forEach { callback ->
+                                runCatching { callback.onState(state) }
+                            }
                         }
                     }
-                    if (isMpvEofReachedEvent(line)) {
-                        logger.info("mpv eof-reached pid=${session.process.pid()}")
-                        completeMpvItem(session)
-                    }
-                    parseMpvPropertyChange(line, session.playbackState)?.let { state ->
-                        session.playbackState = state
-                        session.stateCallback?.onState(state)
-                        if (synchronized(mpvSessionLock) { mpvSession === session }) stateListeners.forEach { callback ->
-                            runCatching { callback.onState(state) }
-                        }
-                    }
+                }
+            } catch (error: Exception) {
+                logger.fine("mpv IPC closed pid=${session.process.pid()} error=${error.javaClass.simpleName}")
+            } finally {
+                synchronized(mpvSessionLock) {
+                    session.writer = null
+                    runCatching { channel.close() }
                 }
             }
         }, "tvbox-mpv-ipc-${session.process.pid()}").apply { isDaemon = true; start() }
@@ -509,11 +524,12 @@ class ExternalPlayerAdapter internal constructor(
         synchronized(mpvSessionLock) {
             if (!session.closed.compareAndSet(false, true)) return
             if (mpvSession === session) mpvSession = null
-            session.prepared.resource?.close()
+            session.writer = null
+            runCatching { session.channel?.close() }
+            runCatching { session.prepared.resource?.close() }
             // Appended items were never handed to `prepared`; their relays are still open.
             session.queued.forEach { runCatching { it.resource?.close() } }
             session.queued.clear()
-            runCatching { session.channel?.close() }
             runCatching { Files.deleteIfExists(session.socketPath) }
         }
     }
@@ -629,10 +645,12 @@ class ExternalPlayerAdapter internal constructor(
     private fun quitMpv(session: MpvSession) {
         synchronized(mpvSessionLock) { session.onEnded = null; session.onPlaybackStarted = null; session.onPlaybackFailed = null }
         runCatching {
-            session.writer?.apply {
-                write("""{"command":["quit"]}""")
-                newLine()
-                flush()
+            synchronized(mpvSessionLock) {
+                session.writer?.apply {
+                    write("""{"command":["quit"]}""")
+                    newLine()
+                    flush()
+                }
             }
         }
         if (session.process.isAlive && !session.process.waitFor(GRACE_PERIOD_SECONDS, TimeUnit.SECONDS)) {
@@ -641,8 +659,8 @@ class ExternalPlayerAdapter internal constructor(
         closeMpvSession(session)
     }
 
-    private fun mpvCommand(vararg command: String): Boolean {
-        val session = synchronized(mpvSessionLock) { mpvSession } ?: return false
+    private fun mpvCommand(vararg command: String): Boolean = synchronized(mpvSessionLock) {
+        val session = mpvSession ?: return false
         val writer = session.writer ?: return false
         return runCatching {
             val arguments = command.joinToString(",") { jsonString(it) }
@@ -653,8 +671,8 @@ class ExternalPlayerAdapter internal constructor(
         }.getOrDefault(false)
     }
 
-    private fun mpvSetProperty(property: String, value: String): Boolean {
-        val session = synchronized(mpvSessionLock) { mpvSession } ?: return false
+    private fun mpvSetProperty(property: String, value: String): Boolean = synchronized(mpvSessionLock) {
+        val session = mpvSession ?: return false
         val writer = session.writer ?: return false
         return runCatching {
             writer.write("""{"command":["set_property",${jsonString(property)},${jsonString(value)}]}""")
@@ -694,20 +712,7 @@ class ExternalPlayerAdapter internal constructor(
         "tvbox-mpv-${UUID.randomUUID().toString().replace("-", "")}.sock",
     )
 
-    private fun jsonString(value: String): String = buildString {
-        append('"')
-        value.forEach { character ->
-            when (character) {
-                '\\' -> append("\\\\")
-                '"' -> append("\\\"")
-                '\n' -> append("\\n")
-                '\r' -> append("\\r")
-                '\t' -> append("\\t")
-                else -> append(character)
-            }
-        }
-        append('"')
-    }
+    private fun jsonString(value: String): String = com.google.gson.Gson().toJson(value)
 
     private fun monitorOutput(process: Process, session: MpvSession? = null): CompletableFuture<Boolean> {
         val completion = CompletableFuture<Boolean>()
@@ -753,7 +758,7 @@ class ExternalPlayerAdapter internal constructor(
                 }
             }
         } catch (_: Exception) {
-            return null
+            // Filesystem paths may contain spaces or characters that URI syntax rejects.
         }
         return try {
             val path = Path.of(input).toAbsolutePath().normalize()
