@@ -7,6 +7,9 @@ import com.wuming.android.tv.setting.AppSettings;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.KeyEvent;
 import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +53,36 @@ public class CollectActivity extends BaseActivity implements LeanbackCollectAdap
     private List<Site> mSites;
     private View mOldView;
     private SearchFilter mFilter;
+    private final Handler sortHandler = new Handler(Looper.getMainLooper());
+    private final Runnable idleSort = () -> {
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            if (fragment instanceof LeanbackCollectFragment) ((LeanbackCollectFragment) fragment).sortWhenIdle();
+        }
+    };
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN || event.getAction() == KeyEvent.ACTION_UP) {
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (fragment instanceof LeanbackCollectFragment) ((LeanbackCollectFragment) fragment).onRemoteInput();
+            }
+            sortHandler.removeCallbacks(idleSort);
+            sortHandler.postDelayed(idleSort, 2000);
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    protected void onPause() {
+        sortHandler.removeCallbacks(idleSort);
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sortHandler.postDelayed(idleSort, 2000);
+    }
 
     public static void start(Activity activity, String keyword) {
         Intent intent = new Intent(activity, CollectActivity.class);
@@ -98,7 +131,7 @@ public class CollectActivity extends BaseActivity implements LeanbackCollectAdap
         mBinding.pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                GridFocusRestorer.restoreAfterLayout(mBinding.recycler, position);
+                if (mBinding.recycler.hasFocus()) GridFocusRestorer.restoreAfterLayout(mBinding.recycler, position);
             }
         });
         mBinding.recycler.addOnChildViewHolderSelectedListener(new OnChildViewHolderSelectedListener() {
@@ -246,6 +279,7 @@ public class CollectActivity extends BaseActivity implements LeanbackCollectAdap
 
     @Override
     protected void onDestroy() {
+        sortHandler.removeCallbacks(idleSort);
         if (mViewModel != null) {
             mViewModel.stopSearch();
             mViewModel.getSearch().removeObservers(this);

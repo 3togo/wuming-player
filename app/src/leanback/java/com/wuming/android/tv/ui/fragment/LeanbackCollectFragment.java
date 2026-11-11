@@ -28,10 +28,14 @@ import com.wuming.android.tv.ui.activity.VodActivity;
 import com.wuming.android.tv.ui.base.BaseFragment;
 import com.wuming.android.tv.ui.custom.CustomRowPresenter;
 import com.wuming.android.tv.ui.custom.CustomScroller;
+import com.wuming.android.tv.ui.custom.CollectSearchGrid;
+import com.wuming.tv.core.search.SearchOrderIdleWindow;
+import android.os.SystemClock;
 import com.wuming.android.tv.ui.custom.CustomSelector;
 import com.wuming.android.tv.ui.presenter.VodPresenter;
 import com.wuming.android.tv.utils.ResUtil;
 import com.wuming.android.tv.utils.CollectPageMerger;
+import com.wuming.android.tv.utils.VideoRankManager;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
@@ -48,6 +52,33 @@ public class LeanbackCollectFragment extends BaseFragment implements CustomScrol
     private String mKeyword;
     private List<Vod> allVods = new ArrayList<>();
     private boolean mDataInitialized;
+    private CollectSearchGrid searchGrid;
+    private final SearchOrderIdleWindow idleWindow = new SearchOrderIdleWindow();
+    private boolean rankingDirty;
+
+    public String getSourceKey() { return mCollect == null ? "all" : mCollect.getSite().getKey(); }
+
+    public void onRemoteInput() {
+        idleWindow.recordInput(SystemClock.uptimeMillis());
+        if (searchGrid != null) searchGrid.remoteInput();
+    }
+
+    public void sortWhenIdle() {
+        if (!rankingDirty || isSitePage() || !idleWindow.canSort(SystemClock.uptimeMillis())) return;
+        List<Vod> ranked = CollectionWorkflow.mergeAndRank(allVods, new ArrayList<>());
+        allVods.clear();
+        allVods.addAll(ranked);
+        rankingDirty = false;
+        renderVideos();
+    }
+
+    private void renderVideos() {
+        if (mAdapter == null || getActivity() == null || getActivity().isFinishing()) return;
+        if (searchGrid == null) searchGrid = new CollectSearchGrid(mBinding.recycler, mAdapter,
+                new VodPresenter(this, Style.rect(), true).keyword(getKeyword()), LeanbackProduct.SEARCH_COLUMN);
+        searchGrid.submit(allVods);
+        mLast = mAdapter.size() == 0 ? null : (ArrayObjectAdapter) ((ListRow) mAdapter.get(mAdapter.size() - 1)).getAdapter();
+    }
 
     public static LeanbackCollectFragment newInstance(String keyword, Collect collect) {
         Bundle args = new Bundle();
@@ -73,6 +104,8 @@ public class LeanbackCollectFragment extends BaseFragment implements CustomScrol
 
     @Override
     protected void releaseBinding() {
+        if (searchGrid != null) searchGrid.release();
+        searchGrid = null;
         mBinding = null;
         mAdapter = null;
         mViewModel = null;
@@ -90,6 +123,7 @@ public class LeanbackCollectFragment extends BaseFragment implements CustomScrol
         } else {
             setRecyclerView();
             setViewModel();
+            if (!allVods.isEmpty()) renderVideos();
             addVideo(mCollect);
             mDataInitialized = true;
         }
@@ -118,27 +152,20 @@ public class LeanbackCollectFragment extends BaseFragment implements CustomScrol
     }
 
     public void addVideo(List<Vod> items) {
-        if (isSitePage() && !allVods.isEmpty()) {
-            appendRows(CollectPageMerger.appendUnique(allVods, items));
+        if (isSitePage()) {
+            if (allVods.isEmpty()) {
+                List<Vod> first = CollectionWorkflow.mergeAndRank(allVods, items);
+                allVods.addAll(first);
+                appendRows(first);
+            } else appendRows(CollectPageMerger.appendUnique(allVods, items));
             return;
         }
-        List<Vod> merged = CollectionWorkflow.mergeAndRank(allVods, items);
+        List<Vod> merged = CollectionWorkflow.mergeCandidates(allVods, VideoRankManager.apply(items));
         allVods.clear();
         allVods.addAll(merged);
-        
-        if (mAdapter == null || getActivity() == null || getActivity().isFinishing()) return;
-        
-        // Clear and rebuild adapter with sorted videos
-        mAdapter.clear();
-        mLast = null;
-        List<ListRow> rows = new ArrayList<>();
-        VodPresenter presenter = new VodPresenter(this, Style.rect(), true).keyword(getKeyword());
-        for (List<Vod> part : Lists.partition(allVods, LeanbackProduct.SEARCH_COLUMN)) {
-            mLast = new ArrayObjectAdapter(presenter);
-            mLast.addAll(0, part);
-            rows.add(new ListRow(mLast));
-        }
-        mAdapter.addAll(0, rows);
+        rankingDirty = true;
+        if (idleWindow.canSort(SystemClock.uptimeMillis())) sortWhenIdle();
+        else renderVideos();
     }
 
     private boolean isSitePage() {
@@ -167,16 +194,8 @@ public class LeanbackCollectFragment extends BaseFragment implements CustomScrol
 
     public void sortResults(SearchFilter filter, String keyword) {
         List<Vod> filtered = CollectionWorkflow.filterAndSort(allVods, filter, keyword);
-        mAdapter.clear();
-        mLast = null;
-        List<ListRow> rows = new ArrayList<>();
-        VodPresenter presenter = new VodPresenter(this, Style.rect(), true).keyword(keyword);
-        for (List<Vod> part : Lists.partition(filtered, LeanbackProduct.SEARCH_COLUMN)) {
-            mLast = new ArrayObjectAdapter(presenter);
-            mLast.addAll(0, part);
-            rows.add(new ListRow(mLast));
-        }
-        mAdapter.addAll(0, rows);
+        if (searchGrid == null) renderVideos();
+        if (searchGrid != null) searchGrid.submit(filtered);
     }
 
     @Override

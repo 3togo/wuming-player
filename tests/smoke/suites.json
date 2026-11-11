@@ -162,6 +162,15 @@
       "tests": [
         "com.wuming.android.tv.ui.LeanbackSearchOrderInstrumentedTest#idleSortKeepsFocusedSiteAndItsFilter"
       ]
+    },
+    {
+      "id": "tv-collection-focus",
+      "mode": "leanback",
+      "ui": true,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.ui.LeanbackCollectSearchFocusInstrumentedTest#actualCollectionRouteKeepsDpadFocusedCardAfterIdleRanking"
+      ]
     }
   ]
 }

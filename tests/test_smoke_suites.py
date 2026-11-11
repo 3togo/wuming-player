@@ -115,7 +115,7 @@ class SuiteSelectionTest(unittest.TestCase):
         plan = json.loads(stdout.getvalue())
         methods = [test for group in plan["groups"] for test in group["tests"]]
         self.assertEqual(len(methods), len(set(methods)))
-        self.assertEqual(38, len(methods))
+        self.assertEqual(39, len(methods))
 
     def test_persistence_selection_uses_only_existing_fixture_methods(self):
         with patch.object(subprocess, "run", side_effect=AssertionError("Unexpected device call")), \

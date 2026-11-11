@@ -38,6 +38,18 @@ site tab and source filter when that tab moves in the ranked row. Ranking uses
 the existing source-performance/configuration order; no popularity counters are
 collected by the TV UI.
 
+The standard Leanback search route is `CollectActivity` with
+`LeanbackCollectFragment`, not `LeanbackFastSearchActivity` (the optional fast-search
+route). `LeanbackCollectSearchFocusInstrumentedTest` covers the standard route's
+nested row grid: a non-first D-pad-focused card must retain its bound video key
+while higher-ranked source results move ahead after two idle seconds. Checking a
+selected row/column, or testing only the fast-search adapter, does not cover this
+screen. `CollectSearchGrid` updates existing row adapters and explicitly restores
+card focus after both nested view holders are available. Unwrap row containers
+through `RowPresenter.getRowViewHolder`; the outer item view need not itself be a
+`ListRowView`, so casting it directly can restore the row but leave focus on its
+first card.
+
 Both levels run **production code in the isolated verification build**. They do not
 install the normal app and do not prove the exact signed/minified release APK.
 Signing, release lint/assembly and artifact provenance remain separate release
