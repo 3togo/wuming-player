@@ -17,6 +17,7 @@ class JvmCatVodCatalogSourceExecutor(
     expectedSha256: String,
 ) : CatalogSourceExecutor, AutoCloseable {
 
+    override val hostContract = com.wuming.tv.core.catalog.CatalogHostContract.JVM
     override val source = CatalogSource(spec.key, spec.name)
     val artifactReport = JvmSpiderArtifactInspector.inspect(artifact, expectedSha256)
     private val host = JvmSpiderHostProcess(artifact, spec.className, spec.extension, spec.providerKey)
@@ -34,6 +35,10 @@ class JvmCatVodCatalogSourceExecutor(
             page = page.toString(),
             filters = filters,
         )), page)
+
+    override fun categoryWithRecommendationSeeds(typeId: String, page: Int, filters: Map<String, String>, seeds: List<String>): CatalogPage =
+        codec.category(host.request(JvmSpiderHostRequest("category", id = typeId, page = page.toString(), filters = filters,
+            recommendationSeeds = seeds.toList())), page)
 
     override fun search(query: String): List<CatalogItem> {
         require(query.isNotBlank()) { "Search query is required" }

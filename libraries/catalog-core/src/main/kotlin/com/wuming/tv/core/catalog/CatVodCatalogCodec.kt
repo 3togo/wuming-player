@@ -1,5 +1,6 @@
 package com.wuming.tv.core.catalog
 
+import com.wuming.tv.core.playback.JsonPlaybackResponse
 import com.wuming.tv.core.playback.MediaUrlClassifier
 
 import com.google.gson.JsonElement
@@ -93,7 +94,11 @@ class CatVodCatalogCodec(private val source: CatalogSource) {
         // Playback admission uses the same policy as Android's sniffer, including audio.
         // The legacy native codec has a separate extension list and must not bypass it.
         val value = root(json)
-        val location = playbackUrl(value)
+        // Preserve array/object selection before applying the common JSON response contract.
+        val selected = playbackUrl(value)
+        val normalized = value.deepCopy().apply { if (selected.isNotBlank()) addProperty("url", selected) }
+        val decoded = runCatching { JsonPlaybackResponse.decode(normalized.toString()) }.getOrNull()
+        val location = decoded?.url.orEmpty()
         val validHttp = isHttp(location)
         val interactive = integer(value, "parse", integer(value, "jx", 0)) != 0 && !MediaUrlClassifier.isMediaUrl(location)
         return CatalogPlayback(
@@ -105,7 +110,7 @@ class CatVodCatalogCodec(private val source: CatalogSource) {
                 interactive -> "CatVod provider returned a web page that requires browser sniffing."
                 else -> ""
             },
-            headers = headers(value.get("header")),
+            headers = decoded?.headers ?: JsonPlaybackResponse.headers(value),
         )
     }
 
@@ -201,18 +206,6 @@ class CatVodCatalogCodec(private val source: CatalogSource) {
                 ?: values.firstOrNull(::isHttp).orEmpty()
         }
         return ""
-    }
-
-    private fun headers(value: JsonElement?): Map<String, String> {
-        if (value == null || value.isJsonNull) return emptyMap()
-        val objectValue = when {
-            value.isJsonObject -> value.asJsonObject
-            value.isJsonPrimitive -> runCatching { JsonParser.parseString(value.asString).asJsonObject }.getOrNull()
-            else -> null
-        } ?: return emptyMap()
-        return objectValue.entrySet().mapNotNull { (key, item) ->
-            item.takeIf(JsonElement::isJsonPrimitive)?.asString?.let { key to it }
-        }.toMap()
     }
 
     private fun root(json: String): JsonObject {

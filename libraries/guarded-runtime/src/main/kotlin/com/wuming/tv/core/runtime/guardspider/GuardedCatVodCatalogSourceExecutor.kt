@@ -27,6 +27,7 @@ class GuardedCatVodCatalogSourceExecutor(
     private val catalogAdapter: CatalogSourceExecutor? = null,
 ) : CatalogSourceExecutor, AutoCloseable {
     private val logger = Logger.getLogger("tvbox.guarded.catalog")
+    override val hostContract get() = catalogAdapter?.hostContract ?: com.wuming.tv.core.catalog.CatalogHostContract.GUARDED
     override val source = CatalogSource(spec.key, spec.name)
     private val codec = CatVodCatalogCodec(source)
     private var hostInstance = GuardedCatVodHostProcess(artifact, spec)
@@ -232,6 +233,11 @@ class GuardedCatVodCatalogSourceExecutor(
             id = typeId,
             page = page.toString(),
             filters = filters,
+        )), page)
+
+    override fun categoryWithRecommendationSeeds(typeId: String, page: Int, filters: Map<String, String>, seeds: List<String>): CatalogPage =
+        adapter()?.categoryWithRecommendationSeeds(typeId, page, filters, seeds) ?: codec.category(host.request(GuardedCatVodHostRequest(
+            operation = "category", id = typeId, page = page.toString(), filters = filters, recommendationSeeds = seeds.toList(),
         )), page)
 
     /**

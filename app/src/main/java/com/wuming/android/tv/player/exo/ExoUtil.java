@@ -214,7 +214,7 @@ public class ExoUtil {
         // Prefer supported tracks; see docs/quark-smart-quality-lessons.md before tightening this.
         builder.setExceedRendererCapabilitiesIfNecessary(true);
         if (PlayerSettings.isPreferAAC()) builder.setPreferredAudioMimeType(MimeTypes.AUDIO_AAC);
-        builder.setPreferredTextLanguage(Locale.getDefault().getISO3Language());
+        builder.setPreferredTextLanguages(com.wuming.tv.core.media.subtitle.SubtitleSelectionPolicy.preferredLanguages(Locale.getDefault()).toArray(new String[0]));
         // Only request tunneled playback when the user opted in AND a video decoder on this
         // device actually advertises FEATURE_TunneledPlayback. The Allwinner OMX decoder rejects
         // the tunnel extension (GetExtensionIndex configureVideoTunnelMode -> err 0x80001001), so
@@ -271,12 +271,23 @@ public class ExoUtil {
     private static List<MediaItem.SubtitleConfiguration> buildSubtitleConfigs(List<Sub> subs) {
         if (subs == null || subs.isEmpty()) return Collections.emptyList();
         List<MediaItem.SubtitleConfiguration> configs = new ArrayList<>(subs.size());
-        for (Sub sub : subs) configs.add(buildSubConfig(sub));
+        List<Integer> flags = subtitleSelectionFlags(subs);
+        for (int i = 0; i < subs.size(); i++) configs.add(buildSubConfig(subs.get(i), flags.get(i)));
         return configs;
     }
 
+    static List<Integer> subtitleSelectionFlags(List<Sub> subs) {
+        return com.wuming.tv.core.media.subtitle.SubtitleSelectionPolicy.selectionFlags(
+                Locale.getDefault(), subs.stream().map(Sub::getLang).collect(java.util.stream.Collectors.toList()),
+                subs.stream().map(Sub::getRawFlag).collect(java.util.stream.Collectors.toList()));
+    }
+
     private static MediaItem.SubtitleConfiguration buildSubConfig(Sub sub) {
-        return new MediaItem.SubtitleConfiguration.Builder(Uri.parse(UrlUtil.convert(sub.getUrl()))).setLabel(sub.getName()).setMimeType(sub.getFormat()).setSelectionFlags(sub.getFlag()).setLanguage(sub.getLang()).build();
+        return buildSubConfig(sub, sub.getFlag());
+    }
+
+    private static MediaItem.SubtitleConfiguration buildSubConfig(Sub sub, int flags) {
+        return new MediaItem.SubtitleConfiguration.Builder(Uri.parse(UrlUtil.convert(sub.getUrl()))).setLabel(sub.getName()).setMimeType(sub.getFormat()).setSelectionFlags(flags).setLanguage(sub.getLang()).build();
     }
 
     private static MediaItem.DrmConfiguration buildDrmConfig(Drm drm) {

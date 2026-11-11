@@ -10,6 +10,7 @@ class CachingCatalogSourceExecutor(
     private val accountGeneration: () -> Long = { 0L },
     clock: Clock = Clock.systemUTC(),
 ) : CatalogSourceExecutor, AutoCloseable {
+    override val hostContract get() = delegate.hostContract
     override val source get() = delegate.source
     private val pages = MemoryResultCache<List<Any>, Any>(128, Duration.ofMinutes(5), clock)
     private val searches = MemoryResultCache<String, List<CatalogItem>>(100, Duration.ofMinutes(2), clock)
@@ -36,6 +37,9 @@ class CachingCatalogSourceExecutor(
         val snapshot = filters.toSortedMap()
         return pages.get(listOf("category", typeId, page, snapshot)) { delegate.category(typeId, page, snapshot) } as CatalogPage
     }
+    override fun categoryWithRecommendationSeeds(typeId: String, page: Int, filters: Map<String, String>, seeds: List<String>): CatalogPage =
+        delegate.categoryWithRecommendationSeeds(typeId, page, filters, seeds)
+
     override fun search(query: String): List<CatalogItem> {
         checkAccount()
         return searches.get(query) { delegate.search(query) }

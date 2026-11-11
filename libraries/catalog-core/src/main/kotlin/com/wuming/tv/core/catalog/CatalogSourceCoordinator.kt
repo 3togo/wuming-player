@@ -1,10 +1,12 @@
 package com.wuming.tv.core.catalog
 
 import java.util.concurrent.*
+import com.wuming.tv.core.search.SearchLifecycle
 
 /** Bounded multi-source orchestration. The platform supplies threads and dispatches UI callbacks. */
 class CatalogSourceCoordinator(
     private val executor: ExecutorService,
+    searchTimers: ScheduledExecutorService,
     private val progressiveWaitMillis: Long = 1_500,
     private val initialHomeWaitMillis: Long = 5_000,
     private val emptyHomeWaitMillis: Long = 30_000,
@@ -13,11 +15,48 @@ class CatalogSourceCoordinator(
 ) : AutoCloseable {
     private val jobs = ConcurrentHashMap<CompletableFuture<CatalogSourceOutcome>, Future<*>>()
     @Volatile private var closed = false
+    private val search = SearchLifecycle<CatalogSource, CatalogSourcePayload>(
+        executor, searchTimers, Executor { it.run() }, maxOf(searchWaitMillis, singleWaitMillis),
+    )
+
+    fun beginSearch(): Int = search.cancel()
+    fun cancelSearch() { search.cancel() }
+
+    private fun collectSearch(targets: List<CatalogSource>, request: Int,
+                              operation: (CatalogSource) -> CatalogSourcePayload): List<CatalogSourceOutcome> {
+        val sources = targets.distinctBy { it.key }
+        val outcomes = ConcurrentHashMap<String, CatalogSourceOutcome>()
+        val complete = CompletableFuture<Unit>()
+        if (!search.track(request, complete)) return emptyList()
+        val remaining = java.util.concurrent.atomic.AtomicInteger(sources.size)
+        val wait = if (sources.size == 1) singleWaitMillis else searchWaitMillis
+        try {
+            if (sources.isEmpty()) complete.complete(Unit)
+            search.start(request, sources, { it.key }, operation) { result ->
+                outcomes[result.source.key] = CatalogSourceOutcome(
+                    result.source, result.value ?: CatalogSourcePayload(), result.failure, result.elapsedMillis,
+                )
+                if (remaining.decrementAndGet() == 0) complete.complete(Unit)
+            }
+            try { complete.get(wait, TimeUnit.MILLISECONDS) }
+            catch (_: TimeoutException) { /* Keep completed sources, cancel the remainder below. */ }
+            catch (_: CancellationException) { return emptyList() }
+            catch (interrupted: InterruptedException) { Thread.currentThread().interrupt(); throw interrupted }
+            return sources.map { source -> outcomes[source.key] ?: CatalogSourceOutcome(
+                source, CatalogSourcePayload(), TimeoutException("Search stopped waiting for this slow site"), wait,
+            ) }
+        } finally {
+            search.untrack(complete)
+            search.cancelIfCurrent(request)
+        }
+    }
 
     fun collect(targets: List<CatalogSource>, operationName: String,
                 lateResult: ((CatalogSourceOutcome) -> Unit)? = null,
+                searchRequest: Int? = null,
                 operation: (CatalogSource) -> CatalogSourcePayload): List<CatalogSourceOutcome> {
         if (closed) return emptyList()
+        if (operationName == "search") return collectSearch(targets, searchRequest ?: beginSearch(), operation)
         val futures = targets.map { source -> submit(source, operation) }
         val progressive = operationName == "home" && lateResult != null
         val wait = when {
@@ -99,7 +138,7 @@ class CatalogSourceCoordinator(
     private fun elapsed(started: Long) = (System.nanoTime() - started) / 1_000_000
     private fun cancel(result: CompletableFuture<CatalogSourceOutcome>) { jobs.remove(result)?.cancel(true); result.cancel(true) }
     /** `keys.toList()` reads size before iterating, so a job finishing in between breaks Kotlin's single-element fast path. */
-    @Synchronized override fun close() { closed = true; ArrayList(jobs.keys).forEach(::cancel) }
+    @Synchronized override fun close() { closed = true; search.close(); ArrayList(jobs.keys).forEach(::cancel) }
 }
 
 data class CatalogSourcePayload(val items: List<CatalogItem> = emptyList(), val types: List<CatalogType> = emptyList())

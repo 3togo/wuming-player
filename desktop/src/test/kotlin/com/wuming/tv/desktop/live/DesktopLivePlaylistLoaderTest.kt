@@ -8,6 +8,25 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class DesktopLivePlaylistLoaderTest {
+    @Test fun unquotedLogoApostropheKeepsDisplayNameIntact() {
+        val loader = DesktopLivePlaylistLoader {
+            "#EXTM3U\n#EXTINF:-1 tvg-logo=https://img.test/o'news.png,Channel, HD\nhttps://media.test/live".toByteArray()
+        }
+        val channel = loader.load("https://playlist.test/list.m3u").groups.single().channels.single()
+        assertEquals("Channel, HD", channel.name)
+        assertEquals("https://img.test/o'news.png", channel.logo)
+    }
+
+    @Test fun resolvesGuideAgainstSelectedPlaylistAndPreservesChannelName() {
+        val loader = DesktopLivePlaylistLoader {
+            "#EXTM3U url-tvg='../guide?ch={name}'\n#EXTINF:-1 tvg-id='one',News, HD\n#EXTGRP:News\nhttps://media.test/live".toByteArray()
+        }
+        val playlist = loader.load("https://playlist.test/config/list.m3u")
+        assertEquals(listOf("https://playlist.test/guide?ch={name}"), playlist.epgUrls)
+        assertEquals("News", playlist.groups.single().name)
+        assertEquals("News, HD", playlist.groups.single().channels.single().name)
+    }
+
 
     @Test
     fun loadsJsonPlaylistThroughTheSharedGrammar() {

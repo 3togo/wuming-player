@@ -126,6 +126,8 @@ object TvBoxConfigPayloadDecoder {
 
 enum class TvBoxSourceRuntime {
     DIRECT_JAVASCRIPT,
+    /** Node syntax must never silently route to QuickJS/Graal. */
+    NODE_RUNTIME_REQUIRED,
     SPIDER_RUNTIME_REQUIRED,
     /** Android `type` 0/1: a MacCMS collection API served over plain HTTP GET. */
     MAC_CMS_API,
@@ -144,8 +146,17 @@ object TvBoxSourceRuntimePolicy {
                 else -> TvBoxSourceRuntime.UNSUPPORTED_TYPE
             }
         }
-        api.substringBefore('?').lowercase().endsWith(".js") -> TvBoxSourceRuntime.DIRECT_JAVASCRIPT
+        requiresNode(api) -> TvBoxSourceRuntime.NODE_RUNTIME_REQUIRED
+        api.substringBefore('?').substringBefore('#').lowercase().endsWith(".js") -> TvBoxSourceRuntime.DIRECT_JAVASCRIPT
         else -> TvBoxSourceRuntime.SPIDER_RUNTIME_REQUIRED
+    }
+
+    @JvmStatic
+    fun requiresNode(api: String): Boolean {
+        val normalized = api.trim().lowercase(java.util.Locale.ROOT)
+        val path = normalized.substringBefore('?').substringBefore('#')
+        return normalized.startsWith("node:") || normalized.startsWith("nodejs:") ||
+            path.endsWith(".cjs") || path.endsWith(".mjs")
     }
 
     private fun isHttpApi(api: String): Boolean =

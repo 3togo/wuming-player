@@ -29,6 +29,7 @@ data class GuardedCatVodHostRequest(
     val page: String? = null,
     val extension: String? = null,
     val filters: Map<String, String> = emptyMap(),
+    val recommendationSeeds: List<String>? = null,
 )
 
 internal data class GuardedCatVodHostResponse(

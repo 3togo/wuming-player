@@ -9,6 +9,7 @@ package com.wuming.tv.core.catalog
 interface CatalogGateway {
 
     fun sources(): List<CatalogSource>
+    fun hostContract(source: String): CatalogHostContract = CatalogHostContract.UNSPECIFIED
 
     /** Initial catalogue cards for a source. Backends without a home feed may return an empty list. */
     fun home(source: String): List<CatalogItem> = emptyList()
@@ -22,6 +23,9 @@ interface CatalogGateway {
         page: Int = 1,
         filters: Map<String, String> = emptyMap(),
     ): CatalogPage = CatalogPage()
+
+    fun categoryWithRecommendationSeeds(source: String, typeId: String, page: Int, filters: Map<String, String>, seeds: List<String>): CatalogPage =
+        category(source, typeId, page, filters)
 
     fun search(source: String, query: String): List<CatalogItem>
 

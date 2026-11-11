@@ -152,7 +152,22 @@ object GuardedCatVodHostMain {
     }
 
     @Throws(Exception::class)
-    private fun invoke(spider: Any?, context: Context?, request: Request): String? =
+    private fun invoke(spider: Any?, context: Context?, request: Request): String? {
+        val seeds = request.recommendationSeeds
+        if (request.operation != "category" || request.id != "guess_you_like" || seeds == null || context == null) return invokeRequest(spider, context, request)
+        val preferences = context.getSharedPreferences(context.packageName + "_preferences", 0)
+        val previous = preferences.getString("historyvodname", null)
+        try {
+            preferences.edit().putString("historyvodname", GSON.toJson(seeds.take(10))).commit()
+            return invokeRequest(spider, context, request)
+        } finally {
+            val edit = preferences.edit()
+            if (previous == null) edit.remove("historyvodname") else edit.putString("historyvodname", previous)
+            edit.commit()
+        }
+    }
+
+    private fun invokeRequest(spider: Any?, context: Context?, request: Request): String? =
         when (request.operation) {
             "init" -> {
                 SpiderInvocationSupport.initialize(spider!!, Context::class.java, context,
@@ -323,6 +338,7 @@ object GuardedCatVodHostMain {
         var page: String? = null
         var extension: String? = null
         var filters: MutableMap<String?, String?>? = null
+        var recommendationSeeds: List<String>? = null
     }
 
     @JvmRecord

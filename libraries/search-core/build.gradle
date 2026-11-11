@@ -20,6 +20,7 @@ kotlin {
 
 dependencies {
     implementation libs.gson
+    api project(':libraries:cache-core')
     implementation project(':libraries:base-core')
     implementation project(':libraries:text-core')
     testImplementation libs.junit

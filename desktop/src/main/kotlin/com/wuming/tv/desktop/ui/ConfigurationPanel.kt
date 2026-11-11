@@ -874,6 +874,7 @@ class ConfigurationPanel(
     }
 
     private fun TvBoxSourceRuntime.label(): String = when (this) {
+        TvBoxSourceRuntime.NODE_RUNTIME_REQUIRED -> "Node.js runtime required · unavailable in this build"
         TvBoxSourceRuntime.DIRECT_JAVASCRIPT -> "direct JavaScript candidate"
         TvBoxSourceRuntime.SPIDER_RUNTIME_REQUIRED -> "spider runtime required"
         TvBoxSourceRuntime.MAC_CMS_API -> "MacCMS collection API"

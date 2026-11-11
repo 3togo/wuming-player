@@ -718,4 +718,5 @@
     <string name="popup_sites">Choose site</string>
     <string name="popup_config_history">Configuration history</string>
     <string name="error_play_protocol_unsupported">This playback protocol is not supported in this build. Choose another source.</string>
+    <string name="episode_nearby">Nearby episodes</string>
 </resources>

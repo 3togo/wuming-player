@@ -204,7 +204,9 @@ tasks.register('desktopSmokeTest', Test) {
     testClassesDirs = sourceSets.test.output.classesDirs
     classpath = sourceSets.test.runtimeClasspath
     include '**/DesktopLayoutTest.class', '**/DesktopHomeIntegrationTest.class',
-            '**/EmbeddedPlaybackIntegrationTest.class', '**/UpnpTransportIntegrationTest.class'
+            '**/EmbeddedPlaybackIntegrationTest.class', '**/UpnpTransportIntegrationTest.class',
+            '**/NearbyEpisodePickerIntegrationTest.class', '**/MpvConfigurationIntegrationTest.class',
+            '**/MpvConfigurationEditorIntegrationTest.class'
     systemProperty 'java.awt.headless', 'false'
     systemProperty 'wuming.embedded.integration', 'true'
     systemProperty 'wuming.embedded.renderDirectory', layout.buildDirectory.dir('reports/desktop-smoke').get().asFile.absolutePath

@@ -523,7 +523,7 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
     }
 
     private void onEpisodes() {
-        EpisodeGridDialog.create().reverse(mHistory != null && mHistory.isRevSort()).episodes(mEpisodeAdapter.getItems()).show(this);
+        EpisodeGridDialog.create().nearby(true).reverse(mHistory != null && mHistory.isRevSort()).episodes(mEpisodeAdapter.getItems()).show(this);
     }
 
     private void onReverse() {

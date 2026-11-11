@@ -7,6 +7,7 @@ package com.wuming.tv.core.catalog
 interface CatalogSourceExecutor {
 
     val source: CatalogSource
+    val hostContract: CatalogHostContract get() = CatalogHostContract.UNSPECIFIED
 
     fun home(): List<CatalogItem> = emptyList()
 
@@ -17,6 +18,10 @@ interface CatalogSourceExecutor {
         page: Int = 1,
         filters: Map<String, String> = emptyMap(),
     ): CatalogPage = CatalogPage()
+
+    /** Optional observed recommendation bridge. Other runtimes keep their normal category behavior. */
+    fun categoryWithRecommendationSeeds(typeId: String, page: Int, filters: Map<String, String>, seeds: List<String>): CatalogPage =
+        category(typeId, page, filters)
 
     fun search(query: String): List<CatalogItem>
 
@@ -45,6 +50,7 @@ class ExecutorCatalogGateway(executors: Collection<CatalogSourceExecutor>) : Cat
     }
 
     override fun sources(): List<CatalogSource> = executors.values.map { it.source }
+    override fun hostContract(source: String): CatalogHostContract = executor(source).hostContract
 
     override fun home(source: String): List<CatalogItem> = executor(source).home()
 
@@ -56,6 +62,9 @@ class ExecutorCatalogGateway(executors: Collection<CatalogSourceExecutor>) : Cat
         page: Int,
         filters: Map<String, String>,
     ): CatalogPage = executor(source).category(typeId, page, filters)
+
+    override fun categoryWithRecommendationSeeds(source: String, typeId: String, page: Int, filters: Map<String, String>, seeds: List<String>): CatalogPage =
+        executor(source).categoryWithRecommendationSeeds(typeId, page, filters, seeds)
 
     override fun search(source: String, query: String): List<CatalogItem> =
         executor(source).search(query)

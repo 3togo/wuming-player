@@ -253,6 +253,7 @@ class ExternalPlayerAdapterTest {
         assertEquals(
             listOf(
                 "/usr/bin/mpv",
+                *com.wuming.tv.core.media.subtitle.SubtitleSelectionPolicy.preferredLanguages(java.util.Locale.getDefault()).map { "--slang-append=$it" }.toTypedArray(),
                 "--title-bar=no",
                 "--border=no",
                 "--window-dragging=yes",
@@ -301,6 +302,7 @@ class ExternalPlayerAdapterTest {
         assertEquals(
             listOf(
                 "/usr/bin/mpv",
+                *com.wuming.tv.core.media.subtitle.SubtitleSelectionPolicy.preferredLanguages(java.util.Locale.getDefault()).map { "--slang-append=$it" }.toTypedArray(),
                 "--title-bar=no",
                 "--border=no",
                 "--window-dragging=yes",

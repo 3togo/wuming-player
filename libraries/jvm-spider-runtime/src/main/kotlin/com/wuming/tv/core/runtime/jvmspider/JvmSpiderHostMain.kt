@@ -33,13 +33,33 @@ object JvmSpiderHostMain {
             lines.forEach { line ->
                 val response = runCatching {
                     val request = gson.fromJson(line, JvmSpiderHostRequest::class.java)
-                    JvmSpiderHostResponse(true, invoke(spider, request))
+                    JvmSpiderHostResponse(true, invokeWithRecommendationContext(spider, request))
                 }.getOrElse { JvmSpiderHostResponse(error = rootCause(it).message ?: it.javaClass.simpleName) }
                 rpcOut.println(gson.toJson(response))
                 rpcOut.flush()
                 if (runCatching { gson.fromJson(line, JvmSpiderHostRequest::class.java).operation }.getOrNull() == "close") {
                     return
                 }
+            }
+        }
+    }
+
+    private fun invokeWithRecommendationContext(spider: Any, request: JvmSpiderHostRequest): String? {
+        val seeds = request.recommendationSeeds
+        if (request.operation != "category" || request.id != "guess_you_like" || seeds == null) return invoke(spider, request)
+        val setter = method(spider, "setRecommendationSeeds", List::class.java) ?: return invoke(spider, request)
+        var failure: Throwable? = null
+        try {
+            setter.invoke(spider, seeds.take(10))
+            return invoke(spider, request)
+        } catch (error: Throwable) {
+            failure = error
+            throw error
+        } finally {
+            try { setter.invoke(spider, emptyList<String>()) }
+            catch (cleanup: Throwable) {
+                if (failure == null) throw cleanup
+                failure.addSuppressed(cleanup)
             }
         }
     }

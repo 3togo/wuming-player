@@ -15,6 +15,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ParseJobTest {
+    @Test public void sharedHeaderDecoderPreservesPrimitiveValuesAndAuthentication() {
+        Map<String, String> headers = ParseJob.getHeader(JsonParser.parseString(
+                "{\"data\":{\"header\":{\"X-Count\":7}},\"header\":{\"X-Enabled\":true}}")
+                .getAsJsonObject(), Map.of("Cookie", "auth=ok"));
+        assertEquals(Map.of("Cookie", "auth=ok", "X-Count", "7", "X-Enabled", "true"), headers);
+    }
+
 
     @Test
     public void completionShutsDownWorkersBeforeCallingTheObserver() {
@@ -81,7 +88,7 @@ public class ParseJobTest {
         Map<String, String> headers = ParseJob.getHeader(JsonParser.parseString(
                 "{\"ua\":\"agent\",\"referer\":\"origin\",\"Cookie\":{\"bad\":true}}")
                 .getAsJsonObject(), Map.of("Cookie", "fallback"));
-        assertEquals(Map.of("User-Agent", "agent", "Referer", "origin"), headers);
+        assertEquals(Map.of("User-Agent", "agent", "Referer", "origin", "Cookie", "fallback"), headers);
         Map<String, String> fallback = Map.of("Cookie", "candidate");
         Map<String, String> copied = ParseJob.getHeader(
                 JsonParser.parseString("{}").getAsJsonObject(), fallback);

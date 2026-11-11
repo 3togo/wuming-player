@@ -89,7 +89,13 @@ class BrowseTree {
 
         @JvmStatic
 
-        fun search(query: String): ImmutableList<MediaItem> = VodBrowse.search(query)
+        @JvmOverloads
+        fun search(query: String, request: Int = beginSearch()): ImmutableList<MediaItem> = VodBrowse.search(query, request)
+
+        @JvmStatic fun beginSearch(): Int = VodBrowse.beginSearch()
+        @JvmStatic fun isSearchCurrent(request: Int): Boolean = VodBrowse.isSearchCurrent(request)
+        @JvmStatic fun submitSearch(request: Int, action: Runnable): java.util.concurrent.Future<*> =
+            VodBrowse.browserSearch.submit(request, com.wuming.android.tv.utils.Task.executor()) { action.run() }
 
         @JvmStatic
 

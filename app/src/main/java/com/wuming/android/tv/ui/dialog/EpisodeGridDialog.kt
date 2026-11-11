@@ -2,7 +2,7 @@ package com.wuming.android.tv.ui.dialog
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.view.doOnNextLayout
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewbinding.ViewBinding
@@ -23,6 +23,8 @@ open class EpisodeGridDialog :
     private var binding: DialogEpisodeGridBinding? = null
     private var adapter: EpisodeAdapter? = null
     private var episodes: List<Episode>? = null
+    private var pageGeneration = 0L
+    private var nearby = false
     private var reverse = false
     private var spanCount = 5
     private var itemCount = 0
@@ -37,6 +39,11 @@ open class EpisodeGridDialog :
             }
     }
 
+    open fun nearby(enabled: Boolean): EpisodeGridDialog {
+        nearby = enabled
+        return this
+    }
+
     open fun reverse(reverse: Boolean): EpisodeGridDialog {
         this.reverse = reverse
         return this
@@ -44,7 +51,7 @@ open class EpisodeGridDialog :
 
     @JvmSuppressWildcards
     open fun episodes(episodes: List<Episode>?): EpisodeGridDialog {
-        this.episodes = episodes
+        this.episodes = episodes?.toList()
         return this
     }
 
@@ -97,6 +104,7 @@ open class EpisodeGridDialog :
 
     private fun setTitles() {
         val episodes = episodes!!
+        if (nearby) titles.add(getString(com.wuming.android.tv.R.string.episode_nearby))
         if (reverse) {
             var i = episodes.size
             while (i > 0) {
@@ -130,6 +138,7 @@ open class EpisodeGridDialog :
     }
 
     private fun getCurrentTabPosition(): Int {
+        if (nearby) return 0
         val episodes = episodes!!
         for (i in episodes.indices) if (episodes[i].isActivated()) return i / itemCount
         return 0
@@ -140,11 +149,24 @@ open class EpisodeGridDialog :
         val adapter = adapter ?: return
         val episodes = episodes ?: return
         if (itemCount <= 0) return
-        val start = position * itemCount
+        val window = if (nearby && position == 0)
+            com.wuming.tv.core.library.EpisodeWindow.around(episodes.size, episodes.indexOfFirst { it.isActivated() }) else null
+        val start = window?.start ?: ((position - if (nearby) 1 else 0) * itemCount)
         if (start < 0 || start >= episodes.size) return
-        val end = minOf(start + itemCount, episodes.size)
+        val end = window?.endExclusive ?: minOf(start + itemCount, episodes.size)
         adapter.addAll(episodes.subList(start, end))
-        binding.recycler.scrollToPosition(maxOf(adapter.getPosition(), 0))
+        val selected = maxOf(adapter.getPosition(), 0)
+        val intended = adapter.get(selected)
+        val generation = ++pageGeneration
+        if (nearby) binding.recycler.doOnNextLayout {
+            // Resolve the newly bound row after layout; selection alone does not move D-pad focus.
+            if (this.binding !== binding || this.adapter !== adapter || generation != pageGeneration ||
+                adapter.getItems().getOrNull(selected) !== intended) return@doOnNextLayout
+            val holder = binding.recycler.findViewHolderForAdapterPosition(selected) ?: return@doOnNextLayout
+            if (holder.bindingAdapterPosition == selected) holder.itemView
+                .findViewById<android.view.View>(com.wuming.android.tv.R.id.text)?.requestFocus()
+        }
+        binding.recycler.scrollToPosition(selected)
     }
 
     override fun onItemClick(item: Episode) {
@@ -153,6 +175,7 @@ open class EpisodeGridDialog :
     }
 
     override fun onDestroyView() {
+        pageGeneration++
         binding?.tabs?.removeOnTabSelectedListener(tabListener)
         listener = null
         adapter = null

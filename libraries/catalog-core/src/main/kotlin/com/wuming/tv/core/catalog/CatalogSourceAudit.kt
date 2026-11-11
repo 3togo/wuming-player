@@ -94,7 +94,7 @@ class CatalogSourceAuditor(
             skipFrom(1, "Skipped because the source is unavailable.")
             return CatalogAuditReport(source, probe, steps.toList())
         }
-        record(CatalogAuditStage.SOURCES, CatalogAuditStatus.PASSED, "Source is available.", started)
+        record(CatalogAuditStage.SOURCES, CatalogAuditStatus.PASSED, "Source is available. ${gateway.hostContract(source.key).summary()}", started)
 
         cancelled(CatalogAuditStage.SEARCH)?.let { return it }
         started = nanoTime()

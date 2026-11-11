@@ -354,7 +354,11 @@ object PluginAnalyzer {
     private fun classifyRuntime(type: Int, api: String, ext: String): String = when (type) {
         0 -> "DIRECT_HTTP"
         1 -> "JAR_SPIDER"
-        3 -> if (api.endsWith(".js") || ext.endsWith(".js")) "DIRECT_JAVASCRIPT" else "UNKNOWN_TYPE_3"
+        3 -> when {
+            com.wuming.tv.core.source.TvBoxSourceRuntimePolicy.requiresNode(api) -> "NODE_RUNTIME_REQUIRED"
+            api.endsWith(".js") || ext.endsWith(".js") -> "DIRECT_JAVASCRIPT"
+            else -> "UNKNOWN_TYPE_3"
+        }
         4 -> "REMOTE_SPIDER_HTTP"
         else -> "UNKNOWN_TYPE_$type"
     }

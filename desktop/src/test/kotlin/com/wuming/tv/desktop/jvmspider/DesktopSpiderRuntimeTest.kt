@@ -15,7 +15,7 @@ import org.junit.Test
 
 class DesktopSpiderRuntimeTest {
     @Test fun portableUnknownSpiderRunsAndEarnsEvidenceThroughTheCommonAdapter() {
-        val directory = Files.createTempDirectory("desktop-spider-adapter-")
+        val directory = Files.createTempDirectory(Path.of(System.getProperty("user.home"), "temp"), "desktop-spider-adapter-")
         val prefs = Preferences.userRoot().node("desktop-spider-test/${UUID.randomUUID()}")
         try {
             val jar = compileSpider(directory)
@@ -41,7 +41,10 @@ class DesktopSpiderRuntimeTest {
                 assertTrue(checked.catalogVerified(System.currentTimeMillis()))
                 val identity = DesktopSpiderVerificationStore.identity(site, trust)
                 assertEquals(GuardedDesktopSupport.VERIFIED_CATALOG, store.support(identity, false))
-                assertTrue(executor.play("direct", "episode-id").supported)
+                val playback = executor.play("direct", "episode-id")
+                assertTrue(playback.supported)
+                assertEquals("https://media.example/video.m3u8", playback.url)
+                assertEquals(mapOf("Cookie" to "auth=ok", "User-Agent" to "DesktopTest", "Referer" to "root"), playback.headers)
                 assertEquals(GuardedDesktopSupport.VERIFIED_PLAYBACK_URL, store.support(identity, false))
             } finally { (executor as AutoCloseable).close() }
         } finally {
@@ -74,7 +77,7 @@ class DesktopSpiderRuntimeTest {
                     return "{\"list\":[{\"vod_id\":\"demo-id\",\"vod_name\":\"Demo result\",\"vod_play_from\":\"direct\",\"vod_play_url\":\"Episode 1${'$'}episode-id\"}]}";
                 }
                 public String playerContent(String flag, String id, List<String> flags) {
-                    return "{\"parse\":0,\"url\":\"https://media.example/video.m3u8\",\"header\":{\"User-Agent\":\"DesktopTest\"}}";
+                    return "{\"parse\":0,\"data\":{\"url\":\"//media.example/video.m3u8\",\"header\":{\"Cookie\":\"auth=ok\",\"Referer\":\"nested\"}},\"ua\":\"DesktopTest\",\"header\":{\"referer\":\"root\"}}";
                 }
             }
         """.trimIndent())

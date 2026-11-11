@@ -28,17 +28,15 @@ import com.wuming.android.tv.utils.Task;
 import com.wuming.android.tv.utils.VodScorer;
 import com.wuming.android.tv.utils.SearchCache;
 import com.google.common.collect.ImmutableList;
-import com.google.common.util.concurrent.ListenableFuture;
 import com.wuming.tv.core.cache.ExpiringLruCache;
 import com.wuming.tv.core.cache.BoundedLruMap;
 import com.wuming.tv.core.cache.MemoryBudget;
 import com.wuming.tv.core.search.SearchQueryPlan;
 import com.wuming.tv.core.search.SearchQueryPlanner;
+import com.wuming.tv.core.search.MediaBrowserSearch;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -65,26 +63,24 @@ public class VodBrowse {
     private static final Map<String, String> epNavMap = BoundedLruMap.create(EP_CACHE_MAX_SIZE);
     private static final Map<String, EpEntry> epEntries = BoundedLruMap.create(EP_CACHE_MAX_SIZE);
     private static final Map<String, Integer> epCountMap = BoundedLruMap.create(EP_CACHE_MAX_SIZE);
-    private static final ExpiringLruCache<String, ImmutableList<MediaItem>> searchResultCache =
-            new ExpiringLruCache<>(SEARCH_CACHE_MAX_SIZE, SEARCH_CACHE_TTL);
+    // Package visibility permits an isolated host in adapter tests without global provider state.
+    static MediaBrowserSearch<Site, Vod, MediaItem> browserSearch = createBrowserSearch();
 
     private static volatile History browseHistory;
-    private static volatile ImmutableList<MediaItem> searchCache = ImmutableList.of();
 
     public static void clear() {
+        browserSearch.clear();
         vodCache.clear();
         epNavMap.clear();
         epEntries.clear();
         epCountMap.clear();
-        searchResultCache.clear();
         SearchCache.get().clear();
         browseHistory = null;
-        searchCache = ImmutableList.of();
     }
 
     static void trimCaches() {
         vodCache.trim();
-        searchResultCache.trim();
+        browserSearch.trim();
         SearchCache.get().trim();
     }
 
@@ -122,76 +118,51 @@ public class VodBrowse {
         return UserLibrary.get().histories().stream().map(history -> BrowseTree.playable(VOD_PLAY + history.getKey(), history.getVodName(), history.getVodRemarks(), history.getVodPic())).collect(ImmutableList.toImmutableList());
     }
 
+    private static MediaBrowserSearch<Site, Vod, MediaItem> createBrowserSearch() {
+        return new MediaBrowserSearch<>(Task.largeExecutor(), Task.scheduler(), new MediaBrowserSearch.Host<>() {
+            @Override public SearchQueryPlan plan(String query) {
+                VodConfig.get().ensureLoaded();
+                return new SearchQueryPlanner(TitleAliasRepository.get(), TitleNormalizer.core()).plan(query);
+            }
+            @Override public boolean strict() { return DisplaySettings.isStrictSearch(); }
+            @Override public List<Site> sources() {
+                return SiteSourceAdapter.catalog().searchable(VodConfig.get().getSites(), null);
+            }
+            @Override public String key(Site site) { return site.getKey(); }
+            @Override public List<Vod> search(Site site, SearchQueryPlan plan, SearchQueryPlan.Variant variant, boolean strict) throws Exception {
+                Result result = SiteApi.searchContent(site, variant.text(), false, "1");
+                SearchResultAnnotator.annotate(result.getList(), plan, variant);
+                if (strict) SearchResultAnnotator.retainStrictMatches(result.getList(), plan, variant);
+                return result.getList();
+            }
+            @Override public List<Vod> merge(List<Vod> items) { return SearchResultMerger.merge(items); }
+            @Override public List<MediaItem> items(List<Vod> results, String query) {
+                List<Vod> ranked = new ArrayList<>(results);
+                VodScorer.sortByRelevance(ranked, query);
+                return ranked.stream().map(vod -> BrowseTree.playable(
+                        VOD_SEARCH + vod.getSiteKey() + "|" + vod.getId(), vod.getSearchDisplayName(),
+                        vod.getRemarks(), vod.getPic())).toList();
+            }
+        }, new ExpiringLruCache<>(SEARCH_CACHE_MAX_SIZE, SEARCH_CACHE_TTL),
+                TimeUnit.SECONDS.toMillis(SEARCH_TIMEOUT), SEARCH_LIMIT);
+    }
+
+    static int beginSearch() { return browserSearch.begin(); }
+    static boolean isSearchCurrent(int request) { return browserSearch.isCurrent(request); }
+
     @NonNull
     static ImmutableList<MediaItem> search(@NonNull String query) {
-        VodConfig.get().ensureLoaded();
-        SearchQueryPlan plan = new SearchQueryPlanner(
-                TitleAliasRepository.get(), TitleNormalizer.core()).plan(query);
-        String cacheKey = plan.canonicalKey() + (DisplaySettings.isStrictSearch() ? "|strict" : "|broad");
-        
-        // Check cache first
-        ImmutableList<MediaItem> cached = searchResultCache.get(cacheKey);
-        if (cached != null) {
-            searchCache = cached;
-            return searchCache;
-        }
-        
-        List<Site> sites = SiteSourceAdapter.catalog().searchable(VodConfig.get().getSites(), null);
-        List<ListenableFuture<List<Vod>>> futures = sites.stream()
-                .map(site -> Task.largeExecutor().submit(() -> searchSite(site, plan)))
-                .toList();
-        List<Vod> vods = SearchResultMerger.merge(collectResults(futures));
-        VodScorer.sortByRelevance(vods, query);
-        List<MediaItem> items = vods.stream()
-                .map(vod -> BrowseTree.playable(
-                        VOD_SEARCH + vod.getSiteKey() + "|" + vod.getId(),
-                        vod.getSearchDisplayName(),
-                        vod.getRemarks(),
-                        vod.getPic()))
-                .toList();
-        searchCache = ImmutableList.copyOf(items.subList(0, Math.min(items.size(), SEARCH_LIMIT)));
-        
-        // Update cache (auto-evicts via removeEldestEntry)
-        searchResultCache.put(cacheKey, searchCache);
-        
-        return searchCache;
+        return search(query, beginSearch());
     }
 
-    private static List<Vod> searchSite(@NonNull Site site, @NonNull SearchQueryPlan plan) throws Exception {
-        List<Vod> items = new ArrayList<>();
-        Exception lastFailure = null;
-        boolean completedRequest = false;
-        for (SearchQueryPlan.Variant variant : plan.variants()) {
-            try {
-                Result result = SiteApi.searchContent(site, variant.text(), false, "1");
-                completedRequest = true;
-                SearchResultAnnotator.annotate(result.getList(), plan, variant);
-                if (DisplaySettings.isStrictSearch()) SearchResultAnnotator.retainStrictMatches(result.getList(), plan, variant);
-                items.addAll(result.getList());
-            } catch (Exception error) {
-                lastFailure = error;
-            }
-        }
-        if (!completedRequest && lastFailure != null) throw lastFailure;
-        return SearchResultMerger.merge(items);
-    }
-
-    private static List<Vod> collectResults(@NonNull List<ListenableFuture<List<Vod>>> futures) {
-        List<Vod> items = new ArrayList<>();
-        for (ListenableFuture<List<Vod>> future : futures) {
-            try {
-                List<Vod> result = future.get(SEARCH_TIMEOUT, TimeUnit.SECONDS);
-                if (result != null) items.addAll(result);
-                if (items.size() >= SEARCH_LIMIT) break;
-            } catch (Exception ignored) {
-            }
-        }
-        return items;
+    @NonNull
+    static ImmutableList<MediaItem> search(@NonNull String query, int request) {
+        return ImmutableList.copyOf(browserSearch.search(query, request));
     }
 
     @NonNull
     static ImmutableList<MediaItem> getSearchResult() {
-        return searchCache;
+        return ImmutableList.copyOf(browserSearch.current());
     }
 
     @Nullable

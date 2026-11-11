@@ -28,11 +28,11 @@ class DesktopLivePlaylistLoader internal constructor(
                 val bytes = loadResource?.invoke(candidate) ?: ResourceDiskCache.playlists.load(
                     candidate, forceRefresh = forceRefresh,
                 ) { content ->
-                    LivePlaylistParser.parse(LivePlaylistEncoding.decode(content))
+                    LivePlaylistParser.parse(LivePlaylistEncoding.decode(content), candidate)
                     true
                 }.also { cacheStatus = it.origin.name.lowercase() }.bytes
                 val text = LivePlaylistEncoding.decode(bytes)
-                return LivePlaylistParser.parse(text).also {
+                return LivePlaylistParser.parse(text, candidate).also {
                     if (candidates.size > 1) {
                         logger.info("playlist location selected candidate=${index + 1}/${candidates.size} host=${safeHost(candidate)}")
                     }

@@ -110,6 +110,9 @@ public class BaseLoader {
     }
 
     public Spider getSpider(String key, String api, String ext, String jar) {
+        if (com.wuming.tv.core.source.TvBoxSourceRuntimePolicy.requiresNode(api)) {
+            throw new UnsupportedOperationException("Node.js provider runtime is unavailable in this build");
+        }
         if (com.wuming.tv.core.libvio.LibvioSiteSpec.matches(api)) return getBuiltinSpider(key, "builtin_libvio", ext);
         if (com.wuming.tv.core.hongguo.HongGuoSiteSpec.matches(api)) return getBuiltinSpider(key, "builtin_hongguo", ext);
         if (isPy(api)) return pyLoader.getSpider(key, api, ext);

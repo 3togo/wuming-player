@@ -5,10 +5,50 @@ import org.junit.Test
 import java.util.concurrent.*
 
 class CatalogSourceCoordinatorTest {
+    @Test fun replacementWakesOldCollectorWithoutCancellingTheNewRequest() {
+        val executor = Executors.newFixedThreadPool(2)
+        val timers = Executors.newSingleThreadScheduledExecutor()
+        val callers = Executors.newFixedThreadPool(2)
+        val coordinator = CatalogSourceCoordinator(executor, timers)
+        val oldEntered = CountDownLatch(1)
+        val newEntered = CountDownLatch(1)
+        val releaseNew = CountDownLatch(1)
+        try {
+            val oldRequest = coordinator.beginSearch()
+            val old = callers.submit<List<CatalogSourceOutcome>> {
+                coordinator.collect(listOf(CatalogSource("old", "Old")), "search", searchRequest = oldRequest) {
+                    oldEntered.countDown()
+                    CountDownLatch(1).await()
+                    CatalogSourcePayload()
+                }
+            }
+            assertTrue(oldEntered.await(5, TimeUnit.SECONDS))
+            val nextRequest = coordinator.beginSearch()
+            val next = callers.submit<List<CatalogSourceOutcome>> {
+                coordinator.collect(listOf(CatalogSource("new", "New")), "search", searchRequest = nextRequest) {
+                    newEntered.countDown()
+                    releaseNew.await()
+                    CatalogSourcePayload(listOf(CatalogItem("new", "id", "New")))
+                }
+            }
+            assertTrue(old.get(5, TimeUnit.SECONDS).isEmpty())
+            assertTrue(newEntered.await(5, TimeUnit.SECONDS))
+            assertFalse(next.isDone)
+            releaseNew.countDown()
+            assertEquals("New", next.get(5, TimeUnit.SECONDS).single().payload.items.single().name)
+            assertTrue(coordinator.collect(listOf(CatalogSource("late", "Late")), "search", searchRequest = oldRequest) {
+                error("Navigation-invalidated request started a provider")
+            }.isEmpty())
+        } finally {
+            releaseNew.countDown(); coordinator.close(); timers.shutdownNow(); executor.shutdownNow(); callers.shutdownNow()
+        }
+    }
+
     @Test fun timeoutInterruptsTheUnderlyingProviderAndRetainsFastResults() {
         val executor = Executors.newFixedThreadPool(2)
         val stopped = CountDownLatch(1)
-        val coordinator = CatalogSourceCoordinator(executor, searchWaitMillis = 250)
+        val timers = Executors.newSingleThreadScheduledExecutor()
+        val coordinator = CatalogSourceCoordinator(executor, timers, searchWaitMillis = 250)
         try {
             val outcomes = coordinator.collect(listOf(CatalogSource("fast", "Fast"), CatalogSource("slow", "Slow")), "search") {
                 if (it.key == "slow") try { CountDownLatch(1).await() } finally { stopped.countDown() }
@@ -17,14 +57,15 @@ class CatalogSourceCoordinatorTest {
             assertEquals(1, outcomes.first().payload.items.size)
             assertTrue(outcomes.last().failure is TimeoutException)
             assertTrue(stopped.await(5, TimeUnit.SECONDS))
-        } finally { coordinator.close(); executor.shutdownNow() }
+        } finally { coordinator.close(); timers.shutdownNow(); executor.shutdownNow() }
     }
 
     @Test fun progressiveHomeReturnsLateTypesAndClosePreventsNewWork() {
         val executor = Executors.newSingleThreadExecutor()
         val release = CountDownLatch(1)
         val late = CountDownLatch(1)
-        val coordinator = CatalogSourceCoordinator(executor, progressiveWaitMillis = 25)
+        val timers = Executors.newSingleThreadScheduledExecutor()
+        val coordinator = CatalogSourceCoordinator(executor, timers, progressiveWaitMillis = 25)
         try {
             val outcomes = coordinator.collect(listOf(CatalogSource("site", "Site")), "home", {
                 if (it.payload.types.isNotEmpty()) late.countDown()
@@ -37,7 +78,7 @@ class CatalogSourceCoordinatorTest {
             assertTrue(late.await(5, TimeUnit.SECONDS))
             coordinator.close()
             assertTrue(coordinator.collect(listOf(CatalogSource("site", "Site")), "search") { error("closed") }.isEmpty())
-        } finally { release.countDown(); coordinator.close(); executor.shutdownNow() }
+        } finally { release.countDown(); coordinator.close(); timers.shutdownNow(); executor.shutdownNow() }
     }
 
     @Test fun callerInterruptionCancelsProviderWorkAndPreservesInterruptStatus() {
@@ -46,7 +87,8 @@ class CatalogSourceCoordinatorTest {
         val stopped = CountDownLatch(1)
         val finished = CountDownLatch(1)
         val interrupted = java.util.concurrent.atomic.AtomicBoolean()
-        val coordinator = CatalogSourceCoordinator(executor)
+        val timers = Executors.newSingleThreadScheduledExecutor()
+        val coordinator = CatalogSourceCoordinator(executor, timers)
         val caller = Thread {
             try {
                 coordinator.collect(listOf(CatalogSource("site", "Site")), "search") {
@@ -63,7 +105,7 @@ class CatalogSourceCoordinatorTest {
             assertTrue(finished.await(5, TimeUnit.SECONDS))
             assertTrue(stopped.await(5, TimeUnit.SECONDS))
             assertTrue(interrupted.get())
-        } finally { caller.interrupt(); coordinator.close(); executor.shutdownNow() }
+        } finally { caller.interrupt(); coordinator.close(); timers.shutdownNow(); executor.shutdownNow() }
     }
 
     @Test fun navigationIsBoundedAndSearchDoesNotConsumeVodHistory() {

@@ -4,6 +4,21 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class CatVodCatalogCodecTest {
+    @Test fun sharedDecoderPreservesPrimitiveProviderHeaders() {
+        val playback = codec.playback("""{"url":"https://media.test/v","header":{"X-Count":7,"X-Enabled":true}}""")
+        assertEquals(true, playback.supported)
+        assertEquals(mapOf("X-Count" to "7", "X-Enabled" to "true"), playback.headers)
+    }
+
+    @Test fun nestedParserResponseUsesSharedHeaderPrecedence() {
+        val playback = codec.playback("""{"data":{"url":"//cdn.test/v.m3u8","header":{"Cookie":"auth=ok","Referer":"nested"}},"UA":"root","header":"{\"referer\":\"root\"}"}""")
+        assertEquals(true, playback.supported)
+        assertEquals("https://cdn.test/v.m3u8", playback.url)
+        assertEquals(mapOf("Cookie" to "auth=ok", "Referer" to "root", "User-Agent" to "root"), playback.headers)
+        assertEquals(false, codec.playback("""{"url":"javascript:alert(1)"}""").supported)
+        assertEquals(false, codec.playback("""{"url":"https://site.test/page","parse":1}""").supported)
+    }
+
 
     @Test
     fun `line padding is removed from labels without changing playback keys`() {

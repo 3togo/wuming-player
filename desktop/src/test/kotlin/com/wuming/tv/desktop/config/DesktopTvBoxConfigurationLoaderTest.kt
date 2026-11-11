@@ -17,6 +17,23 @@ import java.util.Base64
 
 class DesktopTvBoxConfigurationLoaderTest {
 
+    @Test fun nodeSourcesDoNotAcquireOrdinaryJavaScriptOrJvmAdapters() {
+        val json = """{"spider":"https://unused.example/provider.jar","sites":[
+            {"key":"node","type":3,"api":"nodejs:https://fixture.example/provider.js"},
+            {"key":"module","type":3,"api":"https://fixture.example/provider.mjs?q=1#entry"},
+            {"key":"js","type":3,"api":"https://fixture.example/provider.js#entry"},
+            {"key":"api","type":1,"api":"https://fixture.example/api.mjs"}]}"""
+        val config = DesktopTvBoxConfigurationLoader(null) { json.toByteArray() }.load("https://fixture.example/config")
+        config.sites.take(2).forEach { site ->
+            assertEquals(TvBoxSourceRuntime.NODE_RUNTIME_REQUIRED, site.runtime)
+            assertEquals(null, site.execution)
+            assertEquals(null, site.jvmExecution)
+        }
+        assertEquals(TvBoxSourceRuntime.DIRECT_JAVASCRIPT, config.sites[2].runtime)
+        assertTrue(config.sites[2].execution != null)
+        assertEquals(TvBoxSourceRuntime.MAC_CMS_API, config.sites[3].runtime)
+    }
+
     @Test
     fun hongGuoUsesSharedAdapterForBothExplicitAliasesAndKeepsOtherProvidersUnchanged() {
         for (api in listOf("csp_HongGuo", "builtin_hongguo")) {

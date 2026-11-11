@@ -8,7 +8,10 @@ import java.util.prefs.Preferences
 import javax.swing.*
 
 /** Desktop persistence/UI port for playback choices already offered by Android. */
-internal class PlaybackPreferencesPanel(preferences: Preferences) : JPanel(BorderLayout(0, 12)) {
+internal class PlaybackPreferencesPanel(
+    preferences: Preferences,
+    private val mpvConfiguration: com.wuming.tv.desktop.config.DesktopMpvConfiguration = com.wuming.tv.desktop.config.DesktopMpvConfiguration(),
+) : JPanel(BorderLayout(0, 12)) {
     private val settings = DesktopPlaybackSettings(preferences)
     init {
         isOpaque = false
@@ -46,6 +49,9 @@ internal class PlaybackPreferencesPanel(preferences: Preferences) : JPanel(Borde
                     addActionListener { settings.defaultSpeed = selectedItem as Double }
                     preferredSize = Dimension(112, 38)
                 }))
+            add(Box.createVerticalStrut(10))
+            add(preferenceRow("mpv configuration", "Import or edit extra player options for the next video.",
+                JButton("Edit…").apply { addActionListener { editMpvConfiguration() } }))
             add(Box.createVerticalStrut(16))
             add(JLabel("Changes apply to the next video  ·  Speed and fullscreen require mpv").apply {
                 foreground = DesktopTvTheme.SUBTLE_TEXT
@@ -60,6 +66,49 @@ internal class PlaybackPreferencesPanel(preferences: Preferences) : JPanel(Borde
             horizontalScrollBarPolicy = ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
             verticalScrollBar.unitIncrement = 18
         }, BorderLayout.CENTER)
+    }
+
+    private fun editMpvConfiguration() {
+        val config = mpvConfiguration
+        val editor = JTextArea(18, 64)
+        val status = JLabel(" ")
+        fun refresh() {
+            val conflicts = com.wuming.tv.core.playback.MpvConfigurationPolicy.conflicts(editor.text)
+            status.text = if (conflicts.isEmpty()) "Named profiles and included files are interpreted by mpv."
+                else "Playback settings may override: ${conflicts.joinToString(", ")}"
+        }
+        try { editor.text = config.read() } catch (error: Exception) {
+            JOptionPane.showMessageDialog(this, error.message, "Cannot read configuration", JOptionPane.ERROR_MESSAGE)
+            return
+        }
+        editor.document.addDocumentListener(object : javax.swing.event.DocumentListener {
+            override fun insertUpdate(e: javax.swing.event.DocumentEvent) = refresh()
+            override fun removeUpdate(e: javax.swing.event.DocumentEvent) = refresh()
+            override fun changedUpdate(e: javax.swing.event.DocumentEvent) = refresh()
+        })
+        refresh()
+        val content = JPanel(BorderLayout(8,8)).apply {
+            add(JScrollPane(editor), BorderLayout.CENTER)
+            add(status, BorderLayout.SOUTH)
+            add(JButton("Load file…").apply {
+                addActionListener {
+                    val chooser = JFileChooser()
+                    if (chooser.showOpenDialog(this@PlaybackPreferencesPanel) == JFileChooser.APPROVE_OPTION) {
+                        try {
+                            val source = chooser.selectedFile.toPath()
+                            editor.text = config.readFrom(source)
+                        } catch (error: Exception) {
+                            JOptionPane.showMessageDialog(this@PlaybackPreferencesPanel, error.message, "Cannot load configuration", JOptionPane.ERROR_MESSAGE)
+                        }
+                    }
+                }
+            }, BorderLayout.NORTH)
+        }
+        while (JOptionPane.showConfirmDialog(this, content, "mpv configuration", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE) == JOptionPane.OK_OPTION) {
+            try { config.save(editor.text); return } catch (error: Exception) {
+                JOptionPane.showMessageDialog(this, error.message, "Cannot save configuration", JOptionPane.ERROR_MESSAGE)
+            }
+        }
     }
 
     private fun preferenceRow(title: String, detail: String, control: JComponent): JPanel =

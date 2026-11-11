@@ -108,6 +108,8 @@ class CatalogPanel(
     private val selectionStore = DesktopCatalogSelectionStore(preferences)
     private val catalogSettings = DesktopCatalogSettings(preferences)
     private val playbackSettings = DesktopPlaybackSettings(preferences)
+    private var recommendationApis: Map<String, String> = emptyMap()
+    private var recommendationPager = com.wuming.tv.core.library.recommend.ProviderRecommendationPager()
     private val searchHistoryStore = DesktopSearchHistoryStore(preferences)
     private val searchWordClient = DesktopSearchWordClient()
     private val repeatRequests = RepeatRequestGate()
@@ -298,7 +300,10 @@ class CatalogPanel(
     private val sourceOperations = Executors.newFixedThreadPool(MAX_CONCURRENT_SOURCES) { task ->
         Thread(task, "tvbox-catalog-source").apply { isDaemon = true }
     }
-    private val sourceCoordinator = CatalogSourceCoordinator(sourceOperations)
+    private val searchTimers = java.util.concurrent.ScheduledThreadPoolExecutor(1) { task ->
+        Thread(task, "tvbox-search-deadlines").apply { isDaemon = true }
+    }.apply { removeOnCancelPolicy = true }
+    private val sourceCoordinator = CatalogSourceCoordinator(sourceOperations, searchTimers)
     private val automaticHomeLoad = Timer(AUTOMATIC_HOME_SETTLE_MILLIS) { loadHome() }.apply {
         isRepeats = false
     }
@@ -418,6 +423,16 @@ class CatalogPanel(
         privateViewing.addActionListener {
             playbackSettings.privateViewing = privateViewing.isSelected
             userLibrary.privacy.privateViewing = privateViewing.isSelected
+            if (currentCategorySourceKey?.let { source(it) }?.let { selected ->
+                com.wuming.tv.core.library.recommend.ProviderRecommendationSession.applies(
+                    recommendationApis[selected.key].orEmpty(), selected.name, currentCategoryId.orEmpty())
+            } == true) {
+                // Replace rather than lock the old pager: a provider may still be running.
+                recommendationPager = com.wuming.tv.core.library.recommend.ProviderRecommendationPager()
+                currentCategoryPage = null
+                showItems(emptyList())
+                loadCategory(1)
+            }
             status.text = if (privateViewing.isSelected) "Private viewing: progress and recommendations will not be saved." else "History recording resumes with the next playback session."
         }
         deleteHistory.addActionListener {
@@ -520,6 +535,42 @@ class CatalogPanel(
         updateActions()
     }
 
+    private fun showNearbyEpisodes() {
+        val line = lines.selectedItem as? CatalogLine ?: return
+        val currentDetail = detail ?: return
+        if (closed) return
+        val generation = catalogGeneration
+        val window = com.wuming.tv.core.library.EpisodeWindow.around(line.episodes.size, episodes.selectedIndex)
+        if (window.selected < 0) return
+        val picker = JList(line.episodes.subList(window.start, window.endExclusive).map { it.name }.toTypedArray())
+        picker.selectionMode = ListSelectionModel.SINGLE_SELECTION
+        picker.selectedIndex = window.selected
+        val dialog = javax.swing.JDialog(SwingUtilities.getWindowAncestor(this), "Nearby episodes", java.awt.Dialog.ModalityType.APPLICATION_MODAL)
+        fun choose() {
+            val index = window.absoluteIndex(picker.selectedIndex) ?: return
+            if (closed || catalogGeneration != generation || detail !== currentDetail || lines.selectedItem !== line) { dialog.dispose(); return }
+            episodes.selectedIndex = index
+            episodes.ensureIndexIsVisible(index)
+            dialog.dispose()
+            episodes.requestFocusInWindow()
+        }
+        picker.addMouseListener(object : MouseAdapter() {
+            override fun mouseClicked(event: MouseEvent) { if (event.clickCount == 2) choose() }
+        })
+        picker.inputMap.put(javax.swing.KeyStroke.getKeyStroke("ENTER"), "choose")
+        picker.actionMap.put("choose", object : javax.swing.AbstractAction() {
+            override fun actionPerformed(event: java.awt.event.ActionEvent) = choose()
+        })
+        dialog.rootPane.registerKeyboardAction({ dialog.dispose() }, javax.swing.KeyStroke.getKeyStroke("ESCAPE"), javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW)
+        dialog.add(JScrollPane(picker))
+        dialog.add(JButton("Select episode").apply { addActionListener { choose() } }, BorderLayout.SOUTH)
+        dialog.setSize(380, 440)
+        dialog.setLocationRelativeTo(this)
+        SwingUtilities.invokeLater { picker.ensureIndexIsVisible(window.selected); picker.requestFocusInWindow() }
+        dialog.isVisible = true
+        dialog.dispose()
+    }
+
     private fun updateResponsiveCardSizeLater() {
         SwingUtilities.invokeLater(::updateResponsiveCardSize)
     }
@@ -618,7 +669,12 @@ class CatalogPanel(
             })
         }
         val episodeBrowser = JPanel(BorderLayout(6, 6)).apply {
-                add(lines, BorderLayout.NORTH)
+                add(JPanel(BorderLayout(6, 0)).apply {
+                    add(lines, BorderLayout.CENTER)
+                    add(JButton("Nearby episodes").apply {
+                        addActionListener { showNearbyEpisodes() }
+                    }, BorderLayout.EAST)
+                }, BorderLayout.NORTH)
                 add(episodeScroll, BorderLayout.CENTER)
                 minimumSize = Dimension(0, EPISODE_BROWSER_HEIGHT)
             }
@@ -758,6 +814,8 @@ class CatalogPanel(
         searchSnapshot = null
         vodBrowseHistory.clear()
         searchBrowseHistory.clear()
+        recommendationPager = com.wuming.tv.core.library.recommend.ProviderRecommendationPager()
+        recommendationApis = configuration.sites.associate { it.key to it.jvmExecution?.api.orEmpty() }
         configuredSiteCount = configuration.sites.size
         configuredSearchableSiteCount = configuration.searchableSites.size
         configuredSourceCapabilities = configuration.sites.associate { site ->
@@ -767,6 +825,7 @@ class CatalogPanel(
             site.key to when {
                 site.inputOnly -> "input handler · no video catalogue"
                 !site.browseEnabled -> "hidden by configuration"
+                site.runtime == com.wuming.tv.core.source.TvBoxSourceRuntime.NODE_RUNTIME_REQUIRED -> "Node.js runtime is unavailable in this build"
                 site.jvmExecution != null -> "enable or check in Settings"
                 site.pythonExecution != null -> "native Python runtime not packaged"
                 site.execution != null || site.apiExecution != null || site.remoteExecution != null -> "runtime not active"
@@ -873,6 +932,7 @@ class CatalogPanel(
             vodSnapshot = currentSnapshot()
             automaticHomeLoad.stop()
             browseGeneration++
+            sourceCoordinator.cancelSearch()
             renderedHomeRequest = null
             pageMode = CatalogPageMode.SEARCH
             applyPageMode()
@@ -1051,6 +1111,7 @@ class CatalogPanel(
         jsProxyServer = null
         executorCleanup.shutdown()
         sourceCoordinator.close()
+        searchTimers.shutdownNow()
         sourceOperations.shutdownNow()
     }
 
@@ -1071,6 +1132,7 @@ class CatalogPanel(
         val scope = targets.single().name
         clearCategoryBrowsing(clearTypes = true)
         val request = ++browseGeneration
+        sourceCoordinator.cancelSearch()
         val homeRequest = ++homeLoadGeneration
         renderedHomeRequest = null
         if (targets.size == 1) {
@@ -1141,12 +1203,15 @@ class CatalogPanel(
         if (rememberCurrent) pushBrowseHistory()
         clearCategoryBrowsing(clearTypes = false)
         val request = ++browseGeneration
+        val sourceRequest = sourceCoordinator.beginSearch()
         val scope = if (showAll) "all sites" else targets.single().name
         run("Searching $scope…", {
-            collectSources(targets, "search") { source -> companion.search(source.key, text) }.also {
-                if (it.failures.size == targets.size) throw it.failures.first().second
+            collectSources(targets, "search", sourceRequest) { source -> companion.search(source.key, text) }.also {
+                if (it.failures.isNotEmpty() && it.failures.size == targets.size) throw it.failures.first().second
             }
-        }, generation) { outcome ->
+        }, generation, failure = { failure ->
+            if (request == browseGeneration) error(rootMessage(failure))
+        }) { outcome ->
             if (request != browseGeneration) return@run
             val found = outcome.items
             if (showAll && found.isEmpty()) {
@@ -1390,6 +1455,7 @@ class CatalogPanel(
     private fun clearCategoryBrowsing(clearTypes: Boolean) {
         categoryPagerScope = null
         browseGeneration++
+        sourceCoordinator.cancelSearch()
         updatingBrowseControls = true
         currentCategoryType = null
         currentCategorySourceKey = null
@@ -1547,23 +1613,36 @@ class CatalogPanel(
         val typeId = currentCategoryId ?: return
         val generation = catalogGeneration
         val request = ++browseGeneration
+        sourceCoordinator.cancelSearch()
         val requestedPage = page.coerceAtLeast(1)
         val selected = CatalogFilterSelectionPolicy.normalize(type, categorySelections)
         val scope = Triple(source.key, typeId, selected)
         if (categoryPagerScope != scope || categoryPagerGeneration != generation) {
             categoryPager = CatalogResultPager()
+            recommendationPager = com.wuming.tv.core.library.recommend.ProviderRecommendationPager()
             categoryPagerScope = scope
             categoryPagerGeneration = generation
         }
         val pager = categoryPager
+        val seedPager = recommendationPager
+        val recommendation = com.wuming.tv.core.library.recommend.ProviderRecommendationSession.applies(
+            recommendationApis[source.key].orEmpty(), source.name, typeId)
         val pageSize = (thumbnailsPerPage.value as Number).toInt()
         categoryLoading = true
         run("Loading ${type.name}, page $requestedPage…", {
-            pager.loadThrough(requestedPage, pageSize) { providerPage ->
+            if (recommendation) {
+                val privateMode = playbackSettings.privateViewing
+                val names = if (privateMode) emptyList() else userLibrary.recent(gateway.sources().map { it.key }.toSet()).map { it.name }
+                seedPager.loadThrough("$generation:${source.key}", requestedPage, pageSize, names, privateMode) { providerPage, seeds ->
+                    gateway.categoryWithRecommendationSeeds(source.key, typeId, providerPage, selected, seeds)
+                }
+            } else pager.loadThrough(requestedPage, pageSize) { providerPage ->
                 gateway.category(source.key, typeId, providerPage, selected)
             }
         }, generation, completion = {
-            categoryLoading = false
+            if (request == browseGeneration) categoryLoading = false
+        }, failure = { failure ->
+            if (request == browseGeneration) error(rootMessage(failure))
         }) { response ->
             if (request != browseGeneration) return@run
             val previousViewPosition = resultsScroll.viewport.viewPosition
@@ -1631,8 +1710,9 @@ class CatalogPanel(
     private fun collectSources(
         targets: List<CatalogSource>,
         operationName: String,
+        searchRequest: Int? = null,
         operation: (CatalogSource) -> List<CatalogItem>,
-    ): CatalogSearchOutcome = collectSourcePayloads(targets, operationName) { source ->
+    ): CatalogSearchOutcome = collectSourcePayloads(targets, operationName, searchRequest = searchRequest) { source ->
         CatalogSourcePayload(operation(source))
     }
 
@@ -1660,10 +1740,11 @@ class CatalogPanel(
         targets: List<CatalogSource>,
         operationName: String,
         lateResult: ((CatalogSourceOutcome) -> Unit)? = null,
+        searchRequest: Int? = null,
         operation: (CatalogSource) -> CatalogSourcePayload,
     ): CatalogSearchOutcome {
         if (closed) return CatalogSearchOutcome(emptyList(), emptyList(), emptyList(), 0)
-        val outcomes = sourceCoordinator.collect(targets, operationName, lateResult, operation)
+        val outcomes = sourceCoordinator.collect(targets, operationName, lateResult, searchRequest, operation)
         val typeChoices = CatalogTypeChoices.homeFirst(outcomes
             .filter { it.payload.items.isNotEmpty() }
             .flatMap { outcome ->
@@ -2119,6 +2200,7 @@ class CatalogPanel(
         focusBrowse()
         automaticHomeLoad.stop()
         browseGeneration++
+        sourceCoordinator.cancelSearch()
         showBrowsePane()
         pageTitle.text = if (favoritesOnly) "Keep" else "History"
         if (rememberNavigation) pushBrowseHistory() else {
@@ -2380,6 +2462,7 @@ class CatalogPanel(
     private fun restoreBrowseSnapshot(snapshot: BrowseSnapshot) {
         automaticHomeLoad.stop()
         browseGeneration++
+        sourceCoordinator.cancelSearch()
         renderedHomeRequest = null
         updatingSources = true
         sources.selectedIndex = if (snapshot.showAll) {
@@ -2411,7 +2494,14 @@ class CatalogPanel(
                 filterSelections.remember(sourceKey, type, snapshot.selections)
             }
         }
-        showItems(snapshot.items, page = snapshot.thumbnailPage)
+        val recommendation = snapshot.currentSourceKey?.let(::source)?.let { selected ->
+            com.wuming.tv.core.library.recommend.ProviderRecommendationSession.applies(
+                recommendationApis[selected.key].orEmpty(), selected.name, snapshot.currentCategoryId.orEmpty())
+        } == true
+        // A navigation snapshot predates the current privacy/history state. Revalidate its
+        // recommendation seeds through the pager instead of publishing the saved cards.
+        if (recommendation) currentCategoryPage = null
+        showItems(if (recommendation) emptyList() else snapshot.items, page = if (recommendation) 0 else snapshot.thumbnailPage)
         results.selectedIndex = snapshot.selectedItemIndex.coerceIn(-1, items.lastIndex)
         if (results.selectedIndex >= 0) results.ensureIndexIsVisible(results.selectedIndex)
         rebuildTypeBar()
@@ -2419,6 +2509,7 @@ class CatalogPanel(
         applyPageMode()
         status.text = snapshot.status
         updateActions()
+        if (recommendation) loadCategory(snapshot.currentPage?.page ?: 1)
         logger.info(
             "catalogue back restored items=${snapshot.items.size} query=${snapshot.query.isNotBlank()} " +
                 "type=${snapshot.currentType?.id ?: "home"} remaining=${browseHistory.size}",
@@ -2442,6 +2533,7 @@ class CatalogPanel(
         val selected = (sources.selectedItem as? CatalogSourceChoice)?.source ?: return false
         val reason = unavailableReason(selected.key) ?: return false
         browseGeneration++
+        sourceCoordinator.cancelSearch()
         homeLoadGeneration++
         renderedHomeRequest = null
         clearCategoryBrowsing(clearTypes = true)
@@ -2511,6 +2603,7 @@ class CatalogPanel(
     private fun replaceCatalog(value: CatalogGateway?, reason: String) {
         catalog = value
         catalogGeneration++
+        sourceCoordinator.cancelSearch()
         episodePrewarm.invalidate()
         logger.info("catalog gateway changed generation=$catalogGeneration reason=$reason available=${value != null}")
     }

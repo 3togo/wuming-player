@@ -31,6 +31,11 @@ object Task {
     private val deferredMainTasks = AtomicInteger()
     private val scheduler = createScheduler()
     private val largeExecutor = MoreExecutors.listeningDecorator(createPool("TV-io", IO_THREADS))
+    // Search providers can ignore interruption. Keep them away from shared IO and timer threads.
+    private val searchExecutor = ThreadPoolExecutor(
+        4, 4, KEEP_ALIVE_TIME, TimeUnit.SECONDS, LinkedBlockingQueue(16),
+        NamedThreadFactory("TV-search"), ThreadPoolExecutor.AbortPolicy(),
+    ).apply { allowCoreThreadTimeOut(true) }
     private val executor = MoreExecutors.listeningDecorator(createPool("TV-task", CPU_THREADS))
 
     @JvmStatic
@@ -38,6 +43,9 @@ object Task {
 
     @JvmStatic
     fun largeExecutor(): ListeningExecutorService = largeExecutor
+
+    @JvmStatic
+    fun searchExecutor(): java.util.concurrent.ExecutorService = searchExecutor
 
     @JvmStatic
     fun scheduler(): ScheduledExecutorService = scheduler

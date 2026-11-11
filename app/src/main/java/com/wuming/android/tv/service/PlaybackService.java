@@ -521,14 +521,16 @@ public class PlaybackService extends MediaLibraryService implements MediaLibrary
     @NonNull
     @Override
     public ListenableFuture<LibraryResult<Void>> onSearch(@NonNull MediaLibrarySession session, @NonNull MediaSession.ControllerInfo browser, @NonNull String query, @Nullable MediaLibraryService.LibraryParams params) {
-        Task.execute(() -> {
-            ImmutableList<MediaItem> results = BrowseTree.search(query);
+        int request = BrowseTree.beginSearch();
+        BrowseTree.submitSearch(request, () -> {
+            ImmutableList<MediaItem> results = BrowseTree.search(query, request);
+            if (!BrowseTree.isSearchCurrent(request)) return;
             // Read the owning session, not the callback parameter: teardown clears
             // the field and a released session must not be notified.
             MediaLibrarySession current = this.session;
             if (current == null) return;
             App.post(() -> {
-                if (this.session != current) return;
+                if (this.session != current || !BrowseTree.isSearchCurrent(request)) return;
                 current.notifySearchResultChanged(browser, query, results.size(), params);
             });
         });

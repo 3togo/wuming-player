@@ -20,6 +20,7 @@ import com.wuming.android.tv.utils.AppLog
 import com.wuming.android.tv.utils.SearchCache
 import com.wuming.android.tv.utils.SearchResultMerger
 import com.wuming.android.tv.utils.Task
+import com.wuming.tv.core.search.SearchLifecycle
 import com.wuming.tv.core.search.SearchQueryPlan
 import com.wuming.tv.core.search.SearchQueryPlanner
 import com.google.common.util.concurrent.FluentFuture
@@ -30,8 +31,6 @@ import com.google.common.util.concurrent.MoreExecutors
 import java.util.EnumMap
 import java.util.concurrent.Callable
 import java.util.concurrent.CancellationException
-import java.util.concurrent.CopyOnWriteArrayList
-import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.BooleanSupplier
@@ -49,8 +48,12 @@ open class SiteViewModel(
     private val search = MutableLiveData<Result?>()
     private val action = MutableLiveData<Result?>()
     private val searchProgress = SearchProgress()
-    private val searchEpoch = AtomicInteger(0)
-    private val searchFuture = CopyOnWriteArrayList<Future<*>>()
+    private val searchLifecycle = SearchLifecycle<Site, Result>(
+        Task.searchExecutor(), Task.scheduler(), androidx.arch.core.executor.ArchTaskExecutor.getMainThreadExecutor(), Constant.TIMEOUT_SEARCH,
+    )
+    private val pageLifecycle = SearchLifecycle<Site, Result?>(
+        Task.searchExecutor(), Task.scheduler(), androidx.arch.core.executor.ArchTaskExecutor.getMainThreadExecutor(), Constant.TIMEOUT_VOD, 1,
+    )
     private val futures = EnumMap<TaskType, ListenableFuture<*>>(TaskType::class.java)
     private val taskIds = EnumMap<TaskType, AtomicInteger>(TaskType::class.java)
 
@@ -191,7 +194,24 @@ open class SiteViewModel(
         quick: Boolean,
         page: String,
     ) {
-        execute(TaskType.RESULT, result, { gateway.search(site, keyword, quick, page) })
+        val request: Int
+        val resultId: Int
+        synchronized(this) {
+            if (cleared) return
+            resultId = taskIds[TaskType.RESULT]!!.incrementAndGet()
+            futures.remove(TaskType.RESULT)?.cancel(true)
+            request = pageLifecycle.cancel()
+        }
+        // A page is an exact provider request: no alias expansion, strict filtering or cache hit.
+        pageLifecycle.start(request, listOf(site), { it.key }, { gateway.search(it, keyword, quick, page) }) { outcome ->
+            synchronized(this) {
+                if (cleared || !pageLifecycle.isCurrent(request) || taskIds[TaskType.RESULT]!!.get() != resultId) return@start
+                if (outcome.status == SearchLifecycle.Status.SUCCESS) result.value = outcome.value
+                else if (outcome.status != SearchLifecycle.Status.CANCELLED) {
+                    result.value = requestFailure(TaskType.RESULT, outcome.failure ?: IllegalStateException("Search request failed"))
+                }
+            }
+        }
     }
 
     open fun searchContent(
@@ -207,26 +227,29 @@ open class SiteViewModel(
             epoch = stopSearch()
             val cached = cacheLookup.apply(keyword)
             if (cached != null) {
-                for (collect in cached) search.postValue(Result.list(collect.getList()))
-                searchProgress.start(sites)
-                for (collect in cached) searchProgress.onSiteCompleted(collect.getSite().key)
+                searchProgress.start(sites.distinctBy { it.key })
+                for (collect in cached) searchLifecycle.deliverIfCurrent(epoch) {
+                    synchronized(this) {
+                        if (!searchLifecycle.isCurrent(epoch)) return@deliverIfCurrent
+                        search.value = Result.list(collect.getList())
+                        if (searchLifecycle.isCurrent(epoch)) searchProgress.onSiteCompleted(collect.getSite().key)
+                    }
+                }
                 return
             }
-            searchProgress.start(sites)
-            searchFuture.add(planning)
+            searchProgress.start(sites.distinctBy { it.key })
+            searchLifecycle.track(epoch, planning)
         }
         planning.addCallback(
             object : FutureCallback<SearchQueryPlan> {
                 override fun onSuccess(plan: SearchQueryPlan) {
-                    synchronized(this@SiteViewModel) { searchFuture.remove(planning) }
+                    searchLifecycle.untrack(planning)
                     launchExpandedSearch(sites, plan, quick, epoch)
                 }
 
                 override fun onFailure(error: Throwable) {
-                    synchronized(this@SiteViewModel) {
-                        searchFuture.remove(planning)
-                        if (cleared || searchEpoch.get() != epoch || error is CancellationException) return
-                    }
+                    searchLifecycle.untrack(planning)
+                    if (!searchLifecycle.isCurrent(epoch) || error is CancellationException) return
                     launchExpandedSearch(sites, SearchQueryPlanner.localOnly(TitleNormalizer.core()).plan(keyword), quick, epoch)
                 }
             },
@@ -241,39 +264,19 @@ open class SiteViewModel(
         quick: Boolean,
         epoch: Int,
     ) {
-        sites.forEach(
-            java.util.function.Consumer { site ->
-                val work = ListenableFutureTask.create(Callable { searchSite(site, plan, quick) })
-                synchronized(this) {
-                    if (cleared || searchEpoch.get() != epoch) return@Consumer
-                    val future = FluentFuture.from(work).withTimeout(Constant.TIMEOUT_SEARCH, TimeUnit.MILLISECONDS, Task.scheduler())
-                    searchFuture.add(future)
-                    future.addCallback(
-                        Task.callback<Result>(
-                            { value ->
-                                synchronized(this) {
-                                    searchFuture.remove(future)
-                                    if (!cleared && searchEpoch.get() == epoch) {
-                                        search.postValue(value)
-                                        searchProgress.onSiteCompleted(site.key)
-                                    }
-                                }
-                            },
-                            { _ ->
-                                synchronized(this) {
-                                    searchFuture.remove(future)
-                                    if (!cleared && searchEpoch.get() == epoch) searchProgress.onSiteFailed(site.key)
-                                }
-                            },
-                        ),
-                        MoreExecutors.directExecutor(),
-                    )
+        searchLifecycle.start(epoch, sites, { it.key }, { site -> searchSite(site, plan, quick) }) { outcome ->
+            synchronized(this) {
+                if (!searchLifecycle.isCurrent(epoch)) return@start
+                if (outcome.status == SearchLifecycle.Status.SUCCESS) {
+                    // Delivery already runs on main: a second LiveData post would escape the
+                    // lifecycle's epoch guard and could also coalesce different sources.
+                    search.value = outcome.value
+                    if (searchLifecycle.isCurrent(epoch)) searchProgress.onSiteCompleted(outcome.source.key)
+                } else {
+                    searchProgress.onSiteFailed(outcome.source.key)
                 }
-                // Register before dispatch, but never dispatch under the owner lock:
-                // a saturated pool can execute work inline.
-                Task.largeExecutor().execute(work)
-            },
-        )
+            }
+        }
     }
 
     @Throws(Exception::class)
@@ -330,6 +333,7 @@ open class SiteViewModel(
             if (cleared) return
             taskId = taskIds[type]!!
             currentId = taskId.incrementAndGet()
+            if (type == TaskType.RESULT) pageLifecycle.cancel()
             futures[type]?.cancel(true)
             future = FluentFuture.from(work).withTimeout(timeout, TimeUnit.MILLISECONDS, Task.scheduler())
             futures[type] = future
@@ -340,7 +344,8 @@ open class SiteViewModel(
                     synchronized(this) {
                         if (!cleared && taskId.get() == currentId) {
                             futures.remove(type, future)
-                            liveData?.postValue(value)
+                            if (type == TaskType.RESULT) publishResult(currentId, value)
+                            else liveData?.postValue(value)
                         }
                     }
                 },
@@ -349,12 +354,9 @@ open class SiteViewModel(
                         if (!cleared && taskId.get() == currentId) {
                             futures.remove(type, future)
                             if (error !is CancellationException && liveData != null) {
-                                val message = error.message ?: ""
-                                val userVisible =
-                                    error is ExtractException || (type == TaskType.PLAYER && message.isNotEmpty()) ||
-                                        (type == TaskType.RESULT && message.isNotEmpty())
-                                liveData.postValue(if (userVisible) Result.error(message) else Result.empty())
-                                if (!userVisible) AppLog.e("SiteViewModel", "$type request failed", error)
+                                val value = requestFailure(type, error)
+                                if (type == TaskType.RESULT) publishResult(currentId, value)
+                                else liveData.postValue(value)
                             }
                         }
                     }
@@ -365,17 +367,32 @@ open class SiteViewModel(
         Task.largeExecutor().execute(work)
     }
 
+    private fun publishResult(request: Int, value: Result?) {
+        androidx.arch.core.executor.ArchTaskExecutor.getMainThreadExecutor().execute {
+            synchronized(this) {
+                if (!cleared && taskIds[TaskType.RESULT]!!.get() == request) result.value = value
+            }
+        }
+    }
+
+    private fun requestFailure(type: TaskType, error: Throwable): Result {
+        val message = error.message.orEmpty()
+        val userVisible = error is ExtractException ||
+            ((type == TaskType.PLAYER || type == TaskType.RESULT) && message.isNotEmpty())
+        if (!userVisible) AppLog.e("SiteViewModel", "$type request failed", error)
+        return if (userVisible) Result.error(message) else Result.empty()
+    }
+
     @Synchronized open fun stopSearch(): Int {
-        val epoch = searchEpoch.incrementAndGet()
-        searchFuture.forEach { it.cancel(true) }
-        searchFuture.clear()
-        return epoch
+        pageLifecycle.cancel()
+        return searchLifecycle.cancel()
     }
 
     @Synchronized override fun onCleared() {
         cleared = true
         taskIds.values.forEach { it.incrementAndGet() }
-        stopSearch()
+        searchLifecycle.close()
+        pageLifecycle.close()
         futures.values.forEach { it.cancel(true) }
         futures.clear()
     }

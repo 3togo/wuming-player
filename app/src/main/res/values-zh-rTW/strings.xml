@@ -671,4 +671,5 @@
     <string name="popup_sites">選擇站點</string>
     <string name="popup_config_history">配置歷史</string>
     <string name="error_play_protocol_unsupported">此版本不支援此播放協定，請選擇其他播放來源。</string>
+    <string name="episode_nearby">附近劇集</string>
 </resources>

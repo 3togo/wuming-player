@@ -8,6 +8,7 @@ internal data class JvmSpiderHostRequest(
     val flag: String? = null,
     val page: String? = null,
     val filters: Map<String, String> = emptyMap(),
+    val recommendationSeeds: List<String>? = null,
 )
 
 internal data class JvmSpiderHostResponse(

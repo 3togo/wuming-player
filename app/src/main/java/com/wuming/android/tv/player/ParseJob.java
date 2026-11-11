@@ -17,14 +17,12 @@ import com.wuming.android.tv.utils.UiTaskScope;
 import com.wuming.android.tv.utils.UrlUtil;
 import com.wuming.android.tv.utils.WebViewUtil;
 import com.github.catvod.net.OkHttp;
-import com.github.catvod.utils.Json;
 import com.github.catvod.utils.Util;
-import com.google.common.net.HttpHeaders;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import com.wuming.tv.core.playback.JsonPlaybackResponse;
+
 import java.util.ArrayList;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -159,13 +157,10 @@ public class ParseJob implements ParseCallback {
             try (Response res = call.execute()) {
                 okhttp3.ResponseBody body = res.body();
                 String bodyString = body != null ? body.string() : "";
-                JsonObject object = Json.parse(bodyString).getAsJsonObject();
-                String url = Json.safeString(object, "url");
-                JsonObject data = object.getAsJsonObject("data");
-                if (url.isEmpty()) url = Json.safeString(data, "url");
                 Map<String, String> fallback = item.getHeader().isEmpty()
                         ? parse.getHeader() : item.getHeader();
-                checkResult(getHeader(object, fallback), url, item.getName(), fatal);
+                JsonPlaybackResponse.Result response = JsonPlaybackResponse.decode(bodyString, fallback, item.getUrl(), null);
+                checkResult(response.getHeaders(), response.getUrl(), item.getName(), fatal);
             }
         } finally {
             calls.remove(call);
@@ -214,24 +209,7 @@ public class ParseJob implements ParseCallback {
     }
 
     static boolean hasAbsoluteUrl(String value) {
-        if (value == null || value.isBlank()) return false;
-        try {
-            String resource = value.trim();
-            // Preserve the legacy URL|||duration***URL|||duration transport. Validate its first
-            // resource here; MediaSourceFactory owns parsing the individual entries.
-            int separator = resource.indexOf("|||");
-            if (separator >= 0 && resource.contains("***")) resource = resource.substring(0, separator);
-            URI uri = URI.create(resource);
-            if (!uri.isAbsolute() || uri.getRawSchemeSpecificPart().isBlank()) return false;
-            String scheme = uri.getScheme();
-            if ("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme)
-                    || "rtsp".equalsIgnoreCase(scheme) || "rtmp".equalsIgnoreCase(scheme)) {
-                return uri.getRawAuthority() != null && !uri.getRawAuthority().isBlank();
-            }
-            return true;
-        } catch (IllegalArgumentException invalid) {
-            return false;
-        }
+        return JsonPlaybackResponse.isMediaUrl(value, null);
     }
 
     private void checkResult(Result result) {
@@ -269,18 +247,7 @@ public class ParseJob implements ParseCallback {
     }
 
     static Map<String, String> getHeader(JsonObject object, Map<String, String> fallback) {
-        Map<String, String> headers = new HashMap<>();
-        for (Map.Entry<String, JsonElement> entry : object.entrySet()) {
-            if (!entry.getValue().isJsonPrimitive()) continue;
-            String key = entry.getKey();
-            if (key.equalsIgnoreCase("ua")) key = HttpHeaders.USER_AGENT;
-            if (key.equalsIgnoreCase(HttpHeaders.USER_AGENT)
-                    || key.equalsIgnoreCase(HttpHeaders.REFERER)
-                    || key.equalsIgnoreCase(HttpHeaders.COOKIE)) {
-                headers.put(UrlUtil.fixHeader(key), entry.getValue().getAsString());
-            }
-        }
-        return headers.isEmpty() ? new HashMap<>(fallback) : headers;
+        return JsonPlaybackResponse.headers(object, fallback);
     }
 
     @Override

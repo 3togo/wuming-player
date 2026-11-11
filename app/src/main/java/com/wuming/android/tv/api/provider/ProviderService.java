@@ -124,7 +124,9 @@ public final class ProviderService extends Service {
         return switch (operation) {
             case ProviderProtocol.HOME -> spider.homeContent(request.getBoolean("filter", true));
             case ProviderProtocol.HOME_VIDEO -> spider.homeVideoContent();
-            case ProviderProtocol.CATEGORY -> spider.categoryContent(value(values, 0), value(values, 1), request.getBoolean("filter"), stringMap(request.getBundle(ProviderProtocol.PARAMS)));
+            case ProviderProtocol.CATEGORY -> com.wuming.android.tv.library.ProviderRecommendationBridge.withSeeds(
+                    "guess_you_like".equals(value(values, 0)) ? request.getStringArrayList("recommendationSeeds") : null,
+                    () -> spider.categoryContent(value(values, 0), value(values, 1), request.getBoolean("filter"), stringMap(request.getBundle(ProviderProtocol.PARAMS))));
             case ProviderProtocol.DETAIL -> spider.detailContent(defaultList(request.getStringArrayList(ProviderProtocol.IDS)));
             case ProviderProtocol.SEARCH -> spider.searchContent(value(values, 0), request.getBoolean("quick"));
             case ProviderProtocol.SEARCH_PAGE -> spider.searchContent(value(values, 0), request.getBoolean("quick"), value(values, 1));

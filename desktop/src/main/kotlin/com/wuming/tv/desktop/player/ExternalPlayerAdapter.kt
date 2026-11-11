@@ -39,6 +39,8 @@ class ExternalPlayerAdapter internal constructor(
     private val processStarter: ProcessStarter,
     private val targetPreparer: PlaybackTargetPreparer = HlsCompatibilityPreparer(),
     private val singleWindow: () -> Boolean = { com.wuming.tv.desktop.config.DesktopApplicationSettings().preventMultiplePlayerWindows },
+    private val mpvConfiguration: com.wuming.tv.desktop.config.DesktopMpvConfiguration = com.wuming.tv.desktop.config.DesktopMpvConfiguration(),
+    private val subtitleLocale: () -> java.util.Locale = java.util.Locale::getDefault,
 ) {
     constructor(
         executable: Path,
@@ -296,6 +298,13 @@ class ExternalPlayerAdapter internal constructor(
         val arguments = mutableListOf(executable.toString())
         when (name.lowercase()) {
             "mpv" -> {
+                // Update MpvConfigurationPolicy's diagnostic list when owned option names change.
+                // Supply an automatic fallback first. User config may override it; app-owned
+                // window/transport/session options below retain their required precedence.
+                val languages = com.wuming.tv.core.media.subtitle.SubtitleSelectionPolicy.preferredLanguages(subtitleLocale())
+                // mpv's -append adds one literal list item, so append each tag separately.
+                languages.forEach { arguments += "--slang-append=$it" }
+                arguments += mpvConfiguration.launchArguments()
                 // The Linux window manager uses an unscaled 24px native caption on HiDPI screens,
                 // clipping the media title. mpv's borderless window remains draggable and keeps
                 // its scalable on-screen controller, fullscreen shortcut, and keyboard controls.

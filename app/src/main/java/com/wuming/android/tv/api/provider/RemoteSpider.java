@@ -42,9 +42,14 @@ public final class RemoteSpider extends Spider {
 
     @Override
     public String categoryContent(String tid, String pg, boolean filter, HashMap<String, String> extend) throws Exception {
+        return categoryWithRecommendationSeeds(tid, pg, filter, extend, null);
+    }
+
+    public String categoryWithRecommendationSeeds(String tid, String pg, boolean filter, HashMap<String, String> extend, List<String> seeds) throws Exception {
         Bundle request = request(ProviderProtocol.CATEGORY);
         request.putStringArrayList(ProviderProtocol.ARGS, values(tid, pg));
         request.putBoolean("filter", filter);
+        if (seeds != null) request.putStringArrayList("recommendationSeeds", new ArrayList<>(seeds));
         request.putBundle(ProviderProtocol.PARAMS, ProviderClient.toBundle(extend));
         return client.callString(request, Constant.TIMEOUT_VOD + 5_000L);
     }

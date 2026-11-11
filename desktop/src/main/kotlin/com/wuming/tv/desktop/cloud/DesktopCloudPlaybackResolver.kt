@@ -30,6 +30,7 @@ class CloudResolvingCatalogSourceExecutor(
     private val delegate: CatalogSourceExecutor,
     private val resolver: DesktopCloudPlaybackResolver,
 ) : CatalogSourceExecutor, AutoCloseable {
+    override val hostContract get() = delegate.hostContract
     override val source = delegate.source
     private val cloudEpisodes = ConcurrentHashMap<Pair<String, String>, CloudDriveProviderKind>()
 
@@ -38,6 +39,9 @@ class CloudResolvingCatalogSourceExecutor(
     override fun browseHome(): CatalogHome = delegate.browseHome()
     override fun category(typeId: String, page: Int, filters: Map<String, String>): CatalogPage =
         delegate.category(typeId, page, filters)
+
+    override fun categoryWithRecommendationSeeds(typeId: String, page: Int, filters: Map<String, String>, seeds: List<String>): CatalogPage =
+        delegate.categoryWithRecommendationSeeds(typeId, page, filters, seeds)
 
     override fun detail(id: String): CatalogDetail = delegate.detail(id).also { detail ->
         val detected = ConcurrentHashMap<Pair<String, String>, CloudDriveProviderKind>()

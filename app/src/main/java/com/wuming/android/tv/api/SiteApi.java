@@ -176,7 +176,8 @@ public class SiteApi {
         if (isSpider(site)) {
             if (Prefers.getBoolean("crash")) return Result.empty();
             Spider spider = site.recent().spider();
-            String categoryContent = spider.categoryContent(tid, page, filter, extend);
+            List<String> seeds = com.wuming.android.tv.library.ProviderRecommendationBridge.seeds(site, tid, page);
+            String categoryContent = categoryWithSeeds(spider, tid, page, filter, extend, seeds);
             SpiderDebug.log("category", categoryContent);
             Result result = Result.fromJson(categoryContent);
             if (hasLoginAction(result) && !BaseLoader.get().isInteractive(site.getKey())) {
@@ -189,7 +190,7 @@ public class SiteApi {
                  * rather than from an uninitialised/stale provider instance.
                  */
                 spider = BaseLoader.get().getInteractiveSpider(site.getKey(), site.getApi(), site.getExt(), site.getJar());
-                categoryContent = spider.categoryContent(tid, page, filter, extend);
+                categoryContent = categoryWithSeeds(spider, tid, page, filter, extend, seeds);
                 SpiderDebug.log("category-interactive", categoryContent);
                 result = Result.fromJson(categoryContent);
             }
@@ -205,6 +206,14 @@ public class SiteApi {
             SpiderDebug.log("category", categoryContent);
             return VideoRankManager.apply(site.getKey(), Result.fromType(site.getType(), categoryContent));
         }
+    }
+
+    private static String categoryWithSeeds(Spider spider, String tid, String page, boolean filter, HashMap<String, String> extend, List<String> seeds) throws Exception {
+        if (spider instanceof com.wuming.android.tv.api.provider.RemoteSpider remote) {
+            return remote.categoryWithRecommendationSeeds(tid, page, filter, extend, seeds);
+        }
+        return com.wuming.android.tv.library.ProviderRecommendationBridge.withSeeds(seeds,
+                () -> spider.categoryContent(tid, page, filter, extend));
     }
 
     @NonNull

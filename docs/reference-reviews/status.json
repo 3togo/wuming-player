@@ -54,6 +54,268 @@
         "androidCompilation": "All three ARM64 verification Kotlin/Java variants passed",
         "deviceTested": false
       }
+    },
+    "tvboxosc-2026-11": {
+      "path": "/home/eli/git/temp/TVboxOSC",
+      "updated": false,
+      "reviewedRevision": "0130b94a345347b40bba832189e8c1a832ca0b08",
+      "reviewedScope": "Bounded M3U metadata, JSON parser-response and multi-source search lifecycle contracts.",
+      "report": "2026-11-11-tvboxosc-shared-contracts.md",
+      "implemented": [
+        "Shared M3U lexical rules wired into Android and desktop",
+        "Shared JSON playback response decoding wired into Android ParseJob and desktop CatVod codec",
+        "Shared search lifecycle wired into mobile/leanback SiteViewModel and desktop CatalogSourceCoordinator, including navigation invalidation"
+      ],
+      "validation": {
+        "result": "passed for bounded adaptation",
+        "coreSuites": {
+          "liveCore": 59,
+          "playbackCore": 310,
+          "searchCore": 52,
+          "catalogCore": 117,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 1,
+          "skipReason": "Existing optional original-downloaded-media HLS replay fixture unavailable"
+        },
+        "desktopSelected": {
+          "tests": 43,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "androidMobileSelected": {
+          "tests": 23,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "androidCompilation": [
+          "mobile ARM64 verification Kotlin/Java",
+          "leanback ARM64 verification Kotlin/Java",
+          "leanback-lite ARM64 verification Kotlin/Java"
+        ],
+        "architectureChecks": [
+          "verifyGenericLibraryBoundaries",
+          "verifyDesktopBoundaries",
+          "verifyCodeLifecycleIsolation",
+          "verifyJavaRetention"
+        ],
+        "regressionProof": [
+          "Last-comma name mutation fails two live regressions",
+          "Missing fallback authentication fails JSON response regression",
+          "Missing epoch delivery guard fails stale search regression"
+        ],
+        "limitations": [
+          "No physical-device playback or live provider testing",
+          "Ordinary signing certificate mismatch; documented ephemeral verification flag used without modifying keys/configuration",
+          "Controlled synthetic scheduling measurements only"
+        ]
+      },
+      "remainingScope": "Other reference domains, full runtime ABI conformance, new desktop external-parser/browser support and device/live-service validation.",
+      "finalDiffAudit": {
+        "findingsFixed": [
+          "Literal quotes inside unquoted M3U URL attributes",
+          "Primitive JSON header wire compatibility",
+          "Android LiveData delivery after cancellation, including cache hits and reentrant observer progress"
+        ],
+        "regressionProof": "All three primary new reproducers failed on assertions before correction.",
+        "coreSuites": {
+          "liveCore": 60,
+          "playbackCore": 311,
+          "searchCore": 53,
+          "catalogCore": 118,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 1
+        },
+        "desktopSelected": {
+          "tests": 41,
+          "failures": 0,
+          "skipped": 0
+        },
+        "androidMobileSelected": {
+          "tests": 28,
+          "failures": 0,
+          "skipped": 0
+        },
+        "androidLeanbackSelected": {
+          "tests": 28,
+          "failures": 0,
+          "skipped": 0
+        },
+        "leanbackLiteCompilation": "ARM64 verification Kotlin/Java passed",
+        "remainingLimits": [
+          "No device/live service validation",
+          "Single-source paging and Android MediaBrowser search retain existing separate workflows"
+        ]
+      },
+      "searchLifecycleExtension": {
+        "implemented": [
+          "Single-source paging lifecycle with existing result-channel replacement and VOD timeout",
+          "Shared MediaBrowserSearch cache/alias/ordered-collection workflow",
+          "PlaybackService request ownership before queued dispatch and notification"
+        ],
+        "validation": {
+          "searchCore": 63,
+          "catalogCore": 118,
+          "desktopSelected": 7,
+          "androidMobileSelected": 35,
+          "androidLeanbackSelected": 35,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "leanbackLite": "ARM64 verification Kotlin/Java passed sequentially",
+          "checks": [
+            "verifyGenericLibraryBoundaries",
+            "verifyDesktopBoundaries",
+            "verifyCodeLifecycleIsolation",
+            "verifyJavaRetention"
+          ],
+          "regressionProof": [
+            "Removing stopSearch page cancellation fails queued-page regression",
+            "Removing ordered task cleanup fails timed-out-provider cancellation regression",
+            "Provider-thrown CancellationException was first reproduced as FAILED, then corrected"
+          ]
+        },
+        "preserved": [
+          "Exact page provider arguments and Result channel metadata",
+          "MediaBrowser eager/source-order collection and per-turn five-second wait",
+          "Canonical/strict cache identity, five-minute TTL, raw/final 50-item cap",
+          "MediaLibraryService immediate acceptance and existing full-result retrieval"
+        ],
+        "limitations": [
+          "No physical-device or real MediaLibrarySession/client testing",
+          "Latest browser request owns the existing global last-result scope",
+          "KSP empty-ZIP failure during concurrent build resolved by sequential verification"
+        ]
+      },
+      "pagingBrowserAudit": {
+        "fixed": [
+          "Alias cancellation preserves earlier successes while owner remains active",
+          "Abandoned providers cannot issue another alias after consuming interruption",
+          "Direct task cancellation cannot publish/cache stale conversion and honors mayInterruptIfRunning"
+        ],
+        "validation": {
+          "searchCore": 74,
+          "catalogCore": 119,
+          "desktopSelected": 7,
+          "androidMobileSelected": 37,
+          "androidLeanbackSelected": 37,
+          "failures": 0,
+          "errors": 0,
+          "liteCompilation": "passed",
+          "architectureAndRetention": "passed"
+        },
+        "preserved": [
+          "Source-order raw cap and merge/rank/final cap",
+          "Five-second timeout starting at each collection turn",
+          "Canonical/strict cache identity, fixed TTL and LRU recency",
+          "Existing all-source-failure empty cache behavior"
+        ],
+        "limitations": [
+          "No physical-device or real MediaLibrarySession/client validation"
+        ]
+      }
+    },
+    "tvs-2026-11-scan": {
+      "paths": [
+        "/home/eli/git/TVs/TVBoxOS",
+        "/home/eli/git/TVs/q215613905",
+        "/home/eli/git/TVs/TVboxOSC"
+      ],
+      "updated": false,
+      "reviewedRevisions": {
+        "q215613905/TVBoxOS": "89ec1b7504426b3ff5e9d0996c3bbf50c9d2eff0",
+        "kukuqi666/TVboxOSC": "0130b94a345347b40bba832189e8c1a832ca0b08"
+      },
+      "reviewedScope": "Bounded source/diff review: subtitle preference/default flags, Node loader/adapter contract, recent provider init/history/config-fetch/episode-picker changes, mpv config ownership. Exact paths and limitations in report.",
+      "report": "2026-11-11-tvs-ideas-and-contracts.md",
+      "mode": "review followed by implementation of all five selected candidates",
+      "candidates": [
+        "Subtitle language/default policy (highest priority)",
+        "Runtime capability reporting and provider ABI fixtures",
+        "Current-centered quick episode picker (optional)",
+        "Session-stable recommendation seed bridge (provider-dependent)",
+        "Atomic mpv configuration import and ownership (conditional)"
+      ],
+      "implemented": [
+        "Shared subtitle language/default policy in Media3 and mpv ports",
+        "Node runtime classification/rejection and catalogue host method reporting",
+        "Shared current-centered episode window with leanback and desktop pickers",
+        "Shared bounded recommendation seed session with Android/desktop provider ports",
+        "Atomic bounded mpv configuration import/editor and diagnostic ownership policy"
+      ],
+      "deferred": [
+        "Unreviewed reference domains and full Node service/runtime implementation",
+        "Live-provider and physical-device validation",
+        "Actual Android config-fetch wire headers (not one of the selected five candidates)"
+      ],
+      "validation": {
+        "result": "passed for all five selected adaptations",
+        "testsRun": true,
+        "deviceTested": false,
+        "nativeTests": 2,
+        "coreRuntimeTests": 798,
+        "coreRuntimeSkipped": 2,
+        "selectedDesktopTests": 108,
+        "selectedMobileTests": 7,
+        "selectedLeanbackTests": 7,
+        "removedFixControl": "Old per-subtitle defaults fail adapter regression on assertion",
+        "limitations": [
+          "No physical Android device or live provider validation",
+          "No claim of Node interpreter support or universal CatVod ABI coverage"
+        ]
+      },
+      "duplicateCheckouts": [
+        "TVBoxOS and q215613905 have identical origin and HEAD"
+      ],
+      "remainingScope": "Unlisted files/domains are not reviewed; prior M3U/JSON/search adaptations retain their own checkpoint.",
+      "implementationProgress": {
+        "state": "complete for all five selected candidates",
+        "validation": "Core/runtime suites, selected desktop/mobile/leanback tests, three Android ARM64 verification variants, architecture/retention/remote checks and two native tests passed; see implementation report for counts and skips"
+      },
+      "implementationReport": "2026-11-11-tvs-implementation.md",
+      "doubleCheck": {
+        "state": "complete",
+        "report": "2026-11-11-tvs-double-check.md",
+        "confirmedGaps": [
+          "Generic non-Chinese subtitle fallback ranking",
+          "Closed catalogue accepted a nearby picker choice",
+          "Desktop recommendation paging bypassed changed seed/privacy state",
+          "Recommendation browse snapshots restored stale personalized cards",
+          "Old category failure/completion could affect its successor",
+          "Portable JVM recommendation seed context survived into later calls"
+        ],
+        "regressionEvidence": "All six primary reproducers failed on assertions before fixes; corrected suites pass",
+        "validation": {
+          "coreRuntimeTests": 800,
+          "coreRuntimeSkipped": 2,
+          "selectedDesktopTests": 112,
+          "selectedMobileTests": 7,
+          "selectedLeanbackTests": 7,
+          "nativeTests": 4,
+          "failures": 0,
+          "errors": 0,
+          "androidCompilation": "Mobile, leanback and leanback-lite ARM64 verification Kotlin/Java",
+          "checks": [
+            "verifyGenericLibraryBoundaries",
+            "verifyDesktopBoundaries",
+            "verifyCodeLifecycleIsolation",
+            "verifyJavaRetention",
+            "check-leanback-remote",
+            "git diff --check"
+          ]
+        },
+        "unchangedFeaturesWithExpandedControls": [
+          "Node-required configuration routing versus JS and collection API controls",
+          "Oversized/invalid mpv imports, native editor Cancel/Save and effective mpv IPC settings"
+        ],
+        "limitations": [
+          "No physical Android device or live-provider validation",
+          "Existing optional media and hardware fixtures remain skipped"
+        ]
+      }
     }
   }
 }

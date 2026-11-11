@@ -98,3 +98,84 @@ live source in the curated corpus, so moving it into core would put Android's pl
 model inside a platform-neutral module. When a source in the wild does need one of
 those directives on desktop, add that directive to the core model with a test -- not
 the player.
+
+
+## Shared playlist, parser-response and search contracts
+
+`live-core/M3uDirectives` supplies the lexical M3U rules to both Android's
+player-aware `LiveParser` and the shared desktop playlist parser. Desktop loaders
+pass the playlist location for relative guide resolution. Android retains DRM,
+catchup and framework model mutation; shared grammar changes require adapter
+regressions as well as core tests.
+
+`playback-core/JsonPlaybackResponse` owns URL/header decoding for Android's
+`ParseJob` and the desktop runtime's `CatVodCatalogCodec`. Decoder admission does
+not imply that a particular player supports the transport or browser resolution.
+
+`search-core/SearchLifecycle` owns planning and provider request epochs,
+cancellation, bounded dispatch and terminal outcomes. Android's `SiteViewModel`
+and desktop's `CatalogSourceCoordinator` consume it using host-owned executors.
+Hosts serialize UI publication with teardown and recheck the shared epoch where
+needed. Android supplies the main executor to this lifecycle and sets LiveData
+inside guarded delivery, including cache hits; checking before a separate
+LiveData.postValue would allow stale queued publication. Desktop retains its
+overall wait budget and progressive home behavior;
+Android retains alias expansion and cached-result handling.
+
+
+Single-source Android search pages also use SearchLifecycle, with their own
+instance and the existing 30-second VOD budget. They preserve the exact provider
+query, quick flag and page, publish on the result channel, and still supersede
+home/category/detail requests on that channel. They do not cancel a still-running
+all-source batch. Stop and teardown invalidate both search lifecycles.
+
+Android MediaBrowser search uses the shared `MediaBrowserSearch` workflow for
+canonical/strict cache identity, alias iteration, partial successes, collection
+limits and result ownership. Its lifecycle's `collectOrdered` mode preserves eager
+provider submission, source-order collection and a fresh five-second wait at each
+source's turn; it does not substitute the UI batch's dispatch-time deadline. It
+cancels unconsumed work on early exit and invalidates queued service work before
+it can start. Android supplies configuration/provider access and MediaItem mapping,
+while the shared workflow owns cache publication and the 50-result cap. The
+service's immediate acceptance response and existing full-result retrieval API
+are unchanged. Each source checks its owning future before another alias call,
+even if a provider consumes interruption. An alias cancellation exception retains
+earlier successes while its owner remains active. Explicit browser-task cancellation
+shares the cache-publication lock and preserves the caller's interruption flag choice.
+
+
+## Subtitle, nearby-episode and recommendation policies
+
+`media-core/subtitle/SubtitleSelectionPolicy` owns locale/script preference and
+external subtitle default inference. Android maps raw provider flags to Media3;
+desktop appends the same ordered language tags to mpv without replacing existing
+user preferences. Each mpv list append contains one tag. Manual selection stays
+with the player.
+
+`user-library-core/EpisodeWindow` computes the current-centered slice in displayed
+order. Leanback's nearby tab and desktop's nearby picker retain the full-series
+browser. Android moves focus only after layout and validates the pending page;
+desktop validates the detail and line before accepting a modal selection.
+
+`user-library-core/recommend/ProviderRecommendationSession` owns deduplication,
+bounds, stable paging and private/deleted-history behavior for the reviewed
+`guess_you_like` bridge. Platform ports supply visible history names. Catalogue
+interfaces carry an optional seed list separately from provider filter maps;
+wrappers forward it without caching an old recommendation page. The shared
+`ProviderRecommendationPager` also invalidates desktop paging when effective seeds
+or privacy change. Recommendation navigation snapshots revalidate that context;
+late category success/failure/loading callbacks check their request at delivery.
+Android and the
+guarded desktop host scope `historyvodname` around the provider call and restore
+its previous value. Portable JVM providers may explicitly implement the optional
+`setRecommendationSeeds(List)` hook, which is cleared after each scoped call;
+it is not a CatVod ABI guarantee.
+
+`catalog-core/CatalogHostContract` describes the host's exposed methods separately
+from observed provider success in `CatalogVerification`. Node.js source admission
+is classified in `source-core`; unavailable runtimes produce an explicit reason.
+
+`playback-core/MpvConfigurationPolicy` provides diagnostic option scanning. The
+desktop configuration store, editor and process launch remain ports; mpv interprets
+the full grammar. See [the adaptation report](reference-reviews/2026-11-11-tvs-implementation.md)
+for validation and coverage limits.

@@ -43,6 +43,12 @@ class VerifyingCatalogSourceExecutor(
             if (it.items.any(::media)) observed(CatalogCapability.LISTING)
         }
 
+    override fun categoryWithRecommendationSeeds(typeId: String, page: Int, filters: Map<String, String>, seeds: List<String>): CatalogPage =
+        delegate.categoryWithRecommendationSeeds(typeId, page, filters, seeds).also {
+            if (it.items.any { item -> item.id.isNotBlank() }) observed(CatalogCapability.CATEGORY)
+            if (it.items.any(::media)) observed(CatalogCapability.LISTING)
+        }
+
     override fun search(query: String): List<CatalogItem> = delegate.search(query).also {
         if (it.any(::media)) observed(CatalogCapability.LISTING, CatalogCapability.SEARCH)
     }

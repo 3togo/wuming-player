@@ -9,14 +9,18 @@ import java.util.LinkedHashMap
 object LivePlaylistParser {
 
     private const val DEFAULT_GROUP = "Live TV"
-    private val attribute = Regex("([A-Za-z0-9_-]+)\\s*=\\s*\"([^\"]*)\"")
     private val channelKeyCleaner = Regex("[^\\p{L}\\p{N}]+")
     private val nativeAvailable: Boolean get() = NativeLoader.available
     private val gson = Gson()
 
-    fun parse(content: String): LivePlaylist {
+    @JvmOverloads
+    fun parse(content: String, base: String = ""): LivePlaylist {
         val playlistText = LivePlaylistEncoding.stripMark(content)
         if (playlistText.trimStart().startsWith('[')) return parseJson(playlistText)
+        val lines = playlistText.lineSequence().map(String::trim).toList()
+        require(lines.any(String::isNotEmpty)) { "Playlist is empty" }
+        // Keep M3U grammar authoritative on JVM even when an older native parser is present.
+        if (lines.any { it.startsWith("#EXTM3U", ignoreCase = true) }) return parseM3u(lines, base)
         if (nativeAvailable) {
             val json = nativeParse(playlistText)
             if (json.isNotEmpty()) {
@@ -26,13 +30,7 @@ object LivePlaylistParser {
                 }
             }
         }
-        val lines = playlistText.lineSequence().map(String::trim).toList()
-        require(lines.any(String::isNotEmpty)) { "Playlist is empty" }
-        return if (lines.any { it.startsWith("#EXTM3U", ignoreCase = true) }) {
-            parseM3u(lines)
-        } else {
-            parseTxt(lines)
-        }
+        return parseTxt(lines)
     }
 
     private fun parseJson(content: String): LivePlaylist {
@@ -61,7 +59,7 @@ object LivePlaylistParser {
         return playlist(groups, emptyList())
     }
 
-    private fun parseM3u(lines: List<String>): LivePlaylist {
+    private fun parseM3u(lines: List<String>, base: String): LivePlaylist {
         val groups = linkedMapOf<String, LinkedHashMap<String, MutableChannel>>()
         val epgUrls = linkedSetOf<String>()
         var pending: PendingChannel? = null
@@ -70,19 +68,14 @@ object LivePlaylistParser {
         for (line in lines) {
             when {
                 line.startsWith("#EXTM3U", ignoreCase = true) -> {
-                    val attributes = attributes(line)
-                    listOf("tvg-url", "x-tvg-url", "url-tvg").forEach { key ->
-                        attributes[key].orEmpty().split(',').map(String::trim)
-                            .filter(String::isNotEmpty).forEach(epgUrls::add)
-                    }
+                    epgUrls.addAll(M3uDirectives.epgUrls(line, base))
                 }
 
                 line.startsWith("#EXTINF:", ignoreCase = true) -> {
-                    val attributes = attributes(line)
+                    val attributes = M3uDirectives.attributes(line)
                     pending = PendingChannel(
                         group = attributes["group-title"].orEmpty().ifBlank { DEFAULT_GROUP },
-                        name = line.substringAfterLast(',', attributes["tvg-name"].orEmpty())
-                            .trim().ifBlank { attributes["tvg-name"].orEmpty().ifBlank { "Unnamed channel" } },
+                        name = M3uDirectives.name(line).ifBlank { "Unnamed channel" },
                         tvgId = attributes["tvg-id"].orEmpty(),
                         tvgName = attributes["tvg-name"].orEmpty(),
                         logo = attributes["tvg-logo"].orEmpty(),
@@ -94,6 +87,9 @@ object LivePlaylistParser {
                     )
                     directiveHeaders = linkedMapOf()
                 }
+
+                line.startsWith("#EXTGRP:", ignoreCase = true) ->
+                    pending = pending?.copy(group = line.substringAfter(':').trim().ifBlank { DEFAULT_GROUP })
 
                 line.startsWith("#EXTVLCOPT:http-user-agent=", ignoreCase = true) ->
                     directiveHeaders["User-Agent"] = line.substringAfter('=').trim()
@@ -145,10 +141,6 @@ object LivePlaylistParser {
             }
         }
         return playlist(groups, emptySet())
-    }
-
-    private fun attributes(line: String): Map<String, String> = attribute.findAll(line).associate {
-        it.groupValues[1].lowercase() to it.groupValues[2].trim()
     }
 
     private fun stream(value: String, inheritedHeaders: Map<String, String>): LiveStream {

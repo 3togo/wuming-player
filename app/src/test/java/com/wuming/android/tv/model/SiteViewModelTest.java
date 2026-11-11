@@ -31,9 +31,313 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 
 public class SiteViewModelTest {
+    @Test public void stoppedSearchSuppressesPublicationAlreadyQueuedForTheMainThread() throws Exception {
+        assertStoppedQueuedPublication(false);
+    }
+
+    @Test public void stoppedCachedSearchSuppressesPublicationAlreadyQueuedForTheMainThread() throws Exception {
+        assertStoppedQueuedPublication(true);
+    }
+
+    @Test public void observerStartingNewSearchCannotCompleteItsProgressWithThePreviousResult() throws Exception {
+        Site site = Site.get("one", "One");
+        CountDownLatch nextStarted = new CountDownLatch(1);
+        CountDownLatch releaseNext = new CountDownLatch(1);
+        RecordingGateway gateway = new RecordingGateway() {
+            @Override public Result search(Site source, String keyword, boolean quick, String page) {
+                if (keyword.equals("new")) { nextStarted.countDown(); awaitRelease(releaseNext); }
+                return message(keyword);
+            }
+        };
+        SiteViewModel model = new SiteViewModel(gateway, keyword -> null);
+        Observer<Result> observer = value -> {
+            if (value != null && value.getMsg().equals("old")) model.searchContent(List.of(site), "new", false);
+        };
+        model.getSearch().observeForever(observer);
+        try {
+            model.searchContent(List.of(site), "old", false);
+            assertTrue(nextStarted.await(5, TimeUnit.SECONDS));
+            synchronized (model) {
+                assertEquals(0, model.getSearchProgress().getValue().getCompleted());
+            }
+            releaseNext.countDown();
+            awaitValue(model.getSearchProgress(), SearchProgress.ProgressInfo::isComplete);
+            assertEquals("new", model.getSearch().getValue().getMsg());
+        } finally {
+            releaseNext.countDown(); model.getSearch().removeObserver(observer); model.onCleared();
+        }
+    }
+
+    private void assertStoppedQueuedPublication(boolean cached) throws Exception {
+        java.util.Queue<Runnable> mainQueue = new java.util.concurrent.ConcurrentLinkedQueue<>();
+        CountDownLatch queued = new CountDownLatch(2);
+        androidx.arch.core.executor.ArchTaskExecutor.getInstance().setDelegate(new androidx.arch.core.executor.TaskExecutor() {
+            @Override public void executeOnDiskIO(Runnable task) { task.run(); }
+            @Override public void postToMainThread(Runnable task) { mainQueue.add(task); queued.countDown(); }
+            @Override public boolean isMainThread() { return true; }
+        });
+        Site site = Site.get("one", "One");
+        SiteViewModel model = new SiteViewModel(new RecordingGateway(), keyword -> cached ? List.of(new Collect(site, List.of(vod("cached")))) : null);
+        try {
+            model.searchContent(List.of(site), "fixture", false);
+            assertTrue("Provider publication was not queued", queued.await(5, TimeUnit.SECONDS));
+            model.stopSearch();
+            Runnable task;
+            while ((task = mainQueue.poll()) != null) task.run();
+            assertTrue("Cancelled search reached the UI through a pending LiveData post", model.getSearch().getValue() == null);
+        } finally {
+            model.onCleared();
+            androidx.arch.core.executor.ArchTaskExecutor.getInstance().setDelegate(null);
+        }
+    }
+
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
+    @Test public void pagingPreservesExactArgumentsAndResultWithoutAliasCacheOrBatchProgress() throws Exception {
+        Site site = Site.get("page", "Page");
+        Result pageResult = message("page metadata");
+        RecordingGateway gateway = new RecordingGateway() {
+            @Override public Result search(Site requested, String keyword, boolean quick, String page) {
+                assertSame(site, requested);
+                assertEquals("  raw title  ", keyword);
+                assertTrue(quick);
+                assertEquals("3", page);
+                searchCalls.incrementAndGet();
+                return pageResult;
+            }
+        };
+        SiteViewModel model = new SiteViewModel(gateway, keyword -> { throw new AssertionError("Page must not use batch cache"); },
+                new SearchQueryPlanner(keyword -> { throw new AssertionError("Page must not expand aliases"); }, TitleNormalizer.core()),
+                () -> { throw new AssertionError("Page must not strict-filter the provider response"); });
+        try {
+            model.searchContent(site, "  raw title  ", true, "3");
+            assertSame(pageResult, await(model.getResult(), value -> value == pageResult));
+            assertNull(model.getSearch().getValue());
+            assertNull(model.getSearchProgress().getValue());
+            assertEquals(1, gateway.searchCalls.get());
+        } finally { model.onCleared(); }
+    }
+
+    @Test public void pagingAndOtherResultRequestsStillSupersedeEachOther() throws Exception {
+        for (boolean pageFirst : List.of(false, true)) {
+            CountDownLatch entered = new CountDownLatch(1);
+            CountDownLatch interrupted = new CountDownLatch(1);
+            CountDownLatch release = new CountDownLatch(1);
+            CountDownLatch returned = new CountDownLatch(1);
+            RecordingGateway gateway = new RecordingGateway() {
+                private Result oldResult() {
+                    entered.countDown();
+                    while (release.getCount() > 0) try { release.await(); } catch (InterruptedException ignored) { interrupted.countDown(); }
+                    returned.countDown();
+                    return message("old");
+                }
+                @Override public Result search(Site site, String keyword, boolean quick, String page) {
+                    return pageFirst ? oldResult() : message("page");
+                }
+                @Override public Result detail(String key, String id) { return pageFirst ? message("detail") : oldResult(); }
+            };
+            SiteViewModel model = new SiteViewModel(gateway, keyword -> null);
+            try {
+                if (pageFirst) model.searchContent(Site.get("one", "One"), "query", false, "2");
+                else model.detailContent("one", "old");
+                assertTrue(entered.await(5, TimeUnit.SECONDS));
+                if (pageFirst) model.detailContent("one", "new");
+                else model.searchContent(Site.get("one", "One"), "query", false, "2");
+                String expected = pageFirst ? "detail" : "page";
+                await(model.getResult(), value -> expected.equals(value.getMsg()));
+                assertTrue("Superseded provider must be interrupted", interrupted.await(5, TimeUnit.SECONDS));
+                release.countDown();
+                assertTrue(returned.await(5, TimeUnit.SECONDS));
+                assertEquals(expected, model.getResult().getValue().getMsg());
+            } finally { release.countDown(); model.onCleared(); }
+        }
+    }
+
+    @Test public void laterPageReplacesEarlierPageEvenWhenTheProviderIgnoresInterruption() throws Exception {
+        CountDownLatch entered = new CountDownLatch(1);
+        CountDownLatch release = new CountDownLatch(1);
+        CountDownLatch returned = new CountDownLatch(1);
+        RecordingGateway gateway = new RecordingGateway() {
+            @Override public Result search(Site site, String keyword, boolean quick, String page) {
+                if (page.equals("2")) {
+                    entered.countDown(); awaitRelease(release); returned.countDown();
+                }
+                return message(page);
+            }
+        };
+        SiteViewModel model = new SiteViewModel(gateway, keyword -> null);
+        try {
+            Site site = Site.get("one", "One");
+            model.searchContent(site, "query", false, "2");
+            assertTrue(entered.await(5, TimeUnit.SECONDS));
+            model.searchContent(site, "query", false, "3");
+            await(model.getResult(), value -> value.getMsg().equals("3"));
+            release.countDown();
+            assertTrue(returned.await(5, TimeUnit.SECONDS));
+            assertEquals("3", model.getResult().getValue().getMsg());
+        } finally { release.countDown(); model.onCleared(); }
+    }
+
+    @Test public void pagingAndOtherResultsShareTheSameQueuedPublicationOwnership() throws Exception {
+        for (boolean pageFirst : List.of(false, true)) {
+            java.util.concurrent.BlockingQueue<Runnable> queue = new java.util.concurrent.LinkedBlockingQueue<>();
+            androidx.arch.core.executor.ArchTaskExecutor.getInstance().setDelegate(new androidx.arch.core.executor.TaskExecutor() {
+                @Override public void executeOnDiskIO(Runnable action) { action.run(); }
+                @Override public void postToMainThread(Runnable action) { queue.add(action); }
+                @Override public boolean isMainThread() { return true; }
+            });
+            SiteViewModel model = new SiteViewModel(new RecordingGateway(), keyword -> null);
+            try {
+                Site site = Site.get("one", "One");
+                if (pageFirst) model.searchContent(site, "query", false, "2"); else model.detailContent("one", "id");
+                Runnable old = queue.poll(5, TimeUnit.SECONDS);
+                assertTrue("Initial result was not queued", old != null);
+                if (pageFirst) model.detailContent("one", "id"); else model.searchContent(site, "query", false, "3");
+                Runnable fresh = queue.poll(5, TimeUnit.SECONDS);
+                assertTrue("Replacement result was not queued", fresh != null);
+                old.run();
+                assertTrue("Old queued result escaped request ownership", model.getResult().getValue() == null);
+                fresh.run();
+                assertEquals(pageFirst ? "detail" : "search", model.getResult().getValue().getMsg());
+            } finally { model.onCleared(); androidx.arch.core.executor.ArchTaskExecutor.getInstance().setDelegate(null); }
+        }
+    }
+
+    @Test public void pagingDoesNotCancelAnIndependentAllSourceBatch() throws Exception {
+        CountDownLatch entered = new CountDownLatch(1);
+        CountDownLatch release = new CountDownLatch(1);
+        RecordingGateway gateway = new RecordingGateway() {
+            @Override public Result search(Site site, String keyword, boolean quick, String page) {
+                if (keyword.equals("batch")) { entered.countDown(); awaitRelease(release); }
+                return message(keyword);
+            }
+        };
+        SiteViewModel model = new SiteViewModel(gateway, keyword -> null);
+        try {
+            Site site = Site.get("one", "One");
+            model.searchContent(List.of(site), "batch", false);
+            assertTrue(entered.await(5, TimeUnit.SECONDS));
+            model.searchContent(site, "page", false, "2");
+            await(model.getResult(), value -> value.getMsg().equals("page"));
+            release.countDown();
+            await(model.getSearch(), value -> value.getMsg().equals("batch"));
+            awaitValue(model.getSearchProgress(), SearchProgress.ProgressInfo::isComplete);
+        } finally { release.countDown(); model.onCleared(); }
+    }
+
+    @Test public void stopAndClearCancelPagingWithoutPublishingAnEmptyOrErrorResult() throws Exception {
+        for (boolean clear : List.of(false, true)) {
+            CountDownLatch entered = new CountDownLatch(1);
+            CountDownLatch stopped = new CountDownLatch(1);
+            RecordingGateway gateway = new RecordingGateway() {
+                @Override public Result search(Site site, String keyword, boolean quick, String page) {
+                    entered.countDown();
+                    try { new CountDownLatch(1).await(); return message("late"); }
+                    catch (InterruptedException expected) { throw new java.util.concurrent.CancellationException(); }
+                    finally { stopped.countDown(); }
+                }
+            };
+            SiteViewModel model = new SiteViewModel(gateway, keyword -> null);
+            try {
+                model.searchContent(Site.get("one", "One"), "query", false, "2");
+                assertTrue(entered.await(5, TimeUnit.SECONDS));
+                if (clear) model.onCleared(); else model.stopSearch();
+                assertTrue(stopped.await(5, TimeUnit.SECONDS));
+                assertNull(model.getResult().getValue());
+            } finally { model.onCleared(); }
+        }
+    }
+
+    @Test public void pagingKeepsUsefulProviderErrorsAndEmptyResponsesOnTheResultChannel() throws Exception {
+        RecordingGateway gateway = new RecordingGateway() {
+            @Override public Result search(Site site, String keyword, boolean quick, String page) {
+                if (page.equals("2")) throw new IllegalStateException("page request failed");
+                return Result.empty();
+            }
+        };
+        SiteViewModel model = new SiteViewModel(gateway, keyword -> null);
+        try {
+            Site site = Site.get("one", "One");
+            model.searchContent(site, "query", false, "2");
+            await(model.getResult(), value -> value.getMsg().equals("page request failed"));
+            model.searchContent(site, "query", false, "3");
+            Result empty = await(model.getResult(), value -> value.getMsg().isEmpty());
+            assertTrue(empty.getList().isEmpty());
+            assertNull(model.getSearch().getValue());
+        } finally { model.onCleared(); }
+    }
+
+    @Test public void providerCancellationDuringPagingRemainsSilent() throws Exception {
+        java.util.Queue<Runnable> queue = new java.util.concurrent.ConcurrentLinkedQueue<>();
+        CountDownLatch queued = new CountDownLatch(1);
+        androidx.arch.core.executor.ArchTaskExecutor.getInstance().setDelegate(new androidx.arch.core.executor.TaskExecutor() {
+            @Override public void executeOnDiskIO(Runnable action) { action.run(); }
+            @Override public void postToMainThread(Runnable action) { queue.add(action); queued.countDown(); }
+            @Override public boolean isMainThread() { return true; }
+        });
+        RecordingGateway gateway = new RecordingGateway() {
+            @Override public Result search(Site site, String keyword, boolean quick, String page) {
+                throw new java.util.concurrent.CancellationException("provider cancelled");
+            }
+        };
+        SiteViewModel model = new SiteViewModel(gateway, keyword -> null);
+        try {
+            model.searchContent(Site.get("one", "One"), "query", false, "2");
+            assertTrue(queued.await(5, TimeUnit.SECONDS));
+            Runnable action;
+            while ((action = queue.poll()) != null) action.run();
+            assertTrue("Cancellation became a visible error", model.getResult().getValue() == null);
+        } finally { model.onCleared(); androidx.arch.core.executor.ArchTaskExecutor.getInstance().setDelegate(null); }
+    }
+
+    @Test public void queuedPagingFailureCannotOverwriteItsSuccessfulReplacement() throws Exception {
+        java.util.concurrent.BlockingQueue<Runnable> queue = new java.util.concurrent.LinkedBlockingQueue<>();
+        androidx.arch.core.executor.ArchTaskExecutor.getInstance().setDelegate(new androidx.arch.core.executor.TaskExecutor() {
+            @Override public void executeOnDiskIO(Runnable action) { action.run(); }
+            @Override public void postToMainThread(Runnable action) { queue.add(action); }
+            @Override public boolean isMainThread() { return true; }
+        });
+        RecordingGateway gateway = new RecordingGateway() {
+            @Override public Result search(Site site, String keyword, boolean quick, String page) {
+                if (page.equals("2")) throw new IllegalStateException("old page failure");
+                return message("fresh page");
+            }
+        };
+        SiteViewModel model = new SiteViewModel(gateway, keyword -> null);
+        try {
+            Site site = Site.get("one", "One");
+            model.searchContent(site, "query", false, "2");
+            Runnable stale = queue.poll(5, TimeUnit.SECONDS);
+            assertTrue(stale != null);
+            model.searchContent(site, "query", false, "3");
+            Runnable fresh = queue.poll(5, TimeUnit.SECONDS);
+            assertTrue(fresh != null);
+            fresh.run();
+            stale.run();
+            assertEquals("fresh page", model.getResult().getValue().getMsg());
+        } finally { model.onCleared(); androidx.arch.core.executor.ArchTaskExecutor.getInstance().setDelegate(null); }
+    }
+
+    @Test public void pagingQueuedForMainCannotPublishAfterStopSearch() throws Exception {
+        java.util.Queue<Runnable> queue = new java.util.concurrent.ConcurrentLinkedQueue<>();
+        CountDownLatch queued = new CountDownLatch(1);
+        androidx.arch.core.executor.ArchTaskExecutor.getInstance().setDelegate(new androidx.arch.core.executor.TaskExecutor() {
+            @Override public void executeOnDiskIO(Runnable action) { action.run(); }
+            @Override public void postToMainThread(Runnable action) { queue.add(action); queued.countDown(); }
+            @Override public boolean isMainThread() { return true; }
+        });
+        SiteViewModel model = new SiteViewModel(new RecordingGateway(), keyword -> null);
+        try {
+            model.searchContent(Site.get("one", "One"), "query", false, "2");
+            assertTrue(queued.await(5, TimeUnit.SECONDS));
+            model.stopSearch();
+            Runnable action;
+            while ((action = queue.poll()) != null) action.run();
+            assertTrue("Stopped page was delivered", model.getResult().getValue() == null);
+        } finally { model.onCleared(); androidx.arch.core.executor.ArchTaskExecutor.getInstance().setDelegate(null); }
+    }
 
     @Test
     public void initClearsAllPublishedResultChannels() {
@@ -210,7 +514,7 @@ public class SiteViewModelTest {
         };
         SiteViewModel viewModel = new SiteViewModel(gateway, keyword -> null);
 
-        viewModel.searchContent(List.of(first, second), "fixture", false);
+        viewModel.searchContent(List.of(first, first, second), "fixture", false);
         SearchProgress.ProgressInfo progress = awaitValue(viewModel.getSearchProgress(), SearchProgress.ProgressInfo::isComplete);
         assertEquals(2, progress.getCompleted());
         assertEquals(2, progress.getTotal());
@@ -299,7 +603,7 @@ public class SiteViewModelTest {
             model.searchContent(List.of(Site.get("one", "One")), "fixture", false);
             synchronized (model) {
                 assertTrue(requests(model, "futures").isEmpty());
-                assertTrue(((List<?>) field(model, "searchFuture")).isEmpty());
+                assertEquals(0, ((com.wuming.tv.core.search.SearchLifecycle<?, ?>) field(model, "searchLifecycle")).outstandingCount());
             }
             assertEquals(1, gateway.playerCalls.get());
             assertEquals(0, gateway.homeCalls.get());
@@ -349,7 +653,7 @@ public class SiteViewModelTest {
             release.countDown();
             assertTrue(finished.await(2, TimeUnit.SECONDS));
             synchronized (model) {
-                assertTrue(((List<?>) field(model, "searchFuture")).isEmpty());
+                assertEquals(0, ((com.wuming.tv.core.search.SearchLifecycle<?, ?>) field(model, "searchLifecycle")).outstandingCount());
             }
             assertEquals(0, gateway.searchCalls.get());
             assertNull(model.getSearch().getValue());
@@ -386,7 +690,7 @@ public class SiteViewModelTest {
             allowFanOut.countDown();
             assertTrue(fanOutFinished.await(2, TimeUnit.SECONDS));
             synchronized (model) {
-                assertTrue(((List<?>) field(model, "searchFuture")).isEmpty());
+                assertEquals(0, ((com.wuming.tv.core.search.SearchLifecycle<?, ?>) field(model, "searchLifecycle")).outstandingCount());
             }
             assertEquals(0, gateway.searchCalls.get());
         } finally {
