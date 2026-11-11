@@ -206,7 +206,7 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         mFrameParams = mBinding.video.getLayoutParams();
-        ResUtil.scalePlayerOverlay(mBinding.videoInfo, mBinding.videoClock);
+
         mClock = Clock.create(mBinding.widget.clock);
         mVideoClock = Clock.create(mBinding.videoClock).format("HH:mm");
         mKeyDown = CustomKeyDownVod.create(this);
@@ -740,10 +740,10 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
     }
 
     private void showInfo() {
-        mBinding.widget.top.setVisibility(View.VISIBLE);
+        // Keep the same top row through pause/INFO; only the centre controls change.
+        mBinding.widget.top.setVisibility(View.GONE);
         mBinding.widget.center.setVisibility(View.VISIBLE);
-        mBinding.videoInfo.setVisibility(View.GONE);
-        mBinding.videoClock.setVisibility(View.GONE);
+        updateVideoInfo();
         mBinding.widget.duration.setText(player().getDurationTime());
         mBinding.widget.position.setText(player().getPositionTime(0));
     }
@@ -1056,6 +1056,7 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
     @Override
     protected void onStart() {
         super.onStart();
+        com.wuming.android.tv.ui.PlaybackTextSize.apply(mBinding.videoInfo, mBinding.videoClock);
         mClock.stop().start();
         mVideoClock.stop().start();
     }

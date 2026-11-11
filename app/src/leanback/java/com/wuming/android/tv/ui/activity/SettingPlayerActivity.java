@@ -73,6 +73,7 @@ public class SettingPlayerActivity extends BaseActivity implements UaCallback, B
         SettingsOperations.setToggleState(mBinding.changeText, DisplaySettings.isChange());
         SettingsOperations.setToggleState(mBinding.invertText, DisplaySettings.isInvert());
         mBinding.videoInfoText.setText(getVideoInfoMode());
+        mBinding.playbackTextSizeText.setText(com.wuming.android.tv.ui.PlaybackTextSize.percent() + "%");
         SettingsOperations.setToggleState(mBinding.bootLiveText, AppSettings.isBootLive());
         SettingsOperations.setToggleState(mBinding.zhuyinText, DisplaySettings.isZhuyin());
         mBinding.scaleText.setText((scale = ResUtil.getStringArray(R.array.select_scale))[DisplaySettings.getScale()]);
@@ -104,6 +105,16 @@ public class SettingPlayerActivity extends BaseActivity implements UaCallback, B
         mBinding.change.setOnClickListener(this::setChange);
         mBinding.invert.setOnClickListener(this::setInvert);
         mBinding.videoInfo.setOnClickListener(this::setVideoInfo);
+        mBinding.playbackTextSize.setOnClickListener(view -> {
+            String[] choices = {"40%", "60%", "80%", "100%", "120%", "140%", "160%"};
+            new TvAlertDialogBuilder(this).setTitle(R.string.player_overlay_text_size)
+                .setSingleChoiceItems(choices, (com.wuming.android.tv.ui.PlaybackTextSize.percent() - 40) / 20,
+                    (dialog, which) -> {
+                        com.wuming.android.tv.ui.PlaybackTextSize.save(40 + which * 20);
+                        mBinding.playbackTextSizeText.setText(com.wuming.android.tv.ui.PlaybackTextSize.percent() + "%");
+                        dialog.dismiss();
+                    }).show();
+        });
         mBinding.bootLive.setOnClickListener(this::setBootLive);
         mBinding.zhuyin.setOnClickListener(this::setZhuyin);
         SettingsOperations.bindVideoNetworkSettings(
@@ -228,6 +239,7 @@ public class SettingPlayerActivity extends BaseActivity implements UaCallback, B
         int newMode = (currentMode + 1) % 4; // Cycle through 0, 1, 2, 3
         PlayerSettings.putVideoInfo(newMode);
         mBinding.videoInfoText.setText(getVideoInfoMode());
+        mBinding.playbackTextSizeText.setText(com.wuming.android.tv.ui.PlaybackTextSize.percent() + "%");
     }
 
     private void setBootLive(View view) {

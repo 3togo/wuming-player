@@ -163,7 +163,7 @@ public class LeanbackLiveActivity extends PlaybackActivity implements LeanbackGr
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        ResUtil.scalePlayerOverlay(mBinding.videoInfo, mBinding.videoClock);
+
         mLiveController = new LiveController(this);
         mPlaybackResources = new LivePlaybackResources(this, mBinding.widget.clock, mBinding.videoClock);
         mKeyDown = CustomKeyDownLive.create(this);
@@ -1114,6 +1114,7 @@ public class LeanbackLiveActivity extends PlaybackActivity implements LeanbackGr
     @Override
     protected void onStart() {
         super.onStart();
+        com.wuming.android.tv.ui.PlaybackTextSize.apply(mBinding.videoInfo, mBinding.videoClock);
         mPlaybackResources.clock().stop().start();
         mPlaybackResources.videoClock().stop().start();
     }

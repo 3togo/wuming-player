@@ -71,27 +71,39 @@
             <tag android:id="@id/tag_typography_role" android:value="caption" />
         </com.google.android.material.textview.MaterialTextView>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/videoInfo"
-            style="@style/VideoOverlay.Info"
-            android:layout_gravity="top|start"
-            android:layout_marginStart="@dimen/vs_12"
-            android:layout_marginTop="@dimen/vs_20"
-            tools:text="1920x1080 | H264 | Hard | 1.2 MB/s"
-            tools:visibility="visible" >
-            <tag android:id="@id/tag_typography_role" android:value="caption" />
-        </com.google.android.material.textview.MaterialTextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/videoClock"
-            style="@style/VideoOverlay.Clock"
-            android:layout_gravity="top|end"
-            android:layout_marginTop="@dimen/vs_20"
-            android:layout_marginEnd="@dimen/vs_12"
-            tools:text="09:20"
-            tools:visibility="visible" >
-            <tag android:id="@id/tag_typography_role" android:value="caption" />
-        </com.google.android.material.textview.MaterialTextView>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/videoInfo"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:layout_marginEnd="@dimen/vs_12"
+                style="@style/VideoOverlay.Info"
+                android:layout_width="@dimen/vs_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/vs_12"
+                android:layout_marginTop="@dimen/vs_20"
+                tools:text="1920x1080 | H264 | Hard | 1.2 MB/s"
+                tools:visibility="visible" >
+                <tag android:id="@id/tag_typography_role" android:value="caption" />
+            </com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/videoClock"
+                style="@style/VideoOverlay.Clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vs_20"
+                android:layout_marginEnd="@dimen/vs_12"
+                tools:text="09:20"
+                tools:visibility="visible" >
+                <tag android:id="@id/tag_typography_role" android:value="caption" />
+            </com.google.android.material.textview.MaterialTextView>
+        </LinearLayout>
 
     </FrameLayout>
 
