@@ -1,7 +1,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- App -->
-    <string name="app_name">無名</string>
+    <string name="app_name">@string/edition_app_name</string>
 
     <!-- Live -->
     <string name="live_pass">密码</string>
@@ -700,4 +700,6 @@
     <string name="popup_config_history">配置历史</string>
     <string name="error_play_protocol_unsupported">此版本不支持此播放协议，请选择其他播放源。</string>
     <string name="episode_nearby">附近剧集</string>
+    <string name="vod_source_not_selected">请选择点播源</string>
+    <string name="cloud_credentials_directory_unavailable">无法打开凭据备份文件夹，请检查存储访问权限。</string>
 </resources>

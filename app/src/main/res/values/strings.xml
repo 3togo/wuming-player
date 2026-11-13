@@ -1,7 +1,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- App -->
-    <string name="app_name">無名</string>
+    <string name="app_name">@string/edition_app_name</string>
 
     <!-- Live -->
     <string name="live_pass">Pass</string>
@@ -719,4 +719,7 @@
     <string name="popup_config_history">Configuration history</string>
     <string name="error_play_protocol_unsupported">This playback protocol is not supported in this build. Choose another source.</string>
     <string name="episode_nearby">Nearby episodes</string>
+    <string name="backup_storage_name" translatable="false">無名</string>
+    <string name="vod_source_not_selected">Select a source</string>
+    <string name="cloud_credentials_directory_unavailable">Could not open the credential backup folder. Check storage access.</string>
 </resources>

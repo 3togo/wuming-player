@@ -8,5 +8,8 @@
     "https",
     "video"
   ],
-  "desktopPackage": "tvbox-desktop"
+  "desktopPackage": "tvbox-desktop",
+  "displayName": "無名 🌐",
+  "androidBanner": "ic_banner_public",
+  "androidIcon": "ic_launcher_public"
 }

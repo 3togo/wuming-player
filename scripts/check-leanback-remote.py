@@ -6,6 +6,7 @@ async loading, playback, third-party websites, or device-specific behavior.
 """
 from pathlib import Path
 import re
+import json
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -147,8 +148,17 @@ for locale in ('values', 'values-zh-rCN', 'values-zh-rTW'):
     for source in ('main', 'verification'):
         root = ET.parse(ROOT / 'app/src' / source / 'res' / locale / 'strings.xml').getroot()
         names.append(next(node.text for node in root.findall('string') if node.get('name') == 'app_name'))
-    if names != ['無名', '無名(testing)']:
+    if names != ['@string/edition_app_name', '@string/edition_testing_name']:
         errors.append(f'{locale}: normal and testing app labels must remain distinct')
+edition = json.loads((ROOT / 'gradle/edition-defaults.json').read_text())
+if (ROOT / 'edition.json').exists():
+    edition.update(json.loads((ROOT / 'edition.json').read_text()))
+if not edition.get('displayName', '').strip():
+    errors.append('Edition must supply a visible application name')
+if not (ROOT / 'app/src/leanback/res/drawable' / (edition['androidBanner'] + '.xml')).is_file():
+    errors.append('Edition must supply a TV launcher banner')
+if not (ROOT / 'app/src/main/res/mipmap-anydpi-v26' / (edition['androidIcon'] + '.xml')).is_file():
+    errors.append('Edition must supply a launcher icon')
 if errors:
     raise SystemExit('\n'.join(errors))
 print(f'PASS: {len(layouts)} effective layouts, {focus_count} explicit focus targets, '

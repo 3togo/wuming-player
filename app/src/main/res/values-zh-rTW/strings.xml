@@ -1,7 +1,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- App -->
-    <string name="app_name">無名</string>
+    <string name="app_name">@string/edition_app_name</string>
 
     <!-- Live -->
     <string name="live_pass">密碼</string>
@@ -672,4 +672,6 @@
     <string name="popup_config_history">配置歷史</string>
     <string name="error_play_protocol_unsupported">此版本不支援此播放協定，請選擇其他播放來源。</string>
     <string name="episode_nearby">附近劇集</string>
+    <string name="vod_source_not_selected">請選擇點播源</string>
+    <string name="cloud_credentials_directory_unavailable">無法開啟憑證備份資料夾，請檢查儲存空間存取權限。</string>
 </resources>

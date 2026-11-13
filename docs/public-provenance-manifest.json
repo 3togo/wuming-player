@@ -533,7 +533,7 @@
   "supportingArtifacts": [
     {
       "path": "app/build.gradle",
-      "sha256": "a9131e7df42c12865f07a208b0fd8348bf4af5eb12287be6dd2f3454d815e169"
+      "sha256": "f087153893efaeb623ed0fb8d87297aeaabd3caecf7a82325629d035ced952cf"
     },
     {
       "path": "app/src/androidTest/assets/cast-remux/README.md",
@@ -1161,7 +1161,7 @@
     },
     {
       "path": "desktop/build.gradle",
-      "sha256": "bfc0c06653e30e700bcfcb2d7c4bc2e1ea7962862928757d202c61a671079576"
+      "sha256": "ef87baf43f55e017ea3cceb0a30ad877a74a448757869f44779ff1c991b67c5d"
     },
     {
       "path": "docs/public-maven-inventory.json",
@@ -1289,7 +1289,7 @@
     },
     {
       "path": "libraries/search-core/build.gradle",
-      "sha256": "b708da1ce8131d645362867bc710a85fbc8f97e133e5ab545de18229fe29dcf7"
+      "sha256": "069e6861876cd28b93f224603d95cc6edc85107d0828f03bce15285a197e8223"
     },
     {
       "path": "libraries/source-core/build.gradle",
@@ -2917,11 +2917,11 @@
     },
     {
       "path": "gradle/edition.gradle",
-      "sha256": "c9457f42645cfd9594fa6c4286b09cd55fb06eef9be540e75e969a46a3e78c15"
+      "sha256": "fe17c7c40e2e5ea2c35324056edcd3f10a9ae65923c7f27bb87a44d12a31cd8d"
     },
     {
       "path": "gradle/edition-defaults.json",
-      "sha256": "cb34c2bbac1f4018aba6e9dddaa0b01ae2b1297fbd219c24f81a3b101a1da87f"
+      "sha256": "4d2b75630a9dbf4c2b9e21bbca981bd231e3ef2ea1f1cfb417142357247d4ee6"
     },
     {
       "path": "libraries/libvio-core/build.gradle",

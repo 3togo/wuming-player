@@ -75,13 +75,17 @@ android {
 
     defaultConfig {
         applicationId rootProject.ext.wumingEdition.applicationId
+        resValue "string", "edition_app_name", rootProject.ext.wumingEdition.displayName
+        resValue "string", "edition_testing_name", "${rootProject.ext.wumingEdition.displayName} (testing)"
+        manifestPlaceholders["editionIcon"] = "@mipmap/${rootProject.ext.wumingEdition.androidIcon}"
+        manifestPlaceholders["editionBanner"] = "@drawable/${rootProject.ext.wumingEdition.androidBanner}"
         buildConfigField "String", "EDITION_EXTENSION", groovy.json.JsonOutput.toJson(rootProject.ext.wumingEdition.androidExtension)
         minSdk 26
         targetSdk 37
         testInstrumentationRunner "com.wuming.android.tv.ui.ForegroundSmokeRunner"
         // Debug/testing hook: SettingActivity is exported (so a script can open the Depot dialog
         // directly) only in debug/verification builds; release stays non-exported.
-        manifestPlaceholders = [settingActivityDebugExported: "false"]
+        manifestPlaceholders["settingActivityDebugExported"] = "false"
         versionCode updateSettings.versionCode as int
         versionName "${updateSettings.versionName}(${versionStamp})"
         buildConfigField "String", "UPDATE_REPOSITORY", groovy.json.JsonOutput.toJson(updateSettings.repository)
@@ -132,6 +136,7 @@ android {
 
     buildFeatures {
         buildConfig = true
+        resValues = true
         viewBinding = true
     }
 
