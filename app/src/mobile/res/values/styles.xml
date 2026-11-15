@@ -47,6 +47,7 @@
         <item name="selectionElevation">@color/selection_elevation</item>
         <item name="selectionCorner">@dimen/vs_4</item>
 
+        <item name="videoPreviewFocusOutline">@color/white</item>
         <!-- Focus state tokens -->
         <item name="focusOutline">@color/focus_outline</item>
         <item name="focusOutlineWidth">@dimen/vs_2</item>

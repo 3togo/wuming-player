@@ -101,6 +101,7 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
     private Runnable mUpdateFocusRunnable;
     private Runnable mSetTrafficRunnable;
     private View mFocus1;
+    private android.graphics.drawable.Drawable mPreviewBorder;
     private View mFocus2;
 
     public static void cast(Activity activity, History history) {
@@ -541,6 +542,7 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
     protected void enterFullscreen() {
         mFocus1 = getCurrentFocus();
         mBinding.video.requestFocus();
+        if (mPreviewBorder == null) mPreviewBorder = mBinding.video.getForeground();
         mBinding.video.setForeground(null);
         mBinding.video.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
         int flagPos = mFlagAdapter.getPosition();
@@ -554,7 +556,11 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
 
     @Override
     protected void exitFullscreen() {
-        mBinding.video.setForeground(ResUtil.getDrawable(R.drawable.selector_video));
+        // Restore the border drawable captured at enterFullscreen. Inflating through
+        // ResUtil.getDrawable would resolve the selector's ?attr strokes against the
+        // application theme, which does not carry the activity's focus tokens, leaving
+        // the widget's black background visible as the focused border.
+        mBinding.video.setForeground(mPreviewBorder);
         mBinding.video.setLayoutParams(mFrameParams);
         getFocus1().requestFocus();
         mKeyDown.setFull(false);
