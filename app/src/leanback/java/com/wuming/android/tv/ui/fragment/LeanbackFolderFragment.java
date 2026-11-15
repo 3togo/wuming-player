@@ -105,11 +105,12 @@ public class LeanbackFolderFragment extends BaseFragment {
     }
 
     public void toggleFilter(boolean visible) {
-        Optional.ofNullable(getChild()).ifPresent(f -> f.toggleFilter(visible));
+        getType().setFilter(visible);
+        if (isAdded()) Optional.ofNullable(getChild()).ifPresent(f -> f.toggleFilter(visible));
     }
 
     public void onRefresh() {
-        Optional.ofNullable(getChild()).ifPresent(LeanbackTypeFragment::onRefresh);
+        if (isAdded()) Optional.ofNullable(getChild()).ifPresent(LeanbackTypeFragment::onRefresh);
     }
 
     public boolean canBack() {

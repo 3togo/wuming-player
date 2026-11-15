@@ -180,6 +180,11 @@ public class LeanbackTypeFragment extends BaseFragment implements CustomScroller
             setRecyclerView();
             setViewModel();
             setFilters();
+            // A tab click may precede the asynchronous folder/child transaction.
+            // Recover the requested state when this view is finally ready.
+            filterVisible = false;
+            toggleFilter(!isNested() && getParentFragment() instanceof LeanbackFolderFragment
+                    && getParent().getType().getFilter());
             getVideo();
             mDataInitialized = true;
         }
@@ -266,7 +271,7 @@ public class LeanbackTypeFragment extends BaseFragment implements CustomScroller
                 !currentKey.equals(mPendingVodFocusKey)) {
             mPendingVodFocusKey = null;
         }
-        mBinding.progressLayout.showContent(first & flag, size);
+        mBinding.progressLayout.showContent(first && flag && !filterVisible, size);
         mBinding.swipeLayout.setRefreshing(false);
         mScroller.endLoading(result);
         if (size > 0) addVideo(result);
@@ -341,9 +346,15 @@ public class LeanbackTypeFragment extends BaseFragment implements CustomScroller
     }
 
     public void toggleFilter(boolean visible) {
-        if (mFilters.isEmpty()) return;
+        if (mBinding == null || mAdapter == null || mFilters.isEmpty() || filterVisible == visible) return;
         this.filterVisible = visible;
-        if (visible) showFilter();
+        if (visible) {
+            // Opening the options takes precedence over restoring a video card
+            // after the category refresh triggered by the same tab click.
+            mPendingVodFocusKey = null;
+            showFilter();
+            mBinding.progressLayout.showContent();
+        }
         else hideFilter();
     }
 
@@ -356,7 +367,9 @@ public class LeanbackTypeFragment extends BaseFragment implements CustomScroller
     }
 
     public void onRefresh() {
-        if (mBinding != null) {
+        // The initial load will run when the lazily initialized page resumes.
+        if (mViewModel == null || mAdapter == null) return;
+        if (mBinding != null && !filterVisible) {
             String focusedKey = GridFocusRestorer.captureVodKey(mBinding.recycler);
             if (focusedKey != null) {
                 mPendingVodFocusKey = focusedKey;
