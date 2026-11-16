@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.text.InputType;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -297,7 +298,7 @@ public class CloudStorageActivity extends BaseActivity implements OpenDriveAccou
     private void showExportPassphrase() {
         LinearLayout fields = passphraseFields(true);
         EditText password = (EditText) fields.getChildAt(1);
-        EditText confirmation = (EditText) fields.getChildAt(2);
+        android.widget.CheckBox reveal = (android.widget.CheckBox) fields.getChildAt(2);
         androidx.appcompat.app.AlertDialog dialog = new TvAlertDialogBuilder(this, R.style.DarkDialogStyle)
                 .setTitle(R.string.cloud_credentials_export_title)
                 .setView(fields)
@@ -306,30 +307,25 @@ public class CloudStorageActivity extends BaseActivity implements OpenDriveAccou
                 .setPositiveButton(R.string.cloud_credentials_export, null)
                 .create();
         dialog.setOnShowListener(ignored -> {
-            com.wuming.android.tv.utils.TvDialogFocus.form(dialog, password, confirmation);
-            configureClearPassword(dialog, password, confirmation);
+            com.wuming.android.tv.utils.TvDialogFocus.form(dialog, password);
+            configureClearPassword(dialog, password);
+            wireRevealToggle(dialog, password, reveal);
             dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
                     String value = password.getText().toString();
                     if (value.length() < 8) {
                         password.setError(getString(R.string.cloud_credentials_passphrase_short));
-                    } else if (!value.contentEquals(confirmation.getText())) {
-                        confirmation.setError(getString(R.string.cloud_credentials_passphrase_mismatch));
                     } else {
                         android.net.Uri uri = pendingExportUri;
                         pendingExportUri = null;
                         char[] passphrase = value.toCharArray();
                         password.getText().clear();
-                        confirmation.getText().clear();
                         dialog.dismiss();
                         Task.submitLarge(() -> exportCredentials(uri, passphrase));
                     }
                 });
         });
         dialog.setOnCancelListener(ignored -> pendingExportUri = null);
-        dialog.setOnDismissListener(ignored -> {
-            password.getText().clear();
-            confirmation.getText().clear();
-        });
+        dialog.setOnDismissListener(ignored -> password.getText().clear());
         passphraseDialog = dialog;
         dialog.show();
     }
@@ -337,6 +333,7 @@ public class CloudStorageActivity extends BaseActivity implements OpenDriveAccou
     private void showImportPassphrase() {
         LinearLayout fields = passphraseFields(false);
         EditText password = (EditText) fields.getChildAt(1);
+        android.widget.CheckBox reveal = (android.widget.CheckBox) fields.getChildAt(2);
         androidx.appcompat.app.AlertDialog dialog = new TvAlertDialogBuilder(this, R.style.DarkDialogStyle)
                 .setTitle(R.string.cloud_credentials_import_title)
                 .setView(fields)
@@ -347,6 +344,7 @@ public class CloudStorageActivity extends BaseActivity implements OpenDriveAccou
         dialog.setOnShowListener(ignored -> {
             com.wuming.android.tv.utils.TvDialogFocus.form(dialog, password);
             configureClearPassword(dialog, password);
+            wireRevealToggle(dialog, password, reveal);
             dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
                     String value = password.getText().toString();
                     if (value.length() < 8) {
@@ -385,26 +383,70 @@ public class CloudStorageActivity extends BaseActivity implements OpenDriveAccou
         }
     }
 
-    private LinearLayout passphraseFields(boolean confirmation) {
+    private LinearLayout passphraseFields(boolean export) {
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
         int padding = getResources().getDimensionPixelSize(R.dimen.vs_24);
         layout.setPadding(padding, 0, padding, 0);
         android.widget.TextView warning = new android.widget.TextView(this);
-        warning.setText(confirmation ? R.string.cloud_credentials_export_warning
+        warning.setText(export ? R.string.cloud_credentials_export_warning
                 : R.string.cloud_credentials_import_warning);
         warning.setTextColor(getColor(R.color.white_80));
         layout.addView(warning, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         EditText password = passwordField(R.string.cloud_credentials_passphrase);
-        if (confirmation) password.setText(DEFAULT_BACKUP_PASSPHRASE);
+        if (export) password.setText(DEFAULT_BACKUP_PASSPHRASE);
         layout.addView(password);
-        if (confirmation) {
-            EditText repeat = passwordField(R.string.cloud_credentials_confirm_passphrase);
-            repeat.setText(DEFAULT_BACKUP_PASSPHRASE);
-            layout.addView(repeat);
-        }
+        // The passphrase is visible by default so the user can read what the remote types;
+        // the toggle hides it again. Reading it back replaces the old double-entry check.
+        android.widget.CheckBox reveal = new android.widget.CheckBox(this);
+        reveal.setText(R.string.cloud_credentials_show_password);
+        reveal.setChecked(true);
+        reveal.setSaveEnabled(false);
+        layout.addView(reveal, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        applyPasswordVisibility(password, reveal);
+        reveal.setOnCheckedChangeListener((button, checked) -> applyPasswordVisibility(password, reveal));
         return layout;
+    }
+
+    private void applyPasswordVisibility(EditText password, android.widget.CheckBox reveal) {
+        int selection = password.getSelectionEnd();
+        int type = reveal.isChecked()
+                ? InputType.TYPE_CLASS_TEXT
+                : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
+        password.setInputType(type);
+        password.setSelection(Math.min(selection, password.getText().length()));
+    }
+
+    /**
+     * Keeps the reveal toggle inside the dialog's remote focus loop: field -> toggle ->
+     * positive button, with the toggle reachable upward from the button row.
+     */
+    private void wireRevealToggle(androidx.appcompat.app.AlertDialog dialog,
+                                  EditText password, android.widget.CheckBox reveal) {
+        if (!Util.isLeanback()) return;
+        if (reveal.getId() == View.NO_ID) reveal.setId(View.generateViewId());
+        if (password.getId() == View.NO_ID) password.setId(View.generateViewId());
+        android.widget.Button positive = dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE);
+        android.widget.Button negative = dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE);
+        reveal.setFocusable(true);
+        reveal.setFocusableInTouchMode(true);
+        reveal.setNextFocusUpId(password.getId());
+        reveal.setNextFocusDownId(positive.getId());
+        password.setNextFocusDownId(reveal.getId());
+        positive.setNextFocusUpId(reveal.getId());
+        negative.setNextFocusUpId(reveal.getId());
+        android.view.View.OnKeyListener remote = (view, keyCode, event) -> {
+            if (keyCode != android.view.KeyEvent.KEYCODE_DPAD_UP
+                    && keyCode != android.view.KeyEvent.KEYCODE_DPAD_DOWN) return false;
+            if (event.getAction() == android.view.KeyEvent.ACTION_UP) return true;
+            android.view.View target = view.focusSearch(
+                    keyCode == android.view.KeyEvent.KEYCODE_DPAD_UP
+                            ? android.view.View.FOCUS_UP : android.view.View.FOCUS_DOWN);
+            return target != null && target != view && target.requestFocus();
+        };
+        reveal.setOnKeyListener(remote);
     }
 
     private EditText passwordField(int hint) {

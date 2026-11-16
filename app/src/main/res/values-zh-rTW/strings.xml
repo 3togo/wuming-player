@@ -563,6 +563,7 @@
     <string name="cloud_credentials_export_warning">儲存加密副本，以便重新安裝 TVBox 後還原。還原時需要此密碼片語。</string>
     <string name="cloud_credentials_import_warning">匯入將取代此裝置上目前儲存的所有雲端硬碟、Bilibili 與連接器憑證。</string>
     <string name="cloud_credentials_passphrase_short">請至少輸入 8 個字元。</string>
+    <string name="cloud_credentials_show_password">顯示密碼</string>
     <string name="cloud_credentials_passphrase_mismatch">兩次輸入的密碼片語不相符。</string>
     <string name="cloud_credentials_none">沒有可匯出的帳號憑證。</string>
     <string name="cloud_credentials_exported">已匯出 %1$d 筆受保護的憑證。</string>

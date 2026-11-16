@@ -284,6 +284,7 @@
     <string name="cloud_credentials_export_warning">Save an encrypted copy for reinstalling TVBox. You will need this passphrase to restore it.</string>
     <string name="cloud_credentials_import_warning">Importing replaces all cloud drive, Bilibili and connector credentials currently stored on this device.</string>
     <string name="cloud_credentials_passphrase_short">Use at least 8 characters.</string>
+    <string name="cloud_credentials_show_password">Show passphrase</string>
     <string name="cloud_credentials_passphrase_mismatch">Passphrases do not match.</string>
     <string name="cloud_credentials_none">There are no account credentials to export.</string>
     <string name="cloud_credentials_exported">Exported %1$d protected credential entries.</string>

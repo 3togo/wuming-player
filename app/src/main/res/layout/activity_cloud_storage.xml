@@ -134,19 +134,10 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/vs_0"
-            android:layout_marginTop="@dimen/vs_8"
-            android:layout_weight="1"
-            android:clipToPadding="false"
-            android:paddingBottom="@dimen/vs_8" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/vs_8"
+            android:layout_marginTop="@dimen/vs_16"
             android:orientation="horizontal">
 
             <Button
@@ -179,6 +170,15 @@
             </Button>
 
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/vs_0"
+            android:layout_marginTop="@dimen/vs_8"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/vs_8" />
 
         <Button
             android:id="@+id/connectors"

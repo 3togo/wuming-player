@@ -591,6 +591,7 @@
     <string name="cloud_credentials_export_warning">保存加密副本，以便重新安装 TVBox 后恢复。恢复时需要此密码短语。</string>
     <string name="cloud_credentials_import_warning">导入将替换此设备上当前保存的所有云盘、Bilibili 和连接器凭据。</string>
     <string name="cloud_credentials_passphrase_short">请至少输入 8 个字符。</string>
+    <string name="cloud_credentials_show_password">显示密码</string>
     <string name="cloud_credentials_passphrase_mismatch">两次输入的密码短语不一致。</string>
     <string name="cloud_credentials_none">没有可导出的账号凭据。</string>
     <string name="cloud_credentials_exported">已导出 %1$d 条受保护的凭据。</string>
