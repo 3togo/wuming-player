@@ -1,5 +1,10 @@
 {
-  "vod": [],
+  "vod": [
+    {
+      "name": "饭太硬",
+      "url": "http://www.饭太硬.net/tv"
+    }
+  ],
   "live": [
     {
       "name": "Open movie sample · CC BY 3.0",

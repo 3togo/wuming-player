@@ -126,7 +126,22 @@ internal object AccountCredentialBackupState {
         }
 
         OpenDriveTokenStore.clearLegacyCredentials()
+        mirrorCookieProviderSessions(vault)
         if (hasConnectors && DataCache.isReady()) DataCache.get().reload()
+    }
+
+    /**
+     * Spiders read netdisk sessions from the shared cookie jar, which mirrors the vault for
+     * cookie providers (see [AndroidCloudCredentialStore]). An archive whose COOKIES export was
+     * captured before a login — or exported empty — still carries the real sessions as vault
+     * tokens, so re-mirror them here or every netdisk source asks for a QR login after import.
+     */
+    private fun mirrorCookieProviderSessions(vault: Map<String, String>) {
+        for ((reference, credential) in vault) {
+            if (credential.isBlank()) continue
+            val provider = AndroidCloudCredentialStore.cookieProviderOf(reference) ?: continue
+            AndroidCloudCredentialStore.restoreCookieMirror(provider, credential)
+        }
     }
 
     private fun cookies(value: String): Map<String, String> {

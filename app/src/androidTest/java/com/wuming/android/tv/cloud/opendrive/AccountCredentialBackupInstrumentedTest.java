@@ -158,7 +158,11 @@ public class AccountCredentialBackupInstrumentedTest {
                     androidx.appcompat.app.AlertDialog dialog = passwordDialog(activity);
                     assertTrue(dialog.isShowing());
                     android.widget.EditText password = firstPassword(dialog.getWindow().getDecorView());
-                    assertEquals("", password.getText().toString());
+                    // Recreation intentionally restores the shared default export passphrase;
+                    // what must never survive is the password the user actually typed.
+                    String text = password.getText().toString();
+                    assertFalse(text.contains("do-not-persist-this"));
+                    assertFalse(text.isEmpty());
                 } catch (Exception error) {
                     throw new AssertionError(error);
                 }
@@ -199,6 +203,79 @@ public class AccountCredentialBackupInstrumentedTest {
                     "correct horse".toCharArray()));
             assertEquals(legacy, OpenDriveTokenVault.exportCredentials());
             assertEquals(previous.get("cookies"), AccountCredentialBackupState.capture().get("cookies"));
+        } finally {
+            AccountCredentialBackupState.restore(previous);
+            Files.deleteIfExists(file.toPath());
+        }
+    }
+
+    @Test
+    public void credentialFreeBackupIsRejectedWithoutChangingAnyAccountState() throws Exception {
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Map<String, String> previous = AccountCredentialBackupState.capture();
+        File file = new File(context.getCacheDir(), "credential-backup-empty.json");
+        Uri uri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", file);
+        try {
+            // A real-world trap: an archive captured before any login holds cookies and
+            // connectors but no credentials, decrypts fine, and used to wipe every login
+            // when imported. It must be refused while the device state stays untouched.
+            byte[] encoded = CredentialBackupCodec.encrypt(
+                    Map.of("cookies", "{}", "connectors", "[]"), "correct horse".toCharArray());
+            Files.write(file.toPath(), encoded);
+            assertThrows(IllegalArgumentException.class, () -> AccountCredentialBackup.importFrom(
+                    context.getContentResolver(), uri, "correct horse".toCharArray()));
+            assertEquals(previous, AccountCredentialBackupState.capture());
+        } finally {
+            Files.deleteIfExists(file.toPath());
+        }
+    }
+
+    @Test
+    public void exportWithoutCredentialsLeavesNoArchiveBehind() throws Exception {
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Map<String, String> previous = AccountCredentialBackupState.capture();
+        File file = new File(context.getCacheDir(), "credential-backup-export-empty.json");
+        Uri uri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", file);
+        try {
+            AccountCredentialBackupState.restore(Map.of("cookies", "{}", "connectors", "[]"));
+            char[] password = "correct horse".toCharArray();
+            assertEquals(0, AccountCredentialBackup.exportTo(context.getContentResolver(), uri, password));
+            assertArrayEquals(new char[password.length], password);
+            // A written empty archive could be imported later and erase every login, so
+            // an empty capture must not produce a file at all.
+            assertFalse(file.exists());
+        } finally {
+            AccountCredentialBackupState.restore(previous);
+            Files.deleteIfExists(file.toPath());
+        }
+    }
+
+    @Test
+    public void vaultCookieProviderTokensAreMirroredIntoTheJarOnImport() throws Exception {
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Map<String, String> previous = AccountCredentialBackupState.capture();
+        File file = new File(context.getCacheDir(), "credential-backup-mirror.json");
+        Uri uri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", file);
+        try {
+            // A real-world archive captured before the jar mirror existed: the COOKIES export
+            // is empty but the vault carries the netdisk session. Spiders read their sessions
+            // from the shared jar, so import must re-mirror cookie-provider vault tokens —
+            // otherwise every netdisk source asks for a QR login after a restore.
+            Map<String, String> payload = new LinkedHashMap<>();
+            payload.put("vault:opendrive/quark/token", "__pus=mirrored-secret; __puus=mirrored-puus");
+            payload.put("cookies", "{}");
+            payload.put("connectors", "[]");
+            byte[] encoded = CredentialBackupCodec.encrypt(payload, "correct horse".toCharArray());
+            Files.write(file.toPath(), encoded);
+            assertEquals(1, AccountCredentialBackup.importFrom(context.getContentResolver(), uri,
+                    "correct horse".toCharArray()));
+            okhttp3.Cookie mirrored = null;
+            for (Cookie cookie : PersistentCookieJar.get().loadForRequest(
+                    HttpUrl.get("https://drive-pc.quark.cn/"))) {
+                if (cookie.name().equals("__pus")) mirrored = cookie;
+            }
+            assertNotNull(mirrored);
+            assertEquals("mirrored-secret", mirrored.value());
         } finally {
             AccountCredentialBackupState.restore(previous);
             Files.deleteIfExists(file.toPath());

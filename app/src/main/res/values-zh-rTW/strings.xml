@@ -569,6 +569,9 @@
     <string name="cloud_credentials_imported">已匯入 %1$d 筆受保護的憑證。</string>
     <string name="cloud_credentials_export_failed">無法匯出帳號。</string>
     <string name="cloud_credentials_import_failed">無法匯入帳號，請檢查檔案與密碼片語。</string>
+    <string name="cloud_credentials_import_wrong_passphrase">匯入失敗，密碼片語不正確。</string>
+    <string name="cloud_credentials_import_invalid">匯入失敗，該檔案不是有效的帳號備份。</string>
+    <string name="cloud_credentials_import_empty">匯入失敗，備份中沒有帳號憑證。</string>
     <string name="error_play_hdr_display">此螢幕不支援該 HDR 影片，請選擇 SDR 畫質或其他線路。</string>
     <string name="error_play_no_compatible_quality">沒有適合此裝置的影片畫質，請選擇其他線路。</string>
     <string name="error_play_video_unsupported">此影片超出裝置的解碼能力，請選擇較低畫質或相容的影片版本。</string>

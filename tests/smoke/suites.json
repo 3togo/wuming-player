@@ -2,6 +2,20 @@
   "version": 1,
   "production": [
     {
+      "id": "credentials",
+      "mode": "all",
+      "ui": false,
+      "timeout_seconds": 300,
+      "tests": [
+        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#encryptedFileRestoresCookiesTokensAndConnectorAfterReinstall",
+        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#invalidPayloadDoesNotChangeAnyAccountState",
+        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#credentialFreeBackupIsRejectedWithoutChangingAnyAccountState",
+        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#exportWithoutCredentialsLeavesNoArchiveBehind",
+        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#versionOneVaultOnlyBackupRemainsReadable",
+        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#vaultCookieProviderTokensAreMirroredIntoTheJarOnImport"
+      ]
+    },
+    {
       "id": "identity",
       "mode": "all",
       "ui": false,

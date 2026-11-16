@@ -597,6 +597,9 @@
     <string name="cloud_credentials_imported">已导入 %1$d 条受保护的凭据。</string>
     <string name="cloud_credentials_export_failed">无法导出账号。</string>
     <string name="cloud_credentials_import_failed">无法导入账号，请检查文件和密码短语。</string>
+    <string name="cloud_credentials_import_wrong_passphrase">导入失败，密码短语不正确。</string>
+    <string name="cloud_credentials_import_invalid">导入失败，该文件不是有效的账号备份。</string>
+    <string name="cloud_credentials_import_empty">导入失败，备份中没有账号凭据。</string>
     <string name="error_play_hdr_display">此屏幕不支持该 HDR 视频，请选择 SDR 画质或其他线路。</string>
     <string name="error_play_no_compatible_quality">没有适合此设备的视频画质，请选择其他线路。</string>
     <string name="error_play_video_unsupported">此视频超出设备的解码能力，请选择较低画质或兼容的视频版本。</string>
