@@ -3,6 +3,7 @@ package com.wuming.android.tv.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ import com.wuming.android.tv.utils.Task;
 import com.wuming.android.tv.utils.ViewportScale;
 import java.io.File;
 import com.github.catvod.net.PersistentCookieJar;
+import com.github.catvod.utils.Path;
 import com.wuming.android.tv.utils.TvAlertDialogBuilder;
 
 import java.lang.ref.WeakReference;
@@ -60,14 +62,26 @@ public class CloudStorageActivity extends BaseActivity implements OpenDriveAccou
     private android.net.Uri pendingImportUri;
 
     private final ActivityResultLauncher<String> exportLauncher = registerForActivityResult(
-            new ActivityResultContracts.CreateDocument("application/json"), uri -> {
+            new ActivityResultContracts.CreateDocument("application/json") {
+                @Override
+                public Intent createIntent(android.content.Context context, String input) {
+                    return super.createIntent(context, input).putExtra(
+                            DocumentsContract.EXTRA_INITIAL_URI, credentialBackupDocumentUri());
+                }
+            }, uri -> {
                 if (uri == null) return;
                 pendingExportUri = uri;
                 showExportPassphrase();
             });
 
     private final ActivityResultLauncher<String[]> importLauncher = registerForActivityResult(
-            new ActivityResultContracts.OpenDocument(), uri -> {
+            new ActivityResultContracts.OpenDocument() {
+                @Override
+                public Intent createIntent(android.content.Context context, String[] input) {
+                    return super.createIntent(context, input).putExtra(
+                            DocumentsContract.EXTRA_INITIAL_URI, credentialBackupDocumentUri());
+                }
+            }, uri -> {
                 if (uri == null) return;
                 pendingImportUri = uri;
                 showImportPassphrase();
@@ -117,9 +131,16 @@ public class CloudStorageActivity extends BaseActivity implements OpenDriveAccou
             else exportLauncher.launch(filename);
         });
         binding.importCredentials.setOnClickListener(view -> {
-            migrateLegacyCredentialFiles();
-            if (Util.isLeanback()) FileChooser.from(tvImportLauncher).show(credentialBackupDirectory(), ".json");
-            else importLauncher.launch(new String[]{"application/json", "application/octet-stream"});
+            if (Util.isLeanback()) {
+                PermissionUtil.requestFile(this, granted -> {
+                    if (!granted || !alive(this) || !prepareCredentialDirectory()) return;
+                    migrateLegacyCredentialFiles();
+                    FileChooser.from(tvImportLauncher).show(credentialBackupDirectory(), ".json");
+                });
+            } else {
+                migrateLegacyCredentialFiles();
+                importLauncher.launch(new String[]{"application/json", "application/octet-stream"});
+            }
         });
         binding.connectors.setOnClickListener(view -> WebDavConnectorActivity.start(this));
         binding.connectors.setEnabled(WebDavConnectorFeature.isEnabled());
@@ -143,19 +164,36 @@ public class CloudStorageActivity extends BaseActivity implements OpenDriveAccou
     }
 
     private File credentialBackupDirectory() {
-        return new File(new File("/sdcard", getString(R.string.app_name)),
-                CredentialBackupFiles.DIRECTORY_NAME);
+        return new File(legacyCredentialBackupDirectory(), CredentialBackupFiles.DIRECTORY_NAME);
     }
 
-    /** Directories that older releases wrote credential backups to, oldest naming first. */
+    private File legacyCredentialBackupDirectory() {
+        return new File(Path.root(), getString(R.string.backup_storage_name));
+    }
+
+    private android.net.Uri credentialBackupDocumentUri() {
+        // The platform's primary storage document ID uses a path relative to Path.root().
+        // Supply the same location to both SAF contracts without requiring broad file access.
+        String relative = Path.root().toPath().relativize(credentialBackupDirectory().toPath()).toString();
+        return DocumentsContract.buildDocumentUri("com.android.externalstorage.documents", "primary:" + relative);
+    }
+
+    private boolean prepareCredentialDirectory() {
+        File directory = credentialBackupDirectory();
+        if (directory.isDirectory() || directory.mkdirs() || directory.isDirectory()) return true;
+        Notify.show(R.string.cloud_credentials_directory_unavailable);
+        return false;
+    }
+
+    /** Directories older releases wrote credential backups to, oldest naming first. */
     private java.util.List<File> legacyCredentialDirectories() {
         java.util.LinkedHashSet<File> directories = new java.util.LinkedHashSet<>();
         java.util.LinkedHashSet<String> names = new java.util.LinkedHashSet<>();
-        names.add(getString(R.string.app_name));
-        String legacyName = getString(R.string.legacy_app_name);
+        names.add(getString(R.string.backup_storage_name));
+        String legacyName = getString(R.string.legacy_backup_storage_name);
         if (!names.contains(legacyName)) names.add(legacyName);
         for (String name : names) {
-            File base = new File("/sdcard", name);
+            File base = new File(Path.root(), name);
             directories.add(base);
             directories.add(new File(base, CredentialBackupFiles.DIRECTORY_NAME));
         }
@@ -201,7 +239,7 @@ public class CloudStorageActivity extends BaseActivity implements OpenDriveAccou
 
     private void showCredentialPath(boolean exporting, String filename) {
         PermissionUtil.requestFile(this, granted -> {
-            if (!granted || !alive(this)) return;
+            if (!granted || !alive(this) || !prepareCredentialDirectory()) return;
             LinearLayout fields = new LinearLayout(this);
             fields.setOrientation(LinearLayout.VERTICAL);
             int padding = getResources().getDimensionPixelSize(R.dimen.vs_24);

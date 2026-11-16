@@ -14,7 +14,9 @@ class DesktopDepotTest {
         val depot = DesktopDepot.load()
 
         if (!com.wuming.tv.core.base.EditionSettings.current.nativeProtocols) {
-            assertTrue(depot.vod.isEmpty())
+            // Since 29f982e the public edition bundles a default warehouse index for VOD;
+            // the asset-parity assertions below pin its exact contents.
+            assertTrue(depot.vod.isNotEmpty())
             assertTrue(depot.live.any { it.location == "assets://live/public_samples.m3u8" })
         }
         assertTrue(depot.live.isNotEmpty())

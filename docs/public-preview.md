@@ -109,18 +109,20 @@ candidates does not adopt them into the public application.
 
 ## Startup after catalog screening
 
-The former preferred default was not retained by screening. Fresh installations wait
-for an explicit source selection from Settings/catalogs; they do not contact a removed
-hard-coded fallback or automatically approve a different provider. Saved explicit
-selections still load normally. Shared `source-core` policy governs preferred bundled
-selection for Android and desktop.
+The bundled VOD list now includes the user-selected `http://www.饭太硬.net/tv`
+configuration as 饭太硬. Android and desktop select that exact bundled entry on
+first use. An existing configured source takes precedence; an unavailable bundled
+entry leaves an explicit source-selection prompt instead of an unlisted fallback.
+Empty VOD placeholders from older Android builds display “Select a source”.
 
 ## Catalogs and account data
 
-The earlier anonymous-access catalog check did not establish content licensing.
-Those source/live catalogs have been removed. The bundled list now links only to
-Big Buck Bunny, with Blender Foundation attribution and CC BY 3.0 license links.
-No movie is bundled. Availability and playback remain runtime checks.
+The public app fetches the selected third-party configuration at runtime; no
+provider binaries or movies from that service are bundled. The included live
+sample retains Blender Foundation attribution and CC BY 3.0 license links.
+Configuration decoding can be checked offline with synthetic envelopes. Remote
+configuration availability, provider permissions and playback are separate from
+that check; device playback has not been validated for this change.
 
 ## Before a stable release
 

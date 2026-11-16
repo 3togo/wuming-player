@@ -12,6 +12,7 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.wuming.android.tv.App;
+import com.wuming.android.tv.R;
 import com.wuming.android.tv.db.AppDatabase;
 import com.wuming.android.tv.db.AsyncDB;
 import com.wuming.android.tv.db.DataCache;
@@ -36,7 +37,8 @@ public class Config implements com.wuming.tv.core.catalog.ConfigView {
     
     // An absent preferred source waits for explicit selection; never contact an unlisted URL.
     private static final String DEFAULT_VOD_URL = "";
-    private static final String DEFAULT_VOD_NAME = "饭太硬";
+    private static final String DEFAULT_VOD_NAME = "";
+    private static final String PREFERRED_VOD_NAME = "饭太硬";
     private static final String PUBLIC_SAMPLE_LIVE_URL = "assets://live/public_samples.m3u8";
     private static final String PUBLIC_SAMPLE_LIVE_NAME = "Open movie sample · CC BY 3.0";
 
@@ -233,7 +235,7 @@ public class Config implements com.wuming.tv.core.catalog.ConfigView {
         // Load defaults asynchronously - for use in settings UI
         Task.execute(() -> {
             try {
-                defaults("vod", 0, DEFAULT_VOD_NAME, false);
+                defaults("vod", 0, PREFERRED_VOD_NAME, false);
                 defaults("live", 1, null, false);
             } catch (Exception e) {
                 AppLog.e(TAG, e);
@@ -245,7 +247,7 @@ public class Config implements com.wuming.tv.core.catalog.ConfigView {
         // Load defaults synchronously - for use during app initialization
         // Called on a background thread before the startup cache is populated
         try {
-            defaults("vod", 0, DEFAULT_VOD_NAME, false);
+            defaults("vod", 0, PREFERRED_VOD_NAME, false);
             defaults("live", 1, null, false);
             ensureStoredLiveSources();
         } catch (Exception e) {
@@ -261,7 +263,7 @@ public class Config implements com.wuming.tv.core.catalog.ConfigView {
         // Load defaults asynchronously - for use in settings UI
         Task.execute(() -> {
             try {
-                defaults("vod", 0, DEFAULT_VOD_NAME, true);
+                defaults("vod", 0, PREFERRED_VOD_NAME, true);
                 defaults("live", 1, null, true);
             } catch (Exception e) {
                 AppLog.e(TAG, e);
@@ -270,7 +272,7 @@ public class Config implements com.wuming.tv.core.catalog.ConfigView {
     }
 
     private static synchronized void defaults(String key, int type, String defaultName, boolean force) {
-        if (!force && !AppDatabase.get().getConfigDao().findByType(type).isEmpty()) return;
+        if (!force && AppDatabase.get().getConfigDao().findByType(type).stream().anyMatch(item -> !item.isEmpty())) return;
         Config defaultConfig = null;
         try {
             String json;
@@ -551,7 +553,11 @@ public class Config implements com.wuming.tv.core.catalog.ConfigView {
 
     public String getDesc() {
         String result;
-        if (BeanUtils.isNotEmpty(getName())) {
+        // Older public builds stored a provider name against an empty URL.
+        // Keep persisted source identity separate from its empty-state label.
+        if (type == 0 && getUrl().isEmpty()) {
+            result = Init.context().getString(R.string.vod_source_not_selected);
+        } else if (BeanUtils.isNotEmpty(getName())) {
             result = getName();
         } else if (BeanUtils.isNotEmpty(getUrl())) {
             result = getUrl();

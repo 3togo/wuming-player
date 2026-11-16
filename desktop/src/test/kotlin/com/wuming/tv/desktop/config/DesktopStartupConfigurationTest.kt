@@ -11,6 +11,15 @@ class DesktopStartupConfigurationTest {
         DesktopDepotSource("饭太硬", "https://default.test/tv"),
     ), emptyList())
 
+    @Test fun packagedDepotProvidesASelectableStartupSource() {
+        val bundled = DesktopDepot.load()
+        val location = DesktopStartupConfiguration.defaultLocation(bundled)
+        assertTrue("Packaged depot must contain its preferred startup source", location.isNotBlank())
+        assertTrue(bundled.vod.any { it.name == "饭太硬" && it.location == location })
+        assertEquals("https://saved.test/tv",
+            DesktopStartupConfiguration.location(bundled, "https://saved.test/tv", null))
+    }
+
     @Test fun automaticApprovalIsLimitedToTheExactBuiltInDefault() {
         assertTrue(DesktopStartupConfiguration.automaticallyApprove(depot, "https://default.test/tv"))
         listOf("https://other.test/tv", "https://custom.test/tv", "https://default.test/tv/other",

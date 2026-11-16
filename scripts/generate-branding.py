@@ -38,6 +38,17 @@ def raster(source, dest, width, height):
         im.save(dest)
 
 
+def append_path(parent, path):
+    attrs = {f'{{{ANDROID}}}fillColor': path.get('fill', '#00000000'),
+             f'{{{ANDROID}}}pathData': path.attrib['d']}
+    for svg_name, android_name in [('stroke', 'strokeColor'),
+            ('stroke-width', 'strokeWidth'), ('stroke-linecap', 'strokeLineCap'),
+            ('stroke-linejoin', 'strokeLineJoin')]:
+        if svg_name in path.attrib:
+            attrs[f'{{{ANDROID}}}{android_name}'] = path.attrib[svg_name]
+    ET.SubElement(parent, 'path', attrs)
+
+
 def vector(source, dest, width, height):
     svg = ET.parse(ART / source).getroot()
     _, _, vw, vh = svg.attrib['viewBox'].split()
@@ -45,11 +56,41 @@ def vector(source, dest, width, height):
         f'{{{ANDROID}}}height': height, f'{{{ANDROID}}}viewportWidth': vw,
         f'{{{ANDROID}}}viewportHeight': vh})
     for p in svg.findall('{http://www.w3.org/2000/svg}path'):
-        ET.SubElement(root, 'path', {f'{{{ANDROID}}}fillColor': p.attrib['fill'],
-                                   f'{{{ANDROID}}}pathData': p.attrib['d']})
+        append_path(root, p)
     dest.parent.mkdir(parents=True, exist_ok=True)
     ET.indent(root)
     ET.ElementTree(root).write(dest, encoding='utf-8', xml_declaration=True)
+
+
+def edition_branding():
+    """Keep the W and replace only its accent, using shared editable SVG sources."""
+    for edition, symbol in [('public', 'edition-globe.svg'), ('private', 'edition-bird.svg')]:
+        for source, dest, size, x, y, edge in [
+            ('foreground.svg', RES / f'drawable/ic_launcher_symbol_{edition}.xml',
+             ('108dp', '108dp'), 69, 23, 13),
+            ('banner.svg', ROOT / f'app/src/leanback/res/drawable/ic_banner_{edition}.xml',
+             ('320dp', '180dp'), 183, 45, 19),
+        ]:
+            svg = ET.parse(ART / source).getroot()
+            mark = ET.parse(ART / symbol).getroot()
+            _, _, width, height = svg.attrib['viewBox'].split()
+            _, _, mark_width, mark_height = map(float, mark.attrib['viewBox'].split())
+            root = ET.Element('vector', {f'{{{ANDROID}}}width': size[0],
+                f'{{{ANDROID}}}height': size[1], f'{{{ANDROID}}}viewportWidth': width,
+                f'{{{ANDROID}}}viewportHeight': height})
+
+            # The last path in each original is the small accent above the W.
+            for path in svg.findall('{http://www.w3.org/2000/svg}path')[:-1]:
+                append_path(root, path)
+            scale = str(edge / max(mark_width, mark_height))
+            group = ET.SubElement(root, 'group', {f'{{{ANDROID}}}translateX': str(x),
+                f'{{{ANDROID}}}translateY': str(y), f'{{{ANDROID}}}scaleX': scale,
+                f'{{{ANDROID}}}scaleY': scale})
+            for path in mark.findall('{http://www.w3.org/2000/svg}path'):
+                append_path(group, path)
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            ET.indent(root)
+            ET.ElementTree(root).write(dest, encoding='utf-8', xml_declaration=True)
 
 
 def main():
@@ -89,6 +130,9 @@ def main():
     <color name="wuming_brand_background">#142D3A</color>
 </resources>
 ''')
+
+
+    edition_branding()
 
 
 if __name__ == '__main__':
