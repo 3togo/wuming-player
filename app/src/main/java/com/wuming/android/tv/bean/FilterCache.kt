@@ -13,6 +13,11 @@ open class FilterCache {
 
     open fun put(result: Result?) {
         if (result == null) return
+        // Class Parcel intentionally omits its inline filters. Result keeps the
+        // wire map, so it is also the recovery source after cache eviction.
+        result.getFilters().forEach { (typeId, filters) ->
+            if (filters.isNotEmpty()) cache.put(typeId, filters)
+        }
         result.getTypes().forEach { type ->
             // A partial result (home or category page) must not erase filters already
             // learned for another type — that made the movie/TV options disappear.

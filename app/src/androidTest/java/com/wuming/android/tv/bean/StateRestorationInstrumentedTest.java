@@ -91,7 +91,7 @@ public class StateRestorationInstrumentedTest {
     }
 
     @Test
-    public void vodScreenResultSurvivesFrameworkParcelRoundTrip() {
+    public void vodScreenResultSurvivesFrameworkParcelRoundTrip() throws Exception {
         Class type = new Class();
         type.setTypeId("hot-tv");
         type.setTypeName("Hot TV");
@@ -107,6 +107,11 @@ public class StateRestorationInstrumentedTest {
         original.setKey("site-key");
         original.setMediaUri("opendrive://local/asset/movie-1");
         original.setParse(1);
+        Filter filter = new com.google.gson.Gson().fromJson(
+                "{\"key\":\"year\",\"value\":[{\"n\":\"2026\",\"v\":\"2026\"}]}", Filter.class);
+        java.lang.reflect.Field wireMap = Result.class.getDeclaredField("filters");
+        wireMap.setAccessible(true);
+        wireMap.set(original, new java.util.LinkedHashMap<>(Map.of("hot-tv", List.of(filter))));
 
         Parcel parcel = Parcel.obtain();
         try {
@@ -123,7 +128,15 @@ public class StateRestorationInstrumentedTest {
             assertEquals("site-key", restored.getKey());
             assertEquals("opendrive://local/asset/movie-1", restored.getMediaUri());
             assertEquals(1, restored.getParse().intValue());
+            // Class Parcel omits inline metadata; the retained Result's wire map
+            // must recover the filters after Android trims the disposable cache.
+            assertEquals(0, restored.getTypes().get(0).getFilters().size());
+            FilterCache.clear();
+            FilterCache.putResult(restored);
+            assertEquals("year", FilterCache.copy("hot-tv").get(0).getKey());
+            assertEquals("2026", FilterCache.copy("hot-tv").get(0).getValue().get(0).getV());
         } finally {
+            FilterCache.clear();
             parcel.recycle();
         }
     }

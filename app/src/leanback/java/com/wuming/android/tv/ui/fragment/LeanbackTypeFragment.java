@@ -19,6 +19,7 @@ import androidx.viewbinding.ViewBinding;
 
 import com.wuming.android.tv.LeanbackProduct;
 import com.wuming.android.tv.R;
+import com.wuming.android.tv.ui.activity.VodActivity;
 import com.wuming.android.tv.api.config.VodConfig;
 import com.wuming.android.tv.bean.FilterCache;
 import com.wuming.android.tv.bean.Filter;
@@ -141,6 +142,7 @@ public class LeanbackTypeFragment extends BaseFragment implements CustomScroller
     }
 
     private List<Filter> getFilter() {
+        if (getActivity() instanceof VodActivity activity) activity.restoreFilters();
         return FilterCache.copy(getTypeId());
     }
 

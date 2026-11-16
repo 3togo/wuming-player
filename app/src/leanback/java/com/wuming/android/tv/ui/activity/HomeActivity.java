@@ -240,12 +240,12 @@ public class HomeActivity extends BaseActivity implements CustomTitleView.Listen
         mViewModel.getResult().observe(this, result -> {
             mAdapter.remove("progress");
             mResult = result;
+            FilterCache.putResult(result);
             mRecommendations.rank(this, result.getList(), getHome().getKey(),
                     () -> getHome().getKey(), ranked -> {
                 if (mAdapter == null) return;
                 result.setList(ranked);
                 addVideo(result);
-                FilterCache.putResult(result);
                 openTypesAfterSiteChange(result);
             });
         });
@@ -346,12 +346,12 @@ public class HomeActivity extends BaseActivity implements CustomTitleView.Listen
             prefetchedHomeKey = null;
             mAdapter.remove("progress");
             mResult = result;
+            FilterCache.putResult(result);
             mRecommendations.rank(this, result.getList(), getHome().getKey(),
                     () -> getHome().getKey(), ranked -> {
                 if (mAdapter == null) return;
                 result.setList(ranked);
                 addVideo(result);
-                FilterCache.putResult(result);
                 openTypesAfterSiteChange(result);
             });
         } else {

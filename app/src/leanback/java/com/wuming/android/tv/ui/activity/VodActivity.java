@@ -22,6 +22,7 @@ import com.wuming.android.tv.App;
 import com.wuming.android.tv.api.config.VodConfig;
 import com.wuming.android.tv.bean.Class;
 import com.wuming.android.tv.bean.Result;
+import com.wuming.android.tv.bean.FilterCache;
 import com.wuming.android.tv.databinding.ActivityVodBinding;
 import com.wuming.android.tv.event.RefreshEvent;
 import com.wuming.android.tv.ui.adapter.LeanbackTypeAdapter;
@@ -118,8 +119,14 @@ public class VodActivity extends BaseActivity implements LeanbackTypeAdapter.OnC
         return type;
     }
 
+    /** Rebuild disposable metadata from this screen's retained provider response. */
+    public void restoreFilters() {
+        FilterCache.putResult(getResult());
+    }
+
     private List<Class> getTypes() {
         Result result = getResult();
+        FilterCache.putResult(result);
         List<Class> types = new ArrayList<>(result.getTypes());
         if (!result.getList().isEmpty()) types.add(0, home());
         return types;
@@ -165,6 +172,7 @@ public class VodActivity extends BaseActivity implements LeanbackTypeAdapter.OnC
     }
 
     private void updateFilter(Class item) {
+        restoreFilters();
         selectType(item);
         item.setFilter(!item.getFilter());
         getFragment().toggleFilter(item.getFilter());

@@ -42,4 +42,38 @@ public class FilterCacheTest {
         FilterCache.clear().put(newSource);
         assertNull(FilterCache.get("tv").get(0).getInit());
     }
+    @Test public void wireMapWithoutInlineCategoriesRecoversAfterEviction() throws Exception {
+        Result retained = new Result();
+        retained.setTypes(List.of(gson.fromJson("{\"type_id\":\"movie\"}", Class.class),
+                gson.fromJson("{\"type_id\":\"tv\"}", Class.class)));
+        Filter movie = gson.fromJson("{\"key\":\"genre\",\"value\":[{\"n\":\"Comedy\",\"v\":\"comedy\"}]}", Filter.class);
+        Filter tv = gson.fromJson("{\"key\":\"year\",\"init\":\"\",\"value\":[{\"n\":\"All\",\"v\":\"\"}]}", Filter.class);
+        java.lang.reflect.Field wireMap = Result.class.getDeclaredField("filters");
+        wireMap.setAccessible(true);
+        wireMap.set(retained, new java.util.LinkedHashMap<>(java.util.Map.of(
+                "movie", List.of(movie), "tv", List.of(tv))));
+        for (int eviction = 0; eviction < 2; eviction++) {
+            FilterCache.clear();
+            assertTrue(FilterCache.get("movie").isEmpty());
+            FilterCache.putResult(retained);
+            assertEquals(1, FilterCache.get("movie").size());
+            assertEquals(1, FilterCache.get("tv").size());
+            assertNull(FilterCache.copy("movie").get(0).getInit());
+            assertEquals("", FilterCache.copy("tv").get(0).getInit());
+            FilterCache.copy("movie").get(0).getValue().get(0).setV("changed");
+            assertEquals("comedy", retained.getFilters().get("movie").get(0).getValue().get(0).getV());
+        }
+        assertTrue(FilterCache.get("unknown").isEmpty());
+    }
+
+    @Test public void partialResultsDoNotEraseLearnedFilters() {
+        Result populated = new Result();
+        populated.setTypes(List.of(gson.fromJson("{\"type_id\":\"movie\",\"filters\":[{\"key\":\"genre\"}]}", Class.class)));
+        FilterCache.putResult(populated);
+        Result partial = new Result();
+        partial.setTypes(List.of(gson.fromJson("{\"type_id\":\"movie\"}", Class.class)));
+        FilterCache.putResult(partial);
+        assertEquals("genre", FilterCache.get("movie").get(0).getKey());
+    }
+
 }

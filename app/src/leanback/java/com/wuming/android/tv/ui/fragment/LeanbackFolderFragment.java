@@ -85,6 +85,7 @@ public class LeanbackFolderFragment extends BaseFragment {
     }
 
     private HashMap<String, String> getExtend() {
+        if (getActivity() instanceof VodActivity activity) activity.restoreFilters();
         HashMap<String, String> extend = new HashMap<>();
         // Omit unspecified defaults; "" is an explicit selection (often All).
         // Sending type="" for a missing default made DouDou request /subject_collection//items.
