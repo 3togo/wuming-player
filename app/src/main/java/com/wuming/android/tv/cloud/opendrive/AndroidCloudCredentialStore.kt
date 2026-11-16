@@ -55,6 +55,20 @@ class AndroidCloudCredentialStore : CloudCredentialStore {
         private fun isCookieProvider(providerId: String?): Boolean =
             "baidu" == providerId || "quark" == providerId || "uc" == providerId
 
+        /**
+         * Returns the cookie-provider id encoded in a vault reference
+         * (e.g. "quark" for "vault:opendrive/quark/token"), or null when the
+         * reference does not belong to a provider whose session lives in the cookie jar.
+         */
+        @JvmStatic
+        fun cookieProviderOf(reference: String?): String? {
+            if (reference == null || !reference.startsWith("vault:opendrive/")) return null
+            val providerId: String = reference
+                .removePrefix("vault:opendrive/")
+                .substringBefore('/')
+            return if (isCookieProvider(providerId)) providerId else null
+        }
+
         @JvmStatic
         private fun hostFor(providerId: String?): String? {
             if ("baidu" == providerId) return "baidu.com"
@@ -78,8 +92,29 @@ class AndroidCloudCredentialStore : CloudCredentialStore {
             return header.toString()
         }
 
+        /**
+         * Re-establishes one cookie provider's jar mirror after a vault restore: the storage
+         * domain is cleared first so a previous account's stale cookies cannot survive beside
+         * the restored session, then the vault token is mirrored exactly as a login would.
+         */
         @JvmStatic
-        private fun mirrorCookies(providerId: String?, credential: String) {
+        fun restoreCookieMirror(providerId: String?, credential: String) {
+            if (!isCookieProvider(providerId) ||
+                credential.codePoints().allMatch { Character.isWhitespace(it) }
+            ) {
+                return
+            }
+            try {
+                val host: String = hostFor(providerId)!!
+                PersistentCookieJar.get().clear(host)
+                mirrorCookies(providerId, credential)
+            } catch (e: IllegalStateException) {
+                AppLog.w("CloudCredential", "cookie mirror failed provider=$providerId: ${e.message}")
+            }
+        }
+
+        @JvmStatic
+        fun mirrorCookies(providerId: String?, credential: String) {
             try {
                 val url: HttpUrl? = ("https://" + hostFor(providerId) + "/").toHttpUrlOrNull()
                 if (url == null) return

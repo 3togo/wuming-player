@@ -2,6 +2,9 @@
 
     <!-- App -->
     <string name="app_name">@string/edition_app_name</string>
+    <!-- The default (non-suffixed) storage name: credential backups written before an
+         edition suffix existed live under it, so keep it stable and untranslated. -->
+    <string name="legacy_backup_storage_name" translatable="false">無名</string>
 
     <!-- Live -->
     <string name="live_pass">Pass</string>
@@ -287,6 +290,9 @@
     <string name="cloud_credentials_imported">Imported %1$d protected credential entries.</string>
     <string name="cloud_credentials_export_failed">Could not export accounts.</string>
     <string name="cloud_credentials_import_failed">Could not import accounts. Check the file and passphrase.</string>
+    <string name="cloud_credentials_import_wrong_passphrase">Import failed: the passphrase is wrong.</string>
+    <string name="cloud_credentials_import_invalid">Import failed: this file is not an account backup.</string>
+    <string name="cloud_credentials_import_empty">Import failed: the backup contains no account credentials.</string>
     <string name="cloud_storage_description">Each service opens its official file manager so you can review all account contents. Direct cleanup accepts only files recorded by a reviewed adapter built and signed with TVBox; the cleanup feature never delegates deletion to downloaded spider JARs.</string>
     <string name="cloud_storage_back">Back</string>
     <string name="cloud_storage_reset_login">Reset</string>

@@ -184,25 +184,41 @@ public class CloudStorageActivity extends BaseActivity implements OpenDriveAccou
         return false;
     }
 
+    /** Directories older releases wrote credential backups to, oldest naming first. */
+    private java.util.List<File> legacyCredentialDirectories() {
+        java.util.LinkedHashSet<File> directories = new java.util.LinkedHashSet<>();
+        java.util.LinkedHashSet<String> names = new java.util.LinkedHashSet<>();
+        names.add(getString(R.string.backup_storage_name));
+        String legacyName = getString(R.string.legacy_backup_storage_name);
+        if (!names.contains(legacyName)) names.add(legacyName);
+        for (String name : names) {
+            File base = new File(Path.root(), name);
+            directories.add(base);
+            directories.add(new File(base, CredentialBackupFiles.DIRECTORY_NAME));
+        }
+        return new java.util.ArrayList<>(directories);
+    }
+
     private void migrateLegacyCredentialFiles() {
-        File legacy = legacyCredentialBackupDirectory();
         File target = credentialBackupDirectory();
-        if (!legacy.isDirectory()) return;
         if (!target.isDirectory() && !target.mkdirs()) return;
         // A backup too small to be a valid copy is discarded wherever it lives: the target
-        // directory and the legacy directory alike.
+        // directory and every legacy directory alike.
         purgeTooSmall(target);
-        purgeTooSmall(legacy);
-        File[] backups = legacy.listFiles((dir, name) -> CredentialBackupFiles.isBackupFileName(name));
-        if (backups == null || backups.length == 0) return;
-        for (File file : backups) {
-            File dest = new File(target, file.getName());
-            // Shared policy: relocate only while the name is still free in the target, otherwise
-            // discard the legacy copy rather than overwrite or rename the one already held there.
-            if (CredentialBackupFiles.relocation(file.length(), dest.exists()) == LegacyCredentialBackupAction.MOVE) {
-                file.renameTo(dest);
-            } else {
-                file.delete();
+        for (File legacy : legacyCredentialDirectories()) {
+            if (legacy.equals(target) || !legacy.isDirectory()) continue;
+            purgeTooSmall(legacy);
+            File[] backups = legacy.listFiles((dir, name) -> CredentialBackupFiles.isBackupFileName(name));
+            if (backups == null || backups.length == 0) continue;
+            for (File file : backups) {
+                File dest = new File(target, file.getName());
+                // Shared policy: relocate only while the name is still free in the target, otherwise
+                // discard the legacy copy rather than overwrite or rename the one already held there.
+                if (CredentialBackupFiles.relocation(file.length(), dest.exists()) == LegacyCredentialBackupAction.MOVE) {
+                    file.renameTo(dest);
+                } else {
+                    file.delete();
+                }
             }
         }
     }
@@ -422,16 +438,25 @@ public class CloudStorageActivity extends BaseActivity implements OpenDriveAccou
 
     private void importCredentials(android.net.Uri uri, char[] passphrase) {
         int imported = -1;
+        int failureMessage = R.string.cloud_credentials_import_failed;
         try {
             imported = AccountCredentialBackup.importFrom(getContentResolver(), uri, passphrase);
+        } catch (AccountCredentialBackup.WrongPassphraseException error) {
+            failureMessage = R.string.cloud_credentials_import_wrong_passphrase;
+        } catch (AccountCredentialBackup.EmptyBackupException error) {
+            failureMessage = R.string.cloud_credentials_import_empty;
+        } catch (AccountCredentialBackup.MalformedBackupException error) {
+            failureMessage = R.string.cloud_credentials_import_invalid;
         } catch (Exception ignored) {
+        } finally {
             clear(passphrase);
         }
         final int count = imported;
+        final int message = failureMessage;
         runOnUiThread(() -> {
             if (!alive(this)) return;
             if (count < 0) {
-                Notify.show(R.string.cloud_credentials_import_failed);
+                Notify.show(message);
                 return;
             }
             refreshBilibiliAccount();

@@ -91,7 +91,7 @@ class SuiteSelectionTest(unittest.TestCase):
                 patch.object(subprocess, "Popen", side_effect=AssertionError("Unexpected tool call")), \
                 contextlib.redirect_stdout(io.StringIO()) as stdout:
             self.assertEqual(0, smoke.main(["--tier", "production", "--mode", "leanback", "--dry-run"]))
-        self.assertEqual(11, json.loads(stdout.getvalue())["test_count"])
+        self.assertEqual(17, json.loads(stdout.getvalue())["test_count"])
 
     def test_extended_opt_ins_have_exact_selection_without_device_calls(self):
         with patch.object(subprocess, "run", side_effect=AssertionError("Unexpected tool call")), \
@@ -99,7 +99,7 @@ class SuiteSelectionTest(unittest.TestCase):
             self.assertEqual(0, smoke.main(["--tier", "production", "--mode", "leanback",
                                           "--tv-navigation", "--live-channel", "Big Buck Bunny - Blender Foundation (CC BY 3.0)", "--dry-run"]))
         plan = json.loads(stdout.getvalue())
-        self.assertEqual(16, plan["test_count"])
+        self.assertEqual(22, plan["test_count"])
         self.assertEqual({"live_channel": "Big Buck Bunny - Blender Foundation (CC BY 3.0)", "live_seconds": "15"}, plan["groups"][-1]["arguments"])
         for group in plan["groups"]:
             for name in group["tests"]:
@@ -115,14 +115,14 @@ class SuiteSelectionTest(unittest.TestCase):
         plan = json.loads(stdout.getvalue())
         methods = [test for group in plan["groups"] for test in group["tests"]]
         self.assertEqual(len(methods), len(set(methods)))
-        self.assertEqual(39, len(methods))
+        self.assertEqual(45, len(methods))
 
     def test_persistence_selection_uses_only_existing_fixture_methods(self):
         with patch.object(subprocess, "run", side_effect=AssertionError("Unexpected device call")), \
                 contextlib.redirect_stdout(io.StringIO()) as stdout:
             smoke.main(["--tier", "production", "--mode", "mobile", "--persistence", "--dry-run"])
         selection = json.loads(stdout.getvalue())
-        self.assertEqual(20, selection["test_count"])
+        self.assertEqual(26, selection["test_count"])
         for group in selection["groups"]:
             for test in group["tests"]:
                 cls, method = test.split("#")
