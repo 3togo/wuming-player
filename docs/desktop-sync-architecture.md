@@ -137,8 +137,12 @@ source's turn; it does not substitute the UI batch's dispatch-time deadline. It
 cancels unconsumed work on early exit and invalidates queued service work before
 it can start. Android supplies configuration/provider access and MediaItem mapping,
 while the shared workflow owns cache publication and the 50-result cap. The
-service's immediate acceptance response and existing full-result retrieval API
-are unchanged. Each source checks its owning future before another alias call,
+service's immediate acceptance response still reports dispatch; notifications carry
+the total result count. Retrieval uses shared `MediaBrowserSearch.currentPage` and
+`base-core/ListPages` to return exactly the requested zero-based page, with an
+empty result beyond the end. Library children use the same slicer. Desktop's
+`CatalogResultPager` delegates through `CatalogPagination`, which applies the
+existing UI page-size limits and clamping before the shared bounded slice. Each source checks its owning future before another alias call,
 even if a provider consumes interruption. An alias cancellation exception retains
 earlier successes while its owner remains active. Explicit browser-task cancellation
 shares the cache-publication lock and preserves the caller's interruption flag choice.

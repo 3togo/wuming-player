@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.leanback.widget.OnChildViewHolderSelectedListener;
 import androidx.media3.common.C;
 import androidx.media3.common.Format;
@@ -554,7 +555,8 @@ public class VideoActivity extends BaseVideoActivity implements CustomKeyDownVod
 
     @Override
     protected void exitFullscreen() {
-        mBinding.video.setForeground(ResUtil.getDrawable(R.drawable.selector_video));
+        // Resolve preview colors with the view's activity theme, not the application theme.
+        mBinding.video.setForeground(ContextCompat.getDrawable(mBinding.video.getContext(), R.drawable.selector_video));
         mBinding.video.setLayoutParams(mFrameParams);
         getFocus1().requestFocus();
         mKeyDown.setFull(false);

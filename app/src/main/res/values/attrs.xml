@@ -52,6 +52,9 @@
     <attr name="selectionElevation" format="dimension|reference" />
 
     <!-- Focus state theme attributes -->
+    <attr name="episodeFocusOutline" format="color|reference" />
+    <attr name="episodeFocusSurface" format="color|reference" />
+    <attr name="videoPreviewFocusOutline" format="color|reference" />
     <attr name="focusOutline" format="color|reference" />
     <attr name="focusOutlineWidth" format="dimension|reference" />
     <attr name="focusSurface" format="color|reference" />

@@ -245,7 +245,7 @@ public class HomeActivity extends BaseActivity implements CustomTitleView.Listen
                 if (mAdapter == null) return;
                 result.setList(ranked);
                 addVideo(result);
-                FilterCache.clear().put(result);
+                FilterCache.putResult(result);
                 openTypesAfterSiteChange(result);
             });
         });
@@ -268,7 +268,7 @@ public class HomeActivity extends BaseActivity implements CustomTitleView.Listen
     }
 
     private void setTitle() {
-        List<String> items = Arrays.asList(getHome().getName(), getConfig().getName(), getString(R.string.app_name));
+        List<String> items = Arrays.asList(getHome().getName(), getConfig().getDesc(), getString(R.string.app_name));
         Optional<String> optional = items.stream().filter(s -> !TextUtils.isEmpty(s)).findFirst();
         optional.ifPresent(s -> mBinding.title.setText(s));
     }
@@ -351,7 +351,7 @@ public class HomeActivity extends BaseActivity implements CustomTitleView.Listen
                 if (mAdapter == null) return;
                 result.setList(ranked);
                 addVideo(result);
-                FilterCache.clear().put(result);
+                FilterCache.putResult(result);
                 openTypesAfterSiteChange(result);
             });
         } else {

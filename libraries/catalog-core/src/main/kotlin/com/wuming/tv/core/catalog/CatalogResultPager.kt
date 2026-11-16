@@ -22,9 +22,8 @@ class CatalogResultPager {
         }
         val count = if (exhausted) CatalogPagination.pageCount(loaded.size, pageSize) else 0
         val actualPage = if (exhausted) displayPage.coerceAtMost(count) else displayPage
-        val start = (actualPage - 1) * pageSize
         return CatalogPage(
-            items = loaded.subList(start, minOf(start + pageSize, loaded.size)).toList(),
+            items = CatalogPagination.slice(loaded, pageSize, actualPage - 1).toList(),
             page = actualPage,
             pageCount = count,
             total = if (exhausted) loaded.size else 0,

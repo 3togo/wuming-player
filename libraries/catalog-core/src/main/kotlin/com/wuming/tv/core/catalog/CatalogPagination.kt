@@ -9,7 +9,6 @@ object CatalogPagination {
     fun pageCount(total: Int, pageSize: Int): Int = if (total <= 0) 1 else (total - 1) / size(pageSize) + 1
     fun page(total: Int, pageSize: Int, requested: Int): Int = requested.coerceIn(0, pageCount(total, pageSize) - 1)
     fun <T> slice(items: List<T>, pageSize: Int, requested: Int): List<T> {
-        val start = page(items.size, pageSize, requested) * size(pageSize)
-        return items.subList(start, (start + size(pageSize)).coerceAtMost(items.size))
+        return com.wuming.tv.core.base.ListPages.slice(items, page(items.size, pageSize, requested), size(pageSize))
     }
 }

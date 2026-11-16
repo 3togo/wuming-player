@@ -25,6 +25,7 @@ open class CustomVerticalGridView
         private var pressDown = false
         private var pressUp = false
         private var moveTop = false
+        private var headerAutoHide = true
         private val touchScroll = GridTouchScroll(this, "CustomVerticalGridView")
 
         init {
@@ -67,7 +68,13 @@ open class CustomVerticalGridView
             this.moveTop = moveTop
         }
 
+        open fun setHeaderAutoHide(enabled: Boolean) {
+            headerAutoHide = enabled
+            if (!enabled) showHeader()
+        }
+
         open fun hideHeader() {
+            if (!headerAutoHide) return
             views?.forEach { it.visibility = View.INVISIBLE }
         }
 

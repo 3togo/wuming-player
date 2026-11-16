@@ -110,6 +110,9 @@ class MediaBrowserSearch<S, R, M>(
     }
 
     fun current(): List<M> = synchronized(lock) { current }
+    fun currentPage(page: Int, pageSize: Int): List<M> = synchronized(lock) {
+        com.wuming.tv.core.base.ListPages.slice(current, page, pageSize)
+    }
     fun trim() = synchronized(lock) { cache.trim() }
     fun clear() = synchronized(lock) {
         lifecycle.cancel()

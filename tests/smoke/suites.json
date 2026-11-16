@@ -2,20 +2,6 @@
   "version": 1,
   "production": [
     {
-      "id": "credentials",
-      "mode": "all",
-      "ui": false,
-      "timeout_seconds": 300,
-      "tests": [
-        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#encryptedFileRestoresCookiesTokensAndConnectorAfterReinstall",
-        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#invalidPayloadDoesNotChangeAnyAccountState",
-        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#credentialFreeBackupIsRejectedWithoutChangingAnyAccountState",
-        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#exportWithoutCredentialsLeavesNoArchiveBehind",
-        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#versionOneVaultOnlyBackupRemainsReadable",
-        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#vaultCookieProviderTokensAreMirroredIntoTheJarOnImport"
-      ]
-    },
-    {
       "id": "identity",
       "mode": "all",
       "ui": false,
@@ -46,6 +32,20 @@
       "tests": [
         "com.wuming.android.tv.player.PlaybackLaunchInstrumentedTest#inheritedUrlAndFileLaunchersUseTheFlavorActivity",
         "com.wuming.android.tv.player.PlayerManagerInstrumentedTest#realMedia3EngineCanBeCreatedAndReleasedOnMainThread"
+      ]
+    },
+    {
+      "id": "credentials",
+      "mode": "all",
+      "ui": false,
+      "timeout_seconds": 300,
+      "tests": [
+        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#encryptedFileRestoresCookiesTokensAndConnectorAfterReinstall",
+        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#invalidPayloadDoesNotChangeAnyAccountState",
+        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#credentialFreeBackupIsRejectedWithoutChangingAnyAccountState",
+        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#exportWithoutCredentialsLeavesNoArchiveBehind",
+        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#versionOneVaultOnlyBackupRemainsReadable",
+        "com.wuming.android.tv.cloud.opendrive.AccountCredentialBackupInstrumentedTest#vaultCookieProviderTokensAreMirroredIntoTheJarOnImport"
       ]
     },
     {
@@ -185,6 +185,23 @@
       "tests": [
         "com.wuming.android.tv.ui.LeanbackCollectSearchFocusInstrumentedTest#actualCollectionRouteKeepsDpadFocusedCardAfterIdleRanking"
       ]
+    },
+    {
+      "id": "media-browser-search",
+      "mode": "all",
+      "ui": false,
+      "timeout_seconds": 180,
+      "tests": [
+        "com.wuming.android.tv.service.PlaybackServiceSearchInstrumentedTest#acceptancePrecedesProviderCompletionAndResultsReachBrowser",
+        "com.wuming.android.tv.service.PlaybackServiceSearchInstrumentedTest#replacementSuppressesQueuedProviderAndCachedNotifications",
+        "com.wuming.android.tv.service.PlaybackServiceSearchInstrumentedTest#clearSuppressesQueuedNotificationAndRequiresProviderReload",
+        "com.wuming.android.tv.service.PlaybackServiceSearchInstrumentedTest#destroyedServiceCannotDeliverItsQueuedNotification",
+        "com.wuming.android.tv.service.PlaybackServiceSearchInstrumentedTest#cacheReuseStrictIdentityAndFixedExpiryAreVisibleThroughTheService",
+        "com.wuming.android.tv.service.PlaybackServiceSearchInstrumentedTest#timeoutStartsAtEachCollectionTurnAndLateTimedOutResultsStayExcluded",
+        "com.wuming.android.tv.service.PlaybackServiceSearchInstrumentedTest#sourceOrderControlsTheRawCapAndPagedRetrieval",
+        "com.wuming.android.tv.service.PlaybackServiceSearchInstrumentedTest#libraryChildrenAlsoRespectSmallPagesAndOutOfRangeRequests"
+      ],
+      "bootstrap": "memory"
     }
   ]
 }

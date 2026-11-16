@@ -54,6 +54,8 @@ public class PlaybackService extends MediaLibraryService implements MediaLibrary
 
     private NavigationCallback navigationCallback;
     private MediaLibrarySession session;
+    // Android delivery port; tests can hold notifications without blocking the main looper.
+    java.util.concurrent.Executor searchNotificationExecutor = App.mainThreadExecutor;
     private Runnable onNewBinding;
     private boolean externalBound;
     private volatile PlayerManager player;
@@ -515,7 +517,7 @@ public class PlaybackService extends MediaLibraryService implements MediaLibrary
     @NonNull
     @Override
     public ListenableFuture<LibraryResult<ImmutableList<MediaItem>>> onGetChildren(@NonNull MediaLibrarySession session, @NonNull MediaSession.ControllerInfo browser, @NonNull String parentId, int page, int pageSize, @Nullable MediaLibraryService.LibraryParams params) {
-        return Task.executor().submit(() -> LibraryResult.ofItemList(BrowseTree.getChildren(parentId), params));
+        return Task.executor().submit(() -> LibraryResult.ofItemList(BrowseTree.getChildren(parentId, page, pageSize), params));
     }
 
     @NonNull
@@ -529,7 +531,7 @@ public class PlaybackService extends MediaLibraryService implements MediaLibrary
             // the field and a released session must not be notified.
             MediaLibrarySession current = this.session;
             if (current == null) return;
-            App.post(() -> {
+            searchNotificationExecutor.execute(() -> {
                 if (this.session != current || !BrowseTree.isSearchCurrent(request)) return;
                 current.notifySearchResultChanged(browser, query, results.size(), params);
             });
@@ -540,7 +542,7 @@ public class PlaybackService extends MediaLibraryService implements MediaLibrary
     @NonNull
     @Override
     public ListenableFuture<LibraryResult<ImmutableList<MediaItem>>> onGetSearchResult(@NonNull MediaLibrarySession session, @NonNull MediaSession.ControllerInfo browser, @NonNull String query, int page, int pageSize, @Nullable MediaLibraryService.LibraryParams params) {
-        return Futures.immediateFuture(LibraryResult.ofItemList(BrowseTree.getSearchResult(), params));
+        return Futures.immediateFuture(LibraryResult.ofItemList(BrowseTree.getSearchResult(page, pageSize), params));
     }
 
     @NonNull

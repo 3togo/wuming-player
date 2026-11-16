@@ -1161,11 +1161,11 @@
     },
     {
       "path": "desktop/build.gradle",
-      "sha256": "bfc0c06653e30e700bcfcb2d7c4bc2e1ea7962862928757d202c61a671079576"
+      "sha256": "ef87baf43f55e017ea3cceb0a30ad877a74a448757869f44779ff1c991b67c5d"
     },
     {
       "path": "docs/public-maven-inventory.json",
-      "sha256": "654a07986419c336bbd1303d5e6f23096bbf9245d438abaa0562f00652315ae2"
+      "sha256": "8188ef76de08dcd2f55b0951d3e0a3dfa28e86cc041d6402d3fb0c7f4f1a92f2"
     },
     {
       "path": "docs/public-native-dependency-inventory.json",
@@ -1289,7 +1289,7 @@
     },
     {
       "path": "libraries/search-core/build.gradle",
-      "sha256": "b708da1ce8131d645362867bc710a85fbc8f97e133e5ab545de18229fe29dcf7"
+      "sha256": "069e6861876cd28b93f224603d95cc6edc85107d0828f03bce15285a197e8223"
     },
     {
       "path": "libraries/source-core/build.gradle",
@@ -2938,6 +2938,18 @@
     {
       "path": "libraries/hongguo-core/build.gradle",
       "sha256": "977c02f9c08b994cb4dd3fc007ddf3a7ed86d068a3c278f352ead325f10921dd"
+    },
+    {
+      "path": "desktop/src/main/resources/third-party/jna/Apache-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "desktop/src/main/resources/third-party/jna/LICENSE",
+      "sha256": "07c938b23950ab7d47a24ef35f9f5da3a05ae164278dc959ad6994135ed59ff1"
+    },
+    {
+      "path": "desktop/src/main/resources/third-party/jna/NOTICE.txt",
+      "sha256": "0fece64a09bc48b537c9e5eebb6beb072c71a32d1f8422efd82727cc4b5fd1b5"
     }
   ]
 }

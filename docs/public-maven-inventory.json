@@ -4772,6 +4772,46 @@
       "sourceEvidence": "https://raw.githubusercontent.com/bennidi/mbassador/master/LICENSE"
     },
     {
+      "coordinate": "net.java.dev.jna:jna:5.18.1",
+      "scopes": [
+        ":desktop:runtimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "LGPL-2.1-or-later",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1",
+          "distribution": "repo"
+        },
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "jna-5.18.1.jar",
+          "sha256": "260c4b1e22b1db9e110ee441c4f13ce115f841fa48c41d78750986214b395557"
+        }
+      ],
+      "notices": [
+        {
+          "file": "desktop/src/main/resources/third-party/jna/Apache-2.0.txt",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        },
+        {
+          "file": "desktop/src/main/resources/third-party/jna/LICENSE",
+          "sha256": "07c938b23950ab7d47a24ef35f9f5da3a05ae164278dc959ad6994135ed59ff1"
+        },
+        {
+          "file": "desktop/src/main/resources/third-party/jna/NOTICE.txt",
+          "sha256": "0fece64a09bc48b537c9e5eebb6beb072c71a32d1f8422efd82727cc4b5fd1b5"
+        }
+      ],
+      "publisherPomSha256": "98b62ae6ff280d747fb359fc42e48fed113d45bc3729a823dc30b8308a806645"
+    },
+    {
       "coordinate": "org.aomedia.avif.android:avif:0.11.1.3c786d2",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",

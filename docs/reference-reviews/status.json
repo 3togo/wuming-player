@@ -216,6 +216,170 @@
         "limitations": [
           "No physical-device or real MediaLibrarySession/client validation"
         ]
+      },
+      "androidMediaBrowserServiceCoverage": {
+        "suite": "com.wuming.android.tv.service.PlaybackServiceSearchInstrumentedTest",
+        "methods": 8,
+        "selection": "deep/media-browser-search (mobile and leanback)",
+        "coverage": [
+          "Real MediaBrowser/session Binder acceptance, notifications and retrieval",
+          "Queued provider/cache notification replacement, clear and service teardown",
+          "Cache reuse, strict identity and exact fixed five-minute expiry",
+          "Per-turn production five-second timeout and late-result exclusion",
+          "Source-order raw cap and existing full-list retrieval"
+        ],
+        "validation": {
+          "mobileArm64Apks": "compiled",
+          "leanbackArm32Apks": "compiled",
+          "smokeManifestTests": 27,
+          "remoteLabelsAndBoundaries": "passed",
+          "deviceExecution": {
+            "run": "20261112T001725Z",
+            "tablet": {
+              "serial": "T1202A256GB24516760216",
+              "mode": "mobile ARM64",
+              "smokePassed": 39,
+              "smokeExpected": 39,
+              "servicePassed": 7,
+              "failures": 0
+            },
+            "tvBox": {
+              "serial": "192.168.123.94:5555",
+              "mode": "leanback ARM32",
+              "smokePassed": 40,
+              "smokeExpected": 44,
+              "servicePassed": 7,
+              "interruptedGroup": "state: firmware stopped instrumentation before any method started",
+              "retry": {
+                "run": "20261112T002413Z",
+                "statePassed": 4,
+                "expected": 4,
+                "failures": 0,
+                "singleFullRunGreen": false
+              }
+            },
+            "coldStartRestartBackgroundReturn": "passed on both",
+            "settingsRestoration": "verified after full run and retry on both devices"
+          },
+          "jvmTests": {
+            "total": 8658,
+            "passed": 8641,
+            "skipped": 17,
+            "failures": 0
+          },
+          "pythonTests": 227,
+          "previousBaselineBlocker": "desktop:verifyPublicRuntimeLicenses: net.java.dev.jna:jna:5.18.1 needs provenance review",
+          "baselineStatus": "passed after JNA provenance repair",
+          "affectedPagingFixSmoke": {
+            "run": "20261112T005725Z",
+            "groups": {
+              "playback-wiring": 2,
+              "media-browser-search": 8
+            },
+            "tablet": {
+              "serial": "T1202A256GB24516760216",
+              "passed": 10,
+              "expected": 10,
+              "failures": 0,
+              "skipped": 0
+            },
+            "tvBox": {
+              "serial": "192.168.123.94:5555",
+              "passed": 10,
+              "expected": 10,
+              "failures": 0,
+              "skipped": 0
+            },
+            "validationAndFatalLogs": "none for either service-test process",
+            "sourceHashes": "unchanged across final build/run",
+            "settingsRestoration": "stay-awake 0 on both; tablet timeout 1800000 ms, box timeout 240000 ms; independently verified"
+          }
+        },
+        "limits": [
+          "Deterministic provider/metadata ports replace live transport and ranking",
+          "No cross-application permission claim"
+        ],
+        "negativeControl": "Removing delivery-time request guard fails actual-browser stale-notification assertion; intact control passes",
+        "resolvedLimitations": [
+          "Small-page search result and library children validation failures fixed with shared zero-based slicing"
+        ]
+      },
+      "jnaAndMedia3PagingFix": {
+        "implemented": [
+          "Reviewed JNA 5.18.1 publisher POM/JAR and upstream license, recorded desktop-only Apache-2.0 selection and packaged notice hashes",
+          "Refreshed reviewed build-input digests and Maven inventory binding without bypassing provenance checks",
+          "Shared base-core ListPages consumed by MediaBrowserSearch/BrowseTree and active desktop CatalogResultPager",
+          "Media3 children and search retrieval honor exact size, zero-based offset and empty out-of-range pages"
+        ],
+        "regressions": [
+          "JNA inventory test failed before missing entry was restored",
+          "Old search callback failed on both devices with 50 items for size 1",
+          "Old children callback crashed both devices with Media3 Invalid size=2, pageSize=1",
+          "Overflow-safe slicing, cached snapshot stability, desktop clamping and page params covered"
+        ],
+        "validation": {
+          "unitBaseline": "BUILD SUCCESSFUL",
+          "jvm": {
+            "total": 8658,
+            "passed": 8641,
+            "skipped": 17,
+            "failures": 0
+          },
+          "python": 227,
+          "publicProvenance": "passed",
+          "runtimeLicenseGraph": "passed",
+          "affectedDeviceSmoke": {
+            "run": "20261112T005725Z",
+            "groups": {
+              "playback-wiring": 2,
+              "media-browser-search": 8
+            },
+            "tablet": {
+              "serial": "T1202A256GB24516760216",
+              "passed": 10,
+              "expected": 10,
+              "failures": 0,
+              "skipped": 0
+            },
+            "tvBox": {
+              "serial": "192.168.123.94:5555",
+              "passed": 10,
+              "expected": 10,
+              "failures": 0,
+              "skipped": 0
+            },
+            "validationAndFatalLogs": "none for either service-test process",
+            "sourceHashes": "unchanged across final build/run",
+            "settingsRestoration": "stay-awake 0 on both; tablet timeout 1800000 ms, box timeout 240000 ms; independently verified"
+          }
+        }
+      },
+      "finalJnaPagingAudit": {
+        "finding": "No new production regressions found",
+        "addedRegressions": [
+          "Maximum-sized virtual-list final page",
+          "Desktop clamping at the maximum boundary",
+          "Page snapshots across replacement, cache restoration, expiry and trim",
+          "Resolved JNA JAR and packaged classpath notice hashes without native initialization"
+        ],
+        "validation": {
+          "baseCore": 49,
+          "catalogCore": 121,
+          "searchCore": 76,
+          "desktop": 402,
+          "passed": 639,
+          "skipped": 9,
+          "failures": 0,
+          "jnaPython": 2,
+          "provenanceAndBoundaries": "passed",
+          "priorDeviceSourceHashes": "unchanged",
+          "newDeviceRun": false
+        },
+        "wiring": [
+          "Mobile/leanback: shared main-source service and BrowseTree to MediaBrowserSearch/ListPages",
+          "Desktop: active CatalogResultPager to CatalogPagination/ListPages"
+        ],
+        "cacheContract": "Page reads do not renew lookup TTL; last published result survives expiry/trim until replacement or clear"
       }
     },
     "tvs-2026-11-scan": {

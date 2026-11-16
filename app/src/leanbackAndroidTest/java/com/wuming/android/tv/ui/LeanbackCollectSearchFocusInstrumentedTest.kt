@@ -79,7 +79,7 @@ class LeanbackCollectSearchFocusInstrumentedTest {
                     (field(page, "mAdapter") as ArrayObjectAdapter).clear()
                     page.addVideo(initial)
                 }
-                val target = GridFocusRestorer.vodKey(initial[7])
+                val target = GridFocusRestorer.vodKey(initial[2])
                 ready = false
                 val cardDeadline = SystemClock.uptimeMillis() + 5000
                 while (!ready && SystemClock.uptimeMillis() < cardDeadline) {
@@ -90,6 +90,13 @@ class LeanbackCollectSearchFocusInstrumentedTest {
                 scenario.onActivity { activity -> assertTrue(card(grid(activity), target)!!.requestFocus()) }
                 Thread.sleep(350)
                 InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_RIGHT)
+                InstrumentationRegistry.getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN)
+                InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+                scenario.onActivity { activity ->
+                    assertTrue("Result header must remain visible below the first row", activity.findViewById<View>(R.id.result).isShown)
+                    assertTrue("Site index must remain visible below the first row", activity.findViewById<View>(R.id.recycler).isShown)
+                    assertNotNull("Results must keep D-pad focus", grid(activity).findFocus())
+                }
                 var focusedKey = ""
                 scenario.onActivity { activity ->
                     focusedKey = GridFocusRestorer.captureVodKey(grid(activity))!!
@@ -127,6 +134,21 @@ class LeanbackCollectSearchFocusInstrumentedTest {
                     if (!sourceVisible) Thread.sleep(50)
                 }
                 assertTrue("Selecting a source must still render its initial results", sourceVisible)
+                scenario.onActivity { activity ->
+                    // Switch pages while focus is in the result grid, as with a pager swipe.
+                    val pager = activity.findViewById<androidx.viewpager.widget.ViewPager>(R.id.pager)
+                    pager.setCurrentItem(0, false)
+                    pager.setCurrentItem(1, false)
+                }
+                InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+                scenario.onActivity { activity ->
+                    val index = activity.findViewById<androidx.leanback.widget.HorizontalGridView>(R.id.recycler)
+                    val tabs = field(activity, "mAdapter") as LeanbackCollectAdapter
+                    for (position in 0 until tabs.itemCount) {
+                        val holder = index.findViewHolderForAdapterPosition(position) ?: continue
+                        assertEquals("Highlighted source must match the displayed page", position == 1, holder.itemView.isActivated)
+                    }
+                }
             }
         } finally {
             setSites.invoke(config, originalSites)

@@ -6,9 +6,11 @@ import android.os.Bundle;
 
 import androidx.viewbinding.ViewBinding;
 
+import com.wuming.android.tv.R;
 import com.wuming.android.tv.databinding.ActivityFileBinding;
 import com.wuming.android.tv.ui.adapter.FileAdapter;
 import com.wuming.android.tv.utils.FileChooser;
+import com.wuming.android.tv.utils.Notify;
 import com.wuming.android.tv.utils.PermissionUtil;
 import com.github.catvod.utils.Path;
 
@@ -29,10 +31,12 @@ public abstract class BaseFileActivity extends BaseActivity implements FileAdapt
     @Override
     protected final void initView(Bundle savedInstanceState) {
         String extensionFilter = getIntent().getStringExtra(FileChooser.EXTRA_EXTENSION_FILTER);
-        browser = new FileBrowserController(Path.root(), extensionFilter);
+        boolean newestFirst = getIntent().getBooleanExtra(FileChooser.EXTRA_NEWEST_FIRST, false);
+        boolean deletable = getIntent().getBooleanExtra(FileChooser.EXTRA_ALLOW_DELETE, false);
+        browser = new FileBrowserController(Path.root(), extensionFilter, newestFirst);
         configureBrowser();
         mBinding.recycler.setHasFixedSize(true);
-        mBinding.recycler.setAdapter(adapter = new FileAdapter(this));
+        mBinding.recycler.setAdapter(adapter = new FileAdapter(this, deletable, this::confirmDelete));
         WeakReference<BaseFileActivity> owner = new WeakReference<>(this);
         PermissionUtil.requestFile(this, allGranted -> {
             BaseFileActivity activity = owner.get();
@@ -41,6 +45,18 @@ public abstract class BaseFileActivity extends BaseActivity implements FileAdapt
             activity.update(activity.browser.openInitial(
                     activity.getIntent().getStringExtra(FileChooser.EXTRA_INITIAL_DIRECTORY)));
         });
+    }
+
+    private void confirmDelete(File file) {
+        new com.wuming.android.tv.utils.TvAlertDialogBuilder(this)
+                .setTitle(R.string.file_delete)
+                .setMessage(getString(R.string.file_delete_message, file.getName()))
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(R.string.file_delete, (dialog, which) -> {
+                    if (file.delete()) update(browser.current());
+                    else Notify.show(R.string.file_delete_failed);
+                })
+                .show();
     }
 
     protected abstract void configureBrowser();

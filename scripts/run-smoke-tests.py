@@ -22,6 +22,15 @@ RUNNER = PACKAGE + ".test/com.wuming.android.tv.ui.ForegroundSmokeRunner"
 METHOD = re.compile(r"com\.wuming\.android\.tv\.[A-Za-z0-9_.$]+#[A-Za-z0-9_]+$")
 
 
+def bootstrap_component(group):
+    host = group.get("bootstrap", "home")
+    if host not in ("home", "memory"):
+        raise ValueError("Unknown smoke bootstrap host: " + str(host))
+    if host == "memory":
+        return PACKAGE + "/com.wuming.android.tv.ui.activity.MemoryTestActivity"
+    return COMPONENT
+
+
 def load_suite(tier, mode, path=ROOT / "tests/smoke/suites.json"):
     catalog = json.loads(path.read_text())
     if catalog.get("version") != 1:
@@ -34,6 +43,7 @@ def load_suite(tier, mode, path=ROOT / "tests/smoke/suites.json"):
         if group["id"] in names or not re.fullmatch(r"[a-z-]+", group["id"]):
             raise ValueError("Duplicate/invalid group id")
         names.add(group["id"])
+        bootstrap_component(group)
         if not isinstance(group["ui"], bool) or not 1 <= group["timeout_seconds"] <= 600:
             raise ValueError("Invalid group controls")
         if not group["tests"]:
@@ -200,7 +210,7 @@ class DeviceRun:
                 if probe.returncode == 0 and probe.stdout.strip() == 'ready':
                     self.checked('shell', 'run-as', PACKAGE, 'touch', marker + '.ack', timeout=5)
                     return
-                self.adb('shell', 'am', 'start', '-n', COMPONENT, timeout=5)
+                self.adb('shell', 'am', 'start', '-n', bootstrap_component(group), timeout=5)
         worker = threading.Thread(target=bootstrap, daemon=True)
         worker.start()
         try:

@@ -6,6 +6,19 @@ import org.junit.Test
 class CatalogResultPagerTest {
     private fun cards(from: Int, count: Int) = (from until from + count).map { CatalogItem("site", "$it", "$it") }
 
+    @Test fun desktopStillClampsPagesAndSizesWhileRetainingReturnedSnapshots() {
+        val pager = CatalogResultPager()
+        var calls = 0
+        val fetch: (Int) -> CatalogPage = { calls++; CatalogPage(cards(0, 13), 1, 1, 13) }
+        val last = pager.load(99, 1, fetch)
+        assertEquals(3, last.page)
+        assertEquals(cards(12, 1), last.items)
+        assertEquals(cards(0, 6), pager.load(-1, 1, fetch).items)
+        assertEquals(cards(12, 1), last.items)
+        assertEquals(1, calls)
+        assertTrue(CatalogResultPager().load(99, 6) { CatalogPage(emptyList()) }.items.isEmpty())
+    }
+
     @Test fun fillsFortyFromTwentyItemProviderPagesAndKeepsOverflow() {
         val calls = mutableListOf<Int>()
         val pager = CatalogResultPager()

@@ -31,6 +31,8 @@ public class FileChooser {
 
     public static final String EXTRA_INITIAL_DIRECTORY = "initial_directory";
     public static final String EXTRA_EXTENSION_FILTER = "extension_filter";
+    public static final String EXTRA_NEWEST_FIRST = "newest_first";
+    public static final String EXTRA_ALLOW_DELETE = "allow_delete";
 
     private final ActivityResultLauncher<Intent> launcher;
 
@@ -62,11 +64,19 @@ public class FileChooser {
         show(mimeType, mimeTypes, null, null);
     }
 
+    /** Backup picker: newest files first, with an explicit delete action for stale copies. */
     public void show(File initialDirectory, String extensionFilter) {
-        show("*/*", new String[]{"*/*"}, extensionFilter, initialDirectory);
+        Intent intent = pickerIntent("*/*", new String[]{"*/*"}, extensionFilter, initialDirectory);
+        intent.putExtra(EXTRA_NEWEST_FIRST, true);
+        intent.putExtra(EXTRA_ALLOW_DELETE, true);
+        launch(intent);
     }
 
     private void show(String mimeType, String[] mimeTypes, String extensionFilter, File initialDirectory) {
+        launch(pickerIntent(mimeType, mimeTypes, extensionFilter, initialDirectory));
+    }
+
+    private Intent pickerIntent(String mimeType, String[] mimeTypes, String extensionFilter, File initialDirectory) {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType(mimeType);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -82,10 +92,13 @@ public class FileChooser {
             if (extensionFilter != null) {
                 fileIntent.putExtra(EXTRA_EXTENSION_FILTER, extensionFilter);
             }
-            launcher.launch(fileIntent);
-        } else {
-            launcher.launch(Intent.createChooser(intent, ""));
+            return fileIntent;
         }
+        return Intent.createChooser(intent, "");
+    }
+
+    private void launch(Intent intent) {
+        launcher.launch(intent);
     }
 
     public static boolean isValid(Context context, Uri uri) {

@@ -141,7 +141,9 @@ public class LeanbackTypeFragment extends BaseFragment implements CustomScroller
     }
 
     private List<Filter> getFilter() {
-        return FilterCache.copy(getTypeId());
+        List<Filter> found = FilterCache.copy(getTypeId());
+        Log.d("FilterDiag", "getFilter type=" + getTypeId() + " count=" + found.size());
+        return found;
     }
 
     private Site getSite() {
@@ -180,6 +182,11 @@ public class LeanbackTypeFragment extends BaseFragment implements CustomScroller
             setRecyclerView();
             setViewModel();
             setFilters();
+            // A tab click may precede the asynchronous folder/child transaction.
+            // Recover the requested state when this view is finally ready.
+            filterVisible = false;
+            toggleFilter(!isNested() && getParentFragment() instanceof LeanbackFolderFragment
+                    && getParent().getType().getFilter());
             getVideo();
             mDataInitialized = true;
         }
@@ -258,6 +265,13 @@ public class LeanbackTypeFragment extends BaseFragment implements CustomScroller
     }
 
     private void setAdapter(Result result) {
+        // Category results also carry the filters for the current type; keep the shared
+        // cache fresh even if the home result that first populated it was incomplete.
+        FilterCache.putResult(result);
+        if (mFilters.isEmpty()) {
+            mFilters = getFilter();
+            setFilters();
+        }
         boolean first = mScroller.first();
         boolean flag = mExtends.isEmpty();
         int size = result.getList().size();
@@ -266,7 +280,7 @@ public class LeanbackTypeFragment extends BaseFragment implements CustomScroller
                 !currentKey.equals(mPendingVodFocusKey)) {
             mPendingVodFocusKey = null;
         }
-        mBinding.progressLayout.showContent(first & flag, size);
+        mBinding.progressLayout.showContent(first && flag && !filterVisible, size);
         mBinding.swipeLayout.setRefreshing(false);
         mScroller.endLoading(result);
         if (size > 0) addVideo(result);
@@ -341,9 +355,21 @@ public class LeanbackTypeFragment extends BaseFragment implements CustomScroller
     }
 
     public void toggleFilter(boolean visible) {
-        if (mFilters.isEmpty()) return;
+        if (mFilters.isEmpty()) {
+            // The cache may have been filled after this view was initialized (for example
+            // by a category result); re-read it so the options can always be shown again.
+            mFilters = getFilter();
+            setFilters();
+        }
+        if (mBinding == null || mAdapter == null || mFilters.isEmpty() || filterVisible == visible) return;
         this.filterVisible = visible;
-        if (visible) showFilter();
+        if (visible) {
+            // Opening the options takes precedence over restoring a video card
+            // after the category refresh triggered by the same tab click.
+            mPendingVodFocusKey = null;
+            showFilter();
+            mBinding.progressLayout.showContent();
+        }
         else hideFilter();
     }
 
@@ -356,7 +382,9 @@ public class LeanbackTypeFragment extends BaseFragment implements CustomScroller
     }
 
     public void onRefresh() {
-        if (mBinding != null) {
+        // The initial load will run when the lazily initialized page resumes.
+        if (mViewModel == null || mAdapter == null) return;
+        if (mBinding != null && !filterVisible) {
             String focusedKey = GridFocusRestorer.captureVodKey(mBinding.recycler);
             if (focusedKey != null) {
                 mPendingVodFocusKey = focusedKey;

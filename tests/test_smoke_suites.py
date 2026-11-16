@@ -79,6 +79,18 @@ class SuiteSelectionTest(unittest.TestCase):
                     tests = re.findall(r"@Test(?:\([^)]*\))?\s+(?:public void|fun) (\w+)\(", source.read_text())
                     self.assertIn(method, tests, name)
 
+    def test_browser_service_group_uses_a_host_without_home_configuration_work(self):
+        for mode in ("mobile", "leanback"):
+            group = next(g for g in smoke.load_suite("deep", mode) if g["id"] == "media-browser-search")
+            self.assertEqual(8, len(group["tests"]))
+            self.assertEqual(smoke.PACKAGE + "/com.wuming.android.tv.ui.activity.MemoryTestActivity",
+                             smoke.bootstrap_component(group))
+
+    def test_bootstrap_defaults_to_home_and_rejects_unknown_hosts(self):
+        self.assertEqual(smoke.COMPONENT, smoke.bootstrap_component({}))
+        with self.assertRaises(ValueError):
+            smoke.bootstrap_component({"bootstrap": "unknown"})
+
     def test_live_and_opt_in_fixtures_are_not_silently_counted(self):
         for mode in ["mobile", "leanback"]:
             selection = str(smoke.load_suite("deep", mode))
@@ -115,7 +127,7 @@ class SuiteSelectionTest(unittest.TestCase):
         plan = json.loads(stdout.getvalue())
         methods = [test for group in plan["groups"] for test in group["tests"]]
         self.assertEqual(len(methods), len(set(methods)))
-        self.assertEqual(45, len(methods))
+        self.assertEqual(53, len(methods))
 
     def test_persistence_selection_uses_only_existing_fixture_methods(self):
         with patch.object(subprocess, "run", side_effect=AssertionError("Unexpected device call")), \

@@ -11,6 +11,14 @@ class CatalogPaginationTest {
         assertEquals(items, pages.flatten())
         assertEquals(pages.last(), CatalogPagination.slice(items, 24, 99))
     }
+    @Test fun desktopClampingNearMaximumListSizeUsesSafeSharedBounds() {
+        val items = object : AbstractList<Int>() {
+            override val size = Int.MAX_VALUE
+            override fun get(index: Int): Int { require(index in 0 until size); return index }
+        }
+        assertEquals((2_147_483_640..2_147_483_646).toList(), CatalogPagination.slice(items, 120, Int.MAX_VALUE))
+    }
+
     @Test fun emptyAndInvalidPreferencesRemainSafe() {
         assertEquals(1, CatalogPagination.pageCount(0, 0))
         assertTrue(CatalogPagination.slice(emptyList<Int>(), 0, -1).isEmpty())

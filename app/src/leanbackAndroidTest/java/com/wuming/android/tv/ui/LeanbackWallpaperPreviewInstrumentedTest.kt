@@ -3,6 +3,7 @@ package com.wuming.android.tv.ui
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.core.app.ApplicationProvider
@@ -67,8 +68,31 @@ class LeanbackWallpaperPreviewInstrumentedTest {
                 }
                 try {
                     PlayerSettings.putVideoInfo(0)
-                    invoke("enterFullscreen")
-                    invoke("exitFullscreen")
+                    val preview = activity.findViewById<View>(R.id.video)
+                    fun assertWhiteFocusBorder() {
+                        assertTrue(preview.requestFocus())
+                        assertSame(preview, activity.currentFocus)
+                        val border = requireNotNull(preview.foreground)
+                        border.state = preview.drawableState
+                        val bitmap = Bitmap.createBitmap(200, 120, Bitmap.Config.ARGB_8888)
+                        try {
+                            val originalBounds = android.graphics.Rect(border.bounds)
+                            try {
+                                border.setBounds(0, 0, bitmap.width, bitmap.height)
+                                border.draw(Canvas(bitmap))
+                                for ((x, y) in listOf(100 to 0, 0 to 60, 199 to 60, 100 to 119)) {
+                                    assertEquals("Preview border at ($x,$y)", Color.WHITE, bitmap.getPixel(x, y))
+                                }
+                            } finally { border.bounds = originalBounds }
+                        } finally { bitmap.recycle() }
+                    }
+                    assertWhiteFocusBorder()
+                    repeat(3) {
+                        invoke("enterFullscreen")
+                        assertNull("Fullscreen must have no preview border", preview.foreground)
+                        invoke("exitFullscreen")
+                        assertWhiteFocusBorder()
+                    }
                     fun assertHidden() {
                         assertEquals(View.GONE, activity.findViewById<View>(R.id.videoInfo).visibility)
                         assertEquals(View.GONE, activity.findViewById<View>(R.id.videoClock).visibility)

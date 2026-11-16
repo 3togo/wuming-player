@@ -10,6 +10,22 @@ import com.wuming.android.tv.utils.LayoutConfig
 open class LeanbackCollectAdapter(
     private val listener: OnClickListener,
 ) : BaseSelectAdapter<Collect, LeanbackCollectAdapter.ViewHolder>() {
+    private var selectedItem: Collect? = null
+
+    fun setSelectedPosition(position: Int) {
+        val item = mItems.getOrNull(position) ?: return
+        if (selectedItem === item) return
+        val previous = if (selectedItem == null) 0 else mItems.indexOf(selectedItem)
+        selectedItem = item
+        if (previous >= 0) notifyItemChanged(previous)
+        notifyItemChanged(position)
+    }
+
+    override fun clear() {
+        selectedItem = null
+        super.clear()
+    }
+
     fun interface OnClickListener {
         fun onItemClick(
             position: Int,
@@ -44,6 +60,7 @@ open class LeanbackCollectAdapter(
         position: Int,
     ) {
         val item = mItems[position]
+        holder.binding.text.isActivated = if (selectedItem == null) position == 0 else selectedItem === item
         holder.binding.text.text = item.getSite().name
 
         holder.setItem(item)

@@ -13,11 +13,18 @@ open class FilterCache {
 
     open fun put(result: Result?) {
         if (result == null) return
-        result.getTypes().forEach { type -> get().cache.put(type.getTypeId(), type.getFilters()) }
+        result.getTypes().forEach { type ->
+            // A partial result (home or category page) must not erase filters already
+            // learned for another type — that made the movie/TV options disappear.
+            if (type.getFilters().isNotEmpty()) cache.put(type.getTypeId(), type.getFilters())
+        }
     }
 
     companion object {
         private fun get(): FilterCache = Loader.instance
+
+        @JvmStatic
+        fun putResult(result: Result?) = get().put(result)
 
         @JvmStatic fun get(type: Class): List<Filter> = get(type.getTypeId())
 

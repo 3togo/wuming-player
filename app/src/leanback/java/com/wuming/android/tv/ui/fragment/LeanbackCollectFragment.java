@@ -119,6 +119,7 @@ public class LeanbackCollectFragment extends BaseFragment implements CustomScrol
             mBinding.recycler.setAdapter(new ItemBridgeAdapter(mAdapter));
             mBinding.recycler.addOnScrollListener(mScroller);
             mBinding.recycler.setHeader(getActivity(), R.id.result, R.id.recycler);
+            mBinding.recycler.setHeaderAutoHide(false);
             mBinding.recycler.setVerticalSpacing(ResUtil.getDimensionPixelSize(R.dimen.vs_16));
         } else {
             setRecyclerView();
@@ -136,6 +137,7 @@ public class LeanbackCollectFragment extends BaseFragment implements CustomScrol
         mBinding.recycler.setAdapter(new ItemBridgeAdapter(mAdapter = new ArrayObjectAdapter(selector)));
         mBinding.recycler.addOnScrollListener(mScroller = new CustomScroller(this));
         mBinding.recycler.setHeader(getActivity(), R.id.result, R.id.recycler);
+        mBinding.recycler.setHeaderAutoHide(false);
         mBinding.recycler.setVerticalSpacing(ResUtil.getDimensionPixelSize(R.dimen.vs_16));
     }
 

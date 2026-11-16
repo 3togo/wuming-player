@@ -77,6 +77,10 @@ class BrowseTree {
 
         @JvmStatic
 
+        fun getChildren(parentId: String, page: Int, pageSize: Int): ImmutableList<MediaItem> =
+            ImmutableList.copyOf(com.wuming.tv.core.base.ListPages.slice(getChildren(parentId), page, pageSize))
+
+        @JvmStatic
         fun getItem(mediaId: String): MediaItem? = when (mediaId) {
             ROOT -> ROOT_ITEM
             VOD -> VOD_FOLDER
@@ -100,6 +104,10 @@ class BrowseTree {
         @JvmStatic
 
         fun getSearchResult(): ImmutableList<MediaItem> = VodBrowse.getSearchResult()
+
+        @JvmStatic
+        fun getSearchResult(page: Int, pageSize: Int): ImmutableList<MediaItem> =
+            ImmutableList.copyOf(VodBrowse.browserSearch.currentPage(page, pageSize))
 
         @JvmStatic
 

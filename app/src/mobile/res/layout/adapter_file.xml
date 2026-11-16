@@ -19,7 +19,8 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/name"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/vs_0"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:singleLine="true" android:ellipsize="end"
         android:textColor="@color/white"
@@ -27,5 +28,19 @@
         tools:text="Download" >
         <tag android:id="@id/tag_typography_role" android:value="label" />
     </com.google.android.material.textview.MaterialTextView>
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_cloud_storage_button"
+        android:focusable="true"
+        android:minHeight="@dimen/vs_44"
+        android:text="@string/file_delete"
+        android:textColor="?attr/appOnBackground"
+        android:textSize="@dimen/font_label"
+        android:visibility="gone"
+        tools:visibility="visible" >
+        <tag android:id="@id/tag_typography_role" android:value="label" />
+    </Button>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

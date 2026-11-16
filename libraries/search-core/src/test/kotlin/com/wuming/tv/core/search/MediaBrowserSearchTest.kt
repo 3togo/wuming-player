@@ -35,6 +35,49 @@ class MediaBrowserSearchTest {
         override fun close() { engine.clear(); workers.shutdownNow(); timers.shutdownNow() }
     }
 
+    @Test fun pagingReadsPublishedOrderingWithoutChangingTheCachedSnapshot() {
+        Fixture().use { f ->
+            f.fetch = { _, _, _ -> listOf("z", "b", "a") }
+            f.engine.search("query")
+            val old = f.engine.currentPage(1, 1)
+            assertEquals(listOf("a"), f.engine.currentPage(0, 1))
+            assertEquals(listOf("b"), old)
+            assertEquals(listOf("z"), f.engine.currentPage(1, 2))
+            assertTrue(f.engine.currentPage(Int.MAX_VALUE, Int.MAX_VALUE).isEmpty())
+            assertEquals(listOf("a", "b", "z"), f.engine.search("query"))
+            assertEquals(1, f.calls.get())
+            f.engine.clear()
+            assertTrue(f.engine.currentPage(0, 1).isEmpty())
+            assertEquals(listOf("b"), old)
+        }
+    }
+
+    @Test fun pagingKeepsPublishedSnapshotsAcrossReplacementAndDoesNotRenewCacheExpiry() {
+        Fixture().use { f ->
+            f.fetch = { _, variant, _ -> listOf("${variant.text()}-a", "${variant.text()}-b") }
+            f.engine.search("first")
+            val held = f.engine.currentPage(1, 1)
+            f.engine.search("second")
+            assertEquals(listOf("first-b"), held)
+            assertEquals(listOf("second-a"), f.engine.currentPage(0, 1))
+            assertEquals(listOf("first-a", "first-b"), f.engine.search("first"))
+            assertEquals(2, f.calls.get())
+            f.now.set(99)
+            assertEquals(listOf("first-a"), f.engine.currentPage(0, 1))
+            f.now.set(100)
+            f.engine.trim()
+            // The published service result outlives cache expiry, just as current() did.
+            assertEquals(listOf("first-a"), f.engine.currentPage(0, 1))
+            f.fetch = { _, _, _ -> listOf("fresh") }
+            assertEquals(listOf("fresh"), f.engine.search("first"))
+            assertEquals(3, f.calls.get())
+            assertEquals(listOf("fresh"), f.engine.currentPage(0, 1))
+            assertEquals(listOf("first-b"), held)
+            assertThrows(UnsupportedOperationException::class.java) { (held as MutableList<String>).clear() }
+            assertEquals(listOf("fresh"), f.engine.current())
+        }
+    }
+
     @Test fun anAliasCancellationDoesNotEraseEarlierSuccessInAnActiveRequest() {
         for (failure in listOf(CancellationException("alias cancelled"), InterruptedException("alias interrupted"))) Fixture().use { f ->
             f.plan = { SearchQueryPlan(it, it, listOf(

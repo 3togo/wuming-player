@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.leanback.widget.OnChildViewHolderSelectedListener;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
@@ -36,7 +35,6 @@ import com.wuming.android.tv.model.SiteViewModel;
 import com.wuming.android.tv.ui.adapter.LeanbackCollectAdapter;
 import com.wuming.android.tv.ui.base.BaseActivity;
 import com.wuming.android.tv.ui.fragment.LeanbackCollectFragment;
-import com.wuming.android.tv.ui.custom.GridFocusRestorer;
 import com.wuming.android.tv.utils.LayoutConfig;
 import com.wuming.android.tv.utils.SiteRanker;
 import com.google.gson.reflect.TypeToken;
@@ -51,7 +49,6 @@ public class CollectActivity extends BaseActivity implements LeanbackCollectAdap
     private LeanbackCollectAdapter mAdapter;
     private SiteViewModel mViewModel;
     private List<Site> mSites;
-    private View mOldView;
     private SearchFilter mFilter;
     private final Handler sortHandler = new Handler(Looper.getMainLooper());
     private final Runnable idleSort = () -> {
@@ -131,15 +128,11 @@ public class CollectActivity extends BaseActivity implements LeanbackCollectAdap
         mBinding.pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                if (mBinding.recycler.hasFocus()) GridFocusRestorer.restoreAfterLayout(mBinding.recycler, position);
+                mAdapter.setSelectedPosition(position);
+                mBinding.recycler.setSelectedPosition(position);
             }
         });
-        mBinding.recycler.addOnChildViewHolderSelectedListener(new OnChildViewHolderSelectedListener() {
-            @Override
-            public void onChildViewHolderSelected(@NonNull RecyclerView parent, @Nullable RecyclerView.ViewHolder child, int position, int subposition) {
-                onChildSelected(child);
-            }
-        });
+
     }
 
     private void toggleStrictSearch() {
@@ -258,14 +251,10 @@ public class CollectActivity extends BaseActivity implements LeanbackCollectAdap
         getFragment().sortResults(mFilter, getKeyword());
     }
 
-    private void onChildSelected(@Nullable RecyclerView.ViewHolder child) {
-        if (mOldView != null) mOldView.setActivated(false);
-        if ((mOldView = child != null ? child.itemView : null) == null) return;
-        mOldView.setActivated(true);
-    }
 
     @Override
     public void onItemClick(int position, Collect item) {
+        mAdapter.setSelectedPosition(position);
         mBinding.pager.setCurrentItem(position);
         mBinding.recycler.setSelectedPosition(position);
         mBinding.recycler.requestFocus();
@@ -288,7 +277,6 @@ public class CollectActivity extends BaseActivity implements LeanbackCollectAdap
         mBinding = null;
         mAdapter = null;
         mSites = null;
-        mOldView = null;
         mFilter = null;
         super.onDestroy();
     }

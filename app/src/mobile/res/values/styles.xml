@@ -48,6 +48,9 @@
         <item name="selectionCorner">@dimen/vs_4</item>
 
         <!-- Focus state tokens -->
+        <item name="episodeFocusOutline">@color/white</item>
+        <item name="episodeFocusSurface">@color/white_30</item>
+        <item name="videoPreviewFocusOutline">@color/white</item>
         <item name="focusOutline">@color/focus_outline</item>
         <item name="focusOutlineWidth">@dimen/vs_2</item>
         <item name="focusSurface">@color/focus_surface</item>
