@@ -141,9 +141,7 @@ public class LeanbackTypeFragment extends BaseFragment implements CustomScroller
     }
 
     private List<Filter> getFilter() {
-        List<Filter> found = FilterCache.copy(getTypeId());
-        Log.d("FilterDiag", "getFilter type=" + getTypeId() + " count=" + found.size());
-        return found;
+        return FilterCache.copy(getTypeId());
     }
 
     private Site getSite() {
