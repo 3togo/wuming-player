@@ -6,6 +6,10 @@
          suffix existed live under this base name, so keep it stable and untranslated. -->
     <string name="legacy_app_name" translatable="false">無名</string>
 
+    <string name="backup_storage_name" translatable="false">無名</string>
+
+    <string name="vod_source_not_selected">No video source selected</string>
+
     <!-- Live -->
     <string name="live_pass">Pass</string>
     <string name="live_line">Line <xliff:g name="name">%s</xliff:g></string>
@@ -638,6 +642,7 @@
     <string name="video_info_unsupported">Decoder reports: unsupported format</string>
     <string name="cloud_credentials_path">Backup file path</string>
     <string name="cloud_credentials_path_hint">Enter a full file path. Relative paths start in /sdcard/. For export, choose a new filename in an existing folder.</string>
+    <string name="cloud_credentials_directory_unavailable">Unable to create the account backup folder.</string>
     <string name="cloud_credentials_path_invalid">Choose a new export filename in an existing folder, or an existing file to import.</string>
     <string name="tv_web_remote_hint">D-pad: move pointer · OK: click · Hold an arrow at the edge: scroll · Menu / Back: toolbar</string>
     <string name="error_quark_smart_quality_unavailable">Quark has not provided a playable transcode at 1080p or below for this video. Choose an original-quality route or another source manually.</string>

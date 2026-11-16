@@ -3,6 +3,8 @@
     <!-- App -->
     <string name="app_name">無名</string>
 
+    <string name="vod_source_not_selected">尚未選擇點播來源</string>
+
     <!-- Live -->
     <string name="live_pass">密碼</string>
     <string name="live_line">來源 <xliff:g name="name">%s</xliff:g></string>
@@ -588,6 +590,7 @@
     <string name="video_info_unsupported">解碼器回報：不支援此格式</string>
     <string name="cloud_credentials_path">備份檔案路徑</string>
     <string name="cloud_credentials_path_hint">輸入完整檔案路徑。相對路徑會自動加入 /sdcard/。匯出時，請在現有資料夾中使用新的檔案名稱。</string>
+    <string name="cloud_credentials_directory_unavailable">無法建立帳號備份資料夾。</string>
     <string name="cloud_credentials_path_invalid">匯出請使用現有資料夾中的新檔案名稱；匯入請選擇現有檔案。</string>
     <string name="file_import_failed">無法匯入檔案，請確認檔案可存取後再試一次。</string>
     <string name="file_delete">刪除</string>

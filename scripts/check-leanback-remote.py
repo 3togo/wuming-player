@@ -148,7 +148,7 @@ for locale in ('values', 'values-zh-rCN', 'values-zh-rTW'):
     for source in ('main', 'verification'):
         root = ET.parse(ROOT / 'app/src' / source / 'res' / locale / 'strings.xml').getroot()
         names.append(next(node.text for node in root.findall('string') if node.get('name') == 'app_name'))
-    if names != ['@string/edition_app_name', '@string/edition_testing_name']:
+    if names != ['無名', '無名(testing)']:
         errors.append(f'{locale}: normal and testing app labels must remain distinct')
 edition = json.loads((ROOT / 'gradle/edition-defaults.json').read_text())
 if (ROOT / 'edition.json').exists():

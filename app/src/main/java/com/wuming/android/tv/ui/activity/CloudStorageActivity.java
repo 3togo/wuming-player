@@ -190,7 +190,7 @@ public class CloudStorageActivity extends BaseActivity implements OpenDriveAccou
         java.util.LinkedHashSet<File> directories = new java.util.LinkedHashSet<>();
         java.util.LinkedHashSet<String> names = new java.util.LinkedHashSet<>();
         names.add(getString(R.string.backup_storage_name));
-        String legacyName = getString(R.string.legacy_backup_storage_name);
+        String legacyName = getString(R.string.legacy_app_name);
         if (!names.contains(legacyName)) names.add(legacyName);
         for (String name : names) {
             File base = new File(Path.root(), name);
