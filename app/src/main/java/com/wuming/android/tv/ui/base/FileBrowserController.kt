@@ -8,6 +8,7 @@ import java.io.IOException
 class FileBrowserController @JvmOverloads constructor(
     root: File,
     private val extensionFilter: String? = null,
+    private val newestFirst: Boolean = false,
 ) {
     private val root = canonical(root, root)
     private var current = this.root
@@ -26,8 +27,15 @@ class FileBrowserController @JvmOverloads constructor(
 
     fun entries(): List<File> {
         val all = Path.list(current)
-        if (extensionFilter == null) return all
-        return all.filter { it.isDirectory || it.name.endsWith(extensionFilter) }
+        val filtered = if (extensionFilter == null) all
+        else all.filter { it.isDirectory || it.name.endsWith(extensionFilter) }
+        if (!newestFirst) return filtered
+        // Directories keep their place; files are listed newest modification first.
+        return filtered.sortedWith(
+            compareByDescending<File> { it.isDirectory }
+                .thenByDescending { if (it.isDirectory) 0L else it.lastModified() }
+                .thenByDescending { it.name }
+        )
     }
 
     fun canGoBack(): Boolean = root != current

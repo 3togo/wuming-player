@@ -1,7 +1,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- App -->
-    <string name="app_name">@string/edition_app_name</string>
+    <string name="app_name">無名</string>
 
     <!-- Live -->
     <string name="live_pass">密码</string>
@@ -618,6 +618,9 @@
     <string name="cloud_credentials_path_hint">输入完整文件路径。相对路径会自动添加 /sdcard/。导出时，请在已有文件夹中使用新的文件名。</string>
     <string name="cloud_credentials_path_invalid">导出请使用已有文件夹中的新文件名；导入请选择已有文件。</string>
     <string name="file_import_failed">无法导入文件，请确认文件可访问后重试。</string>
+    <string name="file_delete">删除</string>
+    <string name="file_delete_message">确定删除“%1$s”吗？此操作不可恢复。</string>
+    <string name="file_delete_failed">删除文件失败。</string>
     <string name="tv_web_remote_hint">方向键：移动指针 · 确定：点击 · 边缘长按方向键：滚动 · 菜单 / 返回：工具栏</string>
     <string name="error_quark_smart_quality_unavailable">夸克未提供此视频可用的 1080p 或更低转码画质。请手动选择原画线路或其他片源。</string>
     <string name="quark_smart_using_original">夸克无法转码这个伪装视频，正在播放已规范化的原画。</string>
@@ -704,6 +707,4 @@
     <string name="popup_config_history">配置历史</string>
     <string name="error_play_protocol_unsupported">此版本不支持此播放协议，请选择其他播放源。</string>
     <string name="episode_nearby">附近剧集</string>
-    <string name="vod_source_not_selected">请选择点播源</string>
-    <string name="cloud_credentials_directory_unavailable">无法打开凭据备份文件夹，请检查存储访问权限。</string>
 </resources>

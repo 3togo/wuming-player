@@ -9,6 +9,8 @@ import com.wuming.android.tv.databinding.AdapterFileBinding
 
 open class FileAdapter(
     private val listener: OnClickListener,
+    private val deletable: Boolean = false,
+    private val deleteListener: OnClickListener? = null,
 ) : RecyclerView.Adapter<FileAdapter.ViewHolder>() {
     private val items = ArrayList<java.io.File>()
 
@@ -50,12 +52,18 @@ open class FileAdapter(
                     adapter.listener.onItemClick(current)
                 }
             }
+            binding.delete.setOnClickListener {
+                val current = item
+                if (current != null && !current.isDirectory) adapter.deleteListener?.onItemClick(current)
+            }
         }
 
         open fun bind(item: java.io.File) {
             this.item = item
             binding.name.text = item.name
             binding.image.setImageResource(if (item.isDirectory) R.drawable.ic_folder else R.drawable.ic_file)
+            binding.delete.visibility = if (adapter.deletable && !item.isDirectory) android.view.View.VISIBLE
+            else android.view.View.GONE
         }
     }
 }

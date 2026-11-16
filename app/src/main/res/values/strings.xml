@@ -1,10 +1,10 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- App -->
-    <string name="app_name">@string/edition_app_name</string>
-    <!-- The default (non-suffixed) storage name: credential backups written before an
-         edition suffix existed live under it, so keep it stable and untranslated. -->
-    <string name="legacy_backup_storage_name" translatable="false">無名</string>
+    <string name="app_name">無名</string>
+    <!-- Edition overlays rename the app; credential backups written before an edition
+         suffix existed live under this base name, so keep it stable and untranslated. -->
+    <string name="legacy_app_name" translatable="false">無名</string>
 
     <!-- Live -->
     <string name="live_pass">Pass</string>
@@ -642,6 +642,9 @@
     <string name="tv_web_remote_hint">D-pad: move pointer · OK: click · Hold an arrow at the edge: scroll · Menu / Back: toolbar</string>
     <string name="error_quark_smart_quality_unavailable">Quark has not provided a playable transcode at 1080p or below for this video. Choose an original-quality route or another source manually.</string>
     <string name="file_import_failed">Unable to import file. Check that it is accessible and try again.</string>
+    <string name="file_delete">Delete</string>
+    <string name="file_delete_message">Delete “%1$s”? This cannot be undone.</string>
+    <string name="file_delete_failed">Unable to delete file.</string>
     <string name="quark_smart_using_original">Quark cannot transcode this disguised video. Playing its normalized original.</string>
     <string name="cloud_storage_clear_incomplete">%1$d failed; %2$d skipped. Failed files remain tracked for retry.</string>
     <string name="error_cloud_auth_required">Cloud authentication failed. Check your account in Settings > Cloud Storage.</string>
@@ -726,7 +729,4 @@
     <string name="popup_config_history">Configuration history</string>
     <string name="error_play_protocol_unsupported">This playback protocol is not supported in this build. Choose another source.</string>
     <string name="episode_nearby">Nearby episodes</string>
-    <string name="backup_storage_name" translatable="false">無名</string>
-    <string name="vod_source_not_selected">Select a source</string>
-    <string name="cloud_credentials_directory_unavailable">Could not open the credential backup folder. Check storage access.</string>
 </resources>
