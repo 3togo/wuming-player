@@ -70,6 +70,43 @@
             <tag android:id="@id/tag_typography_role" android:value="body" />
         </TextView>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vs_16"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/exportCredentials"
+                android:layout_width="@dimen/vs_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_cloud_storage_button"
+                android:focusable="true"
+                android:minHeight="@dimen/vs_44"
+                android:text="@string/cloud_credentials_export"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_label">
+                <tag android:id="@id/tag_typography_role" android:value="label" />
+            </Button>
+
+            <Button
+                android:id="@+id/importCredentials"
+                android:layout_width="@dimen/vs_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/vs_8"
+                android:layout_weight="1"
+                android:background="@drawable/bg_cloud_storage_button"
+                android:focusable="true"
+                android:minHeight="@dimen/vs_44"
+                android:text="@string/cloud_credentials_import"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_label">
+                <tag android:id="@id/tag_typography_role" android:value="label" />
+            </Button>
+
+        </LinearLayout>
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/bilibiliAccount"
             android:layout_width="match_parent"
@@ -133,43 +170,6 @@
             </com.google.android.material.button.MaterialButton>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/vs_16"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/exportCredentials"
-                android:layout_width="@dimen/vs_0"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/bg_cloud_storage_button"
-                android:focusable="true"
-                android:minHeight="@dimen/vs_44"
-                android:text="@string/cloud_credentials_export"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_label">
-                <tag android:id="@id/tag_typography_role" android:value="label" />
-            </Button>
-
-            <Button
-                android:id="@+id/importCredentials"
-                android:layout_width="@dimen/vs_0"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/vs_8"
-                android:layout_weight="1"
-                android:background="@drawable/bg_cloud_storage_button"
-                android:focusable="true"
-                android:minHeight="@dimen/vs_44"
-                android:text="@string/cloud_credentials_import"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_label">
-                <tag android:id="@id/tag_typography_role" android:value="label" />
-            </Button>
-
-        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
