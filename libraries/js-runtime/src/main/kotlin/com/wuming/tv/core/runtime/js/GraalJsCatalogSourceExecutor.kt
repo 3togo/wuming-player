@@ -44,8 +44,8 @@ class GraalJsCatalogSourceExecutor(
 
     @Synchronized
     override fun browseHome(): CatalogHome {
-        val primary = codec.home(call("home", true)).withConfiguredCategories(spec.categories)
-        val featured = callOptional("homeVod")?.let(codec::home)?.items.orEmpty()
+        val primary = codec.home(call("home", true, modernName = "homeContent")).withConfiguredCategories(spec.categories)
+        val featured = callOptional("homeVod", "homeVideoContent")?.let(codec::home)?.items.orEmpty()
         return primary.copy(items = (primary.items + featured).distinctBy(CatalogItem::id))
     }
 
@@ -60,6 +60,7 @@ class GraalJsCatalogSourceExecutor(
                 page.toString(),
                 true,
                 ProxyObject.fromMap(filters.mapValues { it.value as Any }.toMutableMap()),
+                modernName = "categoryContent",
             ),
             page,
         )
@@ -68,17 +69,17 @@ class GraalJsCatalogSourceExecutor(
     @Synchronized
     override fun search(query: String): List<CatalogItem> {
         require(query.isNotBlank()) { "Search query is required" }
-        return codec.search(call("search", query, false, 1))
+        return codec.search(call("search", query, false, 1, modernName = "searchContent"))
     }
 
     @Synchronized
     override fun detail(id: String): CatalogDetail {
-        return codec.detail(call("detail", id), id)
+        return codec.detail(call("detail", id, modernName = "detailContent"), id)
     }
 
     @Synchronized
     override fun play(flag: String, id: String): CatalogPlayback {
-        return codec.playback(call("play", flag, id, emptyList<String>()))
+        return codec.playback(call("play", flag, id, emptyList<String>(), modernName = "playerContent"))
     }
 
     override fun cancel() = close()
@@ -123,21 +124,31 @@ class GraalJsCatalogSourceExecutor(
         return JsProxyResponse(status, body, responseHeaders)
     }
 
-    private fun call(name: String, vararg arguments: Any): String {
+    private fun call(name: String, vararg arguments: Any, modernName: String = name): String =
+        invoke(name, modernName, arguments)
+            ?: throw IllegalArgumentException("JavaScript source does not implement $name")
+
+    private fun callOptional(name: String, modernName: String): String? =
+        invoke(name, modernName, emptyArray())
+
+    private fun invoke(name: String, modernName: String, arguments: Array<out Any>): String? {
         val runtime = state.updateAndGet { it ?: create() }!!
-        val function = runtime.api.getMember(name)
-        require(function != null && function.canExecute()) { "JavaScript source does not implement $name" }
-        val value = settle(function.execute(*arguments))
+        val api = runtime.api
+        val method = when {
+            api.canInvokeMember(modernName) -> modernName
+            name != modernName && api.canInvokeMember(name) -> name
+            else -> return null
+        }
+        val actualArguments = when (method) {
+            "detailContent" -> arrayOf(runtime.context.eval("js", "id => [id]").execute(arguments.single()))
+            "playerContent" -> arrayOf(arguments[0], arguments[1], runtime.context.eval("js", "[]"))
+            else -> arguments
+        }
+        val value = settle(api.invokeMember(method, *actualArguments))
         if (value.isString) return value.asString()
         if (value.isNull) return "{}"
         return runtime.stringify.execute(value).takeIf(Value::isString)?.asString()
             ?: throw IllegalArgumentException("Provider returned a value that cannot be serialized as JSON")
-    }
-
-    private fun callOptional(name: String, vararg arguments: Any): String? {
-        val runtime = state.updateAndGet { it ?: create() }!!
-        val function = runtime.api.getMember(name)
-        return if (function != null && function.canExecute()) call(name, *arguments) else null
     }
 
     private fun settle(value: Value): Value {
@@ -201,7 +212,7 @@ class GraalJsCatalogSourceExecutor(
                 "stype" to 3,
                 "ext" to extension,
             ))
-            settle(init.execute(initArgument))
+            settle(api.invokeMember("init", initArgument))
             return State(bundle, context, api, context.eval("js", "JSON.stringify"))
         } catch (error: Throwable) {
             // A Graal context holds native memory that no GC reclaims. Every failure path after

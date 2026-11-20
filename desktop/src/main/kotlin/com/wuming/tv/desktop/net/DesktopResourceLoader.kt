@@ -57,13 +57,19 @@ class DesktopResourceLoader(
     fun load(value: String, headers: Map<String, String> = emptyMap()): ByteArray =
         loadResponse(value, headers).also { require(it.status != 304) { "Unexpected HTTP 304 without cached body." } }.bytes
 
-    fun loadResponse(value: String, headers: Map<String, String> = emptyMap()): DesktopResourceResponse {
+    fun loadResponse(value: String, headers: Map<String, String> = emptyMap()): DesktopResourceResponse =
+        loadResponse(value, headers, null)
+
+    internal fun loadResponse(
+        value: String, headers: Map<String, String>, cancellation: DesktopResourceCancellation?,
+    ): DesktopResourceResponse {
+        cancellation?.check()
         val input = value.trim()
         require(input.isNotEmpty()) { "Enter a URL or local file." }
         require(input.none(Character::isISOControl)) { "Resource location contains control characters." }
         val uri = runCatching { URI(input) }.getOrElse { throw IllegalArgumentException("Invalid resource location.") }
         return when (uri.scheme?.lowercase()) {
-            "http", "https" -> download(normalizeHttpUri(input, uri), headers)
+            "http", "https" -> download(normalizeHttpUri(input, uri), headers, cancellation)
             "assets" -> DesktopResourceResponse(readAsset(uri), finalLocation = input)
             "file" -> DesktopResourceResponse(read(uriToPath(uri)), finalLocation = input)
             null -> DesktopResourceResponse(read(Path.of(input).toAbsolutePath().normalize()), finalLocation = input)
@@ -83,7 +89,9 @@ class DesktopResourceLoader(
         return stream.use { limited(it.readNBytes(maximumBytes + 1)) }
     }
 
-    private fun download(uri: URI, headers: Map<String, String>): DesktopResourceResponse {
+    private fun download(
+        uri: URI, headers: Map<String, String>, cancellation: DesktopResourceCancellation?,
+    ): DesktopResourceResponse {
         require(!uri.host.isNullOrBlank()) { "Resource URL has no host." }
         require(uri.userInfo == null) { "Resource URL must not contain credentials." }
         if (Thread.currentThread().isInterrupted) throw InterruptedException("Resource request cancelled")
@@ -97,10 +105,11 @@ class DesktopResourceLoader(
         val started = System.nanoTime()
         if (logRequests) logger.info("GET start target=${safe(uri)} limit=$maximumBytes")
         return try {
-            client.newCall(built).execute().use { response ->
+            val call = client.newCall(built)
+            val execute = { call.execute().use { response ->
                 val body = response.body
                 val responseHeaders = response.headers.names().associate { it.lowercase() to response.headers.values(it).joinToString(", ") }
-                if (response.code == 304) return DesktopResourceResponse(
+                if (response.code == 304) return@use DesktopResourceResponse(
                     byteArrayOf(), 304, response.request.url.toString(), responseHeaders,
                 )
                 if (!response.isSuccessful) {
@@ -120,8 +129,10 @@ class DesktopResourceLoader(
                     }
                 }
                 DesktopResourceResponse(bytes, response.code, response.request.url.toString(), responseHeaders)
-            }
+            } }
+            if (cancellation == null) execute() else cancellation.run(call, execute)
         } catch (failure: Throwable) {
+            cancellation?.check()
             val cancelled = failure is InterruptedException || Thread.currentThread().isInterrupted
             if (failure is InterruptedException) Thread.currentThread().interrupt()
             if (logRequests && !cancelled) {
@@ -147,7 +158,9 @@ class DesktopResourceLoader(
     private fun read(path: Path): ByteArray {
         require(Files.isRegularFile(path)) { "Resource file does not exist: $path" }
         require(Files.size(path) <= maximumBytes) { "Resource exceeds the ${maximumBytes / 1024 / 1024} MiB limit." }
-        return limited(Files.readAllBytes(path))
+        return Files.newInputStream(path).use {
+            com.wuming.tv.core.base.BoundedResponse.bytes(it, maximumBytes)
+        }
     }
 
     private fun limited(bytes: ByteArray): ByteArray {

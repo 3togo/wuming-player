@@ -302,7 +302,9 @@ open class DepotDialog private constructor(
             val result = runCatching {
                 OkHttp.newCall(OkHttp.client(15000), info.url).execute().use { response ->
                     if (!response.isSuccessful) error("HTTP ${response.code}")
-                    val bytes = response.body.bytes()
+                    val bytes = com.wuming.tv.core.base.BoundedResponse.bytes(
+                        response.body, com.wuming.tv.core.base.BoundedResponse.CONFIG_BYTES,
+                    )
                     if (bytes.isEmpty()) error("Empty warehouse response")
                     TvBoxWarehouse.parseOrNull(bytes, info.url)
                 }

@@ -183,6 +183,8 @@ def dispatch(payload):
                     value = json.loads(value)
                 except ValueError:
                     pass
+            if method == 'homeVideoContent' and (value is None or isinstance(value, list)):
+                value = {'list': [] if value is None else value}
         else:
             raise ValueError('Unknown bridge operation')
         return json.dumps({'ok': True, 'value': value}, ensure_ascii=False)

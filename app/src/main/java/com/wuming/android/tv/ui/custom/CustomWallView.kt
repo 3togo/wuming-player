@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
@@ -36,6 +37,7 @@ open class CustomWallView(
     private var player: ExoPlayer? = null
     private var cache: Drawable? = null
     private var initialized = false
+    private var suspended = false
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
@@ -48,6 +50,7 @@ open class CustomWallView(
             (context as ComponentActivity).lifecycle.removeObserver(this)
             releaseResources()
             initialized = false
+            suspended = false
         }
     }
 
@@ -62,13 +65,12 @@ open class CustomWallView(
         if (player != null) return
         player = ExoPlayer.Builder(context).build()
         player!!.repeatMode = Player.REPEAT_MODE_ALL
-        player!!.playWhenReady = true
         player!!.mute()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     open fun onConfigEvent(event: ConfigEvent) {
-        if (event.type() == ConfigEvent.Type.WALL) refresh()
+        if (!suspended && event.type() == ConfigEvent.Type.WALL) refresh()
     }
 
     private fun refresh() {
@@ -77,6 +79,7 @@ open class CustomWallView(
     }
 
     private fun stop() {
+        binding?.image?.setImageDrawable(null)
         player?.stop()
         player?.clearMediaItems()
         video?.player = null
@@ -112,11 +115,14 @@ open class CustomWallView(
     }
 
     private fun loadVideo(file: File) {
+        val lifecycle = (context as ComponentActivity).lifecycle
+        binding!!.image.setImageDrawable(cache)
+        if (!lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) return
         ensurePlayer()
         ensureVideoView()
         video!!.player = player
         video!!.visibility = VISIBLE
-        binding!!.image.setImageDrawable(cache)
+        player!!.playWhenReady = lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
         player!!.setMediaItem(MediaItem.fromUri(Uri.fromFile(file)))
         player!!.prepare()
     }
@@ -153,6 +159,21 @@ open class CustomWallView(
 
     override fun onCreate(owner: LifecycleOwner) {
         if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this)
+    }
+
+    override fun onStart(owner: LifecycleOwner) {
+        if (!initialized) return
+        if (suspended || DisplaySettings.getWallType() == 2 && player == null) {
+            suspended = false
+            refresh()
+        }
+    }
+
+    override fun onStop(owner: LifecycleOwner) {
+        suspended = true
+        stop()
+        player?.release()
+        player = null
     }
 
     override fun onResume(owner: LifecycleOwner) {

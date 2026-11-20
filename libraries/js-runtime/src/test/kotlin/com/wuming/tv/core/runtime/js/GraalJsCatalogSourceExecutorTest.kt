@@ -156,6 +156,62 @@ class GraalJsCatalogSourceExecutorTest {
     }
 
     @Test
+    fun invokesModernNamedExportsWithSpiderArguments() {
+        server.createContext("/modern.js") { exchange ->
+            respond(exchange, """
+                let token;
+                export function init(value) { token = value; }
+                export function homeContent(filter) {
+                    return {list:[{vod_id:'home',vod_name:token + ':' + filter}]};
+                }
+                export async function homeVideoContent() {
+                    return JSON.stringify({list:[{vod_id:'featured',vod_name:'Featured'}]});
+                }
+                export function categoryContent(type, page, filter, extend) {
+                    return {page:Number(page),list:[{vod_id:type,vod_name:extend.year + ':' + filter}]};
+                }
+                export function searchContent(query, quick, page) {
+                    return {list:[{vod_id:'id',vod_name:query + ':' + quick + ':' + page}]};
+                }
+                export async function detailContent(ids) {
+                    if (!Array.isArray(ids) || ids.length !== 1) throw Error('expected one ID in an array');
+                    return {list:[{vod_id:ids[0],vod_name:'Modern detail'}]};
+                }
+                export function playerContent(flag, id, vipFlags) {
+                    if (flag !== 'line' || !Array.isArray(vipFlags) || vipFlags.length) throw Error('invalid player arguments');
+                    return {url:id};
+                }
+            """.trimIndent())
+        }
+        GraalJsCatalogSourceExecutor(JsSourceSpec("modern", "Modern", "$base/modern.js", "token")).use { source ->
+            assertEquals(listOf("token:true", "Featured"), source.home().map { it.name })
+            assertEquals("2026:true", source.category("movie", 2, mapOf("year" to "2026")).items.single().name)
+            assertEquals("probe:false:1", source.search("probe").single().name)
+            assertEquals("Modern detail", source.detail("id").item.name)
+            assertEquals("https://media.example/video.m3u8", source.play("line", "https://media.example/video.m3u8").url)
+        }
+    }
+
+    @Test
+    fun prefersModernMethodsOnMixedObjectsAndPreservesTheirReceiver() {
+        server.createContext("/mixed.js") { exchange ->
+            respond(exchange, """
+                export default {
+                  init(value) { this.token = value; },
+                  home() { return {list:[{vod_id:'legacy',vod_name:'Legacy'}]}; },
+                  homeContent() { return {list:[{vod_id:'modern',vod_name:this.token}]}; },
+                  search(query) { return {list:[{vod_id:query,vod_name:this.token}]}; }
+                };
+            """.trimIndent())
+        }
+        GraalJsCatalogSourceExecutor(JsSourceSpec("mixed", "Mixed", "$base/mixed.js", "token")).use { source ->
+            assertEquals("modern", source.home().single().id)
+            assertEquals("token", source.home().single().name)
+            assertEquals("token", source.search("probe").single().name)
+        }
+    }
+
+    @Test
     fun hostNamespaceDoesNotChangeCatVodProviderKey() {
         val spec = JsSourceSpec("package-host-key", "Package", "$base/catvod-open.js", "{}", providerKey = "original")
         GraalJsCatalogSourceExecutor(spec).use { source ->

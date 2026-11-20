@@ -111,6 +111,10 @@ class DesktopLiveStreamProbe(
                 LiveLineMeasurement(accepted, if (accepted) latencyMillis else 0L)
             }
         }.onFailure {
+            if (it is InterruptedException) {
+                Thread.currentThread().interrupt()
+                throw it
+            }
             logger.info("stream probe target=${uri.scheme}://${uri.host}${uri.path.orEmpty()} failed=${it.javaClass.simpleName}")
         }.getOrDefault(LiveLineMeasurement(false))
     }

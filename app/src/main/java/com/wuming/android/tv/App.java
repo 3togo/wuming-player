@@ -325,6 +325,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
             com.wuming.android.tv.bean.FilterCache.clear();
         }
         if (level >= ComponentCallbacks2.TRIM_MEMORY_BACKGROUND) {
+            Task.execute(() -> com.wuming.android.tv.api.loader.BaseLoader.trimLoadedScriptProviders());
             VodBrowse.clear();
             com.wuming.android.tv.db.DataCache.get().trimHistories(
                     com.wuming.tv.core.cache.MemoryBudget.current().scale(50, 100, 200));

@@ -120,9 +120,13 @@ public class LeanbackCriticalFlowInstrumentedTest {
     public void settingsRouteRespondsToInjectedDpadAndOk() {
         android.app.Instrumentation input = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation();
         input.setInTouchMode(false);
+        Context context = ApplicationProvider.getApplicationContext();
+        // Own the Settings task directly. The TV firmware can force-stop the
+        // AndroidX for-result host in the test APK, destroying its child activity.
+        Intent intent = new Intent(context, SettingActivity.class).addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         int original = AppSettings.getLinkRoute();
         AppSettings.putLinkRoute(AppSettings.LINK_ROUTE_BUILTIN);
-        try (ActivityScenario<SettingActivity> scenario = TestActivityLauncher.launch(SettingActivity.class)) {
+        try (ActivityScenario<SettingActivity> scenario = ActivityScenario.launch(intent)) {
             scenario.onActivity(activity -> assertTrue(activity.findViewById(R.id.cache).requestFocus()));
             input.sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_UP);
             input.waitForIdleSync();

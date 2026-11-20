@@ -4,6 +4,7 @@ import com.wuming.android.tv.setting.AppSettings
 import com.wuming.android.tv.utils.AppLog
 import com.github.catvod.net.OkHttp
 import com.github.catvod.utils.Json
+import com.wuming.tv.core.base.BoundedResponse
 import com.wuming.tv.core.source.TvBoxConfigPayloadDecoder
 
 import java.net.URLEncoder
@@ -31,7 +32,7 @@ object Decoder {
             AppLog.i(TAG, "Direct fetch succeeded")
             return result
         } catch (e: Exception) {
-            if (Thread.currentThread().isInterrupted || "Canceled" == e.message) throw e
+            if (e is BoundedResponse.LimitExceeded || Thread.currentThread().isInterrupted || "Canceled" == e.message) throw e
             if (runCatching { java.net.URI(url).host in setOf("127.0.0.1", "localhost", "::1", "[::1]") }.getOrDefault(false)) throw e
             AppLog.d(TAG, "Direct fetch failed; using relay", e)
             try {
@@ -55,7 +56,7 @@ object Decoder {
             val httpUrl = res.request.url
             var u = url
             if (httpUrl.querySize == 0) u = httpUrl.toString()
-            return verify(u, res.body.string())
+            return verify(u, BoundedResponse.text(res.body, BoundedResponse.CONFIG_BYTES))
         }
     }
 
@@ -64,7 +65,7 @@ object Decoder {
         val relayUrl = AppSettings.getRelayUrl() + URLEncoder.encode(url, StandardCharsets.UTF_8.name())
         OkHttp.newCall(relayUrl, tag).execute().use { res ->
             if (!res.isSuccessful) throw IOException("Configuration relay HTTP " + res.code)
-            val data = trim(res.body.string())
+            val data = trim(BoundedResponse.text(res.body, BoundedResponse.CONFIG_BYTES))
             if (data.isEmpty()) throw IOException("Configuration relay response is empty")
             val decoded = verify(url, data)
             if (!Json.isObj(decoded)) throw IOException("Configuration relay response is not a JSON object")

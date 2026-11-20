@@ -138,6 +138,22 @@ actions 4 and 5.
 The status panel shows branch, dirty state, `updates.json` version, depot entry
 counts, and the newest APKs in `debug/` and `release/`.
 
+## Curated provider review before distribution
+
+Run `~/venv/bin/python scripts/depot/validate_depot.py --dry-run` to check depot
+reachability and sampled configuration content. Review new or changed VOD
+entries for executable provider references such as a top-level or per-site
+`spider` JAR or a script source. Resolve relative references against the
+configuration URL and check the publisher, redirects, and any declared digest
+before distributing the entry.
+
+If an artifact is confirmed unsafe, remove its distribution references from the
+curated depot and any bundled configuration that points to it. Record the
+affected configuration paths and artifact digest when available. Recheck those
+paths after regenerating the catalogue. The depot validator checks reachability
+and supported content shapes. Artifact provenance and secondary downloads
+require a separate review.
+
 ## Curated live lists (offline builder)
 
 The public snapshot bundles only `app/src/main/assets/live/public_samples.m3u8`

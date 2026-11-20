@@ -17,6 +17,15 @@ import java.util.Base64
 
 class DesktopTvBoxConfigurationLoaderTest {
 
+    @Test fun loadsWrappedZyPlayerSitesAndIptv() {
+        val json = """{"sites":{"data":[{"key":"fixture","type":3,"api":"./provider.js"}]},
+            "iptv":{"data":[{"name":"Local TV","url":"./live.m3u"}]}}"""
+        val config = DesktopTvBoxConfigurationLoader(null) { json.toByteArray() }
+            .load("https://fixture.example/config/index.json")
+        assertEquals("https://fixture.example/config/provider.js", config.sites.single().execution?.moduleUrl)
+        assertEquals("https://fixture.example/config/live.m3u", config.lives.single().location)
+    }
+
     @Test fun nodeSourcesDoNotAcquireOrdinaryJavaScriptOrJvmAdapters() {
         val json = """{"spider":"https://unused.example/provider.jar","sites":[
             {"key":"node","type":3,"api":"nodejs:https://fixture.example/provider.js"},

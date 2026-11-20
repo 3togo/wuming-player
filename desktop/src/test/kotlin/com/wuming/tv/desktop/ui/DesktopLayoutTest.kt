@@ -17,6 +17,62 @@ import org.junit.Test
 /** Exercises real Swing ports with an offline catalogue, without a window server or live providers. */
 class DesktopLayoutTest {
     @Test
+    fun sourceActionsAndPlaylistEditorFitCompactDesktopWidths() {
+        val prefs = Preferences.userRoot().node("tvbox-source-layout/${System.nanoTime()}")
+        lateinit var settings: ConfigurationPanel
+        lateinit var live: LiveTvPanel
+        lateinit var settingsRoot: JRootPane
+        lateinit var liveRoot: JRootPane
+        lateinit var host: JPanel
+        fun layout(root: Container) {
+            root.doLayout()
+            root.components.filterIsInstance<Container>().forEach(::layout)
+        }
+        try {
+            SwingUtilities.invokeAndWait {
+                DesktopTvTheme.install()
+                settings = ConfigurationPanel(
+                    preferences = prefs,
+                    depot = com.wuming.tv.desktop.config.DesktopDepot(emptyList(), emptyList()),
+                )
+                live = LiveTvPanel(null)
+                settingsRoot = JRootPane().apply { contentPane = settings }
+                liveRoot = JRootPane().apply { contentPane = live }
+                host = JPanel().apply { add(settingsRoot); add(liveRoot); addNotify() }
+            }
+            for (width in listOf(550, 1320, 550)) {
+                SwingUtilities.invokeAndWait {
+                    settingsRoot.setSize(width, 550)
+                    liveRoot.setSize(width + 16, 590)
+                    layout(settingsRoot)
+                    layout(liveRoot)
+                }
+                SwingUtilities.invokeAndWait {
+                    // DesktopWrapLayout queues revalidation once the row receives its new width.
+                    layout(settingsRoot)
+                    layout(liveRoot)
+                    for (name in listOf("Edit source URL…", "Import package…", "Roll back package",
+                        "Check source…", "Review source trust…")) {
+                        val button = descendants(settings).filterIsInstance<JButton>().first { it.text == name }
+                        val parent = button.parent
+                        assertTrue("$name fits its row at $width: ${button.bounds} in ${parent.size}",
+                            button.x >= 0 && button.y >= 0 && button.x + button.width <= parent.width &&
+                                button.y + button.height <= parent.height)
+                    }
+                    assertTrue(field<JTextField>(live, "location").width >= 120)
+                }
+            }
+        } finally {
+            SwingUtilities.invokeAndWait {
+                runCatching { live.close() }
+                runCatching { settings.cancelLoading() }
+                runCatching { host.removeNotify() }
+            }
+            prefs.removeNode()
+        }
+    }
+
+    @Test
     fun historyPrivacyControlsRemainReachableAfterSearchOrDetails() {
         val prefs = Preferences.userRoot().node("tvbox-history-layout/${System.nanoTime()}")
         val directory = java.nio.file.Files.createTempDirectory("history-layout")

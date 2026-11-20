@@ -13,6 +13,7 @@ import com.wuming.android.tv.utils.AppLog;
 import com.wuming.android.tv.utils.Notify;
 import com.wuming.android.tv.utils.Task;
 import com.wuming.android.tv.utils.UrlUtil;
+import com.wuming.tv.core.base.BoundedResponse;
 import android.os.Looper;
 import com.github.catvod.bean.Header;
 import com.github.catvod.bean.Proxy;
@@ -24,11 +25,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.InterruptedIOException;
-import java.util.ArrayList;
+import okhttp3.HttpUrl;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 abstract class BaseConfig {
 
@@ -40,24 +41,48 @@ abstract class BaseConfig {
 
     protected boolean sync;
     protected volatile Config config;
-    private final AtomicReference<Future<?>> futureRef = new AtomicReference<>();
+    private Future<?> future;
+    private int synchronousLoad;
+    private int explicitRequest;
 
     protected abstract String getTag();
 
     protected abstract Config defaultConfig();
 
-    protected abstract void load(Config config) throws Throwable;
+    protected abstract PreparedLoad prepare(Config config, int request) throws Throwable;
 
     protected abstract boolean isLoaded();
 
-    public synchronized void ensureLoaded() {
+    protected record PreparedLoad(Config config, Runnable publish, Runnable cleanup, Runnable preload) implements AutoCloseable {
+        PreparedLoad(Config config, Runnable publish) {
+            this(config, publish, () -> {}, () -> {});
+        }
+
+        PreparedLoad(Config config, Runnable publish, Runnable cleanup) {
+            this(config, publish, cleanup, () -> {});
+        }
+
+        @Override
+        public void close() {
+            cleanup.run();
+        }
+    }
+
+    public void ensureLoaded() {
+        int id;
+        Config requested;
+        synchronized (this) {
+            if (isLoaded() || synchronousLoad != 0 || future != null && !future.isDone()) return;
+            requested = config;
+            id = nextTaskId();
+            synchronousLoad = id;
+        }
         try {
-            if (isLoaded()) return;
-            if (config == null) config = defaultConfig();
-            Server.get().start();
-            load(config);
-        } catch (Throwable e) {
-            AppLog.e(getTag(), e);
+            loadConfig(id, requested, null);
+        } finally {
+            synchronized (this) {
+                if (synchronousLoad == id) synchronousLoad = 0;
+            }
         }
     }
 
@@ -111,49 +136,97 @@ abstract class BaseConfig {
     }
 
     public void load(Callback callback) {
-        int id = nextTaskId();
-        Future<?> prev = futureRef.getAndSet(null);
-        if (prev != null && !prev.isDone()) prev.cancel(true);
-        futureRef.set(Task.submit(() -> loadConfig(id, config, callback)));
-        callback.start();
+        requestLoad(config, callback, false);
     }
 
-    protected void loadConfig(int id, Config config, Callback callback) {
+    protected final void requestLoad(Config requested, Callback callback) {
+        requestLoad(requested, callback, true);
+    }
+
+    private void requestLoad(Config requested, Callback callback, boolean explicit) {
+        final int id;
+        final int previous;
+        synchronized (this) {
+            previous = currentTaskId();
+            id = nextTaskId();
+            explicitRequest = explicit ? id : 0;
+            if (future != null) future.cancel(true);
+        }
+        OkHttp.cancel(requestTag(previous));
+        callback.start();
+        if (!isCurrent(id)) return;
+        Future<?> submitted = Task.submit(() -> loadConfig(id, requested, callback));
+        synchronized (this) {
+            if (isCurrent(id)) future = submitted;
+            else submitted.cancel(true);
+        }
+    }
+
+    private void loadConfig(int id, Config requested, Callback callback) {
         try {
-            // If config is null, fetch it from DB (this runs on background thread)
-            Config effectiveConfig = (config != null) ? config : defaultConfig();
-            // Retain the asynchronously resolved default. UI callers can inspect
-            // this in-memory value without repeating the Room lookup on main.
-            if (!retainResolvedConfig(id, config, effectiveConfig)) return;
+            if (!isCurrent(id)) return;
+            Config effective = requested != null ? requested : defaultConfig();
+            if (!isCurrent(id)) return;
             Server.get().start();
-            OkHttp.cancel(getTag());
-            load(effectiveConfig);
-            if (taskId.get() != id) return;
-            if (effectiveConfig.equals(this.config)) effectiveConfig.update();
-            App.post(() -> Notify.show(effectiveConfig.getNotice()));
-            App.post(callback::success);
+            try (PreparedLoad prepared = prepare(effective, id)) {
+                if (!commitPrepared(id, prepared, callback != null)) return;
+                if (isCurrent(id)) prepared.preload().run();
+                if (callback != null) {
+                    postCurrent(id, () -> {
+                        Notify.show(prepared.config().getNotice());
+                        if (isCurrent(id)) callback.success();
+                    });
+                }
+            }
         } catch (Throwable e) {
             AppLog.e(getTag(), e);
-            if (isCanceled(e)) return;
-            if (taskId.get() != id) return;
-            Config currentConfig = this.config != null ? this.config : config;
-            if (currentConfig == null || BeanUtils.isEmpty(currentConfig.getUrl())) App.post(() -> callback.error(""));
-            else App.post(() -> callback.error(Notify.getError(R.string.error_config_get, e)));
+            if (callback != null && !isCanceled(e)) {
+                postCurrent(id, () -> callback.error(requested == null && config == null
+                        || requested != null && BeanUtils.isEmpty(requested.getUrl())
+                        ? "" : Notify.getError(R.string.error_config_get, e)));
+            }
         } finally {
-            if (taskId.get() == id) postEvent();
+            synchronized (this) {
+                if (explicitRequest == id) explicitRequest = 0;
+            }
+            if (callback != null) postCurrent(id, this::postEvent);
         }
+    }
+
+    private void postCurrent(int id, Runnable action) {
+        App.post(() -> {
+            // Request creation can be reentrant during callbacks. Check each delivery.
+            if (isCurrent(id)) action.run();
+        });
     }
 
     synchronized int nextTaskId() {
         return taskId.incrementAndGet();
     }
 
-    synchronized boolean retainResolvedConfig(int id, Config requested, Config resolved) {
-        if (taskId.get() != id) return false;
-        if (requested == null) {
-            if (this.config == null) this.config = resolved;
-            else if (this.config != resolved) return false;
-        }
+    protected final int currentTaskId() {
+        return taskId.get();
+    }
+
+    protected final String requestTag(int id) {
+        return getTag() + ":" + id;
+    }
+
+    protected final boolean isCurrent(int id) {
+        return taskId.get() == id;
+    }
+
+    protected final synchronized boolean acceptsEmbedded(int id, String url) {
+        return explicitRequest == 0 && isCurrent(id) && needSync(url);
+    }
+
+    synchronized boolean commitPrepared(int id, PreparedLoad prepared, boolean save) {
+        if (!isCurrent(id)) return false;
+        Config next = prepared.config();
+        if (save) next.ensurePersistedIdentity();
+        prepared.publish().run();
+        config = next;
+        if (save) next.update();
         return true;
     }
 
@@ -164,53 +237,89 @@ abstract class BaseConfig {
         return e.getCause() instanceof InterruptedIOException;
     }
 
-    protected JsonArray fetchArray(JsonObject object, String key) {
+    protected JsonArray fetchArray(JsonObject object, String key, String tag) {
         if (!object.has(key)) return new JsonArray();
         JsonElement element = object.get(key);
-        if (element.isJsonObject()) return new JsonArray();
-        if (element.isJsonPrimitive()) element = fetch(element.getAsString());
+        if (element == null || element.isJsonNull() || element.isJsonObject()) return new JsonArray();
+        if (element.isJsonPrimitive()) element = fetch(element.getAsString(), tag);
         JsonArray result = new JsonArray();
         for (JsonElement item : element.getAsJsonArray()) {
-            if (item.isJsonPrimitive()) result.addAll(fetch(item.getAsString()));
+            if (item.isJsonPrimitive()) result.addAll(fetch(item.getAsString(), tag));
             else if (item.isJsonObject()) result.add(item);
         }
         return result;
     }
 
-    private JsonArray fetch(String url) {
+    private JsonArray fetch(String url, String tag) {
         try {
-            JsonElement parsed = JsonParser.parseString(OkHttp.string(UrlUtil.convert(url)));
-            return parsed.isJsonArray() ? parsed.getAsJsonArray() : new JsonArray();
+            try (okhttp3.Response response = OkHttp.newCall(UrlUtil.convert(url), tag).execute()) {
+                if (!response.isSuccessful() || response.body() == null) return new JsonArray();
+                JsonElement parsed = JsonParser.parseString(BoundedResponse.text(response.body(), BoundedResponse.CONFIG_BYTES));
+                return parsed.isJsonArray() ? parsed.getAsJsonArray() : new JsonArray();
+            }
         } catch (Exception e) {
             return new JsonArray();
         }
     }
 
-    protected boolean checkJson(Config config, JsonObject object, int configType) throws Throwable {
-        if (object.has("msg")) {
-            throw new Exception(object.get("msg").getAsString());
-        } else if (object.has("urls")) {
-            parseDepot(config, object, configType);
-            return true;
+    protected record SourceDocument(Config config, String text, JsonObject json, long fetchMillis) {}
+
+    protected SourceDocument readSource(Config requested, int type, boolean requireObject, int id) throws Throwable {
+        var visited = new HashSet<String>();
+        Config candidate = requested;
+        long started = System.currentTimeMillis();
+        for (int hop = 0; hop <= 8; hop++) {
+            if (!isCurrent(id) || Thread.currentThread().isInterrupted()) throw new InterruptedException();
+            String url = UrlUtil.convert(candidate.getUrl());
+            HttpUrl normalized = HttpUrl.parse(url);
+            String identity = normalized == null ? url : normalized.newBuilder().fragment(null).build().toString();
+            if (!visited.add(identity)) {
+                throw new IllegalArgumentException("Configuration warehouse contains a cycle");
+            }
+            String text;
+            try {
+                text = requireObject ? com.wuming.android.tv.api.Decoder.getJsonObject(url, requestTag(id))
+                        : com.wuming.android.tv.api.Decoder.getJson(url, requestTag(id));
+            } catch (Exception failure) {
+                if (Thread.currentThread().isInterrupted() || isCanceled(failure)
+                        || failure instanceof BoundedResponse.LimitExceeded) throw failure;
+                text = candidate.getJson();
+                if (text.isEmpty()) throw failure;
+                AppLog.w(getTag(), "Network fetch failed; using cached config JSON");
+            }
+            JsonObject object = Json.isObj(text) ? JsonParser.parseString(text).getAsJsonObject() : null;
+            if (object == null) {
+                if (requireObject) throw new IllegalArgumentException("Configuration must be a JSON object");
+                return new SourceDocument(candidate, text, null, System.currentTimeMillis() - started);
+            }
+            if (object.has("msg")) throw new IllegalArgumentException(object.get("msg").getAsString());
+            if (!object.has("urls")) return new SourceDocument(candidate, text, object, System.currentTimeMillis() - started);
+            if (hop == 8) break;
+            JsonElement entries = object.get("urls");
+            if (!entries.isJsonArray()) throw new IllegalArgumentException("Configuration warehouse urls must be an array");
+            List<Depot> items = Depot.arrayFrom(entries.toString());
+            if (items.isEmpty() || items.get(0) == null || BeanUtils.isEmpty(items.get(0).getUrl())) {
+                throw new IllegalArgumentException("Configuration warehouse has no first child");
+            }
+            Depot child = items.get(0);
+            candidate = Config.prepareSource(child.getUrl(), child.getName(), type);
         }
-        return false;
+        throw new IllegalArgumentException("Configuration warehouse exceeds eight hops");
     }
 
-    private void parseDepot(Config config, JsonObject object, int configType) throws Throwable {
-        List<Depot> items = Depot.arrayFrom(object.getAsJsonArray("urls").toString());
-        List<Config> configs = new ArrayList<>();
-        for (Depot item : items) configs.add(Config.find(item, configType));
-        if (configs.isEmpty()) throw new Exception("Depot urls is empty");
-        load(this.config = configs.get(0));
-        Config.delete(config.getUrl());
-    }
-
-    protected void initCommonList(JsonObject object) {
-        setHeaders(Header.arrayFrom(fetchArray(object, "headers")));
-        setProxy(Proxy.arrayFrom(fetchArray(object, "proxy")));
-        setRules(Rule.arrayFrom(fetchArray(object, "rules")));
-        setHosts(Json.safeListString(object, "hosts"));
-        setAds(Json.safeListString(object, "ads"));
+    protected Runnable prepareCommonList(JsonObject object, String tag) {
+        List<Header> headers = Header.arrayFrom(fetchArray(object, "headers", tag));
+        List<Proxy> proxies = Proxy.arrayFrom(fetchArray(object, "proxy", tag));
+        List<Rule> rules = Rule.arrayFrom(fetchArray(object, "rules", tag));
+        List<String> hosts = Json.safeListString(object, "hosts");
+        List<String> ads = Json.safeListString(object, "ads");
+        return () -> {
+            setHeaders(headers);
+            setProxy(proxies);
+            setRules(rules);
+            setHosts(hosts);
+            setAds(ads);
+        };
     }
 
     protected abstract void setRules(List<Rule> rules);

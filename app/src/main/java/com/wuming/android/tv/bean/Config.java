@@ -419,6 +419,41 @@ public class Config implements com.wuming.tv.core.catalog.ConfigView {
         }
     }
 
+    /** Read the candidate for a configuration load without adding or renaming a saved source. */
+    public static Config prepareSource(String url, String name, int type) {
+        Config saved = DataCache.isReady() ? DataCache.get().findConfig(url, type)
+                : AppDatabase.get().getConfigDao().find(url, type);
+        Config candidate = new Config().type(type).url(url).name(name);
+        if (saved == null) return candidate;
+        candidate.id = saved.id;
+        candidate.time = saved.time;
+        candidate.json = saved.json;
+        candidate.name = BeanUtils.isEmpty(name) ? saved.name : name;
+        candidate.logo = saved.logo;
+        candidate.home = saved.home;
+        candidate.parse = saved.parse;
+        candidate.danmaku = saved.danmaku;
+        candidate.notice = saved.notice;
+        return candidate;
+    }
+
+    /** A newly accepted warehouse leaf needs its stable ID before it can own history. */
+    public void ensurePersistedIdentity() {
+        if (id > 0 || isEmpty()) return;
+        var dao = AppDatabase.get().getConfigDao();
+        Config stored = dao.find(getUrl(), type);
+        if (stored != null) {
+            id = stored.id;
+        } else if (id == 0) {
+            long row = dao.insert(this);
+            if (row > 0) id = Math.toIntExact(row);
+            else {
+                stored = dao.find(getUrl(), type);
+                if (stored != null) id = stored.id;
+            }
+        }
+    }
+
     public static Config find(Depot depot, int type) {
         Config item;
         if (DataCache.isReady()) {

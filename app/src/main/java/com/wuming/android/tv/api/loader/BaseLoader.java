@@ -29,12 +29,14 @@ public class BaseLoader {
     private final PyLoader pyLoader;
     private final JsLoader jsLoader;
     private final Set<String> interactiveCspKeys;
+    private static volatile BaseLoader activeLoader;
 
     private BaseLoader() {
         jarLoader = new JarLoader();
         pyLoader = new PyLoader();
         jsLoader = new JsLoader();
         interactiveCspKeys = ConcurrentHashMap.newKeySet();
+        activeLoader = this;
     }
 
     public static BaseLoader get() {
@@ -107,6 +109,13 @@ public class BaseLoader {
         pyLoader.clear();
         jsLoader.clear();
         ProviderClient.get().clearHealth();
+    }
+
+    public static void trimLoadedScriptProviders() {
+        BaseLoader loader = activeLoader;
+        if (loader == null) return;
+        loader.jsLoader.trim();
+        loader.pyLoader.trim();
     }
 
     public Spider getSpider(String key, String api, String ext, String jar) {
@@ -187,6 +196,12 @@ public class BaseLoader {
     public Object[] proxy(Map<String, String> params) throws Exception {
         String siteKey = params.get("siteKey");
         if (siteKey != null) {
+            Object[] playback = switch (params.getOrDefault("do", "")) {
+                case "js" -> jsLoader.playbackProxy(params, siteKey);
+                case "py" -> pyLoader.playbackProxy(params, siteKey);
+                default -> null;
+            };
+            if (playback != null) return playback;
             Site site = VodConfig.get().getSite(siteKey);
             // Keep authenticated QR/proxy traffic on the interactive instance.
             // Routing it back to RemoteSpider loses the login session.
@@ -216,6 +231,12 @@ public class BaseLoader {
             jarLoader.parseJar(key, jar);
             if (recent) jarLoader.setRecent(key);
         }
+    }
+
+    public void selectParserJar(String jar) {
+        if (BeanUtils.isEmpty(jar)) return;
+        if (isolateCspProviders()) ProviderClient.get().setRecent(jar);
+        else jarLoader.setRecent(com.github.catvod.utils.Util.md5(jar));
     }
 
     public DexClassLoader dex(String jar) {

@@ -1,7 +1,6 @@
 package com.wuming.android.tv.api.config;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -12,39 +11,20 @@ import org.junit.Test;
 public class BaseConfigTest {
 
     @Test
-    public void staleLoadCannotInstallResolvedDefault() {
-        FakeConfig config = new FakeConfig();
-        int stale = config.nextTaskId();
-        config.nextTaskId();
-        Config resolved = new Config().url("https://stale.example/config.json");
+    public void obsoletePreparedConfigCannotPublish() {
+        FakeConfig owner = new FakeConfig();
+        int stale = owner.nextTaskId();
+        int current = owner.nextTaskId();
+        Config oldSource = new Config().url("https://stale.example/config.json");
+        Config newSource = new Config().url("https://current.example/config.json");
+        var publications = new java.util.ArrayList<Config>();
 
-        assertFalse(config.retainResolvedConfig(stale, null, resolved));
-        assertNull(config.config);
-    }
-
-    @Test
-    public void currentLoadRetainsResolvedDefaultOnlyOnce() {
-        FakeConfig config = new FakeConfig();
-        int current = config.nextTaskId();
-        Config resolved = new Config().url("https://current.example/config.json");
-        Config replacement = new Config().url("https://replacement.example/config.json");
-
-        assertTrue(config.retainResolvedConfig(current, null, resolved));
-        assertSame(resolved, config.config);
-        assertFalse(config.retainResolvedConfig(current, null, replacement));
-        assertSame(resolved, config.config);
-    }
-
-    @Test
-    public void explicitCurrentRequestDoesNotReplaceNewerConfig() {
-        FakeConfig config = new FakeConfig();
-        int current = config.nextTaskId();
-        Config requested = new Config().url("https://requested.example/config.json");
-        Config newer = new Config().url("https://newer.example/config.json");
-        config.config = newer;
-
-        assertTrue(config.retainResolvedConfig(current, requested, requested));
-        assertSame(newer, config.config);
+        assertTrue(owner.commitPrepared(current,
+                new BaseConfig.PreparedLoad(newSource, () -> publications.add(newSource)), false));
+        assertFalse(owner.commitPrepared(stale,
+                new BaseConfig.PreparedLoad(oldSource, () -> publications.add(oldSource)), false));
+        assertSame(newSource, owner.config);
+        org.junit.Assert.assertEquals(java.util.List.of(newSource), publications);
     }
 
     private static final class FakeConfig extends BaseConfig {
@@ -60,7 +40,8 @@ public class BaseConfigTest {
         }
 
         @Override
-        protected void load(Config config) {
+        protected PreparedLoad prepare(Config config, int request) {
+            return new PreparedLoad(config, () -> {});
         }
 
         @Override

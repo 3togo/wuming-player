@@ -20,6 +20,7 @@ object TvBoxWarehouse {
         val root = runCatching {
             JsonParser.parseString(TvBoxConfigPayloadDecoder.decode(payload)).asJsonObject
         }.getOrNull() ?: return null
+        TvBoxConfigSchema.normalizeWarehouse(root)
         val urls = root.get("urls")?.takeIf { it.isJsonArray }?.asJsonArray ?: return null
         val seen = mutableSetOf<String>()
         return urls.mapNotNull { item ->

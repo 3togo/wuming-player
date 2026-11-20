@@ -59,6 +59,8 @@ open class LeanbackConfigDialog(
     private val activity: FragmentActivity,
 ) : DialogInterface.OnDismissListener {
     companion object {
+        private const val MAX_PREVIEW_CHARACTERS = 16_384
+
         private val PRETTY_GSON: Gson = GsonBuilder().setPrettyPrinting().create()
 
         @JvmStatic fun create(activity: FragmentActivity): LeanbackConfigDialog = LeanbackConfigDialog(activity)
@@ -330,7 +332,12 @@ open class LeanbackConfigDialog(
         Task.execute {
             val preview =
                 try {
-                    PRETTY_GSON.toJson(JsonParser.parseString(loadCurrentJson(sourceUrl)))
+                    val source = loadCurrentJson(sourceUrl)
+                    if (source.length > MAX_PREVIEW_CHARACTERS) source.take(MAX_PREVIEW_CHARACTERS) + "\n…"
+                    else PRETTY_GSON.toJson(JsonParser.parseString(source)).let { formatted ->
+                        if (formatted.length > MAX_PREVIEW_CHARACTERS) formatted.take(MAX_PREVIEW_CHARACTERS) + "\n…"
+                        else formatted
+                    }
                 } catch (
                     e: Exception,
                 ) {
@@ -381,7 +388,10 @@ open class LeanbackConfigDialog(
                     "file:",
                 )
             ) {
-                Path.read(Path.local(sourceUrl))
+                Path.local(sourceUrl).inputStream().use {
+                    com.wuming.tv.core.base.BoundedResponse.bytes(it, com.wuming.tv.core.base.BoundedResponse.CONFIG_BYTES)
+                        .toString(Charsets.UTF_8).removePrefix("\uFEFF")
+                }
             } else {
                 Decoder.getJsonObject(UrlUtil.convert(sourceUrl), "ConfigBackup")
             }

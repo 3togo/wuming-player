@@ -124,18 +124,20 @@ class CloudAccountsPanel(
         stopPolling()
         busy("Creating ${provider.displayName()} login QR…")
         val current = ++generation
-        object : SwingWorker<OpenDriveLoginChallenge, Void>() {
-            override fun doInBackground() = provider.beginLogin()
+        object : SwingWorker<Pair<OpenDriveLoginChallenge, java.awt.image.BufferedImage>, Void>() {
+            override fun doInBackground() = provider.beginLogin().let { challenge ->
+                challenge to CloudQrImage.render(challenge.content)
+            }
             override fun done() {
                 if (current != generation) return
-                runCatching { get() }.onSuccess { value ->
+                runCatching { get() }.onSuccess { (value, image) ->
                     logger.info(
                         "login challenge created provider=${provider.id()} contentLength=${value.content.length} " +
                             "expiresAt=${value.expiresAtEpochMillis}",
                     )
                     challenge = value
                     qr.text = ""
-                    qr.icon = ImageIcon(CloudQrImage.render(value.content))
+                    qr.icon = ImageIcon(image)
                     status.text = "Scan with the ${provider.displayName()} mobile app, then confirm login."
                     startPolling(current, provider, value)
                 }.onFailure { failed("Could not start login", it) }
@@ -162,8 +164,8 @@ class CloudAccountsPanel(
         object : SwingWorker<OpenDriveLoginState, Void>() {
             override fun doInBackground() = provider.pollLogin(challenge.id)
             override fun done() {
-                pollBusy = false
                 if (current != generation) return
+                pollBusy = false
                 runCatching { get() }.onSuccess { state ->
                     logger.info("login poll provider=${provider.id()} state=$state")
                     when (state) {
@@ -279,8 +281,8 @@ class CloudAccountsPanel(
     }
 
     private fun openChallenge() {
-        val uri = challenge?.content?.let(::URI) ?: return
-        runCatching { Desktop.getDesktop().browse(uri) }
+        val content = challenge?.content ?: return
+        runCatching { Desktop.getDesktop().browse(URI(content)) }
             .onFailure { failed("Could not open the QR link", it) }
     }
 

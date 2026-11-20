@@ -1,8 +1,12 @@
 """Platform-neutral TVBox Python provider helpers, without Java reflection."""
 import json
+import math
 import re
 import time
 import urllib.parse
+
+
+_CACHE_HEADER = 'wuming-cache-v1\n'
 
 
 class Spider:
@@ -46,12 +50,24 @@ class Spider:
         response.encoding = 'utf-8'
         return response
 
-    def post(self, url, **kwargs):
+    def post(self, url, data=None, **kwargs):
         import requests
         kwargs.setdefault('timeout', 15)
-        response = requests.post(url, **kwargs)
+        response = requests.post(url, data=data, **kwargs)
         response.encoding = 'utf-8'
         return response
+
+    def postJson(self, url, data=None, **kwargs):
+        if data is not None:
+            kwargs.setdefault('json', data)
+        return self.post(url, **kwargs)
+
+    @staticmethod
+    def xpText(node, expression):
+        value = node.xpath(expression)
+        if isinstance(value, list):
+            value = value[0] if value else ''
+        return str(value).strip()
 
     def html(self, content):
         from lxml import etree
@@ -81,7 +97,14 @@ class Spider:
 
     def getCache(self, key):
         try:
-            value = json.loads(self._cache_path(key).read_text('utf-8'))
+            text = self._cache_path(key).read_text('utf-8')
+            if text.startswith(_CACHE_HEADER):
+                entry = json.loads(text[len(_CACHE_HEADER):])
+                if not isinstance(entry, dict):
+                    return None
+                expires = entry.get('expires')
+                return entry.get('value') if isinstance(expires, (int, float)) and expires > time.time() else None
+            value = json.loads(text)
             if isinstance(value, dict):
                 expires = value.get('expiresAt')
                 if isinstance(expires, (int, float)) and expires < time.time():
@@ -90,13 +113,19 @@ class Spider:
             return value
         except (FileNotFoundError, ValueError): return None
 
-    def setCache(self, key, value):
+    def setCache(self, key, value, duration=0):
+        if (isinstance(duration, bool) or not isinstance(duration, (int, float))
+                or duration < 0 or not math.isfinite(duration)):
+            raise ValueError('Cache duration must be a finite nonnegative number of seconds')
         path = self._cache_path(key)
         import os
         import tempfile
         fd, temporary = tempfile.mkstemp(dir=path.parent)
         try:
             with os.fdopen(fd, 'w', encoding='utf-8') as stream:
+                if duration:
+                    stream.write(_CACHE_HEADER)
+                    value = {'value': value, 'expires': time.time() + duration}
                 json.dump(value, stream, ensure_ascii=False)
             os.replace(temporary, path)
         finally:

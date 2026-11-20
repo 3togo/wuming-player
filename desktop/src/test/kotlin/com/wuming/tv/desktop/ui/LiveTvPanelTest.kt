@@ -62,12 +62,20 @@ class LiveTvPanelTest {
         val entered = CountDownLatch(1)
         val release = CountDownLatch(1)
         val finished = CountDownLatch(1)
+        val interrupted = CountDownLatch(1)
         val started = AtomicInteger()
         val preparedOnEdt = AtomicBoolean()
         val player = ExternalPlayerAdapter(Path.of("/usr/bin/mpv"), { started.incrementAndGet(); null }, PlaybackTargetPreparer { target, _ ->
             preparedOnEdt.set(SwingUtilities.isEventDispatchThread())
             entered.countDown()
-            check(release.await(5, TimeUnit.SECONDS))
+            try {
+                check(release.await(5, TimeUnit.SECONDS))
+            } catch (failure: InterruptedException) {
+                if (!cancel) throw failure
+                interrupted.countDown()
+                // Simulate a preparer that completes allocation despite cancellation.
+                check(release.await(5, TimeUnit.SECONDS))
+            }
             PreparedPlaybackTarget(target, if (cancel) AutoCloseable { finished.countDown() } else null)
         })
         lateinit var panel: LiveTvPanel
@@ -96,6 +104,7 @@ class LiveTvPanelTest {
             }
             assertTrue("EDT must remain responsive while preparing media", responsive.await(1, TimeUnit.SECONDS))
             assertFalse(preparedOnEdt.get())
+            if (cancel) assertTrue("Close should interrupt playback preparation", interrupted.await(2, TimeUnit.SECONDS))
             release.countDown()
             if (cancel) {
                 // Drain the background worker and verify the adapter's cancellation check after preparation.

@@ -3,7 +3,6 @@ import com.wuming.android.tv.setting.AppSettings;
 
 
 
-import com.wuming.android.tv.api.Decoder;
 import com.wuming.android.tv.api.LiveApi;
 import com.wuming.android.tv.api.loader.BaseLoader;
 import com.wuming.android.tv.api.parser.LiveParser;
@@ -80,7 +79,7 @@ public class LiveConfig extends BaseConfig {
     }
 
     public static void load(Config config, Callback callback) {
-        get().clear().config(config).load(callback);
+        get().requestLoad(config, callback);
     }
 
     public LiveConfig init() {
@@ -123,27 +122,30 @@ public class LiveConfig extends BaseConfig {
     }
 
     @Override
-    protected void load(Config config) throws Throwable {
-        long startTime = System.currentTimeMillis();
-        String json;
-        try {
-            json = Decoder.getJson(UrlUtil.convert(config.getUrl()), TAG);
-            config.json(json);
-        } catch (Throwable e) {
-            String cached = config.getJson();
-            if (cached.isEmpty()) throw e;
-            AppLog.w(TAG, "Network fetch failed; using cached config JSON");
-            json = cached;
-        }
-        long pingTime = System.currentTimeMillis() - startTime;
-        if (Json.isObj(json)) {
-            JsonObject object = Json.parse(json).getAsJsonObject();
-            if (!checkJson(config, object, LIVE)) parseConfig(config, object);
+    protected PreparedLoad prepare(Config requested, int request) throws Throwable {
+        SourceDocument source = readSource(requested, LIVE, false, request);
+        Config config = source.config();
+        PreparedLoad parsed;
+        if (source.json() == null) {
+            Live live = new Live(UrlUtil.getName(config.getUrl()), config.getUrl()).sync();
+            LiveParser.text(live, source.text());
+            parsed = new PreparedLoad(config, () -> {
+                setLives(new ArrayList<>(List.of(live)));
+                setHome(config, live, false);
+            });
         } else {
-            parseText(config, json);
+            parsed = prepareEmbedded(config, source.json(), requestTag(request));
         }
-        // Track source usage
-        SourceTracker.trackSourceUsage(config.getUrl(), config.getName(), "Live", pingTime);
+        return new PreparedLoad(config, () -> {
+            clear();
+            parsed.publish().run();
+            config.json(source.text());
+            sync = false;
+            SourceTracker.trackSourceUsage(config.getUrl(), config.getName(), "Live", source.fetchMillis());
+        }, parsed.cleanup(), () -> {
+            parsed.preload().run();
+            if (isCurrent(request) && AppSettings.isBootLive()) ConfigEvent.boot();
+        });
     }
 
     @Override
@@ -152,7 +154,7 @@ public class LiveConfig extends BaseConfig {
     }
 
     @Override
-    public synchronized void ensureLoaded() {
+    public void ensureLoaded() {
         try {
             if (isLoaded()) return;
             super.ensureLoaded();
@@ -168,35 +170,30 @@ public class LiveConfig extends BaseConfig {
         load(new Callback());
     }
 
-    private void parseText(Config config, String text) {
-        Live live = new Live(UrlUtil.getName(config.getUrl()), config.getUrl()).sync();
-        lives = new ArrayList<>(List.of(live));
-        LiveParser.text(live, text);
-        setHome(config, live, false);
-    }
-
-    private void parseConfig(Config config, JsonObject object) {
-        initList(object);
-        initLive(config, object);
-    }
-
-    public void parse(JsonObject object) {
-        parseConfig(getConfig(), object);
-    }
-
-    private void initList(JsonObject object) {
-        initCommonList(object);
-    }
-
-    private void initLive(Config config, JsonObject object) {
+    PreparedLoad prepareEmbedded(Config config, JsonObject object, String tag) {
+        Runnable common = prepareCommonList(object, tag);
         String spider = Json.safeString(object, "spider");
-        BaseLoader.get().parseJar(spider, false);
         SectionAdmission<Live> admission = ConfigAdmission.LIVES.admitJson(object, "lives", e -> Live.objectFrom(e, spider));
         ConfigAdmission.log(TAG, admission);
-        setLives(new ArrayList<>(admission.getKept()));
-        Map<String, Live> items = Live.findAll().stream().collect(Collectors.toMap(Live::getName, Function.identity()));
-        getLives().forEach(live -> live.sync(items.get(live.getName())));
-        setHome(config, getLives().isEmpty() ? new Live() : getLives().stream().filter(item -> item.getName().equals(config.getHome())).findFirst().orElse(getLives().get(0)), false);
+        List<Live> nextLives = new ArrayList<>(admission.getKept());
+        Map<String, Live> items = Live.findAll().stream().collect(Collectors.toMap(Live::getName, Function.identity(), (first, duplicate) -> first));
+        nextLives.forEach(live -> live.sync(items.get(live.getName())));
+        Live selected = nextLives.isEmpty() ? new Live() : nextLives.stream()
+                .filter(item -> item.getName().equals(config.getHome())).findFirst().orElse(nextLives.get(0));
+        return new PreparedLoad(config, () -> {
+            common.run();
+            setLives(nextLives);
+            setHome(config, selected, false);
+        }, () -> {}, () -> BaseLoader.get().parseJar(spider, false));
+    }
+
+    synchronized void installEmbedded(int request, PreparedLoad prepared) {
+        if (!acceptsEmbedded(request, prepared.config().getUrl())) return;
+        nextTaskId();
+        if (commitPrepared(currentTaskId(), prepared, true)) {
+            sync = true;
+            if (AppSettings.isBootLive()) ConfigEvent.boot();
+        }
     }
 
     public void setKeep(Channel channel) {
@@ -292,7 +289,6 @@ public class LiveConfig extends BaseConfig {
         // Save in background thread to avoid main thread database access crash — same pattern as VodConfig.setHome
         if (save) Task.execute(() -> config.save());
         getLives().forEach(item -> item.setActivated(home));
-        if (!save && AppSettings.isBootLive()) ConfigEvent.boot();
     }
 
     private static class Loader {

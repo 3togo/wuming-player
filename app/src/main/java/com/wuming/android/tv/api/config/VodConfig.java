@@ -1,7 +1,6 @@
 package com.wuming.android.tv.api.config;
 
 import com.wuming.android.tv.App;
-import com.wuming.android.tv.api.Decoder;
 import com.wuming.android.tv.api.loader.BaseLoader;
 import com.wuming.android.tv.bean.BeanUtils;
 import com.wuming.android.tv.bean.Config;
@@ -11,8 +10,6 @@ import com.wuming.android.tv.bean.Site;
 import com.wuming.android.tv.event.ConfigEvent;
 import com.wuming.android.tv.event.RefreshEvent;
 import com.wuming.android.tv.impl.Callback;
-import com.wuming.android.tv.utils.AppLog;
-import com.wuming.android.tv.utils.UrlUtil;
 import com.wuming.android.tv.utils.SourceTracker;
 import com.wuming.android.tv.utils.Task;
 import com.wuming.tv.core.source.SectionAdmission;
@@ -27,7 +24,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class VodConfig extends BaseConfig {
 
@@ -71,7 +67,7 @@ public class VodConfig extends BaseConfig {
     }
 
     public static void load(Config config, Callback callback) {
-        get().clear().config(config).load(callback);
+        get().requestLoad(config, callback);
     }
 
     public VodConfig init() {
@@ -125,69 +121,18 @@ public class VodConfig extends BaseConfig {
     }
 
     @Override
-    protected void load(Config config) throws Throwable {
-        long startTime = System.currentTimeMillis();
-        String json;
-        try {
-            json = Decoder.getJsonObject(UrlUtil.convert(config.getUrl()), TAG);
-            config.json(json);
-        } catch (Throwable e) {
-            String cached = config.getJson();
-            if (cached.isEmpty()) throw e;
-            AppLog.w(TAG, "Network fetch failed; using cached config JSON");
-            json = cached;
-        }
-        long pingTime = System.currentTimeMillis() - startTime;
-        JsonObject object = Json.parse(json).getAsJsonObject();
-        if (!checkJson(config, object, VOD)) parseConfig(config, object);
-        // Track source usage
-        SourceTracker.trackSourceUsage(config.getUrl(), config.getName(), "VOD", pingTime);
-    }
+    protected PreparedLoad prepare(Config requested, int request) throws Throwable {
+        SourceDocument source = readSource(requested, VOD, true, request);
+        Config config = source.config();
+        JsonObject object = source.json();
+        String tag = requestTag(request);
+        Runnable common = prepareCommonList(object, tag);
+        List<Doh> nextDoh = Doh.arrayFrom(fetchArray(object, "doh", tag));
+        List<String> nextFlags = Json.safeListString(object, "flags");
+        String nextWall = Json.safeString(object, "wallpaper");
 
-    @Override
-    protected boolean isLoaded() {
-        return !getSites().isEmpty();
-    }
-
-    private void parseConfig(Config config, JsonObject object) {
-        initList(object);
-        initLive(config, object);
-        initWall(config, object);
-        initSite(config, object);
-        initParse(config, object);
-        config.setLogo(Json.safeString(object, "logo"));
-        config.setNotice(Json.safeString(object, "notice"));
-        config.setDanmaku(Json.safeString(object, "danmaku"));
-    }
-
-    private void initList(JsonObject object) {
-        initCommonList(object);
-        setDoh(Doh.arrayFrom(fetchArray(object, "doh")));
-        setFlags(Json.safeListString(object, "flags"));
-    }
-
-    private void initLive(Config config, JsonObject object) {
-        if (Json.isEmpty(object, "lives")) return;
-        Config temp = Config.find(config, LIVE).save();
-        boolean sync = LiveConfig.get().needSync(config.getUrl());
-        if (sync) LiveConfig.get().config(temp.update()).parse(object);
-    }
-
-    private void initWall(Config config, JsonObject object) {
-        if (Json.isEmpty(object, "wallpaper")) return;
-        this.wall = Json.safeString(object, "wallpaper");
-        Config temp = Config.find(wall, config.getName(), WALL).save();
-        boolean sync = WallConfig.get().needSync(wall);
-        if (sync) WallConfig.get().config(temp.update());
-    }
-
-    private void initSite(Config config, JsonObject object) {
-        // The spider jar reference is parsed through the shared TvBoxConfigDecoder so
-        // the Android app and the desktop client read the config with identical
-        // semantics; site entities themselves stay Gson-bound (Room/ExtAdapter).
-        String spider = com.wuming.tv.core.source.config.TvBoxConfigDecoder.decode(object).getSpider();
-        final String spiderJar = spider != null ? spider : "";
-        BaseLoader.get().parseJar(spiderJar, true);
+        String parsedJar = com.wuming.tv.core.source.config.TvBoxConfigDecoder.decode(object).getSpider();
+        String spiderJar = parsedJar == null ? "" : parsedJar;
         SectionAdmission<Site> admission = ConfigAdmission.SITES.admitJson(object, "sites", e -> Site.objectFrom(e, spiderJar));
         ConfigAdmission.log(TAG, admission);
         List<Site> configured = new ArrayList<>(admission.getKept());
@@ -195,22 +140,58 @@ public class VodConfig extends BaseConfig {
         if (packageId.matches("[a-f0-9]{32}")) {
             configured.forEach(site -> site.setKey(com.wuming.tv.core.source.packages.PackageSourceIdentity.scoped(packageId, site.getKey())));
         }
-        setSites(withBuiltinOpenDrive(configured));
-        Map<String, Site> items = TvBoxSourceIndex.indexByKey(Site.findAll(), Site::getKey);
-        getSites().forEach(site -> site.sync(items.get(site.getKey())));
-        Site selectedHome = SiteSourceAdapter.catalog().selectPreferred(getSites(), config.getHome());
-        if (selectedHome == null) selectedHome = new Site();
-        setHome(config, selectedHome, false);
+        List<Site> nextSites = withBuiltinOpenDrive(configured);
+        Map<String, Site> savedSites = TvBoxSourceIndex.indexByKey(Site.findAll(), Site::getKey);
+        nextSites.forEach(site -> site.sync(savedSites.get(site.getKey())));
+        Site selectedHome = SiteSourceAdapter.catalog().selectPreferred(nextSites, config.getHome());
+        List<Parse> nextParses = Json.safeListElement(object, "parses").stream()
+                .map(Parse::objectFrom).distinct().toList();
+        String logo = Json.safeString(object, "logo");
+        String notice = Json.safeString(object, "notice");
+        String danmaku = Json.safeString(object, "danmaku");
+
+        LiveConfig live = LiveConfig.get();
+        int liveRequest = live.currentTaskId();
+        PreparedLoad embeddedLive = !Json.isEmpty(object, "lives") && live.acceptsEmbedded(liveRequest, config.getUrl())
+                ? live.prepareEmbedded(Config.prepareSource(config.getUrl(), config.getName(), LIVE), object, tag) : null;
+        WallConfig wallpaper = WallConfig.get();
+        int wallRequest = wallpaper.currentTaskId();
+        Config embeddedWall = !BeanUtils.isEmpty(nextWall) && wallpaper.acceptsEmbedded(wallRequest, nextWall)
+                ? Config.prepareSource(nextWall, config.getName(), WALL) : null;
+
+        return new PreparedLoad(config, () -> {
+            common.run();
+            setDoh(nextDoh);
+            setFlags(nextFlags);
+            wall = nextWall;
+            BaseLoader.get().selectParserJar(spiderJar);
+            setSites(nextSites);
+            setHome(config, selectedHome == null ? new Site() : selectedHome, false);
+            setParses(nextParses);
+            setParse(config, getParses().stream().filter(item -> item.getName().equals(config.getParse()))
+                    .findFirst().orElseGet(() -> getParses().isEmpty() ? new Parse() : getParses().get(0)), false);
+            config.json(source.text());
+            config.setLogo(logo);
+            config.setNotice(notice);
+            config.setDanmaku(danmaku);
+            if (embeddedLive != null) live.installEmbedded(liveRequest, embeddedLive);
+            if (embeddedWall != null) wallpaper.installEmbedded(wallRequest, embeddedWall);
+            com.wuming.android.tv.api.SiteApi.clearDetailCache();
+            SourceTracker.trackSourceUsage(config.getUrl(), config.getName(), "VOD", source.fetchMillis());
+        }, () -> {}, () -> {
+            BaseLoader.get().parseJar(spiderJar, false);
+            if (embeddedLive != null) embeddedLive.preload().run();
+        });
+    }
+
+    @Override
+    protected boolean isLoaded() {
+        return !getSites().isEmpty();
     }
 
     static List<Site> withBuiltinOpenDrive(List<Site> configured) {
         return SiteSourceAdapter.catalog().withRequiredSource(configured,
                 Site.builtinSpider(OPEN_DRIVE_KEY, "OpenDrive (Built-in)", "builtin_opendrive"));
-    }
-
-    private void initParse(Config config, JsonObject object) {
-        setParses(Json.safeListElement(object, "parses").stream().map(Parse::objectFrom).distinct().collect(Collectors.toCollection(ArrayList::new)));
-        setParse(config, getParses().isEmpty() ? new Parse() : getParses().stream().filter(item -> item.getName().equals(config.getParse())).findFirst().orElseGet(() -> getParses().get(0)), false);
     }
 
     public List<Site> getSites() {

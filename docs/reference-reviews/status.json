@@ -382,6 +382,28 @@
         "cacheContract": "Page reads do not renew lookup TTL; last published result survives expiry/trim until replacement or clear"
       }
     },
+    "tvs-2026-11-20-incremental": {
+      "scanDateUtc": "2026-11-20",
+      "report": "2026-11-20-tvs-incremental.md",
+      "scannedTipsByCheckout": {
+        "TVboxOSC": "793e60e6b4f1fb607f728909e8c410eccfdeb736",
+        "TVBoxOS": "89ec1b7504426b3ff5e9d0996c3bbf50c9d2eff0",
+        "q215613905": "89ec1b7504426b3ff5e9d0996c3bbf50c9d2eff0",
+        "AVBox": "a6da734ed2b14e9eb290e90bd5d7bddf29f23c58",
+        "TV-K": "73793d13a563a157a3400a602d83288a1decd064"
+      },
+      "checkoutRoot": "~/git/TVs",
+      "state": "Incremental triage and applicable adaptations complete",
+      "implementationReport": "2026-11-20-tvs-implementation.md",
+      "implemented": [
+        "Modern and legacy JavaScript catalogue callback compatibility in the desktop Graal runtime",
+        "Curated provider artifact review and quarantine procedure in the maintenance guide"
+      ],
+      "notApplicable": "TVboxOSC Android optional mpv/libass installation lifecycle has no Wuming counterpart",
+      "depthReport": "2026-11-20-tvs-python-network-subscriptions.md",
+      "depthOutcome": "Adapted shared Python callback and helper compatibility, ZyPlayer export parsing, and atomic CatVod proxy rule publication. Reviewed upstream SDK and provider fixture interfaces; live provider validation and full SDK parity are outside this review.",
+      "resume": "For the next incremental scan, start after scannedTipsByCheckout."
+    },
     "tvs-2026-11-scan": {
       "paths": [
         "/home/eli/git/TVs/TVBoxOS",

@@ -119,14 +119,13 @@ class ConfigurationPanel(
         summary.isEditable = false
         summary.lineWrap = true
         summary.wrapStyleWord = true
-        add(JPanel().apply {
-            layout = javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS)
+        add(JPanel(DesktopHeaderLayout()).apply {
             add(JPanel(BorderLayout(8, 0)).apply {
                 add(JLabel("TVBox configuration URL"), BorderLayout.WEST)
                 add(this@ConfigurationPanel.location, BorderLayout.CENTER)
                 add(load, BorderLayout.EAST)
             })
-            add(JPanel(FlowLayout(FlowLayout.LEFT, 6, 6)).apply {
+            add(JPanel(DesktopWrapLayout(FlowLayout.LEFT, 6, 6)).apply {
                 add(forceReload)
                 add(JButton("Browse warehouse…").apply {
                     addActionListener { browseWarehouse(bundledLocation.value()) }

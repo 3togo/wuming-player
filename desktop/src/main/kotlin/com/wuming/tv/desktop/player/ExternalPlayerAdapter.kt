@@ -482,7 +482,11 @@ class ExternalPlayerAdapter internal constructor(
                             logger.info("mpv end-file pid=${session.process.pid()} reason=$reason" +
                                 (failureMessage?.let { " failure=$it" } ?: ""))
                             if (reason == "eof") completeMpvItem(session)
-                            if (reason == "error" && isMpvVideoOutputFailure(line) && session.windowId != null && !session.started && session.retryExternally?.invoke() == true) return@forEach
+                            if (reason == "error" && session.windowId != null && !session.started) {
+                                if (session.retryStarted.get()) return@forEach
+                                if (isMpvVideoOutputFailure(line) && session.retryExternally?.invoke() == true) return@forEach
+                                if (session.retryStarted.get()) return@forEach
+                            }
                             if (reason == "error") {
                                 val callback = synchronized(mpvSessionLock) {
                                     if (mpvSession !== session) return@synchronized null
@@ -736,6 +740,11 @@ class ExternalPlayerAdapter internal constructor(
                             if (event.startsWith("http-status-") || event == "input-format-failed" || event == "input-open-failed") {
                                 session?.mediaFailed = true
                             }
+                            // mpv can fail before our IPC connection receives its first end-file.
+                            if (event == "video-output-failed" && session != null && session.windowId != null
+                                && !session.started && !session.mediaFailed) {
+                                session.retryExternally?.invoke()
+                            }
                             logger.info("diagnostic player=$name pid=${process.pid()} event=$event")
                         }
                     }
@@ -862,6 +871,8 @@ internal fun parseMpvPropertyChange(line: String, previous: PlaybackState = Play
 
 internal fun classifyPlayerOutput(line: String): String? = when {
     isNaturalEndDiagnostic(line) -> "end-of-media"
+    line.contains("Error opening/initializing the selected video_out (--vo) device.", ignoreCase = true) ||
+        line.contains("Error opening/initializing the VO window.", ignoreCase = true) -> "video-output-failed"
     line.contains("Received first picture", ignoreCase = true) -> "first-video-frame"
     line.contains("Stream buffering done", ignoreCase = true) -> "buffering-complete"
     line.contains("using demux module \"adaptive\"", ignoreCase = true) -> "hls-demux-ready"

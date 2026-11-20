@@ -14,6 +14,7 @@ import com.wuming.tv.core.source.config.SourceBrowserEntry
 import com.wuming.tv.core.source.config.SourceKind
 import com.wuming.tv.core.source.config.SourceOrigin
 import com.wuming.tv.core.source.config.ProtectedSourceUrl
+import com.wuming.tv.desktop.net.DesktopResourceCancellation
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.FlowLayout
@@ -73,6 +74,12 @@ class LiveTvPanel(
     @Volatile private var generation = 0
     @Volatile private var playbackRequest = 0
     private var preparingPlayback = false
+    private var playlistWorker: SwingWorker<*, *>? = null
+    private var playlistCancellation: DesktopResourceCancellation? = null
+    private var guideWorker: SwingWorker<*, *>? = null
+    private var guideCancellation: DesktopResourceCancellation? = null
+    private var playbackWorker: SwingWorker<*, *>? = null
+    private var closed = false
     private var configuredLives = emptyList<DesktopTvBoxLive>()
     private var updatingConfiguredSources = false
 
@@ -89,8 +96,7 @@ class LiveTvPanel(
         groups.addListSelectionListener { if (!it.valueIsAdjusting) refreshChannels() }
         channels.addListSelectionListener {
             if (!it.valueIsAdjusting) {
-                playbackRequest++
-                preparingPlayback = false
+                cancelPlaybackPreparation()
                 refreshRoutes()
             }
         }
@@ -124,8 +130,7 @@ class LiveTvPanel(
         updateActions()
     }
 
-    private fun sourceBar(): JPanel = JPanel().apply {
-        layout = BoxLayout(this, BoxLayout.Y_AXIS)
+    private fun sourceBar(): JPanel = JPanel(DesktopHeaderLayout()).apply {
         add(JPanel(BorderLayout(8, 0)).apply {
             add(JLabel("Configured TV"), BorderLayout.WEST)
             add(configuredSources, BorderLayout.CENTER)
@@ -134,37 +139,41 @@ class LiveTvPanel(
             border = BorderFactory.createEmptyBorder(6, 0, 0, 0)
             add(JLabel("Playlist URL or file"), BorderLayout.WEST)
             add(this@LiveTvPanel.location, BorderLayout.CENTER)
-            add(JPanel(FlowLayout(FlowLayout.RIGHT, 6, 0)).apply {
-                add(JButton("Browse…").apply { addActionListener { chooseFile() } })
-                add(JButton("Browse sources…").apply {
-                    addActionListener {
-                        val curated = depotLives.map { source ->
-                            SourceBrowserEntry(source.name, source.location, SourceKind.LIVE, SourceOrigin.CURATED)
-                        }
-                        runCatching { DesktopOfflineLinkPicker.choose(this@LiveTvPanel, SourceKind.LIVE, curated) }
-                            .onSuccess { selected ->
-                                if (selected != null) {
-                                    bundledLocation.select(selected)
-                                    status.text = "${selected.name} selected. Choose Load to try it."
-                                }
-                            }.onFailure { status.text = it.message ?: "Could not open offline links." }
+        })
+        add(JPanel(DesktopWrapLayout(FlowLayout.LEFT, 6, 2)).apply {
+            add(JButton("Browse…").apply { addActionListener { chooseFile() } })
+            add(JButton("Browse sources…").apply {
+                addActionListener {
+                    val curated = depotLives.map { source ->
+                        SourceBrowserEntry(source.name, source.location, SourceKind.LIVE, SourceOrigin.CURATED)
                     }
-                })
-                add(JButton("Edit URL…").apply {
-                    addActionListener { bundledLocation.unlock(this@LiveTvPanel) }
-                })
-                add(load.apply {
-                    addActionListener {
-                        val source = bundledLocation.value()
-                        if (repeatRequests.accept("live-playlist:$source")) loadPlaylist(forceRefresh = true)
-                    }
-                })
-            }, BorderLayout.EAST)
+                    runCatching { DesktopOfflineLinkPicker.choose(this@LiveTvPanel, SourceKind.LIVE, curated) }
+                        .onSuccess { selected ->
+                            if (selected != null) {
+                                bundledLocation.select(selected)
+                                status.text = "${selected.name} selected. Choose Load to try it."
+                            }
+                        }.onFailure { status.text = it.message ?: "Could not open offline links." }
+                }
+            })
+            add(JButton("Edit URL…").apply {
+                addActionListener { bundledLocation.unlock(this@LiveTvPanel) }
+            })
+            add(load.apply {
+                addActionListener {
+                    val source = bundledLocation.value()
+                    if (repeatRequests.accept("live-playlist:$source")) loadPlaylist(forceRefresh = true)
+                }
+            })
         })
     }
 
     fun useLocalConfiguration(configuration: DesktopTvBoxConfiguration) {
+        if (closed) return
         generation++
+        cancelSourceLoads()
+        cancelPlaybackPreparation()
+        load.isEnabled = true
         setConfiguredLives(depotLives + configuration.lives)
         logger.info("configuration applied liveSources=${configuredLives.size}")
         if (configuredLives.isEmpty()) {
@@ -262,23 +271,29 @@ class LiveTvPanel(
         forceRefresh: Boolean = false,
         recover: ((Throwable) -> Boolean)? = null,
     ) {
+        if (closed) return
         val source = bundledLocation.value()
         if (source.isEmpty()) {
             status.text = "Enter a playlist URL or choose a file."
             return
         }
         val expectedGeneration = ++generation
+        cancelSourceLoads()
+        cancelPlaybackPreparation()
+        val cancellation = DesktopResourceCancellation()
+        playlistCancellation = cancellation
         load.isEnabled = false
         status.text = message
         logger.info("playlist load start generation=$expectedGeneration locationLength=${source.length}")
-        object : SwingWorker<LoadedLivePlaylist, Void>() {
+        playlistWorker = object : SwingWorker<LoadedLivePlaylist, Void>() {
             override fun doInBackground(): LoadedLivePlaylist {
-                val value = loader.load(source, forceRefresh)
+                val value = loader.load(source, forceRefresh, cancellation)
                 val preferred = if (verifyReachability) {
                     requireNotNull(streamProbe.firstReachableStream(value)) {
                         "Playlist parsed, but its first streams are unreachable"
                     }
                 } else null
+                cancellation.check()
                 return LoadedLivePlaylist(value, preferred?.url)
             }
 
@@ -287,6 +302,8 @@ class LiveTvPanel(
                     logger.info("playlist load ignored stale generation=$expectedGeneration current=$generation")
                     return
                 }
+                playlistWorker = null
+                playlistCancellation = null
                 load.isEnabled = true
                 runCatching { get() }
                     .onSuccess { loaded ->
@@ -311,7 +328,7 @@ class LiveTvPanel(
                         updateActions()
                     }
             }
-        }.execute()
+        }.also { it.execute() }
     }
 
     private fun showPlaylist(value: LivePlaylist, preferredStreamUrl: String? = null) {
@@ -362,11 +379,15 @@ class LiveTvPanel(
 
     private fun loadGuide(locations: List<String>, expectedGeneration: Int, index: Int = 0) {
         val location = locations[index]
-        object : SwingWorker<DesktopProgrammeGuide, Void>() {
-            override fun doInBackground(): DesktopProgrammeGuide = guideLoader.load(location)
+        val cancellation = DesktopResourceCancellation()
+        guideCancellation = cancellation
+        guideWorker = object : SwingWorker<DesktopProgrammeGuide, Void>() {
+            override fun doInBackground(): DesktopProgrammeGuide = guideLoader.load(location, false, cancellation)
 
             override fun done() {
                 if (generation != expectedGeneration) return
+                guideWorker = null
+                guideCancellation = null
                 runCatching { get() }
                     .onSuccess { result ->
                         guide = result
@@ -389,7 +410,7 @@ class LiveTvPanel(
                         }
                     }
             }
-        }.execute()
+        }.also { it.execute() }
     }
 
     private fun refreshChannels() {
@@ -442,13 +463,14 @@ class LiveTvPanel(
         val adapter = player ?: return
         val preferredRoute = routes.selectedIndex.coerceAtLeast(0)
         val expectedGeneration = generation
-        val expectedPlayback = ++playbackRequest
+        cancelPlaybackPreparation()
+        val expectedPlayback = playbackRequest
         preparingPlayback = true
         val channelTag = channel.name.replace(Regex("[\\p{Cntrl}]"), "").take(80)
         logger.info("play requested channel=$channelTag routes=${channel.streams.size} preferredRoute=$preferredRoute")
         play.isEnabled = false
         status.text = "Checking ${channel.name} routes…"
-        object : SwingWorker<com.wuming.tv.core.live.LiveStream?, Void>() {
+        playbackWorker = object : SwingWorker<com.wuming.tv.core.live.LiveStream?, Void>() {
             override fun doInBackground() = streamProbe.selectStream(channel.streams, preferredRoute)
 
             override fun done() {
@@ -456,6 +478,7 @@ class LiveTvPanel(
                     updateActions()
                     return
                 }
+                playbackWorker = null
                 val stream = runCatching { get() }.getOrNull()
                 if (stream == null) {
                     logger.info("play unavailable channel=$channelTag checkedRoutes=${channel.streams.size.coerceAtMost(6)}")
@@ -466,7 +489,7 @@ class LiveTvPanel(
                     resolvedRoute.takeIf { it >= 0 }?.let { routes.selectedIndex = it }
                     logger.info("play resolved channel=$channelTag route=$resolvedRoute")
                     status.text = "Opening ${channel.name} in ${adapter.name}…"
-                    object : SwingWorker<com.wuming.tv.desktop.player.PlayerLaunchResult, Void>() {
+                    playbackWorker = object : SwingWorker<com.wuming.tv.desktop.player.PlayerLaunchResult, Void>() {
                         override fun doInBackground() = adapter.play(
                             stream.url, stream.headers, displayName = channel.name,
                             isCancelled = { generation != expectedGeneration || playbackRequest != expectedPlayback },
@@ -474,16 +497,17 @@ class LiveTvPanel(
 
                         override fun done() {
                             if (generation != expectedGeneration || playbackRequest != expectedPlayback) return
+                            playbackWorker = null
                             preparingPlayback = false
                             status.text = runCatching { get().message }
                                 .getOrElse { "Could not open channel: ${rootMessage(it)}" }
                             updateActions()
                         }
-                    }.execute()
+                    }.also { it.execute() }
                 }
                 updateActions()
             }
-        }.execute()
+        }.also { it.execute() }
     }
 
     private fun requestSelectedChannel() {
@@ -495,14 +519,32 @@ class LiveTvPanel(
 
     fun cancelPlaybackPreparation() {
         playbackRequest++
+        playbackWorker?.cancel(true)
+        playbackWorker = null
         preparingPlayback = false
-        updateActions()
+        if (!closed) updateActions()
+    }
+
+    private fun cancelSourceLoads() {
+        playlistCancellation?.cancel()
+        playlistCancellation = null
+        guideCancellation?.cancel()
+        guideCancellation = null
+        playlistWorker?.cancel(true)
+        playlistWorker = null
+        guideWorker?.cancel(true)
+        guideWorker = null
     }
 
     override fun close() {
+        if (closed) return
+        closed = true
         generation++
-        playbackRequest++
-        preparingPlayback = false
+        cancelSourceLoads()
+        cancelPlaybackPreparation()
+        playlist = null
+        guide = null
+        visibleChannels = emptyList()
     }
 
     private fun selectedChannel(): LiveChannel? = visibleChannels.getOrNull(channels.selectedIndex)
@@ -518,7 +560,7 @@ class LiveTvPanel(
         favorite.isEnabled = selectedChannel() != null
         favorite.text = if (selectedChannel()?.let { library.favorite(librarySource, it) } == true) "Unfavorite" else "Favorite"
         routes.isEnabled = selectedChannel() != null
-        play.isEnabled = player != null && selectedChannel() != null && !preparingPlayback
+        play.isEnabled = !closed && player != null && selectedChannel() != null && !preparingPlayback
     }
 
     private fun model(list: JList<String>): DefaultListModel<String> = list.model as DefaultListModel<String>

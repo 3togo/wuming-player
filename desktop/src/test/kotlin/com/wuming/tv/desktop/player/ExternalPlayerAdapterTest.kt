@@ -22,6 +22,9 @@ class ExternalPlayerAdapterTest {
         assertNull(mpvPlaybackFailure("""{"event":"end-file","reason":"eof"}"""))
         assertFalse(mpvPlaybackFailure("""{"event":"end-file","reason":"error","file_error":"https://secret.example/?token=secret"}""")!!.contains("secret"))
         assertEquals("input-format-failed", classifyPlayerOutput("Failed to recognize file format."))
+        assertEquals("video-output-failed",
+            classifyPlayerOutput("Error opening/initializing the selected video_out (--vo) device."))
+        assertEquals("video-output-failed", classifyPlayerOutput("Error opening/initializing the VO window."))
     }
 
     @Test

@@ -12,15 +12,20 @@ import java.nio.charset.StandardCharsets
 import java.time.Instant
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.Executors
+import java.util.concurrent.ArrayBlockingQueue
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 /** Loopback-only capability server for CatVod JavaScript `proxy` callbacks. */
 class DesktopJsProxyServer : AutoCloseable {
     private val secret = UUID.randomUUID().toString()
     private val routes = ConcurrentHashMap<String, Route>()
-    private val executor = Executors.newCachedThreadPool { task ->
-        Thread(task, "tvbox-js-proxy").apply { isDaemon = true }
-    }
+    private val routeLock = Any()
+    @Volatile private var closed = false
+    private val executor = ThreadPoolExecutor(
+        4, 4, 30, TimeUnit.SECONDS, ArrayBlockingQueue(32),
+        { task -> Thread(task, "tvbox-js-proxy").apply { isDaemon = true } },
+    ).apply { allowCoreThreadTimeOut(true) }
     private val server = HttpServer.create(InetSocketAddress(InetAddress.getLoopbackAddress(), 0), 0).apply {
         createContext("/$secret/", ::serve)
         this.executor = this@DesktopJsProxyServer.executor
@@ -29,36 +34,45 @@ class DesktopJsProxyServer : AutoCloseable {
 
     fun register(sourceKey: String): Registration {
         require(sourceKey.isNotBlank()) { "Provider key is required" }
-        return Registration(sourceKey)
+        check(!closed) { "JavaScript proxy server is closed" }
+        return Registration()
     }
 
-    inner class Registration internal constructor(private val sourceKey: String) : JsProxyUrlFactory, AutoCloseable {
+    inner class Registration internal constructor() : JsProxyUrlFactory, AutoCloseable {
         @Volatile
         private var handler: ProxyHandler? = null
+        private var revoked = false
 
+        @Synchronized
         fun attach(value: ProxyHandler) {
+            check(!closed && !revoked) { "JavaScript proxy is closed" }
             check(handler == null) { "JavaScript proxy handler is already attached" }
             handler = value
         }
 
+        @Synchronized
         override fun create(path: String, headers: Map<String, String>): String {
             check(handler != null) { "JavaScript proxy handler is not attached" }
             require(path.length <= MAX_PATH_LENGTH) { "JavaScript proxy path is too long" }
-            prune()
-            require(routes.size < MAX_ROUTES) { "JavaScript proxy capability quota exceeded" }
             val token = UUID.randomUUID().toString()
             val segments = path.split('/').filter(String::isNotEmpty)
             require(segments.isNotEmpty() && segments.size <= MAX_SEGMENTS) { "JavaScript proxy path is invalid" }
-            routes[token] = Route(sourceKey, segments, safeHeaders(headers), Instant.now().toEpochMilli()) { a, b, c ->
-                handler?.invoke(a, b, c) ?: throw IllegalStateException("JavaScript proxy is closed")
+            synchronized(routeLock) {
+                check(!closed) { "JavaScript proxy server is closed" }
+                prune()
+                routes[token] = Route(this, segments, safeHeaders(headers), Instant.now().toEpochMilli()) { a, b, c ->
+                    handler?.invoke(a, b, c) ?: throw IllegalStateException("JavaScript proxy is closed")
+                }
             }
             val encoded = segments.joinToString("/") { URLEncoder.encode(it, StandardCharsets.UTF_8).replace("+", "%20") }
             return "http://127.0.0.1:${server.address.port}/$secret/$token/$encoded"
         }
 
+        @Synchronized
         override fun close() {
+            revoked = true
             handler = null
-            routes.entries.removeIf { it.value.sourceKey == sourceKey }
+            synchronized(routeLock) { routes.entries.removeIf { it.value.owner === this } }
         }
     }
 
@@ -135,13 +149,20 @@ class DesktopJsProxyServer : AutoCloseable {
         .associate { it.key.take(128) to it.value.take(8_192) }
 
     override fun close() {
-        routes.clear()
-        server.stop(0)
-        executor.shutdownNow()
+        synchronized(routeLock) {
+            if (closed) return
+            closed = true
+            routes.clear()
+        }
+        try {
+            server.stop(0)
+        } finally {
+            executor.shutdownNow()
+        }
     }
 
     private data class Route(
-        val sourceKey: String,
+        val owner: Registration,
         val segments: List<String>,
         val headers: Map<String, String>,
         val createdAt: Long,

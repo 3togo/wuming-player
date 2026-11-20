@@ -107,7 +107,6 @@ public final class ProviderClient {
 
     public void preload(String jar) {
         if (jar == null || jar.isEmpty()) return;
-        recentJar = jar;
         startBinding();
         if (Looper.myLooper() == Looper.getMainLooper()) return;
         try {

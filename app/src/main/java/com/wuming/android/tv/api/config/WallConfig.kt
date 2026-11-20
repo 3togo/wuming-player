@@ -19,6 +19,8 @@ import com.github.catvod.utils.Path
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
 
 internal class WallConfig : BaseConfig() {
 
@@ -48,11 +50,41 @@ internal class WallConfig : BaseConfig() {
         ConfigEvent.wall()
     }
 
-    override fun load(config: Config) {
-        val file = FileUtil.getWall(0)
-        checkUrl(config.url, file)
-        setWallType(file)
-        setSnapshot(file)
+    override fun prepare(config: Config, request: Int): PreparedLoad {
+        val target = FileUtil.getWall(0)
+        val snapshot = FileUtil.getWallCache()
+        val staging = Files.createTempDirectory(target.parentFile!!.toPath(), ".wallpaper-").toFile()
+        val staged = File(staging, "source")
+        try {
+            checkUrl(config.url, staged, requestTag(request))
+            val type = when {
+                isGif(staged) -> 1
+                isVideo(staged) -> 2
+                else -> 0
+            }
+            val picture = File(staging, "snapshot.jpg")
+            writeSnapshot(staged, picture)
+            return PreparedLoad(config, {
+                Files.move(staged.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING)
+                Files.move(picture.toPath(), snapshot.toPath(), StandardCopyOption.REPLACE_EXISTING)
+                DisplaySettings.putWallType(type)
+                wallSync = false
+            }, {
+                staging.deleteRecursively()
+            })
+        } catch (failure: Throwable) {
+            staging.deleteRecursively()
+            throw failure
+        }
+    }
+
+    @Synchronized
+    fun installEmbedded(request: Int, embedded: Config) {
+        if (!acceptsEmbedded(request, embedded.url)) return
+        nextTaskId()
+        embedded.ensurePersistedIdentity()
+        config = embedded.update()
+        wallSync = true
     }
 
     override fun isLoaded(): Boolean = false
@@ -61,35 +93,36 @@ internal class WallConfig : BaseConfig() {
 
     override fun setAds(ads: List<String>) {}
 
-    private fun checkUrl(url: String, file: File) {
+    private fun checkUrl(url: String, file: File, tag: String) {
         if (url.startsWith("file")) Path.copy(Path.local(url), file)
-        else Download.create(UrlUtil.convert(url), file).tag(TAG).get()
+        else Download.create(UrlUtil.convert(url), file).tag(tag).get()
         if (!Path.exists(file)) throw FileNotFoundException()
     }
 
-    private fun setWallType(file: File) {
-        DisplaySettings.putWallType(0)
-        if (isGif(file)) DisplaySettings.putWallType(1)
-        else if (isVideo(file)) DisplaySettings.putWallType(2)
-    }
-
-    private fun setSnapshot(file: File) {
-        if (android.os.Looper.myLooper() === android.os.Looper.getMainLooper()) return
-        val bitmap = Glide.with(App.get()).asBitmap().frame(0).load(file)
+    private fun writeSnapshot(file: File, output: File) {
+        val manager = Glide.with(App.get())
+        val request = manager.asBitmap().frame(0).load(file)
             .override(ResUtil.getScreenWidth(), ResUtil.getScreenHeight())
             .skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE)
-            .submit().get()
-        FileOutputStream(FileUtil.getWallCache()).use { fos ->
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            .submit()
+        try {
+            val bitmap = request.get()
+            FileOutputStream(output).use { stream ->
+                check(bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)) { "Wallpaper snapshot could not be encoded" }
+            }
+        } finally {
+            manager.clear(request)
         }
-        bitmap.recycle()
     }
 
-    private fun isVideo(file: File): Boolean {
+    private fun isVideo(file: File): Boolean = try {
         MediaMetadataRetriever().use { retriever ->
             retriever.setDataSource(file.absolutePath)
-            return "yes".equals(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_HAS_VIDEO), ignoreCase = true)
+            "yes".equals(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_HAS_VIDEO), ignoreCase = true)
         }
+    } catch (_: IllegalArgumentException) {
+        // Still images are handled by Glide even when the platform retriever rejects them.
+        false
     }
 
     private fun isGif(file: File): Boolean {
@@ -120,7 +153,7 @@ internal class WallConfig : BaseConfig() {
 
         @JvmStatic
         fun load(config: Config, callback: Callback) {
-            get().config(config).load(callback)
+            get().requestLoad(config, callback)
         }
     }
 }

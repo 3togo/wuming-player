@@ -156,7 +156,9 @@ public class ParseJob implements ParseCallback {
             if (done.get()) return;
             try (Response res = call.execute()) {
                 okhttp3.ResponseBody body = res.body();
-                String bodyString = body != null ? body.string() : "";
+                String bodyString = body != null
+                        ? com.wuming.tv.core.base.BoundedResponse.text(body, com.wuming.tv.core.base.BoundedResponse.PARSER_BYTES)
+                        : "";
                 Map<String, String> fallback = item.getHeader().isEmpty()
                         ? parse.getHeader() : item.getHeader();
                 JsonPlaybackResponse.Result response = JsonPlaybackResponse.decode(bodyString, fallback, item.getUrl(), null);

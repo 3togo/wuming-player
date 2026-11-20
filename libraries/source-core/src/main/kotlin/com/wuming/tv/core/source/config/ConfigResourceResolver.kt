@@ -47,6 +47,7 @@ object ConfigResourceResolver {
 
     /** Only configuration resource fields are traversed. Provider code/text is not globally replaced. */
     fun rewrite(root: JsonObject, resolver: (String) -> String): JsonObject = root.deepCopy().also { copy ->
+        TvBoxConfigSchema.normalize(copy)
         fun relative(value: String): String = if (value.contains("$$$")) value.split("$$$").joinToString("$$$") {
             if (isRelative(it)) resolver(it) else it
         } else if (isRelative(value)) resolver(value) else value

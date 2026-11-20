@@ -4,6 +4,7 @@ import com.wuming.tv.core.base.AtomicFilePublisher
 import com.wuming.tv.core.cache.BoundedCachePolicy
 import com.wuming.tv.core.base.Digests
 import com.wuming.tv.desktop.net.DesktopHttpStatusException
+import com.wuming.tv.desktop.net.DesktopResourceCancellation
 import com.wuming.tv.desktop.net.DesktopResourceLoader
 import com.wuming.tv.desktop.net.DesktopResourceResponse
 import java.io.DataInputStream
@@ -31,19 +32,26 @@ internal class ResourceDiskCache(
     private val maximumBytes: Long,
     private val maximumEntryBytes: Int,
     private val clock: Clock = Clock.systemUTC(),
-    private val fetch: (String, Map<String, String>) -> DesktopResourceResponse =
-        DesktopResourceLoader(maximumBytes = maximumEntryBytes)::loadResponse,
+    private val fetch: ((String, Map<String, String>) -> DesktopResourceResponse)? = null,
 ) {
+    private val resourceLoader by lazy { DesktopResourceLoader(maximumBytes = maximumEntryBytes) }
     // One shared instance per resource family; serialization also coalesces successful concurrent misses.
     @Synchronized
     fun load(
         location: String,
         headers: Map<String, String> = emptyMap(),
         forceRefresh: Boolean = false,
+        cancellation: DesktopResourceCancellation? = null,
         validate: (ByteArray) -> Boolean,
     ): CachedResource {
+        fun request(headers: Map<String, String>): DesktopResourceResponse {
+            cancellation?.check()
+            return (fetch?.invoke(location, headers) ?: resourceLoader.loadResponse(location, headers, cancellation))
+                .also { cancellation?.check() }
+        }
+        cancellation?.check()
         if (runCatching { URI(location).scheme?.lowercase() }.getOrNull() !in setOf("http", "https")) {
-            return CachedResource(fetch(location, headers).bytes.also { validate(it) }, ResourceOrigin.NETWORK)
+            return CachedResource(request(headers).bytes.also { validate(it) }, ResourceOrigin.NETWORK)
         }
         val requestHeaders = headers.mapKeys { it.key.lowercase() }.toSortedMap()
         val key = digest(buildString {
@@ -56,6 +64,7 @@ internal class ResourceDiskCache(
         var old = if (privateRequest) null else read(target)?.takeIf { entry ->
             runCatching { validate(entry.bytes) }.getOrDefault(false)
         }
+        cancellation?.check()
         if (old == null) remove(target)
         if (!forceRefresh && !controls(requestHeaders).noCache && controls(requestHeaders).maxAgeSeconds != 0 && old != null && fresh(old)) {
             access(target)
@@ -67,8 +76,8 @@ internal class ResourceDiskCache(
                 ?: old.headers["last-modified"]?.let { conditional["If-Modified-Since"] = it }
         }
         try {
-            var response = fetch(location, conditional)
-            if (response.status == 304 && old == null) response = fetch(location, headers)
+            var response = request(conditional)
+            if (response.status == 304 && old == null) response = request(headers)
             require(response.status != 304 || old != null) { "HTTP 304 has no valid cached body." }
             val revalidated = response.status == 304
             val bytes = if (revalidated) old!!.bytes else response.bytes
@@ -77,11 +86,13 @@ internal class ResourceDiskCache(
             val merged = if (revalidated) (old!!.headers - "age" - "date") + responseHeaders else responseHeaders
             if (privateRequest || !storable(merged)) { remove(target); old = null }
             val valid = validate(bytes)
+            cancellation?.check()
             val entry = Entry(clock.millis(), merged, bytes)
             if (!privateRequest && valid && storable(merged) && response.status in setOf(200, 304)) write(target, entry)
             return observed(bytes, if (revalidated) ResourceOrigin.REVALIDATED else ResourceOrigin.NETWORK)
                 .copy(cacheable = !privateRequest && valid && storable(merged))
         } catch (failure: Exception) {
+            cancellation?.check()
             val transient = failure is IOException || (failure is DesktopHttpStatusException && failure.statusCode in 500..599)
             if (transient && !Thread.currentThread().isInterrupted && old != null && !controls(requestHeaders).noCache && staleAllowed(old)) {
                 access(target)

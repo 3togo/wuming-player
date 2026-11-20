@@ -4,8 +4,10 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.os.SystemClock
 import android.view.View
 import android.view.ViewGroup
+import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.wuming.android.tv.R
@@ -61,6 +63,7 @@ class LeanbackWallpaperPreviewInstrumentedTest {
             .putExtra("key", SiteApi.PUSH).putExtra("id", "http://127.0.0.1:1/preview-test.mp4")
             .putExtra("name", "Preview overlay regression")
         TestActivityLauncher.launch<VideoActivity>(intent).use { scenario ->
+            awaitPreview(scenario)
             scenario.onActivity { activity ->
                 val mode = PlayerSettings.getVideoInfo()
                 fun invoke(name: String) {
@@ -105,5 +108,22 @@ class LeanbackWallpaperPreviewInstrumentedTest {
                 } finally { PlayerSettings.putVideoInfo(mode) }
             }
         }
+    }
+
+    private fun awaitPreview(scenario: ActivityScenario<VideoActivity>) {
+        // RESUMED can precede asynchronous detail delivery and the first content layout.
+        val deadline = SystemClock.elapsedRealtime() + 10_000
+        var details = ""
+        do {
+            var ready = false
+            scenario.onActivity { activity ->
+                val preview = activity.findViewById<View>(R.id.video)
+                ready = preview.isShown && preview.width > 0 && preview.height > 0
+                details = "shown=${preview.isShown}, size=${preview.width}x${preview.height}"
+            }
+            if (ready) return
+            SystemClock.sleep(50)
+        } while (SystemClock.elapsedRealtime() < deadline)
+        fail("Preview did not become visible and laid out ($details)")
     }
 }

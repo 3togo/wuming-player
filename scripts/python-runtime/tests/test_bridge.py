@@ -18,6 +18,57 @@ class BridgeTest(unittest.TestCase):
     def request(self, **value): return json.loads(bridge.dispatch(json.dumps(value)))
     def open(self, source, **extra):
         return self.request(op='open', source=source, api='https://example.invalid/a.py', directory=self.temp.name, providerKey='raw', **extra)
+    def test_home_video_accepts_lists_and_none(self):
+        for expression, expected in (
+            ("[{'vod_id': 'one'}]", [{'vod_id': 'one'}]),
+            ("'[]'", []),
+            ("None", []),
+            ("{'list': [{'vod_id': 'two'}]}", [{'vod_id': 'two'}]),
+        ):
+            with self.subTest(expression=expression):
+                handle = self.open(
+                    "from base.spider import Spider as Base\n"
+                    "class Spider(Base):\n"
+                    " def homeVideoContent(self): return " + expression
+                )['value']
+                value = self.request(op='call', handle=handle, method='homeVideoContent')['value']
+                self.assertEqual({'list': expected}, value)
+
+    def test_legacy_cache_duration_preserves_arbitrary_values(self):
+        from unittest.mock import patch
+        handle = self.open("""from base.spider import Spider as Base
+class Spider(Base):
+ def action(self, command):
+  if command == 'save': return self.setCache('test', {'expiresAt': 1, 'value': 'kept'}, 10)
+  if command == 'replace': return self.setCache('test', ['permanent'])
+  return self.getCache('test')
+""")['value']
+        with patch('base.spider.time.time', return_value=100) as clock:
+            def action(command):
+                return self.request(op='call', handle=handle, method='action', args=[command])['value']
+            self.assertEqual('succeed', action('save'))
+            self.assertEqual({'expiresAt': 1, 'value': 'kept'}, action('read'))
+            clock.return_value = 110
+            self.assertIsNone(action('read'))
+            self.assertEqual('succeed', action('replace'))
+            self.assertEqual(['permanent'], action('read'))
+
+    def test_legacy_python_post_and_xpath_helpers(self):
+        from unittest.mock import Mock, patch
+        from base.spider import Spider
+        spider = Spider()
+        with patch('requests.post') as post:
+            spider.post('https://example.invalid', {'form': 'one'})
+            spider.postJson('https://example.invalid', {'json': 'two'})
+            self.assertEqual({'form': 'one'}, post.call_args_list[0].kwargs['data'])
+            self.assertEqual({'json': 'two'}, post.call_args.kwargs['json'])
+            self.assertEqual(15, post.call_args.kwargs['timeout'])
+        node = Mock()
+        node.xpath.side_effect = [[' first ', 'second'], [], ' scalar ']
+        self.assertEqual('first', spider.xpText(node, 'first'))
+        self.assertEqual('', spider.xpText(node, 'empty'))
+        self.assertEqual('scalar', spider.xpText(node, 'scalar'))
+
     def test_failed_initialization_releases_modules_and_handles(self):
         before = set(sys.modules)
         result = self.open('from base.spider import Spider as Base\nclass Spider(Base):\n def init(self,x): raise RuntimeError("failure")')

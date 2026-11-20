@@ -10,6 +10,25 @@ import java.net.URI
 class DesktopJsProxyServerTest {
 
     @Test
+    fun retiringRegistrationLeavesReplacementRoutesUsable() {
+        DesktopJsProxyServer().use { server ->
+            val old = server.register("same")
+            val current = server.register("same")
+            old.attach { _, _, _ -> JsProxyResponse(200, byteArrayOf(1), emptyMap()) }
+            current.attach { _, _, _ -> JsProxyResponse(200, byteArrayOf(2), emptyMap()) }
+            val oldUrl = old.create("stream/old", emptyMap())
+            val currentUrl = current.create("stream/current", emptyMap())
+            old.close()
+            fun response(url: String): Int {
+                val connection = URI(url).toURL().openConnection() as HttpURLConnection
+                return try { connection.responseCode } finally { connection.disconnect() }
+            }
+            assertEquals(404, response(oldUrl))
+            assertEquals(200, response(currentUrl))
+        }
+    }
+
+    @Test
     fun servesOnlyMintedLoopbackCapabilitiesAndRevokesThemOnClose() {
         DesktopJsProxyServer().use { server ->
             val registration = server.register("provider")
