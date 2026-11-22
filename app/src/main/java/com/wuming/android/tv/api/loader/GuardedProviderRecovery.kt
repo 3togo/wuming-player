@@ -9,6 +9,17 @@ import java.security.MessageDigest
 internal object GuardedProviderRecovery {
     private const val PROVIDER_SHA256 = "b2755622dc43d9181b9d1a4bd9e11251fea15048fa2f82b91adafc57f1771551"
     private const val PAYLOAD_SHA256 = "4b8ec2c46d0790d0737e6a2e30a217837d49e319a28b2ef819a1547dd7e0244e"
+    private val staleExtraction = GuardedProviderCacheRecovery(
+        "9f6bdde0b66c9e4094e69dcba7502d59e5051edc09dc802b0c810b11557e16b5",
+        "187998a5bb3c00016fae00c3762749228d8d2cc406ed0812ece34e0d35a3c480",
+    )
+
+    /** Called only after the optional Init.loader contract reports a null loader. */
+    @JvmStatic
+    fun retryStaleExtraction(loader: ClassLoader, context: Context, provider: File): Boolean =
+        staleExtraction.recover(provider, context.codeCacheDir) {
+            JarLoader.initializeProvider(loader, context)
+        }
 
     @JvmStatic
     fun matches(provider: File, payload: File): Boolean =
@@ -40,7 +51,7 @@ internal object GuardedProviderRecovery {
         }
     }
 
-    private fun digest(file: File): String {
+    internal fun digest(file: File): String {
         val digest = MessageDigest.getInstance("SHA-256")
         file.inputStream().use { input ->
             val buffer = ByteArray(8192)

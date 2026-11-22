@@ -104,10 +104,15 @@ public class JarLoader {
         } catch (Throwable e) {
             try {
                 if (e instanceof IllegalStateException
-                        && "Provider Init.loader() is null after initialization".equals(e.getMessage())
-                        && GuardedProviderRecovery.recover(loader, App.get(), file)) {
-                    AppLog.i(TAG, "Recovered verified guarded provider payload with read-only code");
-                    return true;
+                        && "Provider Init.loader() is null after initialization".equals(e.getMessage())) {
+                    if (GuardedProviderRecovery.retryStaleExtraction(loader, App.get(), file)) {
+                        AppLog.i(TAG, "Recovered verified stale provider extraction after one retry");
+                        return true;
+                    }
+                    if (GuardedProviderRecovery.recover(loader, App.get(), file)) {
+                        AppLog.i(TAG, "Recovered verified guarded provider payload with read-only code");
+                        return true;
+                    }
                 }
             } catch (Throwable recoveryError) {
                 e.addSuppressed(recoveryError);
