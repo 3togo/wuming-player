@@ -1,0 +1,54 @@
+{
+  "base": "2377994c8c6ad567fd85196d5f100dc4151efe27",
+  "files": {
+    "libraries/search-core/src/main/kotlin/com/wuming/tv/core/search/SearchResultEntries.kt": "24631c1581825bea9d07d3582bd1b8f96eb071002491249248c1809316a8b80e",
+    "libraries/search-core/src/test/kotlin/com/wuming/tv/core/search/SearchResultEntriesTest.kt": "b4890174de12ea390fa74154d2b68ab661be053cb0d5aa894a798565a06fb33f",
+    "app/src/main/java/com/wuming/android/tv/utils/SearchResultMerger.kt": "a514bc7a18f11083ee492630f9ce7ff004bd0a9306700b2de08352f4e264dd9e",
+    "app/src/main/java/com/wuming/android/tv/search/FastSearchCoordinator.kt": "06c52a7791d17bd41b68436c7b3308a3e1d345c930fa3223b60765592c1062c8",
+    "app/src/leanback/java/com/wuming/android/tv/ui/adapter/LeanbackFastSearchAdapter.kt": "bb82905ecaed4fc35c4b1cc527014b9b204214a37b167df488bb442b7afb4e1a",
+    "app/src/mobile/java/com/wuming/android/tv/ui/adapter/MobileFastSearchAdapter.kt": "6be2ec8934c89f3f177b2751e6ea240f55546b2a460ae25724a2ab45ac61a090",
+    "app/src/test/java/com/wuming/android/tv/utils/SearchResultMergerTest.java": "4f2966ccca35c87b4f434336ac171f91802423a97f2b7ba42c5519a847de55fe",
+    "desktop/src/main/kotlin/com/wuming/tv/desktop/ui/CatalogPanel.kt": "c5cc2d04d9a17bc5848111df7efcf539ec93f3d2a7de1a7f27c4053aed32b213",
+    "app/src/leanbackAndroidTest/java/com/wuming/android/tv/ui/LeanbackSearchOrderInstrumentedTest.kt": "1ba2cbc7b4029018245a3730d1b7e84bb44dbac6d7f37a1f5c5d74c855109cbe"
+  },
+  "date": "2026-11-22",
+  "environment": {
+    "os": "Ubuntu 26.10 (Stonking Stingray)",
+    "architecture": "x86_64",
+    "gradle": "9.7.1",
+    "kotlin": "2.4.10",
+    "test_jdk": "17.0.21.0.3",
+    "gradle_jdk": "25.0.5.0.3"
+  },
+  "results": {
+    "search_core": {
+      "tests": 79,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "leanback_selected_unit_tests": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "mobile_selected_unit_tests": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "desktop_compile": "passed",
+    "leanback_android_test_kotlin_compile": "passed",
+    "generic_library_boundaries": "passed",
+    "desktop_boundaries": "passed",
+    "code_lifecycle_isolation": "passed"
+  },
+  "limits": [
+    "TV navigation instrumentation compiled but was not executed.",
+    "No application was installed, restarted or controlled on the TV box.",
+    "No APK release was built or published.",
+    "Unrelated existing provider edits were excluded from the isolated candidate."
+  ]
+}

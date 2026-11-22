@@ -9,7 +9,7 @@ import com.wuming.android.tv.utils.SearchResultMerger
 class FastSearchCoordinator {
     private val shared = com.wuming.tv.core.search.SourceSearchCoordinator<Site, Vod>(
         { it.name }, { it.key }, { sites, enabled -> SiteSourceAdapter.catalog().searchable(sites, enabled) },
-        { SiteRanker.get().rankByPerformance(it) }, { it.site.key }, { it.vodName }, SearchResultMerger::merge)
+        { SiteRanker.get().rankByPerformance(it) }, { it.site.key }, { it.vodName }, SearchResultMerger::forDisplay)
     fun begin(sites: List<Site>, enabledSources: Map<String, String>?): List<Site> = shared.begin(sites, enabledSources?.keys)
     fun setSearchQuery(query: String) = shared.setSearchQuery(query)
     fun reset() = shared.reset()

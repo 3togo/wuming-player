@@ -27,6 +27,20 @@ public class SearchResultMergerTest {
     }
 
     @Test
+    public void displayKeepsMatchingTitlesAndCanonicalIdentitiesFromEachSource() {
+        Vod first = vod("愛的迫降", "2019", "first");
+        Vod second = vod("爱的迫降", "2019", "second");
+        first.setId("1");
+        second.setId("1");
+        first.setSearchIdentity("drama:crash-landing", List.of("愛的迫降", "爱的迫降"), "愛的迫降", "愛的迫降");
+        second.setSearchIdentity("drama:crash-landing", List.of("愛的迫降", "爱的迫降"), "愛的迫降", "爱的迫降");
+
+        assertEquals(List.of(first, second), SearchResultMerger.forDisplay(List.of(first, second, first)));
+        assertEquals(1, first.getSourceCount());
+        assertEquals(1, second.getSourceCount());
+    }
+
+    @Test
     public void sameTitleFromDifferentYearsIsNotMerged() {
         assertEquals(2, SearchResultMerger.merge(List.of(
                 vod("The Thing", "1951", "one"),

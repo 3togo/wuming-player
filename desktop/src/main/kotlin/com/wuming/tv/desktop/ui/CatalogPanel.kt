@@ -1751,7 +1751,8 @@ class CatalogPanel(
                 CatalogTypeChoices.from(outcome.source, outcome.payload.types, qualifySource = true)
             }.distinctBy { it.sourceKey to it.type.id })
         return CatalogSearchOutcome(
-            items = outcomes.flatMap { it.payload.items }.distinctBy { it.sourceKey to it.id },
+            items = com.wuming.tv.core.search.SearchResultEntries.distinct(
+                outcomes.flatMap { it.payload.items }, { it.sourceKey }, { it.id }),
             types = typeChoices,
             failures = outcomes.mapNotNull { outcome -> outcome.failure?.let { outcome.source to it } },
             returnedSources = outcomes.count { it.payload.items.isNotEmpty() },

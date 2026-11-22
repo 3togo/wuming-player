@@ -43,7 +43,7 @@ open class MobileFastSearchAdapter : RecyclerView.Adapter<MobileFastSearchAdapte
         if (data !=
             null
         ) {
-            items.addAll(SearchResultMerger.merge(data))
+            items.addAll(SearchResultMerger.forDisplay(data))
         }
         notifyDataSetChanged()
     }
@@ -51,7 +51,7 @@ open class MobileFastSearchAdapter : RecyclerView.Adapter<MobileFastSearchAdapte
     open fun addData(data: List<Vod>?) {
         if (!data.isNullOrEmpty()) {
             items.addAll(data)
-            val merged = SearchResultMerger.merge(items)
+            val merged = SearchResultMerger.forDisplay(items)
             items.clear()
             items.addAll(merged)
             notifyDataSetChanged()

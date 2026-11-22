@@ -56,6 +56,14 @@
 已解析的片名會形成 `TitleIdentity`，包含 canonical ID、別名、年份及作品類型。搜尋
 結果會記錄原始查詢、實際命中的查詢及可信別名，供合併、排序、標示及嚴格篩選共用。
 
+## 「全部」與來源篩選
+
+快速搜尋的「全部」保留每個來源的影片卡片。即使片名或作品識別相同，不同來源、
+或同一來源內不同影片 ID 的結果仍分開顯示；只有來源與影片 ID 都相同的重複結果才去重。
+來源篩選中可選取的影片也應出現在「全部」，不會因其他來源較早回傳同名作品而消失。
+
+遙控器輸入只會延後結果排序，讓操作中的卡片保持穩定；新結果仍會加入列表。
+
 ## 寬鬆與嚴格模式
 
 寬鬆模式保留 Provider 回傳的結果，再依作品識別與相關性排序，適合來源的搜尋能力較
@@ -95,7 +103,7 @@ app/src/main/java/com/wuming/android/tv/search/TitleAliasRepository.kt
 | `TitleAliasRepository` | 解析、保存及提供正式片名別名 |
 | `TitleNormalizer` | 跨語系正規化與繁簡等價比較 |
 | `SearchResultAnnotator` | 標記作品身份及執行嚴格篩選 |
-| `SearchResultMerger` | 合併重複作品並保留最佳結果 |
+| `SearchResultMerger` | 顯示時按來源與影片 ID 去重；查詢變體仍沿用作品合併規則 |
 | `SiteViewModel`／`VodBrowse` | 在共用搜尋管線套用規劃與模式 |
 
 相關回歸測試位於 `app/src/test/java/com/wuming/android/tv/search/`。

@@ -52,11 +52,11 @@ open class LeanbackFastSearchAdapter : RecyclerView.Adapter<LeanbackFastSearchAd
     }
 
     open fun setNewData(data: List<Vod>?) {
-        publish(SearchResultMerger.merge(data.orEmpty()))
+        publish(SearchResultMerger.forDisplay(data.orEmpty()))
     }
 
     open fun addData(data: List<Vod>?) {
-        if (!data.isNullOrEmpty()) publish(SearchResultMerger.merge(items + data))
+        if (!data.isNullOrEmpty()) publish(SearchResultMerger.forDisplay(items + data))
     }
 
     open fun getData(): MutableList<Vod> = items

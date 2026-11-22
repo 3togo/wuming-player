@@ -29,10 +29,10 @@ class LeanbackSearchOrderInstrumentedTest {
         fun vod(site: Site, id: String, title: String) = Vod().apply {
             setSite(site); setId(id); setName(title)
         }
-        val first = vod(slow, "first", "Astronomy")
+        val first = vod(slow, "first", "愛的迫降")
         val later = listOf("Cooking", "Biology", "History", "Music", "Ocean", "Forest", "Travel",
             "Football", "Painting", "Physics", "Drama", "Comedy", "Robotics", "Chess", "Gardens",
-            "Mountains", "Volcanoes", "Deserts", "Rivers", "Architecture")
+            "Mountains", "Volcanoes", "Deserts", "愛的迫降", "愛的迫降")
             .mapIndexed { index, title -> vod(popular, "later-$index", title) }
         val activityClass = LeanbackFastSearchActivity::class.java
         fun field(activity: LeanbackFastSearchActivity, name: String): Any =
