@@ -1165,11 +1165,11 @@
     },
     {
       "path": "docs/public-maven-inventory.json",
-      "sha256": "8188ef76de08dcd2f55b0951d3e0a3dfa28e86cc041d6402d3fb0c7f4f1a92f2"
+      "sha256": "aae64dee998e00c2e39e6223993da519b3c66d81c0118ad73be757d98aac82ad"
     },
     {
       "path": "docs/public-native-dependency-inventory.json",
-      "sha256": "8e77d3bf99773623d6d25f834e0a9fd511f9362081e927d10c21c1ea6ac2d861"
+      "sha256": "162e62eae635f865e024f465d5ba753c23533842c9a75e5b3210439819c6ed24"
     },
     {
       "path": "docs/public-python-inventory.json",
@@ -1185,7 +1185,7 @@
     },
     {
       "path": "gradle/libs.versions.toml",
-      "sha256": "e5b5673262e1d7951a17a0b07701fd40b4443982efeefc6c5f4c1b72cc45bb81"
+      "sha256": "bc778f57e309b8ebb1ba060bf217cec92c03c717955895c932aaaf941fccbaa2"
     },
     {
       "path": "gradle/public-provenance.gradle",
