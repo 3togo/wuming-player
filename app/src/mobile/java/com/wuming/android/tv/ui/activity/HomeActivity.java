@@ -35,7 +35,6 @@ import com.wuming.android.tv.event.StateEvent;
 import com.wuming.android.tv.impl.Callback;
 import com.wuming.android.tv.player.Source;
 import com.wuming.android.tv.receiver.ShortcutReceiver;
-import com.wuming.android.tv.server.Server;
 import com.wuming.android.tv.service.PlaybackService;
 import com.wuming.android.tv.ui.base.BaseActivity;
 import com.wuming.android.tv.ui.custom.FragmentStateManager;
@@ -331,7 +330,8 @@ public class HomeActivity extends BaseActivity implements NavigationBarView.OnIt
         AppDatabase.backup();
         OkHttp.get().clear();
         Source.get().exit();
-        Server.get().stop();
+        // The application owns the playback proxy. Destroying HomeActivity must not
+        // close it while playback or a later activity still uses its URLs.
         mBinding = null;
         mManager = null;
         super.onDestroy();

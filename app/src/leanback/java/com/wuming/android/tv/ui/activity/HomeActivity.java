@@ -51,7 +51,6 @@ import com.wuming.android.tv.impl.Callback;
 import com.wuming.android.tv.model.SiteViewModel;
 import com.wuming.android.tv.player.Source;
 import com.wuming.android.tv.recommendation.RecommendationRequest;
-import com.wuming.android.tv.server.Server;
 import com.wuming.android.tv.service.DLNARendererService;
 import com.wuming.android.tv.service.PlaybackService;
 import com.wuming.android.tv.setting.AppSettings;
@@ -639,7 +638,8 @@ public class HomeActivity extends BaseActivity implements CustomTitleView.Listen
         AppDatabase.backup();
         OkHttp.get().clear();
         Source.get().exit();
-        Server.get().stop();
+        // The application owns the playback proxy. Destroying HomeActivity must not
+        // close it while playback or a later activity still uses its URLs.
         super.onDestroy();
     }
 }
