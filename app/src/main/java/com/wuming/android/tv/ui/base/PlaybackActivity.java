@@ -187,8 +187,16 @@ public abstract class PlaybackActivity extends BaseActivity implements MediaCont
 
     protected boolean allowsDesktopAssistance() { return false; }
 
+    protected boolean requiresVisiblePlayback() { return false; }
+
+    private boolean canStartPlayback() {
+        return !requiresVisiblePlayback() || (!isFinishing() && !isDestroyed()
+                && getLifecycle().getCurrentState().isAtLeast(androidx.lifecycle.Lifecycle.State.STARTED));
+    }
+
     protected void startPlayer(String key, Result result, boolean useParse, long timeout, MediaMetadata metadata) {
         cancelPlaylist();
+        if (!canStartPlayback()) return;
         PlayerManager player = player();
         if (player == null) {
             onError("Player not available");
@@ -332,6 +340,7 @@ public abstract class PlaybackActivity extends BaseActivity implements MediaCont
     }
 
     private void startPlayerDirect(String key, Result result, long timeout, MediaMetadata metadata) {
+        if (!canStartPlayback()) return;
         PlayerManager player = player();
         if (player != null) player.start(PlaySpec.from(result, key, metadata).withDesktopAssistance(allowsDesktopAssistance()), timeout);
     }
@@ -535,13 +544,22 @@ public abstract class PlaybackActivity extends BaseActivity implements MediaCont
     @Override
     protected void onPause() {
         super.onPause();
-        if (isRedirect() && mController != null) mController.pause();
+        if (requiresVisiblePlayback() && isOwner()) {
+            PlayerManager manager = player();
+            if (manager != null) manager.pause();
+        } else if (isRedirect() && mController != null) mController.pause();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (isOwner() && PlayerSettings.isBackgroundOff() && mController != null) mController.pause();
+        if (requiresVisiblePlayback()) {
+            cancelPlaylist();
+            if (isOwner()) {
+                PlayerManager manager = player();
+                if (manager != null) manager.stop();
+            }
+        } else if (isOwner() && PlayerSettings.isBackgroundOff() && mController != null) mController.pause();
     }
 
     @Override

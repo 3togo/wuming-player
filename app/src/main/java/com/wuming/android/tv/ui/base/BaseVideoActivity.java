@@ -293,9 +293,13 @@ public abstract class BaseVideoActivity extends PlaybackActivity implements Cloc
 
     @Override
     protected void onStop() {
+        cancelAutoPlay();
         if (mNetworkObserver != null) mNetworkObserver.stop();
         super.onStop();
     }
+
+    @Override
+    protected boolean requiresVisiblePlayback() { return true; }
 
     protected boolean isFromCollect() {
         return getIntent().getBooleanExtra("collect", false);
