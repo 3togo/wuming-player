@@ -51,6 +51,17 @@
           "notice": "third_party/package-assets/third-party/maven/org.aomedia.avif.android__avif__0.11.1.3c786d2/UPSTREAM-LICENSE.txt"
         }
       ]
+    },
+    {
+      "coordinate": "org.aomedia.avif.android:avif:1.1.1.14d8e3c4",
+      "nestedComponents": [
+        {
+          "name": "LibAVIF and bundled decoder/image components",
+          "license": "BSD/Apache/IJG texts preserved in upstream combined LICENSE",
+          "sourceCommit": "14d8e3c4",
+          "notice": "third_party/package-assets/third-party/maven/org.aomedia.avif.android__avif__1.1.1.14d8e3c4/UPSTREAM-LICENSE.txt"
+        }
+      ]
     }
   ],
   "unresolved": [],

@@ -384,6 +384,7 @@ public class CastSegmentDownloaderTest {
         @Override public boolean isCanceled() { return cancelled; }
         @Override public boolean isExecuted() { return body.entered; }
         @Override public Timeout timeout() { return Timeout.NONE; }
+        @Override public void addEventListener(okhttp3.EventListener eventListener) { }
         @Override public void enqueue(Callback callback) { throw new UnsupportedOperationException(); }
         @Override public Call clone() { throw new UnsupportedOperationException(); }
         @Override public <T> T tag(kotlin.reflect.KClass<T> type) { return null; }

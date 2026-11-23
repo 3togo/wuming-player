@@ -179,6 +179,37 @@
       "publisherPomSha256": "5eece0903b4810aa1da85414dc4c2746046d878a543aa12dd4f1fe74171f7506"
     },
     {
+      "coordinate": "androidx.annotation:annotation-jvm:1.11.0",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath",
+        ":guarded-spider-helper:debugRuntimeClasspath",
+        ":guarded-spider-helper:releaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "annotation-jvm-1.11.0.jar",
+          "sha256": "a83b827cc17fd6b41c7bf5e7a2a2b40a0895b00b3e30fdfdb820b49dc7b667f3"
+        }
+      ],
+      "notices": [
+        {
+          "file": "third_party/package-assets/third-party/maven/androidx.annotation__annotation-jvm__1.11.0/annotation-jvm-1.11.0.jar__META-INF__androidx__annotation__annotation__LICENSE.txt",
+          "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+        }
+      ],
+      "publisherPomSha256": "3f7aba30028eed40866ecd93e6e1e2618ff7215e2fea97837d7569a92c682865"
+    },
+    {
       "coordinate": "androidx.annotation:annotation-jvm:1.9.1",
       "scopes": [
         ":guarded-webview-helper:debugRuntimeClasspath",
@@ -226,6 +257,27 @@
       "cachedArtifactVariants": [],
       "notices": [],
       "publisherPomSha256": "880f7bf4b35d060746cbef319d4a052b4bd826bb71b40500e55319721ffa4e76"
+    },
+    {
+      "coordinate": "androidx.annotation:annotation:1.11.0",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath",
+        ":guarded-spider-helper:debugRuntimeClasspath",
+        ":guarded-spider-helper:releaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [],
+      "notices": [],
+      "publisherPomSha256": "5f9fbe3a6fa004e3523d5bbecbb9f34d1727e7c869aeaa50ae34efd21bd0e0e5"
     },
     {
       "coordinate": "androidx.annotation:annotation:1.9.1",
@@ -1068,6 +1120,30 @@
       "publisherPomSha256": "c9fcd7ff7161db3bd5a2f7083ea60c70cdc081d41cc359be60f1d6194ed35617"
     },
     {
+      "coordinate": "androidx.databinding:viewbinding:9.4.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "viewbinding-9.4.1.aar",
+          "sha256": "5f865fb5c450766ac841019909ab773cf1be67e332e46c6f12f9b5438d818104"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "6a88ef25837c7d859dbc99644ef1f82528b5ae97843e9cba2fe0c9f9c6f21118"
+    },
+    {
       "coordinate": "androidx.documentfile:documentfile:1.0.0",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -1268,6 +1344,30 @@
       "publisherPomSha256": "9ab733bf4c9139749c5375949afcdb840e71d1daf53b31056141ccba05d793b4"
     },
     {
+      "coordinate": "androidx.fragment:fragment-ktx:1.6.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "fragment-ktx-1.6.1.aar",
+          "sha256": "3e4595cda9bee392715959366d70790704ff240c77656e702f3c8220b3d9245a"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "49222903181d392cece82b5146767d4c0b0c71287376befe6830ec64a01ca17d"
+    },
+    {
       "coordinate": "androidx.fragment:fragment:1.3.6",
       "scopes": [
         ":guarded-spider-helper:debugRuntimeClasspath",
@@ -1313,6 +1413,30 @@
       ],
       "notices": [],
       "publisherPomSha256": "f8ca1877c66e642c554907e1ce5a493a897ca29270cb19e2bb6d424ba43b6c98"
+    },
+    {
+      "coordinate": "androidx.fragment:fragment:1.6.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "fragment-1.6.1.aar",
+          "sha256": "5eeb5964a8edb25966d5cc7933fe893e3c58e245ac433d358478b20b6d09d4e3"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "a7b2133f1605e7e98c151836ec1628c8f0648b8156b77631f2f2196e24cd3b30"
     },
     {
       "coordinate": "androidx.graphics:graphics-shapes-android:1.0.1",
@@ -2201,6 +2325,30 @@
       "publisherPomSha256": "10a5cd980dc8555e75b76f62c7fefcf29bba715a2efeb66ba54d5553b332571a"
     },
     {
+      "coordinate": "androidx.media3:media3-common:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-common-1.11.1.aar",
+          "sha256": "50813cf219c7c93ed8a32a750891ca6d1280729ecf7a90c49567adacd67ef31b"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "146d4b5763b1393f6ce63075fe6e4a6b20a25bd88642081337d5e1d0856d18ce"
+    },
+    {
       "coordinate": "androidx.media3:media3-container:1.10.1",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -2223,6 +2371,30 @@
       ],
       "notices": [],
       "publisherPomSha256": "7737448d39d2da309a1085254c6bd23371ac87bbf8a3806cf14e373f79e2bf4a"
+    },
+    {
+      "coordinate": "androidx.media3:media3-container:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-container-1.11.1.aar",
+          "sha256": "930fca2f018f06f1d08c12599f8c97f31eddbd728edee5de06eb53a882f8fc54"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "1ef9ab1218b7c78ed5cf79455c8dc082e5c1277495ee36a3bcd5fb5e00164447"
     },
     {
       "coordinate": "androidx.media3:media3-database:1.10.1",
@@ -2249,6 +2421,30 @@
       "publisherPomSha256": "4ddf18f91c97af3f544336843975e74061c55c33fab3323d235d458deb088ef7"
     },
     {
+      "coordinate": "androidx.media3:media3-database:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-database-1.11.1.aar",
+          "sha256": "520e6f814e42a7d428db187ac073b453c0fcba0f4f5f4edd1cf33fafd2cfb740"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "1b7e2419d3f839764d3646a1d8552092c1e7e58b8e75371502cee9055841a3c9"
+    },
+    {
       "coordinate": "androidx.media3:media3-datasource-okhttp:1.10.1",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -2271,6 +2467,30 @@
       ],
       "notices": [],
       "publisherPomSha256": "2b5e0d251bb8e836c0b7e2854e16319cbbf1f8d741d3d30331e4508a29664728"
+    },
+    {
+      "coordinate": "androidx.media3:media3-datasource-okhttp:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-datasource-okhttp-1.11.1.aar",
+          "sha256": "e34237025865cc24168fcc9653d52ce66ad92d2cfdd2068e751a919846b76908"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "f2fc4a067b4245885f366b3bd8d8f6e688121169986dba5b78a76d8f1ae5cafe"
     },
     {
       "coordinate": "androidx.media3:media3-datasource-rtmp:1.10.1",
@@ -2297,6 +2517,30 @@
       "publisherPomSha256": "7819866b884264b5dcb02fb681c7a4589e9077572c56a4ce0fb8906f5d7060db"
     },
     {
+      "coordinate": "androidx.media3:media3-datasource-rtmp:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-datasource-rtmp-1.11.1.aar",
+          "sha256": "b2550e023869c36e48b6d81f26c36a219eef3926ab9cd64ea24ecb6a942c51da"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "85eb6d86ea4906e21776cb51137704d0a15ab547d577c8e6ce4c465f274e1399"
+    },
+    {
       "coordinate": "androidx.media3:media3-datasource:1.10.1",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -2319,6 +2563,30 @@
       ],
       "notices": [],
       "publisherPomSha256": "9a4aef0439d968f3a2a4c00a4fb1527cdff5a43ae82ab80c1b54ab0c2f825847"
+    },
+    {
+      "coordinate": "androidx.media3:media3-datasource:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-datasource-1.11.1.aar",
+          "sha256": "490fd23c7562a6a1183d63bf854b291ae3a77dce5a151450aa1937148c80c60b"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "947de388b37b2c3209bee98f3af6b5ba900485c1f8ca5cb25869dd11b6fedca9"
     },
     {
       "coordinate": "androidx.media3:media3-decoder:1.10.1",
@@ -2345,6 +2613,30 @@
       "publisherPomSha256": "3885dd216211c177a125a1fb42a5e1eebd3e8139f00b647ff65ea918734914f7"
     },
     {
+      "coordinate": "androidx.media3:media3-decoder:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-decoder-1.11.1.aar",
+          "sha256": "c3bcd704959026e0d644b0260f9e682a2e26e7357c2cf82d990bcb323f800d49"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "a0e4e32378b098da0399303e787d6b05ab3e928a38364ed54cbf6873516eb81f"
+    },
+    {
       "coordinate": "androidx.media3:media3-effect:1.10.1",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -2367,6 +2659,30 @@
       ],
       "notices": [],
       "publisherPomSha256": "28cbe1552bd605b47a86f24e4bf4fc435a523169b1bf7af71f714312bfee6f1a"
+    },
+    {
+      "coordinate": "androidx.media3:media3-effect:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-effect-1.11.1.aar",
+          "sha256": "aacaf7d4cc410ee0e4fe731a1d1b156d22ce263a45bc6bf17a6dbd6f2182f0ab"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "4be0bfb33569c2ed7671ed1fdd45eff93cd0cd89454ca2b68bc1394544380cfe"
     },
     {
       "coordinate": "androidx.media3:media3-exoplayer-dash:1.10.1",
@@ -2393,6 +2709,30 @@
       "publisherPomSha256": "63127bb0732d34b4365eaedd42b27b5908c174272ac6d2fc26448365b803faed"
     },
     {
+      "coordinate": "androidx.media3:media3-exoplayer-dash:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-exoplayer-dash-1.11.1.aar",
+          "sha256": "eda5ca5879d1016b2f6cb7a79fd8bef864017a3e62e8ece8c25b3a595373920c"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "cd8f1229a23c95dd1389dd8c0a73109e51d979abccb22055f5bb60fc3fa05e2b"
+    },
+    {
       "coordinate": "androidx.media3:media3-exoplayer-hls:1.10.1",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -2415,6 +2755,30 @@
       ],
       "notices": [],
       "publisherPomSha256": "06efe893cd22cccb34c72e13f4dab9481cf0ca5bb043e1475143462ddddf3561"
+    },
+    {
+      "coordinate": "androidx.media3:media3-exoplayer-hls:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-exoplayer-hls-1.11.1.aar",
+          "sha256": "bd7aeac8dc60b3ee926eddbe05e29f27dc53c81514cae3271b2edab693f34262"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "b6f009ec8863fe6f6cbd70d80f331bb7737f13c1fa610fd4b385f9971c7d8b2b"
     },
     {
       "coordinate": "androidx.media3:media3-exoplayer-rtsp:1.10.1",
@@ -2441,6 +2805,30 @@
       "publisherPomSha256": "0f38d444f76458b4a467f5b1dad7fd6017ca5eebb2578a9718dd91f66a97a543"
     },
     {
+      "coordinate": "androidx.media3:media3-exoplayer-rtsp:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-exoplayer-rtsp-1.11.1.aar",
+          "sha256": "d7585ab89e958041f803caf4cbd466077289eb7cd3a6d92ddc64f6a727872575"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "154c27a34904922fb51145711275ec50f8a8250fb7765165a69b814e66708e0d"
+    },
+    {
       "coordinate": "androidx.media3:media3-exoplayer-smoothstreaming:1.10.1",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -2463,6 +2851,30 @@
       ],
       "notices": [],
       "publisherPomSha256": "329bde8c3fa36281ffe1bb44418b6c9f4a810a3c2ec278cdd1911b7f2eeb2911"
+    },
+    {
+      "coordinate": "androidx.media3:media3-exoplayer-smoothstreaming:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-exoplayer-smoothstreaming-1.11.1.aar",
+          "sha256": "00e9716fed7b43d30024c32b79e08e12a5a73e66eb8b236eafd3d5c293fa44e9"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "2e65fcc966bda1dcd32b770c8928528d796b432e29729035ec17b2fb3da62eb7"
     },
     {
       "coordinate": "androidx.media3:media3-exoplayer:1.10.1",
@@ -2489,6 +2901,30 @@
       "publisherPomSha256": "5348ed5a65aa58b3a6b11976633aaafb9e64d3b9e3695e60f39a3da55b2679a9"
     },
     {
+      "coordinate": "androidx.media3:media3-exoplayer:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-exoplayer-1.11.1.aar",
+          "sha256": "588592baec110837c33ce0c82bb76464203e6b0621177bbe5d88779001a6f1ed"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "f540fd426f3ed2cf58792fad094052876817d764f88b2a072e530105dfe9d797"
+    },
+    {
       "coordinate": "androidx.media3:media3-extractor:1.10.1",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -2511,6 +2947,30 @@
       ],
       "notices": [],
       "publisherPomSha256": "cb7cf1852c24e013ba093e3f69d3d062de27cb60eef97d97e69d0e02ab3dc61f"
+    },
+    {
+      "coordinate": "androidx.media3:media3-extractor:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-extractor-1.11.1.aar",
+          "sha256": "6b2d58d23a0c53425249d8b7c945600019d61a8b404c8fb8cd9ca860c5738508"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "c8d99e648dbcb0197c6d85bd2dd10014fc8d2dd1ea2ea3e1fd51507bdfc0f500"
     },
     {
       "coordinate": "androidx.media3:media3-session:1.10.1",
@@ -2537,6 +2997,30 @@
       "publisherPomSha256": "3dd57fc546890b111712fb1d013be751c01f7016c81d9a88fe14e126a664dea1"
     },
     {
+      "coordinate": "androidx.media3:media3-session:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-session-1.11.1.aar",
+          "sha256": "bc7a495f10fb9964ffc76c50b3aea7e65af249d1b667af6713945a8dc181577e"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "66dd3ce9f4b6efc0d240dc9fb771ebcb8dae6f74af926996698871166b39c2e4"
+    },
+    {
       "coordinate": "androidx.media3:media3-ui:1.10.1",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -2559,6 +3043,30 @@
       ],
       "notices": [],
       "publisherPomSha256": "0ff8e0446d08286e20d50f03f467bd6b42070efe7d8c5bda82889ea626246949"
+    },
+    {
+      "coordinate": "androidx.media3:media3-ui:1.11.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "media3-ui-1.11.1.aar",
+          "sha256": "bbd94f6d0e504931235d87275c3c5bf4f0a48e0008d8d12efc79f96fc8a3011f"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "d8b304aa239e0d09ab8bc841e1eb37e4d26a28bf87cfed99279376e8eb20da30"
     },
     {
       "coordinate": "androidx.media:media:1.8.0",
@@ -2800,6 +3308,35 @@
       "publisherPomSha256": "1c8f5bd00eacfc4be791390ad0d953aaee07644a91425490de790245d36a73b7"
     },
     {
+      "coordinate": "androidx.room:room-common-jvm:2.8.5",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "room-common-jvm-2.8.5.jar",
+          "sha256": "dc7b4e1a75a790f29c97afd5516b8bf8002d9b6e83e295bc569b33566f3b1ec0"
+        }
+      ],
+      "notices": [
+        {
+          "file": "third_party/package-assets/third-party/maven/androidx.room__room-common-jvm__2.8.5/room-common-jvm-2.8.5.jar__META-INF__androidx__room__room-common__LICENSE.txt",
+          "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+        }
+      ],
+      "publisherPomSha256": "ade6667dad5e05dc5b3aca95a6ba417f4ad10cabf657b1d5065ba8e4d515b0b0"
+    },
+    {
       "coordinate": "androidx.room:room-common:2.8.4",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -2817,6 +3354,25 @@
       "cachedArtifactVariants": [],
       "notices": [],
       "publisherPomSha256": "681e3f6fd5308843aefbbb474dd3638ffd685d1ad8f7fa96b8559e5ea5ef202c"
+    },
+    {
+      "coordinate": "androidx.room:room-common:2.8.5",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [],
+      "notices": [],
+      "publisherPomSha256": "74d2d936b97a34c53f1823435394c947779de5760c18c5e4e4794e6d687860b4"
     },
     {
       "coordinate": "androidx.room:room-runtime-android:2.8.4",
@@ -2848,6 +3404,35 @@
       "publisherPomSha256": "80a198f43bb65bd7b0edfa19ee2c26e144bf379141c30be3a071a47a157b65e7"
     },
     {
+      "coordinate": "androidx.room:room-runtime-android:2.8.5",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "room-runtime.aar",
+          "sha256": "ab6f951f6e7b63ed419eaf740b34dbe51560532f78289fd9c5dadabf46401dba"
+        }
+      ],
+      "notices": [
+        {
+          "file": "third_party/package-assets/third-party/maven/androidx.room__room-runtime-android__2.8.5/room-runtime.aar__META-INF__androidx__room__room-runtime__LICENSE.txt",
+          "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+        }
+      ],
+      "publisherPomSha256": "da0d9ea1349dbf668496b7afff90ae8078155e5a884ea1583dbcfa156f2a0595"
+    },
+    {
       "coordinate": "androidx.room:room-runtime:2.8.4",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -2865,6 +3450,25 @@
       "cachedArtifactVariants": [],
       "notices": [],
       "publisherPomSha256": "61b13fd132369dd7c3fb9d0b3076ceefa8e57ec699a8e03fb87aecb81cedd99b"
+    },
+    {
+      "coordinate": "androidx.room:room-runtime:2.8.5",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [],
+      "notices": [],
+      "publisherPomSha256": "0f13072c552ae6171780ecfb746bee061769fc17ca215455d548dc3384553b37"
     },
     {
       "coordinate": "androidx.savedstate:savedstate-android:1.4.0",
@@ -3699,6 +4303,35 @@
       "publisherPomSha256": "b23a7b09fe0773f30343b064f1c8e410d75de27eb77f99a216c961e32386ad77"
     },
     {
+      "coordinate": "com.github.bumptech.glide:annotations:5.0.9",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "Simplified BSD License",
+          "url": "http://www.opensource.org/licenses/bsd-license",
+          "distribution": "repo"
+        },
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "annotations-5.0.9.jar",
+          "sha256": "dfea200e7481a7a1c4e77a8f6286a6b5a6acbc7b86ae4d3d4ab48f4c5f259893"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "8e6bf64c7a8eae06180af3eec32a53fccd177cedc3fd206aa026180f645a16b7"
+    },
+    {
       "coordinate": "com.github.bumptech.glide:avif-integration:4.16.0",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -3726,6 +4359,35 @@
       ],
       "notices": [],
       "publisherPomSha256": "c8dde6b5d9e48810ba15a411e2f984a566ff870109395c3b20114feb36caeb44"
+    },
+    {
+      "coordinate": "com.github.bumptech.glide:avif-integration:5.0.9",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "Simplified BSD License",
+          "url": "http://www.opensource.org/licenses/bsd-license",
+          "distribution": "repo"
+        },
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "avif-integration-5.0.9.aar",
+          "sha256": "8a556134ceabbb93da7da50301aaffe78714e451a86f8c532c89dad716e84119"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "bf0447cb5b25d4b711b02124c58be35d0a6b0225a161328c26a01cad266d53b6"
     },
     {
       "coordinate": "com.github.bumptech.glide:disklrucache:4.16.0",
@@ -3757,6 +4419,35 @@
       "publisherPomSha256": "a5e8df6f1d227c3e9be16fcbdfd3f533b21d8d03e2682add771af8f7cbbda944"
     },
     {
+      "coordinate": "com.github.bumptech.glide:disklrucache:5.0.9",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "Simplified BSD License",
+          "url": "http://www.opensource.org/licenses/bsd-license",
+          "distribution": "repo"
+        },
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "disklrucache-5.0.9.aar",
+          "sha256": "adbaea32959bd54408779d0012bd41cbd8238666ec6351b2bb379690927c9b41"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "fc7bf663b3cf4af98f921f3d2af8d7612b2de65480ee327b6cda364723991623"
+    },
+    {
       "coordinate": "com.github.bumptech.glide:gifdecoder:4.16.0",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -3784,6 +4475,35 @@
       ],
       "notices": [],
       "publisherPomSha256": "30a608f777ca7720028c365dd670fb5c372d0e1151b9401680e3d09472db0017"
+    },
+    {
+      "coordinate": "com.github.bumptech.glide:gifdecoder:5.0.9",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "Simplified BSD License",
+          "url": "http://www.opensource.org/licenses/bsd-license",
+          "distribution": "repo"
+        },
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "gifdecoder-5.0.9.aar",
+          "sha256": "04b8d8df82d429c18f35854ab42f3d00b93435d3d933813f68ea06b74f8891a8"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "dc4a39511f5dc8dd2c53c57186ee8aacc7d73d92f7724d19dd74510a4b011b69"
     },
     {
       "coordinate": "com.github.bumptech.glide:glide:4.16.0",
@@ -3815,6 +4535,35 @@
       "publisherPomSha256": "e72c8e310d7a2b9cee5acdcdb92fd2ef6394eb72e56a96cacb5692404702e571"
     },
     {
+      "coordinate": "com.github.bumptech.glide:glide:5.0.9",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "Simplified BSD License",
+          "url": "http://www.opensource.org/licenses/bsd-license",
+          "distribution": "repo"
+        },
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "glide-5.0.9.aar",
+          "sha256": "9edc536d282c23bd9bcbdbd139da3c742ee2c422b99a3943b335664f64080043"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "9c46c37284eb4be0ca243e11f9fc499f53736aa55259ce7febabcca41db729ed"
+    },
+    {
       "coordinate": "com.github.bumptech.glide:okhttp3-integration:4.16.0",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -3842,6 +4591,35 @@
       ],
       "notices": [],
       "publisherPomSha256": "c60137ec4e39d79217fa3acfb7d72cdc7c352be874fde306f992048e63435be5"
+    },
+    {
+      "coordinate": "com.github.bumptech.glide:okhttp3-integration:5.0.9",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "Simplified BSD License",
+          "url": "http://www.opensource.org/licenses/bsd-license",
+          "distribution": "repo"
+        },
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "okhttp3-integration-5.0.9.aar",
+          "sha256": "df4d710cddc279a55baa286c4c4cd9963473c5023eecc8f28d20862d6024a098"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "50b45f6c89e199a9c07515df5f0abf81849714440bdac08520fdf527b6c07fed"
     },
     {
       "coordinate": "com.github.jahirfiquitiva:TextDrawable:1.0.3",
@@ -4358,6 +5136,32 @@
       "publisherPomSha256": "6e0bfa681445c4d5b9ef70371ae642dffdd3faec690aa73cfbfc91cdfe4433b6"
     },
     {
+      "coordinate": "com.squareup.okhttp3:logging-interceptor:5.5.0",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath",
+        ":guarded-spider-helper:debugRuntimeClasspath",
+        ":guarded-spider-helper:releaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "logging-interceptor-5.5.0.jar",
+          "sha256": "ef9c93cea95f764a44c140a9f252ecf4f45358ec929f31c911d94f209ac54fab"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "83243a709a5900ef503470b3ded21d4948fd20ef99cdc5cfe923cae27eef868e"
+    },
+    {
       "coordinate": "com.squareup.okhttp3:okhttp-android:5.3.2",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -4386,6 +5190,34 @@
       "publisherPomSha256": "a426409e978b821d5ccf075e7daf10f8c670761a8d9085b704977b1a54942bf4"
     },
     {
+      "coordinate": "com.squareup.okhttp3:okhttp-android:5.5.0",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath",
+        ":guarded-spider-helper:debugRuntimeClasspath",
+        ":guarded-spider-helper:releaseRuntimeClasspath",
+        ":guarded-webview-helper:debugRuntimeClasspath",
+        ":guarded-webview-helper:releaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "okhttp.aar",
+          "sha256": "6c7fd12f092e64ca2eae0b8a8023900c0d7ffec57888cf8abc8085c6f42e1dcc"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "9e707dd79d04b92a6da7f3fdd135ac6f55ff97e462e0c4daed29c6e894c965b4"
+    },
+    {
       "coordinate": "com.squareup.okhttp3:okhttp-dnsoverhttps:5.3.2",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -4412,6 +5244,32 @@
       "publisherPomSha256": "5154250a2a2f10dbb1296de6029ca4beff6d3356da5978b35c1d10774f58e359"
     },
     {
+      "coordinate": "com.squareup.okhttp3:okhttp-dnsoverhttps:5.5.0",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath",
+        ":guarded-spider-helper:debugRuntimeClasspath",
+        ":guarded-spider-helper:releaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "okhttp-dnsoverhttps-5.5.0.jar",
+          "sha256": "5ed8b1d7329bcda3b4d86c99c88b0a9f68a48ccbb6a7dd94c68ca1cd665db595"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "6256e97d238b77f466f51ac59d7ab5629d6513e079ac2e9ba0d9843ff270bff6"
+    },
+    {
       "coordinate": "com.squareup.okhttp3:okhttp-jvm:5.3.2",
       "scopes": [
         ":desktop:runtimeClasspath",
@@ -4433,6 +5291,29 @@
       ],
       "notices": [],
       "publisherPomSha256": "aee87197bbfb2d7424b6241d300eb0cbffb1844c9cab0129cae5390408b33fa4"
+    },
+    {
+      "coordinate": "com.squareup.okhttp3:okhttp-jvm:5.5.0",
+      "scopes": [
+        ":desktop:runtimeClasspath",
+        ":guarded-catvod-host:runtimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "okhttp-jvm-5.5.0.jar",
+          "sha256": "234194a04aac54858df0a750d243af7b2e39df5e4eb86e9912043ad33a9f9a52"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "e72ea7261789a91b5a60920c8fd2ee860d0584765aadde249548c2ed1dba4631"
     },
     {
       "coordinate": "com.squareup.okhttp3:okhttp:5.3.2",
@@ -4458,6 +5339,31 @@
       "cachedArtifactVariants": [],
       "notices": [],
       "publisherPomSha256": "f947372c4dd848f752aef6837d1517461c444c1d43af5aeb15e6f2bd737bb072"
+    },
+    {
+      "coordinate": "com.squareup.okhttp3:okhttp:5.5.0",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath",
+        ":desktop:runtimeClasspath",
+        ":guarded-catvod-host:runtimeClasspath",
+        ":guarded-spider-helper:debugRuntimeClasspath",
+        ":guarded-spider-helper:releaseRuntimeClasspath",
+        ":guarded-webview-helper:debugRuntimeClasspath",
+        ":guarded-webview-helper:releaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [],
+      "notices": [],
+      "publisherPomSha256": "1e5299d973d19a225d741795d28c64298105fffe2e060f07282d2b24a4a1da37"
     },
     {
       "coordinate": "com.squareup.okio:okio-jvm:3.16.4",
@@ -4490,6 +5396,36 @@
       "publisherPomSha256": "66778f4d0597bce63f91ec000c575cc029b3201f7dd092cb808875155b3e86a1"
     },
     {
+      "coordinate": "com.squareup.okio:okio-jvm:3.18.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath",
+        ":desktop:runtimeClasspath",
+        ":guarded-catvod-host:runtimeClasspath",
+        ":guarded-spider-helper:debugRuntimeClasspath",
+        ":guarded-spider-helper:releaseRuntimeClasspath",
+        ":guarded-webview-helper:debugRuntimeClasspath",
+        ":guarded-webview-helper:releaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "okio-jvm-3.18.1.jar",
+          "sha256": "b97b640557a650d15411f2be29aef558c4e422a83653cb18ba494311dbed18be"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "6457712bf7dfdfa0d1b25a303600288c34a1ff8613d55c24c8c99bcc63301dd0"
+    },
+    {
       "coordinate": "com.squareup.okio:okio:3.16.4",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -4513,6 +5449,31 @@
       "cachedArtifactVariants": [],
       "notices": [],
       "publisherPomSha256": "08fbe97e1e2e815a14caf16ff5ac8708511bef5dde739d60c0713951876da263"
+    },
+    {
+      "coordinate": "com.squareup.okio:okio:3.18.1",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath",
+        ":desktop:runtimeClasspath",
+        ":guarded-catvod-host:runtimeClasspath",
+        ":guarded-spider-helper:debugRuntimeClasspath",
+        ":guarded-spider-helper:releaseRuntimeClasspath",
+        ":guarded-webview-helper:debugRuntimeClasspath",
+        ":guarded-webview-helper:releaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [],
+      "notices": [],
+      "publisherPomSha256": "3320a24236b2b43db1515b56587b18a8a1cdf238f4465e20e3e19e5f4fd10214"
     },
     {
       "coordinate": "com.twelvemonkeys.common:common-image:3.13.1",
@@ -4841,6 +5802,36 @@
       ],
       "publisherPomSha256": "3be5ab9987b6f47eb18df646f0e357fc3745d687862198280241c1cb1007a4f2",
       "sourceEvidence": "https://raw.githubusercontent.com/AOMediaCodec/libavif/3c786d2/LICENSE"
+    },
+    {
+      "coordinate": "org.aomedia.avif.android:avif:1.1.1.14d8e3c4",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "BSD 2-Clause License",
+          "url": "https://github.com/AOMediaCodec/libavif/blob/master/LICENSE",
+          "distribution": "repo",
+          "comments": "BSD 2-Clause License"
+        }
+      ],
+      "selectedLicense": "BSD-2-Clause",
+      "cachedArtifactVariants": [
+        {
+          "file": "avif-1.1.1.14d8e3c4.aar",
+          "sha256": "d46e1e215388a6ccd9cd2e333929ba3f03671e5e72a7ab1f1f0a2a35c8bd66a5"
+        }
+      ],
+      "notices": [
+        {
+          "file": "third_party/package-assets/third-party/maven/org.aomedia.avif.android__avif__1.1.1.14d8e3c4/UPSTREAM-LICENSE.txt",
+          "sha256": "165abf92cc04b39e80d29cadea7a6a7e8fddf59407d4ad2616507a7ebe8216f9"
+        }
+      ],
+      "publisherPomSha256": "2f098a4c17f4540f50e302e8203fac3f69f5b4d63adc86841244a0a7e9f62ccc"
     },
     {
       "coordinate": "org.bouncycastle:bcprov-jdk18on:1.79",
@@ -5537,6 +6528,25 @@
       "publisherPomSha256": "3bb987bae11b2d61d3917ac1a7f732355e8b2d79a19581d35eb5085477176731"
     },
     {
+      "coordinate": "org.jetbrains.kotlinx:kotlinx-serialization-bom:1.11.0",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [],
+      "notices": [],
+      "publisherPomSha256": "3be221b6da86dcda51cac6c4b2404b89e95ab09cc8d06a05689be2ef36735dec"
+    },
+    {
       "coordinate": "org.jetbrains.kotlinx:kotlinx-serialization-bom:1.8.1",
       "scopes": [
         ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
@@ -5554,6 +6564,30 @@
       "cachedArtifactVariants": [],
       "notices": [],
       "publisherPomSha256": "00f3555ae7624851c67db12c308bc9ce26ae327cf0d724766a401e5ba00608c7"
+    },
+    {
+      "coordinate": "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.11.0",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [
+        {
+          "file": "kotlinx-serialization-core-jvm-1.11.0.jar",
+          "sha256": "f4a801c647d4351327cd9e1ac4113e2be9ea37a64ab0abae269c25a52e28f35d"
+        }
+      ],
+      "notices": [],
+      "publisherPomSha256": "83039385976fdc494241f4572558a136e7b21116d7279b26daf335478bfacb57"
     },
     {
       "coordinate": "org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.8.1",
@@ -5578,6 +6612,25 @@
       ],
       "notices": [],
       "publisherPomSha256": "446655e8d43828bfbb387ce9d151a9371a3092b48b909e80606b53fc58979e28"
+    },
+    {
+      "coordinate": "org.jetbrains.kotlinx:kotlinx-serialization-core:1.11.0",
+      "scopes": [
+        ":app:leanbackArm64_v8aReleaseRuntimeClasspath",
+        ":app:leanbackArmeabi_v7aReleaseRuntimeClasspath",
+        ":app:mobileArm64_v8aReleaseRuntimeClasspath"
+      ],
+      "publisherLicenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo"
+        }
+      ],
+      "selectedLicense": "Apache-2.0",
+      "cachedArtifactVariants": [],
+      "notices": [],
+      "publisherPomSha256": "3133773fbcf9822a7f3a5e85ab19941e67bd289bf5fc3182d9db4d1cab86eb22"
     },
     {
       "coordinate": "org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.1",

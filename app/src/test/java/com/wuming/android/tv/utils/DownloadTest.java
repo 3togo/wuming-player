@@ -143,6 +143,7 @@ public class DownloadTest {
         @Override public boolean isExecuted() { return started.getCount() == 0; }
         @Override public boolean isCanceled() { return canceled; }
         @Override public Timeout timeout() { return Timeout.NONE; }
+        @Override public void addEventListener(okhttp3.EventListener eventListener) { }
         @Override public <T> T tag(kotlin.reflect.KClass<T> type) { return null; }
         @Override public <T> T tag(Class<? extends T> type) { return null; }
         @Override public <T> T tag(kotlin.reflect.KClass<T> type, kotlin.jvm.functions.Function0<? extends T> compute) { return compute.invoke(); }

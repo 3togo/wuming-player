@@ -27,6 +27,7 @@ class CastCallScopeTest {
         override fun isExecuted(): Boolean = false
         override fun isCanceled(): Boolean = cancelled
         override fun timeout(): Timeout = Timeout.NONE
+        override fun addEventListener(eventListener: okhttp3.EventListener) = Unit
         override fun clone(): Call = this
         override fun <T : Any> tag(type: KClass<T>): T? = null
         override fun <T> tag(type: Class<out T>): T? = null

@@ -2950,6 +2950,190 @@
     {
       "path": "desktop/src/main/resources/third-party/jna/NOTICE.txt",
       "sha256": "0fece64a09bc48b537c9e5eebb6beb072c71a32d1f8422efd82727cc4b5fd1b5"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.annotation__annotation-jvm__1.11.0/annotation-jvm-1.11.0.jar__META-INF__androidx__annotation__annotation__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.annotation__annotation-jvm__1.11.0/publisher.pom",
+      "sha256": "3f7aba30028eed40866ecd93e6e1e2618ff7215e2fea97837d7569a92c682865"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.annotation__annotation__1.11.0/publisher.pom",
+      "sha256": "5f9fbe3a6fa004e3523d5bbecbb9f34d1727e7c869aeaa50ae34efd21bd0e0e5"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.databinding__viewbinding__9.4.1/publisher.pom",
+      "sha256": "6a88ef25837c7d859dbc99644ef1f82528b5ae97843e9cba2fe0c9f9c6f21118"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.fragment__fragment-ktx__1.6.1/publisher.pom",
+      "sha256": "49222903181d392cece82b5146767d4c0b0c71287376befe6830ec64a01ca17d"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.fragment__fragment__1.6.1/publisher.pom",
+      "sha256": "a7b2133f1605e7e98c151836ec1628c8f0648b8156b77631f2f2196e24cd3b30"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-common__1.11.1/publisher.pom",
+      "sha256": "146d4b5763b1393f6ce63075fe6e4a6b20a25bd88642081337d5e1d0856d18ce"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-container__1.11.1/publisher.pom",
+      "sha256": "1ef9ab1218b7c78ed5cf79455c8dc082e5c1277495ee36a3bcd5fb5e00164447"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-database__1.11.1/publisher.pom",
+      "sha256": "1b7e2419d3f839764d3646a1d8552092c1e7e58b8e75371502cee9055841a3c9"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-datasource-okhttp__1.11.1/publisher.pom",
+      "sha256": "f2fc4a067b4245885f366b3bd8d8f6e688121169986dba5b78a76d8f1ae5cafe"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-datasource-rtmp__1.11.1/publisher.pom",
+      "sha256": "85eb6d86ea4906e21776cb51137704d0a15ab547d577c8e6ce4c465f274e1399"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-datasource__1.11.1/publisher.pom",
+      "sha256": "947de388b37b2c3209bee98f3af6b5ba900485c1f8ca5cb25869dd11b6fedca9"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-decoder__1.11.1/publisher.pom",
+      "sha256": "a0e4e32378b098da0399303e787d6b05ab3e928a38364ed54cbf6873516eb81f"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-effect__1.11.1/publisher.pom",
+      "sha256": "4be0bfb33569c2ed7671ed1fdd45eff93cd0cd89454ca2b68bc1394544380cfe"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-exoplayer-dash__1.11.1/publisher.pom",
+      "sha256": "cd8f1229a23c95dd1389dd8c0a73109e51d979abccb22055f5bb60fc3fa05e2b"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-exoplayer-hls__1.11.1/publisher.pom",
+      "sha256": "b6f009ec8863fe6f6cbd70d80f331bb7737f13c1fa610fd4b385f9971c7d8b2b"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-exoplayer-rtsp__1.11.1/publisher.pom",
+      "sha256": "154c27a34904922fb51145711275ec50f8a8250fb7765165a69b814e66708e0d"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-exoplayer-smoothstreaming__1.11.1/publisher.pom",
+      "sha256": "2e65fcc966bda1dcd32b770c8928528d796b432e29729035ec17b2fb3da62eb7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-exoplayer__1.11.1/publisher.pom",
+      "sha256": "f540fd426f3ed2cf58792fad094052876817d764f88b2a072e530105dfe9d797"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-extractor__1.11.1/publisher.pom",
+      "sha256": "c8d99e648dbcb0197c6d85bd2dd10014fc8d2dd1ea2ea3e1fd51507bdfc0f500"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-session__1.11.1/publisher.pom",
+      "sha256": "66dd3ce9f4b6efc0d240dc9fb771ebcb8dae6f74af926996698871166b39c2e4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.media3__media3-ui__1.11.1/publisher.pom",
+      "sha256": "d8b304aa239e0d09ab8bc841e1eb37e4d26a28bf87cfed99279376e8eb20da30"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.room__room-common-jvm__2.8.5/publisher.pom",
+      "sha256": "ade6667dad5e05dc5b3aca95a6ba417f4ad10cabf657b1d5065ba8e4d515b0b0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.room__room-common-jvm__2.8.5/room-common-jvm-2.8.5.jar__META-INF__androidx__room__room-common__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.room__room-common__2.8.5/publisher.pom",
+      "sha256": "74d2d936b97a34c53f1823435394c947779de5760c18c5e4e4794e6d687860b4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.room__room-runtime-android__2.8.5/publisher.pom",
+      "sha256": "da0d9ea1349dbf668496b7afff90ae8078155e5a884ea1583dbcfa156f2a0595"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.room__room-runtime-android__2.8.5/room-runtime.aar__META-INF__androidx__room__room-runtime__LICENSE.txt",
+      "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/androidx.room__room-runtime__2.8.5/publisher.pom",
+      "sha256": "0f13072c552ae6171780ecfb746bee061769fc17ca215455d548dc3384553b37"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.bumptech.glide__annotations__5.0.9/publisher.pom",
+      "sha256": "8e6bf64c7a8eae06180af3eec32a53fccd177cedc3fd206aa026180f645a16b7"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.bumptech.glide__avif-integration__5.0.9/publisher.pom",
+      "sha256": "bf0447cb5b25d4b711b02124c58be35d0a6b0225a161328c26a01cad266d53b6"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.bumptech.glide__disklrucache__5.0.9/publisher.pom",
+      "sha256": "fc7bf663b3cf4af98f921f3d2af8d7612b2de65480ee327b6cda364723991623"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.bumptech.glide__gifdecoder__5.0.9/publisher.pom",
+      "sha256": "dc4a39511f5dc8dd2c53c57186ee8aacc7d73d92f7724d19dd74510a4b011b69"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.bumptech.glide__glide__5.0.9/publisher.pom",
+      "sha256": "9c46c37284eb4be0ca243e11f9fc499f53736aa55259ce7febabcca41db729ed"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.github.bumptech.glide__okhttp3-integration__5.0.9/publisher.pom",
+      "sha256": "50b45f6c89e199a9c07515df5f0abf81849714440bdac08520fdf527b6c07fed"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.squareup.okhttp3__logging-interceptor__5.5.0/publisher.pom",
+      "sha256": "83243a709a5900ef503470b3ded21d4948fd20ef99cdc5cfe923cae27eef868e"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.squareup.okhttp3__okhttp-android__5.5.0/publisher.pom",
+      "sha256": "9e707dd79d04b92a6da7f3fdd135ac6f55ff97e462e0c4daed29c6e894c965b4"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.squareup.okhttp3__okhttp-dnsoverhttps__5.5.0/publisher.pom",
+      "sha256": "6256e97d238b77f466f51ac59d7ab5629d6513e079ac2e9ba0d9843ff270bff6"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.squareup.okhttp3__okhttp-jvm__5.5.0/publisher.pom",
+      "sha256": "e72ea7261789a91b5a60920c8fd2ee860d0584765aadde249548c2ed1dba4631"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.squareup.okhttp3__okhttp__5.5.0/publisher.pom",
+      "sha256": "1e5299d973d19a225d741795d28c64298105fffe2e060f07282d2b24a4a1da37"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.squareup.okio__okio-jvm__3.18.1/publisher.pom",
+      "sha256": "6457712bf7dfdfa0d1b25a303600288c34a1ff8613d55c24c8c99bcc63301dd0"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/com.squareup.okio__okio__3.18.1/publisher.pom",
+      "sha256": "3320a24236b2b43db1515b56587b18a8a1cdf238f4465e20e3e19e5f4fd10214"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.aomedia.avif.android__avif__1.1.1.14d8e3c4/publisher.pom",
+      "sha256": "2f098a4c17f4540f50e302e8203fac3f69f5b4d63adc86841244a0a7e9f62ccc"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-serialization-bom__1.11.0/publisher.pom",
+      "sha256": "3be221b6da86dcda51cac6c4b2404b89e95ab09cc8d06a05689be2ef36735dec"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-serialization-core-jvm__1.11.0/publisher.pom",
+      "sha256": "83039385976fdc494241f4572558a136e7b21116d7279b26daf335478bfacb57"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.jetbrains.kotlinx__kotlinx-serialization-core__1.11.0/publisher.pom",
+      "sha256": "3133773fbcf9822a7f3a5e85ab19941e67bd289bf5fc3182d9db4d1cab86eb22"
+    },
+    {
+      "path": "third_party/package-assets/third-party/maven/org.aomedia.avif.android__avif__1.1.1.14d8e3c4/UPSTREAM-LICENSE.txt",
+      "sha256": "165abf92cc04b39e80d29cadea7a6a7e8fddf59407d4ad2616507a7ebe8216f9"
     }
   ]
 }
