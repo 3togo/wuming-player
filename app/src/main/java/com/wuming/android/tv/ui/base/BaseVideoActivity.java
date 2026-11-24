@@ -509,7 +509,7 @@ public abstract class BaseVideoActivity extends PlaybackActivity implements Cloc
         if (result.hasMsg()) {
             mViewModel.clearPlayer(result);
             if (!com.wuming.android.tv.cloud.opendrive.QuarkSmartQualityException.matches(result.getMsg())
-                    && retryHistoryFallback(result.getHeader())) return;
+                    && retryHistoryFallback(result.getHeader(), result.getMsg())) return;
             onError(result.getMsg());
             return;
         }
@@ -524,7 +524,7 @@ public abstract class BaseVideoActivity extends PlaybackActivity implements Cloc
         if (result.getUrl().isEmpty()) {
             PlayerManager currentPlayer = player();
             if (currentPlayer != null) currentPlayer.recordDeadLink(getKey());
-            if (retryHistoryFallback(result.getHeader())) return;
+            if (retryHistoryFallback(result.getHeader(), null)) return;
             onError(getString(R.string.error_play_url));
             return;
         }
@@ -673,11 +673,11 @@ public abstract class BaseVideoActivity extends PlaybackActivity implements Cloc
         EpisodeShortName.shorten(item.getName(), getVodName());
     }
 
-    private boolean retryHistoryFallback(Map<String, String> currentHeaders) {
+    private boolean retryHistoryFallback(Map<String, String> currentHeaders, String failureMessage) {
         if (currentHeaders != null && !currentHeaders.isEmpty()) {
             mPlaybackSession.updateFallbackHeaders(stripOpenDriveHints(currentHeaders));
         }
-        HistoryPlaybackFallback.Attempt attempt = mPlaybackSession.consumeFallback();
+        HistoryPlaybackFallback.Attempt attempt = mPlaybackSession.consumeFallback(failureMessage);
         if (attempt == null) {
             OpenDriveLog.historyFallbackUnavailable();
             return false;
@@ -1173,13 +1173,19 @@ public abstract class BaseVideoActivity extends PlaybackActivity implements Cloc
             return;
         }
         int cloudError = com.wuming.android.tv.cloud.opendrive.OpenDriveMessages.failure(msg);
-        if (cloudError != 0) msg = getString(cloudError);
+        if (cloudError != 0) {
+            // Trying another flag/parser does not repair an account or provider failure.
+            releaseQrResources();
+            clearHistoryFallback();
+            showError(getString(cloudError));
+            return;
+        }
         if (PlaybackErrorRouter.isUnsupportedFormat(msg, getString(R.string.error_play_video_unsupported))) {
             releaseQrResources();
             showError(msg);
             return;
         }
-        if (retryHistoryFallback(null)) return;
+        if (retryHistoryFallback(null, msg)) return;
         PlaybackErrorRouter router = PlaybackErrorRouter.classify(msg, isBilibiliLoginError(msg));
         switch (router.kind()) {
             case BILIBILI_LOGIN -> onBilibiliLogin();

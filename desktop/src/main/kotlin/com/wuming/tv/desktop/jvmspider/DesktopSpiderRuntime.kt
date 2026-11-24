@@ -59,7 +59,8 @@ class DesktopSpiderRuntime(
         closeResource: () -> Unit = {},
     ): CatalogSourceExecutor {
         val identity = DesktopSpiderVerificationStore.identity(site, trust)
-        return VerifyingCatalogSourceExecutor(executor, {
+        val playback = com.wuming.tv.core.catalog.DramaPlaybackCatalogSourceExecutor(executor, site.api)
+        return VerifyingCatalogSourceExecutor(playback, {
             evidence.record(identity, it)
             onEvidenceChanged()
         }, closeResource)

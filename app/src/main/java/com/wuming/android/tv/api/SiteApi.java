@@ -268,14 +268,15 @@ public class SiteApi {
 
     @NonNull
     public static Result playerContent(@NonNull String key, @NonNull String flag, @NonNull String id) throws Exception {
+        int linkRoute = AppSettings.getLinkRoute();
         com.wuming.android.tv.utils.QuarkPlaybackTrace.write("player route="
-                + AppSettings.getLinkRoute() + " smart=" + flag.contains("智")
+                + linkRoute + " smart=" + flag.contains("智")
                 + " canonical=" + OpenDriveUri.hasScheme(id)
                 + " routed=" + OpenDriveSpider.isRoutedId(id));
         SpiderDebug.log("player", "key=%s,flag=%s,idLength=%s", key, flag, id.length());
         String sourceKey = key;
         String sourceId = id;
-        if (AppSettings.getLinkRoute() == AppSettings.LINK_ROUTE_BUILTIN
+        if (linkRoute == AppSettings.LINK_ROUTE_BUILTIN
                 && !OpenDriveUri.hasScheme(id) && !OpenDriveSpider.isRoutedId(id)) {
             Site openDriveSite = VodConfig.get().getSite(VodConfig.OPEN_DRIVE_KEY);
             Spider openDriveSpider = openDriveSite.spider();
@@ -292,7 +293,7 @@ public class SiteApi {
         if (OpenDriveUri.hasScheme(id) || OpenDriveSpider.isDeferredId(id)
                 || (OpenDriveSpider.isFileId(id)
                 && (VodConfig.OPEN_DRIVE_KEY.equals(key)
-                || AppSettings.getLinkRoute() == AppSettings.LINK_ROUTE_BUILTIN))) {
+                || linkRoute == AppSettings.LINK_ROUTE_BUILTIN))) {
             SpiderDebug.log("player-route", "sourceKey=%s,targetKey=%s,target=OpenDriveSpider",
                     key, VodConfig.OPEN_DRIVE_KEY);
             key = VodConfig.OPEN_DRIVE_KEY;
@@ -300,6 +301,22 @@ public class SiteApi {
         Site site = VodConfig.get().getSite(key);
         com.wuming.android.tv.utils.QuarkPlaybackTrace.write("resolver builtin="
                 + VodConfig.OPEN_DRIVE_KEY.equals(key));
+        if (linkRoute == AppSettings.LINK_ROUTE_BUILTIN
+                && com.wuming.tv.core.playback.DramaVideoResolver.supports(site.getApi(), id)) {
+            Source.get().stop();
+            String reference = new com.wuming.tv.core.playback.DramaVideoResolver().resolve(id);
+            Result result = new Result();
+            result.setUrl(reference);
+            result.setFormat("video/mp4");
+            result.setParse(0);
+            result.setKey(key);
+            result.setFlag(flag);
+            SpiderDebug.log("player-route", "sourceKey=%s,stage=native-drama-cenc", sourceKey);
+            return result;
+        }
+        SpiderDebug.log("player-route", "sourceKey=%s,targetKey=%s,selectedRoute=%s,stage=resolve",
+                sourceKey, key, linkRoute == AppSettings.LINK_ROUTE_BUILTIN
+                        ? "opendrive" : "direct");
         Source.get().stop();
         if (site.getType() == 3) {
             if (Prefers.getBoolean("crash")) return Result.empty();
@@ -320,7 +337,7 @@ public class SiteApi {
             }
             SpiderDebug.log("player", "key=%s,responseLength=%s", key, playerContent.length());
             Result result = preparePlayerResult(site, key, flag, playerContent);
-            Result fallback = tryOpenDriveFallback(sourceKey, flag, sourceId, result);
+            Result fallback = tryOpenDriveFallback(linkRoute, sourceKey, flag, sourceId, result);
             if (fallback != null) return fallback;
             return observeOpenDriveShadow(result, id);
         } else if (site.getType() == 4) {
@@ -377,9 +394,9 @@ public class SiteApi {
      * speculative protocol retry: routeExternalEpisode accepts only payloads understood by an
      * authenticated first-party provider.
      */
-    private static Result tryOpenDriveFallback(String sourceKey, String flag, String sourceId,
+    private static Result tryOpenDriveFallback(int linkRoute, String sourceKey, String flag, String sourceId,
                                                 Result catVodResult) {
-        if (!shouldTryOpenDriveFallback(AppSettings.getLinkRoute(), sourceId, catVodResult)) return null;
+        if (!shouldTryOpenDriveFallback(linkRoute, sourceId, catVodResult)) return null;
         try {
             Site openDriveSite = VodConfig.get().getSite(VodConfig.OPEN_DRIVE_KEY);
             Spider spider = BaseLoader.get().getInteractiveSpider(openDriveSite.getKey(),

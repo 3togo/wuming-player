@@ -6,10 +6,12 @@ import androidx.media3.datasource.HttpDataSource
 import androidx.media3.exoplayer.ExoPlaybackException
 import com.wuming.android.tv.R
 import com.wuming.android.tv.utils.ResUtil
+import com.wuming.tv.core.cloud.OpenDriveFailure
 
 class ErrorMsgProvider {
 
     fun get(e: PlaybackException): String {
+        OpenDriveFailure.find(e)?.let { return it.message.orEmpty() }
         UnsupportedVideoException.find(e)?.let {
             return ResUtil.getString(it.messageResource()) + "\n" + it.details()
         }

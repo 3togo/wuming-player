@@ -1,5 +1,7 @@
 package com.wuming.tv.core.media
 
+import com.wuming.tv.core.cloud.OpenDriveFailure
+
 /** One-shot raw-route recovery when a history catalog identity cannot be resolved. */
 class HistoryPlaybackFallback {
     private var flag: String = ""
@@ -27,8 +29,16 @@ class HistoryPlaybackFallback {
         this.headers = headers ?: emptyMap()
     }
 
+    @JvmOverloads
     @Synchronized
-    fun consume(): Attempt? {
+    fun consume(failureMessage: String? = null): Attempt? {
+        // A live account/provider failure does not mean the catalog identity is stale.
+        // Keep the chosen resolver and require login/recovery there, rather than
+        // retrying the raw episode through another provider's account state.
+        if (OpenDriveFailure.fromMessage(failureMessage) != null) {
+            clear()
+            return null
+        }
         if (flag.isBlank() || rawUrl.isBlank()) return null
         val attempt = Attempt(flag, rawUrl, headers)
         clear()

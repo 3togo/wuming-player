@@ -27,6 +27,17 @@ class CloudStorageEngine<P : CloudStorageProvider> @JvmOverloads constructor(
     }.let(Collections::unmodifiableMap)
 
     fun providers(): List<P> = Collections.unmodifiableList(ArrayList(registry.values))
+
+    /** Recognizing a payload does not require a session; resolve still checks authentication. */
+    fun routingProviders(): List<P> = providers().filter { provider ->
+        try {
+            provider.available()
+        } catch (_: RuntimeException) {
+            diagnostics.unavailable(provider.id(), "availability check failed")
+            false
+        }
+    }
+
     fun provider(id: String?): P = registry[id] ?: throw IllegalArgumentException("Unknown OpenDrive provider")
     fun requireAvailable(id: String?): P = provider(id).also {
         if (!it.available()) {

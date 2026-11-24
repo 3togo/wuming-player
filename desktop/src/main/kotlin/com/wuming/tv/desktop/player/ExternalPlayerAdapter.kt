@@ -2,6 +2,7 @@ package com.wuming.tv.desktop.player
 
 import com.wuming.tv.core.base.Digests
 import com.wuming.tv.core.playback.HlsAdRule
+import com.wuming.tv.core.playback.CencPlaybackSessions
 import java.net.URI
 import java.net.StandardProtocolFamily
 import java.net.UnixDomainSocketAddress
@@ -161,7 +162,12 @@ class ExternalPlayerAdapter internal constructor(
         if (com.wuming.tv.core.source.PlaybackProtocolPolicy.unsupported(value)) {
             return PlayerLaunchResult(false, "This playback protocol is not supported in this build. Choose another source.")
         }
-        val resolved = resolve(value, headers)
+        val cenc = if (CencPlaybackSessions.matches(value)) {
+            if (!name.equals("mpv", true)) return PlayerLaunchResult(false, "This encrypted episode requires mpv.")
+            try { CencPlaybackSessions.require(value) }
+            catch (failure: IllegalStateException) { return PlayerLaunchResult(false, failure.message.orEmpty()) }
+        } else null
+        val resolved = resolve(cenc?.url ?: value, cenc?.headers ?: headers)
             ?: return PlayerLaunchResult(false, "Enter an HTTP(S), file URL, or existing local file.")
         val target = resolved.target
         val safeHeaders = resolved.safeHeaders
@@ -185,7 +191,7 @@ class ExternalPlayerAdapter internal constructor(
                     return PlayerLaunchResult(false, "Playback cancelled.")
                 }
                 val keepOneWindow = singleWindow()
-                if (windowId == null && (reuseRunningPlayer || keepOneWindow) && name.equals("mpv", true) &&
+                if (cenc == null && windowId == null && (reuseRunningPlayer || keepOneWindow) && name.equals("mpv", true) &&
                     enqueueInMpvSession(ready, safeHeaders, onEnded, onClosed, displayName, onPlaybackStarted = onPlaybackStarted, onPlaybackFailed = onPlaybackFailed, windowId = windowId)
                 ) {
                     if (initialSpeed.isFinite() && initialSpeed in 0.25..4.0) setSpeed(initialSpeed)
@@ -199,7 +205,7 @@ class ExternalPlayerAdapter internal constructor(
                     return PlayerLaunchResult(false, "Playback cancelled.")
                 }
                 val ipcPath = if (name.equals("mpv", true)) newMpvSocketPath() else null
-                val process = processStarter.start(command(ready.location, safeHeaders, ipcPath, displayName, initialSpeed, fullscreen, windowId))
+                val process = processStarter.start(command(ready.location, safeHeaders, ipcPath, displayName, initialSpeed, fullscreen, windowId, cenc))
                 logger.info(
                     "launch player=$name target=${tag(target)} headers=${safeHeaders.keys.sorted()} " +
                         "compatibilityRelay=${ready.resource != null} pid=${process?.pid() ?: "test"}",
@@ -207,7 +213,7 @@ class ExternalPlayerAdapter internal constructor(
                 process?.let { running ->
                     track(running)
                     val session = ipcPath?.let { path ->
-                        MpvSession(running, path, transportHeaders(safeHeaders), ready, onEnded, onClosed, onPlaybackStarted = onPlaybackStarted, onPlaybackFailed = onPlaybackFailed, windowId = windowId).also {
+                        MpvSession(running, path, transportHeaders(safeHeaders), ready, onEnded, onClosed, onPlaybackStarted = onPlaybackStarted, onPlaybackFailed = onPlaybackFailed, windowId = windowId, encrypted = cenc != null).also {
                             val item = it
                             if (windowId != null) item.retryExternally = {
                                 val retry = synchronized(mpvSessionLock) {
@@ -294,6 +300,7 @@ class ExternalPlayerAdapter internal constructor(
         initialSpeed: Double = 1.0,
         fullscreen: Boolean = false,
         windowId: Long? = null,
+        cenc: CencPlaybackSessions.Material? = null,
     ): List<String> {
         val arguments = mutableListOf(executable.toString())
         when (name.lowercase()) {
@@ -305,6 +312,7 @@ class ExternalPlayerAdapter internal constructor(
                 // mpv's -append adds one literal list item, so append each tag separately.
                 languages.forEach { arguments += "--slang-append=$it" }
                 arguments += mpvConfiguration.launchArguments()
+                if (cenc != null) arguments += "--demuxer-lavf-o=decryption_key=${cenc.keyHex()}"
                 // The Linux window manager uses an unscaled 24px native caption on HiDPI screens,
                 // clipping the media title. mpv's borderless window remains draggable and keeps
                 // its scalable on-screen controller, fullscreen shortcut, and keyboard controls.
@@ -378,7 +386,7 @@ class ExternalPlayerAdapter internal constructor(
         windowId: Long? = null,
     ): Boolean = synchronized(mpvSessionLock) {
         val session = mpvSession ?: return false
-        if (!session.process.isAlive || session.writer == null || session.transportHeaders != transportHeaders(headers) || session.windowId != windowId) {
+        if (session.encrypted || !session.process.isAlive || session.writer == null || session.transportHeaders != transportHeaders(headers) || session.windowId != windowId) {
             return false
         }
         return try {
@@ -807,6 +815,7 @@ class ExternalPlayerAdapter internal constructor(
         var onPlaybackStarted: (() -> Unit)? = null,
         var onPlaybackFailed: ((String) -> Unit)? = null,
         val windowId: Long? = null,
+        val encrypted: Boolean = false,
         @Volatile var started: Boolean = false,
         @Volatile var mediaFailed: Boolean = false,
         var retryExternally: (() -> Boolean)? = null,

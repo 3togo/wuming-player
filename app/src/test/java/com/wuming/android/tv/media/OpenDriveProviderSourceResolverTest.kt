@@ -6,15 +6,45 @@ import com.wuming.tv.core.cloud.OpenDriveItem
 import com.wuming.tv.core.cloud.OpenDriveLoginChallenge
 import com.wuming.tv.core.cloud.OpenDriveLoginState
 import com.wuming.tv.core.cloud.OpenDrivePlayback
+import com.wuming.tv.core.cloud.OpenDriveFailure
+import com.wuming.tv.core.media.MediaResolverRegistry
+import com.wuming.tv.core.media.OpenDriveUri
+import com.wuming.tv.core.media.PlaybackTarget
+import com.wuming.tv.core.media.SourceResolver
+import com.wuming.tv.core.media.MediaFingerprint
+import com.wuming.tv.core.media.catalog.MediaManifest
 import com.wuming.tv.core.media.MediaSourceDescriptor
 import com.wuming.tv.core.media.OpenDriveProviderIdentityCodec
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
+import org.junit.Assert.assertNull
 import org.junit.Test
 import java.io.IOException
 
 class OpenDriveProviderSourceResolverTest {
+
+    @Test fun accountFailureCannotFallThroughTheRegistryToAnAlternateProvider() {
+        val provider = FakeProvider(authenticated = false)
+        var alternateCalls = 0
+        val alternate = object : SourceResolver {
+            override fun adapterId() = "fixture.fallback"
+            override fun resolve(source: MediaSourceDescriptor): PlaybackTarget {
+                alternateCalls++
+                return PlaybackTarget("https://example.invalid/alternate.mp4", emptyMap(), 0)
+            }
+        }
+        val manifest = MediaManifest(OpenDriveUri.local(OpenDriveUri.Kind.ASSET), "fixture", 1,
+            listOf(descriptor(mapOf("provider" to "quark", "handle" to "fid-1")),
+                MediaSourceDescriptor("fixture.fallback", 1, mapOf("id" to "alternate"),
+                    MediaFingerprint.sha256("alternate"), 0, true)))
+        val failure = assertThrows(OpenDriveFailure::class.java) {
+            MediaResolverRegistry(listOf(resolver(provider), alternate)).resolve(manifest)
+        }
+        assertEquals(OpenDriveFailure.Reason.AUTH_REQUIRED, failure.reason)
+        assertEquals(0, alternateCalls)
+        assertNull(provider.resolvedHandle)
+    }
 
     private class FakeProvider(
         private val id: String = "quark",

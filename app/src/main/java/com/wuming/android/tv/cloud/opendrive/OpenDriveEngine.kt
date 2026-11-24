@@ -13,6 +13,7 @@ class OpenDriveEngine(providers: Collection<OpenDriveProvider>?) {
         })
 
     fun providers(): List<OpenDriveProvider> = shared.providers()
+    fun routingProviders(): List<OpenDriveProvider> = shared.routingProviders()
     fun provider(id: String?): OpenDriveProvider = shared.provider(id)
     @Throws(Exception::class)
     fun list(providerId: String?, parentId: String?): List<OpenDriveItem> = shared.list(providerId, parentId)

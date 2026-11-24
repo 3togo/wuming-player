@@ -4,9 +4,21 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertSame
 import org.junit.Test
 
 class OpenDriveFailureTest {
+    @Test fun typedErrorsSurvivePlayerWrappersButPlainMessagesAndCauseCyclesDoNotBecomeCloudErrors() {
+        val failure = OpenDriveFailure("uc", OpenDriveFailure.Reason.AUTH_REQUIRED)
+        assertSame(failure, OpenDriveFailure.find(IllegalStateException("resolver", java.io.IOException("player", failure))))
+        assertNull(OpenDriveFailure.find(IllegalStateException(failure.message)))
+        assertNull(OpenDriveFailure.find(java.util.concurrent.CancellationException("cancelled").apply { initCause(failure) }))
+        val first = Exception("first")
+        val second = Exception("second", first)
+        first.initCause(second)
+        assertNull(OpenDriveFailure.find(first))
+    }
+
     @Test fun codesSurviveMessageBoundaryWithoutEchoingSensitiveDetails() {
         for (reason in OpenDriveFailure.Reason.entries) {
             val failure = OpenDriveFailure("uc", reason, 403, 41027, Exception("secret signed URL"))
