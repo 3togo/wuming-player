@@ -8,7 +8,7 @@ object MpvConfigurationPolicy {
     val managedOptions: Set<String> = setOf("title-bar", "border", "window-dragging", "osc", "wid", "vo",
         "gpu-context", "input-vo-keyboard", "input-default-bindings", "fullscreen", "speed", "idle",
         "keep-open", "keep-open-pause", "force-window", "input-ipc-server", "force-media-title",
-        "user-agent", "http-header-fields")
+        "user-agent", "http-header-fields", "demuxer-lavf-o")
 
     @JvmStatic
     fun defaultOptions(content: String): Set<String> {

@@ -9,5 +9,6 @@ class MpvConfigurationPolicyTest {
         assertEquals(setOf("border", "speed", "osc"), MpvConfigurationPolicy.defaultOptions(text))
         assertEquals(listOf("border", "osc", "speed"), MpvConfigurationPolicy.conflicts(text))
         assertEquals(emptyList<String>(), MpvConfigurationPolicy.conflicts("deband=yes\nslang=fr\n[custom]\nfullscreen=yes"))
+        assertEquals(listOf("demuxer-lavf-o"), MpvConfigurationPolicy.conflicts("demuxer-lavf-o=fixture=yes"))
     }
 }
