@@ -50,6 +50,9 @@ class DramaVideoResolverTest {
         assertFalse(DramaVideoResolver.supports("csp_Other", "11/22"))
         assertFalse(DramaVideoResolver.supports("csp_AiDj", "https://example/video"))
         assertTrue(DramaVideoResolver.supports("csp_AiDj", "11/22"))
+        assertTrue(DramaVideoResolver.supports("csp_AiDjGuard", "11/22"))
+        assertTrue(DramaVideoResolver.supports("AiDjGuard", "11/22"))
+        assertFalse(DramaVideoResolver.supports("csp_OtherGuard", "11/22"))
         assertThrows(IllegalArgumentException::class.java) { resolver.resolve("11/22") }
         for (text in listOf("", "abcd", "x".repeat(1025), "!!!!", "AAAA")) {
             assertThrows(IllegalArgumentException::class.java) { SpadeMetadata.key(text) }

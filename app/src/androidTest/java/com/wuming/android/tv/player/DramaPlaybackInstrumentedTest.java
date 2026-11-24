@@ -33,6 +33,12 @@ public class DramaPlaybackInstrumentedTest {
             int original = com.wuming.android.tv.setting.AppSettings.getLinkRoute();
             try {
                 com.wuming.android.tv.api.config.VodConfig.get().ensureLoaded();
+                String api = com.wuming.android.tv.api.config.VodConfig.get().getSite(site).getApi();
+                Bundle identity = new Bundle();
+                identity.putString("configuredProviderApi", api.matches("[A-Za-z0-9_.$]+") ? api : "non-class-api");
+                identity.putBoolean("recognizedNativeDrama", DramaVideoResolver.supports(api, episode));
+                InstrumentationRegistry.getInstrumentation().sendStatus(0, identity);
+                assertTrue("Configured source is not recognized by the native resolver", DramaVideoResolver.supports(api, episode));
                 com.wuming.android.tv.setting.AppSettings.putLinkRoute(com.wuming.android.tv.setting.AppSettings.LINK_ROUTE_BUILTIN);
                 playback = com.wuming.android.tv.api.SiteApi.playerContent(site, "AI", episode);
             } finally { com.wuming.android.tv.setting.AppSettings.putLinkRoute(original); }

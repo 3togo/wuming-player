@@ -15,7 +15,7 @@ class DramaPlaybackCatalogSourceExecutorTest {
         }
         var nativeCalls = 0
         val resolver = DramaVideoResolver { nativeCalls++; error("fixture native failure") }
-        val wrapper = DramaPlaybackCatalogSourceExecutor(delegate, "csp_AiDj", resolver)
+        val wrapper = DramaPlaybackCatalogSourceExecutor(delegate, "csp_AiDjGuard", resolver)
         assertThrows(IllegalStateException::class.java) { wrapper.play("AI", "11/22") }
         assertEquals(1, nativeCalls)
         assertEquals(0, providerCalls)

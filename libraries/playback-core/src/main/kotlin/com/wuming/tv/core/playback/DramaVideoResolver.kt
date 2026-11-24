@@ -68,7 +68,7 @@ class DramaVideoResolver(private val fetch: (String) -> String = ::fetchMetadata
         private const val ENDPOINT = "https://api5-normal-sinfonlineb.fqnovel.com/reading/bookapi/video_tab/multi_video_model/v1/"
         private val MEDIA_HEADERS = mapOf("User-Agent" to "Mozilla/5.0", "Referer" to "https://novel.snssdk.com/")
         @JvmStatic fun supports(api: String?, episode: String?) =
-            api?.removePrefix("csp_") == "AiDj" && episode != null && EPISODE.matches(episode)
+            api?.removePrefix("csp_")?.removeSuffix("Guard") == "AiDj" && episode != null && EPISODE.matches(episode)
         private val client by lazy { OkHttpClient.Builder().callTimeout(20, TimeUnit.SECONDS).build() }
         private fun fetchMetadata(url: String): String = client.newCall(Request.Builder().url(url)
             .header("User-Agent", "okhttp/4.12.0").build()).execute().use {
