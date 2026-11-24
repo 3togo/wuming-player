@@ -19,6 +19,10 @@ class DramaPlaybackCatalogSourceExecutorTest {
         assertThrows(IllegalStateException::class.java) { wrapper.play("AI", "11/22") }
         assertEquals(1, nativeCalls)
         assertEquals(0, providerCalls)
+        assertNull(wrapper.prewarm("AI", "11/22"))
+        assertEquals(PlaybackPreparationSafety.UNKNOWN, wrapper.playbackPreparationSafety("AI", "11/22"))
+        assertEquals(1, nativeCalls)
+        assertEquals(0, providerCalls)
         wrapper.play("unrelated", "https://example/video")
         assertEquals(1, providerCalls)
     }
