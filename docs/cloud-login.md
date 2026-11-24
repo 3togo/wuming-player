@@ -267,3 +267,30 @@ Focused regressions: `CredentialBackupCodecTest` and `CredentialBackupFilesTest`
 secrets in the isolated `.verification` app and covers cookies, connector recovery,
 unrelated-login isolation, invalid imports, legacy files, password clearing, and
 activity recreation.
+
+On Android 11 and newer TVs, encrypted account backups are stored in the app's
+external files directory, `Android/data/<installed-package>/files/credentials/`.
+For example, transfer a backup into that directory before opening **Import accounts**.
+The TV picker stays inside the backup directory; it does not need all-files access.
+Phones continue to import through the system document picker. If external storage
+is unavailable, the TV uses its internal files directory instead. Reinstalling or
+uninstalling the app can remove these app-owned backups; retain the desktop copy.
+Older shared-storage backups are migrated only where Android permits access.
+
+To stage the newest encrypted desktop backup on an attached, authorized device:
+
+```sh
+python3 scripts/device/copy-credentials.py --dry-run
+python3 scripts/device/copy-credentials.py
+# When more than one device or edition is available:
+python3 scripts/device/copy-credentials.py --serial DEVICE_SERIAL --package APP_PACKAGE
+```
+
+The default source is `$XDG_CONFIG_HOME/無名/credentials` (or
+`~/.config/無名/credentials`); newest means latest filesystem modification time.
+Use `--file BACKUP` or `--backup-dir DIRECTORY` to override it. The script checks
+the encrypted envelope, copies without overwriting an existing file, and pulls
+back the staged copy to verify SHA-256 before publishing its final filename.
+It never decrypts, imports, or changes saved accounts. Android 11+ devices need
+the scoped-storage picker fix to list the app-owned destination. Keep the backup
+password separately and enter it in the app when importing.

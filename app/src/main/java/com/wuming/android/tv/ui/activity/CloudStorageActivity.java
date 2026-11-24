@@ -164,6 +164,13 @@ public class CloudStorageActivity extends BaseActivity implements OpenDriveAccou
     }
 
     private File credentialBackupDirectory() {
+        // Scoped storage hides shell/USB-copied JSON in arbitrary shared folders on
+        // Android 11+. The TV uses a filesystem picker, so keep its backups in
+        // app-owned storage; phones continue to use the document provider.
+        if (Util.isLeanback() && android.os.Build.VERSION.SDK_INT >= 30) {
+            File external = getExternalFilesDir(null);
+            return new File(external != null ? external : getFilesDir(), CredentialBackupFiles.DIRECTORY_NAME);
+        }
         return new File(legacyCredentialBackupDirectory(), CredentialBackupFiles.DIRECTORY_NAME);
     }
 

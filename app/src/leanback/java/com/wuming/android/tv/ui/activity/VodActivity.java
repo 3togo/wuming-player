@@ -106,6 +106,10 @@ public class VodActivity extends BaseActivity implements LeanbackTypeAdapter.OnC
     }
 
     private void setRecyclerView() {
+        mBinding.refresh.setOnClickListener(v -> {
+            Class type = getType();
+            if (type != null) refresh(type);
+        });
         mBinding.recycler.requestFocus();
         mBinding.recycler.setHorizontalSpacing(ResUtil.getDimensionPixelSize(R.dimen.vs_16));
         mBinding.recycler.setRowHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -205,7 +209,6 @@ public class VodActivity extends BaseActivity implements LeanbackTypeAdapter.OnC
     @Override
     public void onItemClick(Class item) {
         updateFilter(item);
-        refresh(item);
     }
 
     @Override

@@ -33,7 +33,9 @@ public abstract class BaseFileActivity extends BaseActivity implements FileAdapt
         String extensionFilter = getIntent().getStringExtra(FileChooser.EXTRA_EXTENSION_FILTER);
         boolean newestFirst = getIntent().getBooleanExtra(FileChooser.EXTRA_NEWEST_FIRST, false);
         boolean deletable = getIntent().getBooleanExtra(FileChooser.EXTRA_ALLOW_DELETE, false);
-        browser = new FileBrowserController(Path.root(), extensionFilter, newestFirst);
+        String rootDirectory = getIntent().getStringExtra(FileChooser.EXTRA_ROOT_DIRECTORY);
+        browser = new FileBrowserController(rootDirectory == null ? Path.root() : new File(rootDirectory),
+                extensionFilter, newestFirst);
         configureBrowser();
         mBinding.recycler.setHasFixedSize(true);
         mBinding.recycler.setAdapter(adapter = new FileAdapter(this, deletable, this::confirmDelete));

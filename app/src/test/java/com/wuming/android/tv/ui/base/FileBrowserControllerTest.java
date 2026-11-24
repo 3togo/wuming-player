@@ -48,6 +48,20 @@ public class FileBrowserControllerTest {
     }
 
     @Test
+    public void appOwnedBackupRootListsTransferredUnicodeBackupWithoutEscaping() throws Exception {
+        File backups = temporaryFolder.newFolder("files", "credentials");
+        File backup = new File(backups, "無名-credentials-20261028-085129.tvbox-credentials.json");
+        assertTrue(backup.createNewFile());
+        FileBrowserController browser = new FileBrowserController(backups, ".json", true);
+
+        assertEquals(backups.getCanonicalFile(), browser.openInitial(backups.getPath()));
+        assertEquals(java.util.Collections.singletonList(backup.getCanonicalFile()), browser.entries());
+        assertFalse(browser.canGoBack());
+        assertEquals(backups.getCanonicalFile(), browser.goBack());
+        assertEquals(backups.getCanonicalFile(), browser.open(backups.getParentFile()));
+    }
+
+    @Test
     public void noFilterShowsAllFiles() throws Exception {
         File root = temporaryFolder.newFolder("root");
         new File(root, "backup.json").createNewFile();

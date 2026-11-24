@@ -365,7 +365,7 @@ public class LeanbackTypeFragment extends BaseFragment implements CustomScroller
         this.filterVisible = visible;
         if (visible) {
             // Opening the options takes precedence over restoring a video card
-            // after the category refresh triggered by the same tab click.
+            // after an earlier refresh of the category.
             mPendingVodFocusKey = null;
             showFilter();
             mBinding.progressLayout.showContent();

@@ -19,6 +19,39 @@
         app:focusOutEnd="false"
         app:focusOutFront="false" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/vs_24"
+        android:paddingEnd="@dimen/vs_24"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/vs_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/vod_category_remote_hint"
+            android:textColor="?attr/itemOnSurface"
+            android:textSize="@dimen/font_body">
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </TextView>
+
+        <TextView
+            android:id="@+id/refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_item_round"
+            android:focusable="true"
+            android:clickable="true"
+            android:padding="@dimen/vs_8"
+            android:text="@string/setting_refresh_btn"
+            android:textColor="?attr/itemOnSurface"
+            android:textSize="@dimen/font_body">
+            <tag android:id="@id/tag_typography_role" android:value="body" />
+        </TextView>
+    </LinearLayout>
+
     <com.wuming.android.tv.ui.custom.CustomViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"

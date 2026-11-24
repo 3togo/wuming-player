@@ -29,6 +29,7 @@ import java.util.List;
 
 public class FileChooser {
 
+    public static final String EXTRA_ROOT_DIRECTORY = "root_directory";
     public static final String EXTRA_INITIAL_DIRECTORY = "initial_directory";
     public static final String EXTRA_EXTENSION_FILTER = "extension_filter";
     public static final String EXTRA_NEWEST_FIRST = "newest_first";
@@ -67,6 +68,9 @@ public class FileChooser {
     /** Backup picker: newest files first, with an explicit delete action for stale copies. */
     public void show(File initialDirectory, String extensionFilter) {
         Intent intent = pickerIntent("*/*", new String[]{"*/*"}, extensionFilter, initialDirectory);
+        // Credential backups have their own writable directory. Do not let Back
+        // escape into shared storage that scoped-storage apps cannot read.
+        intent.putExtra(EXTRA_ROOT_DIRECTORY, initialDirectory.getAbsolutePath());
         intent.putExtra(EXTRA_NEWEST_FIRST, true);
         intent.putExtra(EXTRA_ALLOW_DELETE, true);
         launch(intent);

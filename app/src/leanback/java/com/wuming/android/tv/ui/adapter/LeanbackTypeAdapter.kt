@@ -31,7 +31,6 @@ open class LeanbackTypeAdapter(
         holder.binding.text.text = item.getTypeName()
         holder.binding.text.compoundDrawablePadding = ResUtil.getDimensionPixelSize(R.dimen.vs_4)
         holder.binding.text.setCompoundDrawablesWithIntrinsicBounds(0, 0, getIcon(item), 0)
-        holder.binding.text.setListener { listener.onRefresh(item) }
         holder.setItem(item)
     }
 
@@ -52,6 +51,10 @@ open class LeanbackTypeAdapter(
 
         init {
             binding.root.setOnClickListener { item?.let(listener::onItemClick) }
+            binding.root.setOnLongClickListener {
+                item?.let(listener::onRefresh)
+                true // Consume the hold so releasing OK does not toggle filters.
+            }
         }
 
         open fun setItem(item: Class?) {
