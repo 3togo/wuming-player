@@ -19,6 +19,6 @@ object SpiderDebug {
 
     @JvmStatic
     fun log(tag: String, msg: String?, vararg args: Any?) {
-        if (!TextUtils.isEmpty(msg)) Log.d(tag, String.format(msg!!, *args))
+        if (!TextUtils.isEmpty(msg)) Log.d(tag, if (args.isEmpty()) msg!! else String.format(msg!!, *args))
     }
 }
