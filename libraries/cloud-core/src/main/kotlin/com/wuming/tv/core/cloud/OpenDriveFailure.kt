@@ -1,6 +1,9 @@
 package com.wuming.tv.core.cloud
 
 import java.io.IOException
+import java.util.Collections
+import java.util.IdentityHashMap
+import java.util.concurrent.CancellationException
 
 /** A failure description, never permission to retry, switch routes, or delete credentials. */
 open class OpenDriveFailure : IOException {
@@ -31,6 +34,19 @@ open class OpenDriveFailure : IOException {
 
     companion object {
         private const val PREFIX = "OpenDriveFailure:"
+
+        /** Recover typed cloud failures from resolver/player wrappers without parsing arbitrary text. */
+        @JvmStatic
+        fun find(error: Throwable?): OpenDriveFailure? {
+            val seen = Collections.newSetFromMap(IdentityHashMap<Throwable, Boolean>())
+            var current = error
+            while (current != null && seen.add(current)) {
+                if (current is CancellationException || current is InterruptedException) return null
+                if (current is OpenDriveFailure) return current
+                current = current.cause
+            }
+            return null
+        }
 
         @JvmStatic
         fun fromMessage(message: String?): OpenDriveFailure? {

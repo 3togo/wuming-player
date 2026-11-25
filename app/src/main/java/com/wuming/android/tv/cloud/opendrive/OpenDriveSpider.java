@@ -131,12 +131,12 @@ public final class OpenDriveSpider extends Spider {
     /** Caches parsed external episodes and replaces their payloads with opaque deferred IDs. */
     public int rewriteExternalEpisodes(Vod vod) {
         if (vod == null) return 0;
-        List<OpenDriveProvider> activeProviders = activeProviders();
-        if (activeProviders.isEmpty()) return 0;
+        List<OpenDriveProvider> routingProviders = engine.routingProviders();
+        if (routingProviders.isEmpty()) return 0;
         int rewritten = 0;
         for (Flag flag : vod.getFlags()) {
             for (Episode episode : flag.getEpisodes()) {
-                String routed = deferExternalEpisode(activeProviders, flag.getFlag(), episode.getUrl());
+                String routed = deferExternalEpisode(routingProviders, flag.getFlag(), episode.getUrl());
                 if (routed == null) continue;
                 episode.setUrl(routed);
                 rewritten++;
@@ -148,30 +148,9 @@ public final class OpenDriveSpider extends Spider {
 
     /** Routes one episode selected from an already-open external detail page. */
     public String routeExternalEpisode(String flag, String payload) {
-        List<OpenDriveProvider> activeProviders = activeProviders();
-        return activeProviders.isEmpty() ? null
-                : deferExternalEpisode(activeProviders, flag, payload);
-    }
-
-    private List<OpenDriveProvider> activeProviders() {
-        List<OpenDriveProvider> activeProviders = new ArrayList<>();
-        for (OpenDriveProvider provider : engine.providers()) {
-            try {
-                if (provider.available() && provider.authenticated()) activeProviders.add(provider);
-            } catch (RuntimeException ignored) {
-                OpenDriveLog.providerUnavailable(provider.id(), "activeProviders check failed");
-            }
-        }
-        return activeProviders;
-    }
-
-    String importExternalEpisode(String flag, String payload) {
-        for (OpenDriveProvider provider : engine.providers()) {
-            if (!provider.available() || !provider.authenticated()) continue;
-            String itemId = provider.importExternal(flag, payload);
-            if (itemId != null && !itemId.isBlank()) return encode(FILE_PREFIX, provider.id(), itemId);
-        }
-        return null;
+        List<OpenDriveProvider> routingProviders = engine.routingProviders();
+        return routingProviders.isEmpty() ? null
+                : deferExternalEpisode(routingProviders, flag, payload);
     }
 
     private static String deferExternalEpisode(List<OpenDriveProvider> providers,

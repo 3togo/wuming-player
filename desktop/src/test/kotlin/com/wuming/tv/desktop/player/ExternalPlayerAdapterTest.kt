@@ -14,6 +14,21 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class ExternalPlayerAdapterTest {
+    @Test fun cencSessionUsesMpvWithoutSendingItsCapabilityAsAnHttpHeader() {
+        val reference = com.wuming.tv.core.playback.CencPlaybackSessions.register(
+            "https://example.test/video.mp4", mapOf("Referer" to "https://example.test/"),
+            ByteArray(16),
+        )
+        var command = emptyList<String>()
+        val player = ExternalPlayerAdapter(Path.of("/usr/bin/mpv"), ProcessStarter { command = it; null },
+            PlaybackTargetPreparer { value, _ -> PreparedPlaybackTarget(value) })
+        assertTrue(player.play(reference).started)
+        assertTrue(command.contains("--demuxer-lavf-o=decryption_key=" + "00".repeat(16)))
+        assertEquals("https://example.test/video.mp4", command.last())
+        assertFalse(command.any { it.contains(reference) })
+        val vlc = ExternalPlayerAdapter(Path.of("/usr/bin/vlc"))
+        assertFalse(vlc.play(reference).started)
+    }
     @Test fun mpvFailureKeepsFormatDetailsAndDistinguishesVideoOutputFromBadMedia() {
         val invalid = """{"event":"end-file","reason":"error","file_error":"unrecognized file format"}"""
         assertTrue(mpvPlaybackFailure(invalid)!!.contains("invalid playlist"))

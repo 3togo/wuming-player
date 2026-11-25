@@ -17,7 +17,9 @@ internal class VideoPlaybackSession {
     fun armFallback(flag: String?, rawUrl: String?, headers: Map<String, String>? = null) =
         fallback.arm(flag, rawUrl, headers)
 
-    fun consumeFallback(): HistoryPlaybackFallback.Attempt? = fallback.consume()
+    @JvmOverloads
+    fun consumeFallback(failureMessage: String? = null): HistoryPlaybackFallback.Attempt? =
+        fallback.consume(failureMessage)
 
     fun clearFallback() = fallback.clear()
 

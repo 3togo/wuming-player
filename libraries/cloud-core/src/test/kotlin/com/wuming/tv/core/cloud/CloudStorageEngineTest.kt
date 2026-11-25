@@ -15,18 +15,35 @@ class CloudStorageEngineTest {
         var loggedOut = false
         var failure: Exception? = null
         var authenticated = true
+        var available = true
+        var authenticationChecks = 0
         var parent = ""
         val items = mutableListOf(OpenDriveItem("one", "One", false, 1))
         override fun id() = key
         override fun displayName() = "Fixture"
-        override fun available() = true
+        override fun available() = available
         override fun availabilityMessage() = ""
-        override fun authenticated() = authenticated
+        override fun authenticated(): Boolean { authenticationChecks++; return authenticated }
         override fun beginLogin() = OpenDriveLoginChallenge("session", "fixture", 0)
         override fun pollLogin(sessionId: String) = OpenDriveLoginState.WAITING
         override fun logout() { loggedOut = true }
         override fun list(parentId: String): List<OpenDriveItem> { failure?.let { throw it }; parent = parentId; return items }
         override fun resolve(itemId: String): OpenDrivePlayback { failure?.let { throw it }; return OpenDrivePlayback("https://media.example/fixture.mp4", emptyMap(), 0) }
+    }
+
+    @Test fun payloadRoutingDoesNotDependOnLoginButPlaybackStillRequiresIt() {
+        val provider = Provider().apply { authenticated = false }
+        val disabled = Provider("uc").apply { available = false }
+        val engine = CloudStorageEngine(listOf(provider, disabled))
+        assertEquals(listOf(provider), engine.routingProviders())
+        assertEquals(0, provider.authenticationChecks)
+        assertEquals(0, disabled.authenticationChecks)
+        val failure = assertThrows(OpenDriveFailure::class.java) { engine.resolve("quark", "one") }
+        assertEquals(OpenDriveFailure.Reason.AUTH_REQUIRED, failure.reason)
+        assertFalse(provider.loggedOut)
+        provider.authenticated = true
+        assertEquals(listOf(provider), engine.routingProviders())
+        assertEquals("https://media.example/fixture.mp4", engine.resolve("quark", "one").url)
     }
 
     @Test fun registryRejectsInvalidAndDuplicateIdentitiesWithoutExposingUnknownIds() {

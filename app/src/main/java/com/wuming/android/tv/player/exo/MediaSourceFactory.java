@@ -91,6 +91,10 @@ public class MediaSourceFactory implements MediaSource.Factory {
     @Override
     public MediaSource createMediaSource(@NonNull MediaItem mediaItem) {
         String url = mediaItem.requestMetadata.mediaUri != null ? mediaItem.requestMetadata.mediaUri.toString() : "";
+        if (com.wuming.tv.core.playback.CencPlaybackSessions.matches(url)) {
+            android.util.Log.d("NativeCenc", "Creating native CENC source");
+            return configuredFactory(CencDataSource::new).createMediaSource(mediaItem);
+        }
         String mimeType = mediaItem.localConfiguration == null
                 ? null : mediaItem.localConfiguration.mimeType;
         PlaybackTransportPlan plan = PlaybackTransportPlan.parse(

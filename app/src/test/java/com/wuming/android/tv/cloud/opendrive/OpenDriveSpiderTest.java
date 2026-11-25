@@ -6,6 +6,8 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertNull;
 
 import com.wuming.android.tv.bean.Vod;
 import com.wuming.tv.core.media.PlaybackTarget;
@@ -172,7 +174,7 @@ public class OpenDriveSpiderTest {
         assertTrue(OpenDriveSpider.isDeferredId(routed));
         assertFalse(routed.contains("capability-secret"));
         assertFalse(vod.getPlayUrl().contains("capability-secret"));
-        assertEquals(1, provider.authenticationChecks);
+        assertEquals(0, provider.authenticationChecks);
         assertEquals(1, provider.prepareCount);
         assertEquals(0, provider.materializeCount);
 
@@ -199,7 +201,7 @@ public class OpenDriveSpiderTest {
     }
 
     @Test
-    public void externalEpisodeKeepsLegacyRouteUntilBuiltInProviderIsAuthenticated() {
+    public void externalEpisodeStaysBuiltInWhileItsAccountNeedsLogin() throws Exception {
         FakeProvider provider = new FakeProvider();
         OpenDriveSpider spider = new OpenDriveSpider(new OpenDriveEngine(List.of(provider)));
         String payload = "{\"sToken\":\"capability-secret\"}";
@@ -208,8 +210,33 @@ public class OpenDriveSpiderTest {
         vod.setPlayUrl("Episode 1$" + payload);
         vod.setFlags();
 
-        assertEquals(0, spider.rewriteExternalEpisodes(vod));
-        assertEquals(payload, vod.getFlags().get(0).getEpisodes().get(0).getUrl());
+        assertEquals(1, spider.rewriteExternalEpisodes(vod));
+        String routed = vod.getFlags().get(0).getEpisodes().get(0).getUrl();
+        assertTrue(OpenDriveSpider.isDeferredId(routed));
+        assertEquals(0, provider.authenticationChecks);
+        OpenDriveFailure failure = assertThrows(OpenDriveFailure.class,
+                () -> spider.playerContent("External cloud", routed, Collections.emptyList()));
+        assertEquals(OpenDriveFailure.Reason.AUTH_REQUIRED, failure.reason());
+        provider.authenticated = true;
+        assertEquals("https://media.example/video.mp4",
+                object(spider.playerContent("External cloud", routed, Collections.emptyList()))
+                        .get("url").getAsString());
+    }
+
+    @Test
+    public void selectedCloudEpisodesKeepTheirNamedProviderWithoutASession() {
+        for (String id : List.of("alipan", "quark", "uc", "baidu", "123pan", "tianyi")) {
+            FakeProvider provider = new FakeProvider() {
+                @Override public String id() { return id; }
+            };
+            OpenDriveSpider spider = new OpenDriveSpider(new OpenDriveEngine(List.of(provider)));
+            String routed = spider.routeExternalEpisode(id, "{\"sToken\":\"capability-secret\"}");
+            assertTrue(id, OpenDriveSpider.isDeferredId(routed));
+            assertEquals(id, OpenDriveSpider.routedProviderId(routed));
+            assertEquals(0, provider.authenticationChecks);
+            assertEquals(0, provider.materializeCount);
+            assertNull(spider.routeExternalEpisode("AI", "1000000000000000000/2000000000000000000"));
+        }
     }
 
     @Test

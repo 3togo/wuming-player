@@ -1,6 +1,7 @@
 package com.wuming.tv.core.media
 
 import com.wuming.tv.core.media.catalog.MediaManifest
+import com.wuming.tv.core.cloud.OpenDriveFailure
 import java.util.LinkedHashMap
 
 /** Selects adapter resolvers while preserving manifest source priority. */
@@ -25,7 +26,8 @@ class MediaResolverRegistry(resolvers: List<SourceResolver>?) {
             val resolver = resolvers[source.adapterId] ?: continue
             try {
                 return Resolution.resolved(resolver.resolve(source), source.fingerprint)
-            } catch (_: RuntimeException) {
+            } catch (failure: RuntimeException) {
+                OpenDriveFailure.find(failure)?.let { throw it }
                 // Try the next source; one broken provider must not poison the resource.
             }
         }
