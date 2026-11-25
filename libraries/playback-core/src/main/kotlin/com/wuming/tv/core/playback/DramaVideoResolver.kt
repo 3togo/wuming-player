@@ -3,48 +3,46 @@ package com.wuming.tv.core.playback
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import okhttp3.HttpUrl.Companion.toHttpUrl
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import java.io.IOException
 import java.util.Base64
-import java.util.UUID
-import java.util.concurrent.TimeUnit
 
 /** Official video metadata protocol used by the AI drama catalogue; no cloud session is involved. */
-class DramaVideoResolver(private val fetch: (String) -> String = ::fetchMetadata) {
+class DramaVideoResolver(private val fetch: (String) -> String = DramaServiceMetadata.shared::fetch) {
     fun resolve(episode: String): String {
         require(EPISODE.matches(episode)) { "Invalid drama episode identifier" }
         val video = episode.substringAfter('/')
-        val query = linkedMapOf(
-            "aid" to "8662", "app_name" to "novelread", "version_code" to "74332",
-            "version_name" to "7.4.3.32", "channel" to "vivo_8662_64",
-            "device_platform" to "android", "device_type" to "PGT-AN10", "os_version" to "12",
-            "update_version_code" to "74332", "iid" to "1234567890123456",
-            "device_id" to "1234567890123456", "cdid" to UUID.randomUUID().toString(),
-            "video_id" to video, "video_id_type" to "0", "device_level" to "1",
-            "need_all_video_definition" to "1", "need_mp4_align" to "0", "use_os_player" to "1",
-            "video_platform" to "1024", "source" to "0", "from_video_id" to "",
-            "_rticket" to System.currentTimeMillis().toString(),
-        )
-        val url = ENDPOINT.toHttpUrl().newBuilder().apply {
-            query.forEach { (key, value) -> addQueryParameter(key, value) }
-        }.build().toString()
-        return parse(fetch(url), video)
+        return parse(fetch(video), video)
     }
 
     internal fun parse(body: String, video: String): String {
-        require(body.length <= 2 * 1024 * 1024) { "Drama response exceeds size limit" }
+        if (body.isBlank()) throw IOException("The drama service returned an empty response. Try again later.")
+        if (body.length > 2 * 1024 * 1024) throw IOException("Drama response exceeds size limit")
+        return try {
+            parseMetadata(body, video)
+        } catch (failure: IOException) {
+            throw failure
+        } catch (_: RuntimeException) {
+            // Parser messages can contain provider text, including signed media URLs or keys.
+            throw IOException("The drama service returned invalid playback metadata. Try again later.")
+        }
+    }
+
+    private fun parseMetadata(body: String, video: String): String {
         val response = JsonParser.parseString(body).asJsonObject
-        require(response.get("code")?.asInt == 0) { "Drama metadata request failed" }
-        val entry = response.getAsJsonObject("data")?.getAsJsonObject("video_model_data")?.getAsJsonObject(video)
+        if (response.get("code")?.asInt != 0) throw IOException("Drama metadata request failed")
+        val data = response.getAsJsonObject("data")
+        val entry = if (data?.has("video_model") == true) data else data?.getAsJsonObject("video_model_data")?.getAsJsonObject(video)
             ?: throw IOException("Drama episode unavailable")
-        val model = JsonParser.parseString(entry.get("video_model").asString).asJsonObject
+        val rawModel = entry.get("video_model")
+        val model = if (rawModel.isJsonObject) rawModel.asJsonObject else JsonParser.parseString(rawModel.asString).asJsonObject
         val renditions = model.getAsJsonArray("video_list") ?: throw IOException("Drama has no renditions")
         // Prefer AVC for TV compatibility. Invalid renditions must not mask another usable choice.
         val ordered = renditions.mapNotNull { it.takeIf { it.isJsonObject }?.asJsonObject }.sortedByDescending {
-            val meta = it.getAsJsonObject("video_meta")
-            if (meta?.get("codec_type")?.asString in listOf("h264", "avc"))
-                meta?.get("vheight")?.asInt ?: 0 else -1
+            try {
+                val meta = it.getAsJsonObject("video_meta")
+                if (meta?.get("codec_type")?.asString in listOf("h264", "avc"))
+                    meta?.get("vheight")?.asInt ?: 0 else -1
+            } catch (_: RuntimeException) { -1 }
         }
         for (item in ordered) {
             val capability = rendition(item)
@@ -65,18 +63,9 @@ class DramaVideoResolver(private val fetch: (String) -> String = ::fetchMetadata
 
     companion object {
         private val EPISODE = Regex("[0-9]{1,30}/[0-9]{1,30}")
-        private const val ENDPOINT = "https://api5-normal-sinfonlineb.fqnovel.com/reading/bookapi/video_tab/multi_video_model/v1/"
         private val MEDIA_HEADERS = mapOf("User-Agent" to "Mozilla/5.0", "Referer" to "https://novel.snssdk.com/")
         @JvmStatic fun supports(api: String?, episode: String?) =
             api?.removePrefix("csp_")?.removeSuffix("Guard") == "AiDj" && episode != null && EPISODE.matches(episode)
-        private val client by lazy { OkHttpClient.Builder().callTimeout(20, TimeUnit.SECONDS).build() }
-        private fun fetchMetadata(url: String): String = client.newCall(Request.Builder().url(url)
-            .header("User-Agent", "okhttp/4.12.0").build()).execute().use {
-                if (!it.isSuccessful) throw IOException("Drama metadata HTTP ${it.code}")
-                val source = it.body?.source() ?: throw IOException("Empty drama metadata")
-                if (source.request(2L * 1024 * 1024 + 1)) throw IOException("Drama response exceeds size limit")
-                source.readUtf8()
-            }
         internal fun hex(value: String): ByteArray {
             require(Regex("[0-9a-fA-F]{32}").matches(value)) { "Invalid CENC identifier" }
             return value.chunked(2).map { it.toInt(16).toByte() }.toByteArray()

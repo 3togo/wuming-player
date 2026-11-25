@@ -1,0 +1,42 @@
+[
+  {
+    "query": "device_id\u003d123456\u0026version_name\u003d7.3.9.32\u0026channel\u003dfixture%20channel\u0026os_version\u003d12\u0026device_type\u003dHD1900\u0026escaped\u003da%20b%2F%E4%B8%AD%E6%96%87%25\u0026_rticket\u003d1700000000002",
+    "headerSha256": {
+      "x-helios": "03df6c0f7ccb3ad1fae39303f3ceb8c6cae695e4d1feadfe1b2a53387faee0c6",
+      "x-khronos": "3f3b4313e71a7e1cbfbc359314fc3de34eab90a3d441761cae10fcb2a6aba1ff",
+      "x-medusa": "8ecaf70fb9315746e61d2c8fe1ab513b3c5f8a2ef5d8800259e15098da3f2215",
+      "x-ss-stub": "ca049e0fb15c6f0424f4d9f4f5e9280d3a4efafec25d265a442d8a2177473aa0"
+    },
+    "now": 1700000000000
+  },
+  {
+    "query": "device_id\u003d123456\u0026version_name\u003d7.3.9.32\u0026channel\u003dfixture%20channel\u0026os_version\u003d12\u0026device_type\u003dHD1900\u0026escaped\u003da%20b%2F%E4%B8%AD%E6%96%87%25\u0026_rticket\u003d1700000001006",
+    "headerSha256": {
+      "x-helios": "c0a5e90125307acc5cb0847125464becaafbe95717f272dfe45de94955997eb1",
+      "x-khronos": "b03c94ef74953171960deca89cf076c24a2c0cc168e84477add3bd75360ee8e1",
+      "x-medusa": "c7ee8977398d9ca5907b4ca6a755444aca0531c16b30e337b21654c1b1f98cac",
+      "x-ss-stub": "ca049e0fb15c6f0424f4d9f4f5e9280d3a4efafec25d265a442d8a2177473aa0"
+    },
+    "now": 1700000001000
+  },
+  {
+    "query": "device_id\u003d123456\u0026version_name\u003d7.3.9.32\u0026channel\u003dfixture%20channel\u0026os_version\u003d12\u0026device_type\u003dHD1900\u0026escaped\u003da%20b%2F%E4%B8%AD%E6%96%87%25\u0026_rticket\u003d1700000002004",
+    "headerSha256": {
+      "x-helios": "d1359ef391ffad8c662e7d4965c44e8fc113dcb65c6db135ff12d6c48f495e5c",
+      "x-khronos": "21c8f67e0394045d96a410f617af83bb83b21d1f91bc7e5a3126960d7591b38c",
+      "x-medusa": "4f1b12262aeb418b438f01f0491c78c9b845f1790314a23e4e1c4d57e110f258",
+      "x-ss-stub": "ca049e0fb15c6f0424f4d9f4f5e9280d3a4efafec25d265a442d8a2177473aa0"
+    },
+    "now": 1700000002000
+  },
+  {
+    "query": "device_id\u003d123456\u0026version_name\u003d7.3.9.32\u0026channel\u003dfixture%20channel\u0026os_version\u003d12\u0026device_type\u003dHD1900\u0026escaped\u003da%20b%2F%E4%B8%AD%E6%96%87%25\u0026_rticket\u003d1700000003002",
+    "headerSha256": {
+      "x-helios": "a66ed76a2118f3fdad7b28744fd136e813a59ba95e931b0b453f70b720eb921f",
+      "x-khronos": "97129c7eb7bd75193b87a24e715baabd450bde0b58076935e383c3d6bcf4ce56",
+      "x-medusa": "841f6fa5ca5407d1a22f203de8888d1c4453b9a1e2af163801f0c2437730d5b2",
+      "x-ss-stub": "ca049e0fb15c6f0424f4d9f4f5e9280d3a4efafec25d265a442d8a2177473aa0"
+    },
+    "now": 1700000003000
+  }
+]

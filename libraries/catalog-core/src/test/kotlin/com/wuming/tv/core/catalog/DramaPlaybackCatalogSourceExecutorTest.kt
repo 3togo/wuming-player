@@ -1,6 +1,7 @@
 package com.wuming.tv.core.catalog
 
 import com.wuming.tv.core.playback.DramaVideoResolver
+import java.io.IOException
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -22,6 +23,10 @@ class DramaPlaybackCatalogSourceExecutorTest {
         assertNull(wrapper.prewarm("AI", "11/22"))
         assertEquals(PlaybackPreparationSafety.UNKNOWN, wrapper.playbackPreparationSafety("AI", "11/22"))
         assertEquals(1, nativeCalls)
+        assertEquals(0, providerCalls)
+        val emptyResponse = DramaPlaybackCatalogSourceExecutor(delegate, "csp_AiDjGuard", DramaVideoResolver { "" })
+        val failure = assertThrows(IOException::class.java) { emptyResponse.play("AI", "11/22") }
+        assertEquals("The drama service returned an empty response. Try again later.", failure.message)
         assertEquals(0, providerCalls)
         wrapper.play("unrelated", "https://example/video")
         assertEquals(1, providerCalls)

@@ -106,3 +106,41 @@ refresh and UI handling rather than checking only its producer. Distinguish a
 provider's own proxy and QR gate from cloud account routing. CENC support in a
 host player alone does not establish that a source supplies a compatible license
 or playback integration.
+
+## Metadata protocol correction, 2026-11-25
+
+AI drama playback subsequently failed before opening media. The old unsigned
+GET returned HTTP 200 with an empty body; parsing that body produced
+`Not a JSON Object: null`. A parser-only error-message correction did not restore
+playback.
+
+The newer catalogue package adds a signed, gzip-compressed POST to
+`/novel/player/video_model/v1/` on `api5-normal-sinfonlinea.fqnovel.com`, with
+anonymous device registration and a direct `data.video_model` response. The
+older nested `data.video_model_data` response remains readable. Download names
+are not content types: the catalogue's `.jpg` downloads are ZIP containers;
+the successful metadata response is plain JSON. The failed response was empty,
+not an image or compressed document.
+
+Controlled requests separated these requirements. The same POST with signing
+removed returned an empty body. A v5 signature over the exact query and
+compressed body retrieved the model; replacing registered identifiers with
+placeholders failed. Removing cookies still succeeded. A newly registered,
+anonymous identity also succeeded, independently of saved provider data.
+
+Shared playback code now performs that sequence without loading a provider JAR,
+calling its player or opening login UI. One anonymous registration is reused
+for the shared client's process lifetime. Registration failures are not cached.
+Registration identifiers, request signatures and media keys are kept out of
+diagnostic messages. The existing process-local CENC capability and range
+transformation continue to own actual media playback.
+
+Wire tests use synthetic identifiers and expired timestamps. Four fixed-output
+fixtures cover all timestamp-dependent cipher modes; SM3 vectors cover single
+and multiple blocks. Further tests cover body authentication, registration
+reuse/failure recovery, both model response shapes, malformed responses and
+preservation of the returned HTTP media scheme. Protocol tables are fixed
+interoperability data; provider binaries, extracted provider code, real
+registration responses and signed media locators are not repository fixtures.
+Hardware decoding and seeking remain a separate acceptance check for each built
+edition.

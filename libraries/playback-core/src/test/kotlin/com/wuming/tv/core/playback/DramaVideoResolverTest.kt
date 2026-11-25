@@ -1,6 +1,7 @@
 package com.wuming.tv.core.playback
 
 import com.google.gson.Gson
+import java.io.IOException
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -21,8 +22,7 @@ class DramaVideoResolverTest {
         var requests = 0
         val resolver = DramaVideoResolver {
             requests++
-            assertTrue(it.startsWith("https://api5-normal-sinfonlineb.fqnovel.com/"))
-            assertTrue(it.contains("video_id=22"))
+            assertEquals("22", it)
             response(rendition(360), rendition(1080))
         }
         val reference = resolver.resolve("11/22")
@@ -53,10 +53,48 @@ class DramaVideoResolverTest {
         assertTrue(DramaVideoResolver.supports("csp_AiDjGuard", "11/22"))
         assertTrue(DramaVideoResolver.supports("AiDjGuard", "11/22"))
         assertFalse(DramaVideoResolver.supports("csp_OtherGuard", "11/22"))
-        assertThrows(IllegalArgumentException::class.java) { resolver.resolve("11/22") }
+        assertThrows(IOException::class.java) { resolver.resolve("11/22") }
         for (text in listOf("", "abcd", "x".repeat(1025), "!!!!", "AAAA")) {
             assertThrows(IllegalArgumentException::class.java) { SpadeMetadata.key(text) }
         }
         assertThrows(IllegalStateException::class.java) { CencPlaybackSessions.require("wuming-cenc://missing") }
+    }
+
+    @Test fun emptyServiceResponsesExplainTheFailureWithoutLeakingParserDetails() {
+        for (body in listOf("", " ", "\r\n\t")) {
+            val failure = assertThrows(IOException::class.java) { DramaVideoResolver { body }.resolve("11/22") }
+            assertEquals("The drama service returned an empty response. Try again later.", failure.message)
+            assertNull(failure.cause)
+        }
+    }
+
+    @Test fun malformedMetadataNeverExposesProviderContentInTheError() {
+        val bodies = listOf("null", "[]", "true", "\"signed-secret\"", "{signed-secret",
+            "{\"code\":0,\"data\":null}", "{\"code\":0,\"data\":[]}",
+            "{\"code\":0,\"data\":{\"video_model_data\":{\"22\":{\"video_model\":\"null\"}}}}")
+        for (body in bodies) {
+            val failure = assertThrows(IOException::class.java) { DramaVideoResolver { body }.resolve("11/22") }
+            assertFalse(failure.message.orEmpty().contains("signed-secret"))
+            assertFalse(failure.message.orEmpty().contains("Not a JSON"))
+            assertNull(failure.cause)
+        }
+    }
+
+    @Test fun invalidRenditionMetadataDoesNotHideAPlayableRendition() {
+        val invalid = rendition(1080).toMutableMap().apply { put("video_meta", "invalid") }
+        val resolver = DramaVideoResolver { response(invalid, rendition(360)) }
+        assertTrue(CencPlaybackSessions.require(resolver.resolve("11/22")).url.contains("360"))
+    }
+
+    @Test fun currentSingleVideoResponsesAcceptStringAndObjectModels() {
+        val old = com.google.gson.JsonParser.parseString(response(rendition(1080))).asJsonObject
+        val model = old.getAsJsonObject("data").getAsJsonObject("video_model_data").getAsJsonObject("22").get("video_model")
+        for (value in listOf(model, com.google.gson.JsonParser.parseString(model.asString))) {
+            val data = com.google.gson.JsonObject().apply { add("video_model", value) }
+            val current = com.google.gson.JsonObject().apply { addProperty("code", 0); add("data", data) }
+            val reference = DramaVideoResolver { current.toString() }.resolve("11/22")
+            assertEquals("http://media.example/video-1080.mp4?signature=fixture", CencPlaybackSessions.require(reference).url)
+            assertEquals("000102030405060708090a0b0c0d0e0f", CencPlaybackSessions.require(reference).keyHex())
+        }
     }
 }
