@@ -1,7 +1,14 @@
 package com.wuming.tv.core.playback
 
 import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import okhttp3.Request
+import okio.Buffer
+import java.io.ByteArrayInputStream
 import java.io.IOException
+import java.util.Random
+import java.util.zip.GZIPInputStream
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -17,6 +24,14 @@ class DramaVideoResolverTest {
             "video_model" to Gson().toJson(mapOf("video_list" to renditions.toList())),
         ))),
     ))
+    private val registration = """{"device_id_str":"101","install_id_str":"202","klink_egdi":"fixture"}"""
+    private fun currentResponse(objectModel: Boolean = false): String {
+        val old = JsonParser.parseString(response(rendition(1080))).asJsonObject
+        val model = old.getAsJsonObject("data").getAsJsonObject("video_model_data").getAsJsonObject("22").get("video_model")
+        val data = JsonObject().apply { add("video_model", if (objectModel) JsonParser.parseString(model.asString) else model) }
+        return JsonObject().apply { addProperty("code", 0); add("data", data) }.toString()
+    }
+    private fun service(exchange: (Request) -> String) = DramaServiceMetadata(exchange, { 1700000000000L }, Random(7))
 
     @Test fun metadataCreatesAnOpaqueSessionWithTheExpectedKey() {
         var requests = 0
@@ -87,14 +102,77 @@ class DramaVideoResolverTest {
     }
 
     @Test fun currentSingleVideoResponsesAcceptStringAndObjectModels() {
-        val old = com.google.gson.JsonParser.parseString(response(rendition(1080))).asJsonObject
-        val model = old.getAsJsonObject("data").getAsJsonObject("video_model_data").getAsJsonObject("22").get("video_model")
-        for (value in listOf(model, com.google.gson.JsonParser.parseString(model.asString))) {
-            val data = com.google.gson.JsonObject().apply { add("video_model", value) }
-            val current = com.google.gson.JsonObject().apply { addProperty("code", 0); add("data", data) }
-            val reference = DramaVideoResolver { current.toString() }.resolve("11/22")
+        for (objectModel in listOf(false, true)) {
+            val reference = DramaVideoResolver { currentResponse(objectModel) }.resolve("11/22")
             assertEquals("http://media.example/video-1080.mp4?signature=fixture", CencPlaybackSessions.require(reference).url)
             assertEquals("000102030405060708090a0b0c0d0e0f", CencPlaybackSessions.require(reference).keyHex())
         }
+    }
+
+    @Test fun signedNativeMetadataCreatesTheExpectedPlaybackSession() {
+        val requests = mutableListOf<Request>()
+        val metadata = service { request ->
+            requests += request
+            if (requests.size == 1) registration else currentResponse()
+        }
+        val reference = DramaVideoResolver(metadata::fetch).resolve("11/22")
+
+        assertEquals(2, requests.size)
+        assertEquals("/service/2/device_register/", requests[0].url.encodedPath)
+        val playback = requests[1]
+        assertEquals("POST", playback.method)
+        assertEquals("api5-normal-sinfonlinea.fqnovel.com", playback.url.host)
+        assertEquals("/novel/player/video_model/v1/", playback.url.encodedPath)
+        assertEquals("101", playback.url.queryParameter("device_id"))
+        assertEquals("202", playback.url.queryParameter("iid"))
+        assertEquals("gzip", playback.header("Content-Encoding"))
+        val compressed = Buffer().also { playback.body!!.writeTo(it) }.readByteArray()
+        val payload = GZIPInputStream(ByteArrayInputStream(compressed)).bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        assertEquals("22", payload.get("video_id").asString)
+        assertEquals(1004, payload.get("content_type").asInt)
+        assertTrue(playback.header("x-medusa")!!.isNotBlank())
+        assertTrue(playback.header("x-helios")!!.isNotBlank())
+        assertNull(playback.header("Cookie"))
+        assertTrue(CencPlaybackSessions.matches(reference))
+        assertEquals("http://media.example/video-1080.mp4?signature=fixture", CencPlaybackSessions.require(reference).url)
+        assertEquals("000102030405060708090a0b0c0d0e0f", CencPlaybackSessions.require(reference).keyHex())
+    }
+
+    @Test fun emptyNativeMetadataCanBeRetriedWithoutRegisteringAgain() {
+        val requests = mutableListOf<Request>()
+        val metadata = service { request ->
+            requests += request
+            when (requests.size) { 1 -> registration; 2 -> ""; else -> currentResponse() }
+        }
+        val resolver = DramaVideoResolver(metadata::fetch)
+        val failure = assertThrows(IOException::class.java) { resolver.resolve("11/22") }
+        assertEquals("The drama service returned an empty response. Try again later.", failure.message)
+        assertNull(failure.cause)
+
+        val reference = resolver.resolve("11/22")
+        assertEquals(3, requests.size)
+        assertEquals(requests[1].url.encodedPath, requests[2].url.encodedPath)
+        assertEquals(requests[1].url.queryParameter("device_id"), requests[2].url.queryParameter("device_id"))
+        assertEquals(requests[1].url.queryParameter("cdid"), requests[2].url.queryParameter("cdid"))
+        assertEquals("http://media.example/video-1080.mp4?signature=fixture", CencPlaybackSessions.require(reference).url)
+        assertEquals("000102030405060708090a0b0c0d0e0f", CencPlaybackSessions.require(reference).keyHex())
+    }
+
+    @Test fun registrationTransportFailureDoesNotPreventTheNextPlaybackAttempt() {
+        val requests = mutableListOf<Request>()
+        val metadata = service { request ->
+            requests += request
+            when (requests.size) { 1 -> throw IOException("Fixture transport failure"); 2 -> registration; else -> currentResponse(true) }
+        }
+        val resolver = DramaVideoResolver(metadata::fetch)
+        assertThrows(IOException::class.java) { resolver.resolve("11/22") }
+        assertEquals(1, requests.size)
+        assertEquals("/service/2/device_register/", requests.single().url.encodedPath)
+
+        val reference = resolver.resolve("11/22")
+        assertEquals(3, requests.size)
+        assertEquals("/service/2/device_register/", requests[1].url.encodedPath)
+        assertEquals("/novel/player/video_model/v1/", requests[2].url.encodedPath)
+        assertEquals("000102030405060708090a0b0c0d0e0f", CencPlaybackSessions.require(reference).keyHex())
     }
 }
